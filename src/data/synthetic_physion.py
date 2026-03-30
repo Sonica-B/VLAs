@@ -12,7 +12,7 @@ Usage:
     sample = dataset[0]
     print(sample.image.size)           # (224, 224)
     print(sample.object_masks.shape)   # (224, 224)
-    print(sample.physics_labels.keys()) # dict_keys(['mass', 'friction', 'elasticity'])
+    print(sample.physics_labels.keys()) # dict_keys(['mass', 'friction', 'elasticity', 'stability'])
 
     # Save to disk for persistence
     from src.data.synthetic_physion import save_synthetic_dataset
@@ -155,6 +155,10 @@ def generate_scene(
     min_size = max(20, image_size // 10)
     max_size = image_size // 4
 
+    # Track shape dimensions for stability computation
+    shape_widths = np.zeros(num_objects, dtype=np.float32)
+    shape_heights = np.zeros(num_objects, dtype=np.float32)
+
     for i in range(num_objects):
         obj_id = i + 1
         base_color = _SHAPE_PALETTE[i % len(_SHAPE_PALETTE)]
@@ -171,11 +175,22 @@ def generate_scene(
 
         # Shape: circle or rectangle
         if rng.random() > 0.5:
-            _draw_circle(draw, mask, cx, cy, size // 2, color, obj_id)
+            radius = size // 2
+            _draw_circle(draw, mask, cx, cy, radius, color, obj_id)
+            # Circles are symmetric: width == height → stability = 1.0
+            shape_widths[i] = 2 * radius
+            shape_heights[i] = 2 * radius
         else:
             half_w = size // 2
-            half_h = int(size * rng.uniform(0.5, 1.2)) // 2
+            half_h = int(size * rng.uniform(0.5, 1.5)) // 2
             _draw_rect(draw, mask, cx, cy, half_w, half_h, color, obj_id)
+            shape_widths[i] = 2 * half_w
+            shape_heights[i] = max(2 * half_h, 1)
+
+    # Stability = width/height, clamped to [0, 1]
+    # Wide & low → stable (1.0); tall & narrow → unstable (< 1.0)
+    raw_stability = shape_widths / np.maximum(shape_heights, 1.0)
+    stabilities = np.clip(raw_stability, 0.0, 1.0).astype(np.float32)
 
     return PhysionSample(
         image=image,
@@ -184,6 +199,7 @@ def generate_scene(
             "mass": masses,
             "friction": frictions,
             "elasticity": elasticities,
+            "stability": stabilities,
         },
         scenario_id=f"synthetic/scene_{idx:04d}",
         frame_idx=0,

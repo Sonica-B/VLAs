@@ -1,0 +1,495 @@
+{
+  "stage_1_enc_out": {
+    "mass": {
+      "morans_i": 0.7641768716637873,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          4,
+          3
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          8,
+          7
+        ],
+        [
+          7,
+          7
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    },
+    "friction": {
+      "morans_i": -0.0063262473518883,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          2,
+          2
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          11
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "elasticity": {
+      "morans_i": 0.0,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          13,
+          11
+        ],
+        [
+          13,
+          10
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "stability": {
+      "morans_i": 0.2876258903093645,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          9,
+          8
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          8,
+          3
+        ],
+        [
+          5,
+          2
+        ],
+        [
+          2,
+          7
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    }
+  },
+  "stage_2_post_proj": {
+    "mass": {
+      "morans_i": 0.7239775824401741,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          8,
+          7
+        ],
+        [
+          3,
+          3
+        ],
+        [
+          7,
+          10
+        ],
+        [
+          4,
+          7
+        ],
+        [
+          4,
+          3
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    },
+    "friction": {
+      "morans_i": -0.014376979973975806,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          2,
+          8
+        ],
+        [
+          2,
+          2
+        ],
+        [
+          8,
+          11
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "elasticity": {
+      "morans_i": 0.0,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          13,
+          11
+        ],
+        [
+          13,
+          10
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "stability": {
+      "morans_i": 0.5296619322506148,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          9,
+          11
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          9,
+          6
+        ],
+        [
+          3,
+          10
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    }
+  },
+  "stage_3_llm_8": {
+    "mass": {
+      "morans_i": 0.566220602770586,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          4,
+          11
+        ],
+        [
+          3,
+          9
+        ],
+        [
+          4,
+          9
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          8,
+          10
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    },
+    "friction": {
+      "morans_i": -0.009752762622910976,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          8,
+          11
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "elasticity": {
+      "morans_i": 0.0,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          13,
+          11
+        ],
+        [
+          13,
+          10
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "stability": {
+      "morans_i": 0.5622777660666984,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          9,
+          11
+        ],
+        [
+          9,
+          5
+        ],
+        [
+          2,
+          7
+        ],
+        [
+          5,
+          6
+        ],
+        [
+          9,
+          8
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    }
+  },
+  "stage_4_llm_16": {
+    "mass": {
+      "morans_i": -0.012485119399017102,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          5,
+          4
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          9,
+          10
+        ],
+        [
+          5,
+          11
+        ],
+        [
+          4,
+          11
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "friction": {
+      "morans_i": 0.09554794515692365,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          8,
+          11
+        ],
+        [
+          7,
+          11
+        ],
+        [
+          8,
+          9
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "elasticity": {
+      "morans_i": -0.0063262473518880665,
+      "precision": 0.5306122448979592,
+      "recall": 1.0,
+      "f1": 0.6933333333333334,
+      "top_patch_positions": [
+        [
+          3,
+          2
+        ],
+        [
+          13,
+          13
+        ],
+        [
+          13,
+          11
+        ],
+        [
+          13,
+          12
+        ],
+        [
+          13,
+          9
+        ]
+      ],
+      "n_high_r2_patches": 196,
+      "n_object_patches": 104
+    },
+    "stability": {
+      "morans_i": 0.5262302777811535,
+      "precision": 1.0,
+      "recall": 0.47115384615384615,
+      "f1": 0.6405228758169934,
+      "top_patch_positions": [
+        [
+          2,
+          7
+        ],
+        [
+          9,
+          8
+        ],
+        [
+          8,
+          4
+        ],
+        [
+          9,
+          11
+        ],
+        [
+          9,
+          5
+        ]
+      ],
+      "n_high_r2_patches": 49,
+      "n_object_patches": 104
+    }
+  },
+  "_summary": {
+    "mean_morans_i": 0.25040321948372635,
+    "mean_f1": 0.6702287581699347,
+    "hypothesis1_supported": true
+  }
+}
