@@ -42,5 +42,9 @@ ipywidgets>=8.1.0
 pytest>=8.1.0
 pytest-cov>=5.0.0
 
+# Experiment tracking & training utilities
+tensorboard>=2.15.0
+timm>=0.9.16
+
 # Flash attention (optional but recommended for A100)
 # flash-attn>=2.5.0  # uncomment if flash-attn is available in your environment

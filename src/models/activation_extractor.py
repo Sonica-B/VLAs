@@ -1,17 +1,26 @@
 """
 Per-patch activation extractor for VLMs.
 
-Uses PyTorch forward hooks to capture intermediate representations at
-4 pipeline stages per model:
-  - Stage 1: Vision encoder output (pre-projection)
-  - Stage 2: Post-projection (cross-modal token space)
-  - Stage 3: LLM layer 8 hidden state
-  - Stage 4: LLM layer 16 hidden state
+Two classes are provided:
 
-Activations are returned as float32 tensors with shape [N_patches, D]
-where N_patches is the number of visual tokens and D is the hidden dimension.
+1. ``ActivationExtractor`` — full VLM extractor (Qwen2.5-VL / InternVL2.5 / LLaVA).
+   Requires a GPU and the real VLM loaded via vlm_loader.load_vlm().
+   Uses PyTorch forward hooks to capture intermediate representations at
+   4 pipeline stages per model.
 
-HDF5 Storage Schema:
+2. ``LightweightViTExtractor`` — CPU-friendly test extractor using
+   ``google/vit-base-patch16-224``. No GPU needed. Used to validate the
+   full probing pipeline (synthetic data → probe → saliency map) without
+   loading a 7B model. Activations are extracted at ViT layers 3, 6, 9, 12
+   and reported under the same 4 stage names so downstream code is unchanged.
+
+Stage naming (both classes use the same keys):
+    stage_1_enc_out    — early / vision encoder output
+    stage_2_post_proj  — mid / post-projection (cross-modal space)
+    stage_3_llm_8      — LLM layer 8 equivalent
+    stage_4_llm_16     — LLM layer 16 / final
+
+HDF5 Storage Schema (ActivationExtractor.save_to_hdf5):
     {scenario_id}.h5
     ├── stage_1_enc_out      [N_patches, D_enc]    float32
     ├── stage_2_post_proj    [N_patches, D_llm]    float32
@@ -39,7 +48,7 @@ from PIL import Image
 
 logger = logging.getLogger(__name__)
 
-# Stage names in order
+# Stage names in order — used by both extractors
 STAGE_NAMES = [
     "stage_1_enc_out",
     "stage_2_post_proj",
@@ -48,8 +57,147 @@ STAGE_NAMES = [
 ]
 
 
+# ---------------------------------------------------------------------------
+# Lightweight ViT extractor (CPU, no VLM required)
+# ---------------------------------------------------------------------------
+
+class LightweightViTExtractor:
+    """CPU-compatible activation extractor using google/vit-base-patch16-224.
+
+    Validates the full Phase 1 pipeline (synthetic data → activations → probe
+    → saliency map) without requiring a GPU or large VLM weights.
+
+    Activations are reported under the same 4 stage names as ActivationExtractor
+    so all downstream code (PatchLabelAssigner, LinearProbe, PhysicsSaliencyMap)
+    works without modification.
+
+    Stage → ViT layer mapping:
+        stage_1_enc_out   → hidden state after layer 3  (early features)
+        stage_2_post_proj → hidden state after layer 6  (mid features)
+        stage_3_llm_8     → hidden state after layer 9  (late features)
+        stage_4_llm_16    → hidden state after layer 12 (final encoder output)
+
+    Args:
+        device: Torch device string. Default "cpu".
+        model_id: HuggingFace model ID. Default "google/vit-base-patch16-224".
+
+    Example:
+        >>> extractor = LightweightViTExtractor()
+        >>> extractor.load()
+        >>> acts = extractor.extract(pil_image)
+        >>> acts["stage_1_enc_out"].shape  # torch.Size([196, 768])
+    """
+
+    MODEL_ID = "google/vit-base-patch16-224"
+    N_PATCHES = 196         # 14 × 14 patches for 224×224 input
+    HIDDEN_DIM = 768
+    PATCH_GRID_SIZE = 14
+    model_name = "vit_base_patch16_224"  # for downstream labelling
+
+    # hidden_states index (0 = patch embeddings, 1-12 = transformer layers)
+    _STAGE_LAYER_IDX: Dict[str, int] = {
+        "stage_1_enc_out": 3,
+        "stage_2_post_proj": 6,
+        "stage_3_llm_8": 9,
+        "stage_4_llm_16": 12,
+    }
+
+    def __init__(
+        self,
+        device: str = "cpu",
+        model_id: str = "google/vit-base-patch16-224",
+    ) -> None:
+        self.device = device
+        self.MODEL_ID = model_id
+        self._model: Optional[nn.Module] = None
+        self._processor = None
+
+    def load(self) -> None:
+        """Download (first time) and load the ViT-base model into memory."""
+        from transformers import ViTModel, ViTImageProcessor
+
+        logger.info(f"Loading {self.MODEL_ID} on {self.device}...")
+        self._processor = ViTImageProcessor.from_pretrained(self.MODEL_ID)
+        self._model = ViTModel.from_pretrained(self.MODEL_ID)
+        self._model.to(self.device)
+        self._model.eval()
+        logger.info(
+            f"Loaded {self.MODEL_ID}: "
+            f"{sum(p.numel() for p in self._model.parameters()) / 1e6:.1f}M params"
+        )
+
+    @property
+    def is_loaded(self) -> bool:
+        return self._model is not None
+
+    @torch.no_grad()
+    def extract(self, image: Image.Image) -> Dict[str, torch.Tensor]:
+        """Extract activations at 4 pipeline stages for a single image.
+
+        Args:
+            image: PIL Image. Will be resized to 224×224 by the processor.
+
+        Returns:
+            Dict mapping stage name → float32 tensor of shape [196, 768].
+            CLS token is excluded; only patch tokens are returned.
+        """
+        if not self.is_loaded:
+            self.load()
+
+        inputs = self._processor(images=image, return_tensors="pt")
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}
+
+        outputs = self._model(**inputs, output_hidden_states=True)
+        # hidden_states: tuple of length 13 (embedding + 12 layers), each [1, 197, 768]
+
+        result: Dict[str, torch.Tensor] = {}
+        for stage_name, layer_idx in self._STAGE_LAYER_IDX.items():
+            hidden = outputs.hidden_states[layer_idx]   # [1, 197, 768]
+            # Index 0 is CLS token; patch tokens are indices 1..196
+            patches = hidden[0, 1:, :].float().cpu()    # [196, 768]
+            result[stage_name] = patches
+
+        return result
+
+    def extract_batch(
+        self, images: List[Image.Image]
+    ) -> List[Dict[str, torch.Tensor]]:
+        """Extract activations for a list of images (sequential)."""
+        return [self.extract(img) for img in images]
+
+    def save_to_hdf5(
+        self,
+        activations: Dict[str, torch.Tensor],
+        output_path: str | Path,
+        scenario_id: str = "",
+        physics_labels: Optional[Dict] = None,
+    ) -> None:
+        """Save activations to HDF5 (same format as ActivationExtractor)."""
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        with h5py.File(output_path, "w") as f:
+            for stage_name, tensor in activations.items():
+                arr = tensor.numpy() if isinstance(tensor, torch.Tensor) else tensor
+                f.create_dataset(stage_name, data=arr, compression="gzip", compression_opts=4)
+            f.attrs["scenario_id"] = scenario_id
+            f.attrs["model_name"] = self.model_name
+            f.attrs["patch_grid_size"] = self.PATCH_GRID_SIZE
+            if physics_labels is not None:
+                f.attrs["physics_labels"] = json.dumps(
+                    {k: v.tolist() if hasattr(v, "tolist") else v for k, v in physics_labels.items()}
+                )
+
+
+# ---------------------------------------------------------------------------
+# Full VLM extractor (GPU, real models)
+# ---------------------------------------------------------------------------
+
 class ActivationExtractor:
     """Extracts per-patch activations from a VLM at 4 pipeline stages.
+
+    Uses PyTorch forward hooks to capture intermediate representations.
+    Implements model-specific input preparation (chat templates) for each
+    of the 3 supported VLM families.
 
     Args:
         model: The loaded VLM model (output of vlm_loader.load_vlm).
@@ -64,11 +212,10 @@ class ActivationExtractor:
     """
 
     # Module path templates for each model family and stage
-    # These are resolved via get_attr() walks on the model tree
     HOOK_CONFIGS: Dict[str, Dict[str, str]] = {
         "qwen2_5_vl_7b": {
-            "stage_1_enc_out": "model.visual.blocks.31",        # Last ViT block
-            "stage_2_post_proj": "model.visual.merger",          # MLP merger
+            "stage_1_enc_out": "model.visual.blocks.31",
+            "stage_2_post_proj": "model.visual.merger",
             "stage_3_llm_8": "model.model.layers.8",
             "stage_4_llm_16": "model.model.layers.16",
         },
@@ -121,23 +268,17 @@ class ActivationExtractor:
     def _make_hook(self, stage_name: str) -> Callable:
         """Create a forward hook that captures the output tensor for a stage."""
         def hook(module: nn.Module, input: Any, output: Any) -> None:
-            # Output can be a tuple (hidden_state, ...) or a plain tensor
             if isinstance(output, tuple):
                 tensor = output[0]
             else:
                 tensor = output
 
-            # Extract visual token positions
-            # Shape at encoder stage: [B, N, D] — we want [N, D]
             if tensor.dim() == 3:
-                # Take first batch element; clone to avoid holding graph
                 self._captured[stage_name] = tensor[0].detach().float().cpu()
             elif tensor.dim() == 2:
                 self._captured[stage_name] = tensor.detach().float().cpu()
             else:
-                logger.warning(
-                    f"Unexpected tensor shape at {stage_name}: {tensor.shape}"
-                )
+                logger.warning(f"Unexpected tensor shape at {stage_name}: {tensor.shape}")
 
         return hook
 
@@ -156,7 +297,7 @@ class ActivationExtractor:
             except AttributeError as e:
                 logger.error(
                     f"Could not find module '{module_path}' for stage {stage_name}. "
-                    f"Model architecture may differ from config. Error: {e}"
+                    f"Error: {e}"
                 )
                 raise
 
@@ -167,7 +308,8 @@ class ActivationExtractor:
         self._hooks.clear()
         for stage in STAGE_NAMES:
             self._captured[stage] = None
-        torch.cuda.empty_cache()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
     @torch.no_grad()
     def extract(
@@ -181,81 +323,220 @@ class ActivationExtractor:
         Args:
             image: PIL Image to process.
             processor: Model processor (from vlm_loader.load_vlm).
-            text_prompt: Text prompt to use for the forward pass. The prompt
-                influences how the LLM processes visual tokens.
+            text_prompt: Text prompt for the forward pass.
 
         Returns:
-            Dict mapping stage name → float32 tensor of shape [N_visual_tokens, D].
-            Note: N_visual_tokens may differ from patch_grid_size² if the model
-            uses dynamic resolution or tiling.
+            Dict mapping stage name → float32 tensor [N_visual_tokens, D].
         """
         self.register_hooks()
         try:
-            # Prepare inputs — model-specific preprocessing
             inputs = self._prepare_inputs(image, processor, text_prompt)
             inputs = {k: v.to(self.device) if hasattr(v, "to") else v for k, v in inputs.items()}
-
-            # Forward pass (generation mode with max_new_tokens=1 just to trigger full forward)
             _ = self.model.generate(**inputs, max_new_tokens=1, do_sample=False)
-
         finally:
             self.clear_hooks()
 
-        # Validate all stages were captured
         result: Dict[str, torch.Tensor] = {}
         for stage in STAGE_NAMES:
             captured = self._captured[stage]
             if captured is None:
                 logger.warning(f"Stage {stage} was not captured — hook may not have fired.")
                 continue
-            # Slice to first N_patches tokens if we got more (e.g., after tiling)
             result[stage] = self._slice_visual_tokens(captured, stage)
 
         return result
 
+    # ------------------------------------------------------------------
+    # Model-specific input preparation
+    # ------------------------------------------------------------------
+
     def _prepare_inputs(
         self, image: Image.Image, processor: Any, text_prompt: str
     ) -> Dict[str, torch.Tensor]:
-        """Prepare model inputs. Model-specific preprocessing handled here.
+        """Prepare model inputs using the correct chat template per VLM family.
 
-        TODO: Implement model-specific chat templates (Qwen/InternVL/LLaVA have
-        different conversation formats). For now uses a generic format.
+        Each VLM has its own expected input format:
+        - Qwen2.5-VL: messages list with role/content dicts, apply_chat_template
+        - InternVL 2.5-8B: <image>\\n{text} prompt, torchvision preprocessing
+        - LLaVA-OneVision: conversation format with DEFAULT_IMAGE_TOKEN placeholder
         """
-        # TODO: Add model-specific chat template formatting
-        # Qwen2.5-VL: uses apply_chat_template with role=user, content=[image, text]
-        # InternVL: uses build_conversation_input_ids
-        # LLaVA: uses apply_chat_template with DEFAULT_IMAGE_TOKEN
-        inputs = processor(
-            text=text_prompt,
-            images=image,
-            return_tensors="pt",
-        )
+        if self.model_name == "qwen2_5_vl_7b":
+            return self._prepare_qwen_inputs(image, processor, text_prompt)
+        elif self.model_name == "internvl2_5_8b":
+            return self._prepare_internvl_inputs(image, processor, text_prompt)
+        elif self.model_name == "llava_onevision_7b":
+            return self._prepare_llava_inputs(image, processor, text_prompt)
+        else:
+            # Fallback: try generic processor call
+            return self._prepare_generic_inputs(image, processor, text_prompt)
+
+    def _prepare_qwen_inputs(
+        self, image: Image.Image, processor: Any, text_prompt: str
+    ) -> Dict[str, torch.Tensor]:
+        """Prepare inputs for Qwen2.5-VL-7B-Instruct.
+
+        Uses the multimodal messages format with apply_chat_template.
+        Qwen2.5-VL processor expects:
+            text: formatted chat string from apply_chat_template
+            images: list of PIL images
+        """
+        messages = [
+            {
+                "role": "user",
+                "content": [
+                    {"type": "image", "image": image},
+                    {"type": "text", "text": text_prompt},
+                ],
+            }
+        ]
+        try:
+            # Newer transformers (>=4.49) support direct apply_chat_template
+            text = processor.apply_chat_template(
+                messages, tokenize=False, add_generation_prompt=True
+            )
+            inputs = processor(
+                text=[text],
+                images=[image],
+                return_tensors="pt",
+                padding=True,
+            )
+        except Exception:
+            # Fallback: try qwen_vl_utils process_vision_info if available
+            try:
+                from qwen_vl_utils import process_vision_info
+                text = processor.apply_chat_template(
+                    messages, tokenize=False, add_generation_prompt=True
+                )
+                image_inputs, video_inputs = process_vision_info(messages)
+                inputs = processor(
+                    text=[text],
+                    images=image_inputs,
+                    videos=video_inputs,
+                    padding=True,
+                    return_tensors="pt",
+                )
+            except ImportError:
+                logger.warning("qwen_vl_utils not available; using generic input prep")
+                inputs = self._prepare_generic_inputs(image, processor, text_prompt)
         return inputs
+
+    def _prepare_internvl_inputs(
+        self, image: Image.Image, processor: Any, text_prompt: str
+    ) -> Dict[str, torch.Tensor]:
+        """Prepare inputs for InternVL 2.5-8B.
+
+        InternVL uses a custom preprocessing pipeline:
+        - Images are normalized with ImageNet stats and resized to 448×448
+        - Text uses <image>\\n prefix, and special <IMG_CONTEXT> tokens
+          are inserted by the tokenizer during generation
+        - processor here is actually a tokenizer (AutoTokenizer)
+
+        Reference: https://huggingface.co/OpenGVLab/InternVL2_5-8B
+        """
+        import torchvision.transforms as T
+        from torchvision.transforms.functional import InterpolationMode
+
+        IMAGENET_MEAN = [0.485, 0.456, 0.406]
+        IMAGENET_STD = [0.229, 0.224, 0.225]
+
+        transform = T.Compose([
+            T.Lambda(lambda img: img.convert("RGB")),
+            T.Resize((448, 448), interpolation=InterpolationMode.BICUBIC),
+            T.ToTensor(),
+            T.Normalize(mean=IMAGENET_MEAN, std=IMAGENET_STD),
+        ])
+
+        pixel_values = transform(image).unsqueeze(0)  # [1, 3, 448, 448]
+
+        # InternVL uses <image> as image placeholder in the prompt
+        question = f"<image>\n{text_prompt}"
+        tokenized = processor(question, return_tensors="pt")
+
+        inputs = {
+            "pixel_values": pixel_values,
+            "input_ids": tokenized["input_ids"],
+            "attention_mask": tokenized["attention_mask"],
+        }
+        return inputs
+
+    def _prepare_llava_inputs(
+        self, image: Image.Image, processor: Any, text_prompt: str
+    ) -> Dict[str, torch.Tensor]:
+        """Prepare inputs for LLaVA-OneVision-7B.
+
+        LLaVA expects:
+        - A conversation with DEFAULT_IMAGE_TOKEN (<image>) in the text
+        - apply_chat_template to format the conversation
+        - processor handles both tokenization and image preprocessing
+
+        Reference: https://huggingface.co/lmms-lab/llava-onevision-qwen2-7b-ov
+        """
+        DEFAULT_IMAGE_TOKEN = "<image>"
+
+        conversation = [
+            {
+                "role": "user",
+                "content": f"{DEFAULT_IMAGE_TOKEN}\n{text_prompt}",
+            }
+        ]
+
+        try:
+            text = processor.apply_chat_template(
+                conversation, tokenize=False, add_generation_prompt=True
+            )
+            inputs = processor(
+                text=[text],
+                images=[image],
+                return_tensors="pt",
+                padding=True,
+            )
+        except Exception:
+            # Fallback for older processor versions
+            inputs = self._prepare_generic_inputs(image, processor, text_prompt)
+
+        return inputs
+
+    def _prepare_generic_inputs(
+        self, image: Image.Image, processor: Any, text_prompt: str
+    ) -> Dict[str, torch.Tensor]:
+        """Generic fallback: call processor with text + image directly."""
+        try:
+            inputs = processor(
+                text=text_prompt,
+                images=image,
+                return_tensors="pt",
+            )
+        except TypeError:
+            # Some processors don't accept both text and images simultaneously
+            inputs = processor(images=image, return_tensors="pt")
+        return inputs
+
+    # ------------------------------------------------------------------
+    # Token slicing
+    # ------------------------------------------------------------------
 
     def _slice_visual_tokens(
         self, tensor: torch.Tensor, stage: str
     ) -> torch.Tensor:
         """Extract visual token positions from a mixed visual+text sequence.
 
-        After projection, visual tokens are interleaved with text tokens in the LLM.
-        This method attempts to isolate only the visual token positions.
+        At encoder stages (stage_1) all tokens are visual patches.
+        At LLM stages (2-4), visual tokens precede text tokens; we use the
+        first n_patches positions as an approximation.
 
-        For simplicity in Stage 1 (encoder output), all tokens are visual.
-        For Stages 2-4, we use the first N_visual_tokens positions.
-
-        TODO: Use proper visual token position masks from the processor output
-        rather than slicing by position.
+        For production use, replace with actual visual_token_mask from processor
+        outputs (e.g., image_token_mask in Qwen, pixel_values indices in LLaVA).
         """
-        # At encoder stage, all tokens are visual patches
         if stage == "stage_1_enc_out":
             return tensor
 
-        # At later stages, the sequence starts with visual tokens
-        # (BOS + visual tokens + separator + text tokens)
-        # Use first N_patches as approximate visual token positions
         if tensor.shape[0] >= self.n_patches:
             return tensor[: self.n_patches]
         return tensor
+
+    # ------------------------------------------------------------------
+    # Batch extraction & I/O
+    # ------------------------------------------------------------------
 
     def extract_batch(
         self,
@@ -263,23 +544,8 @@ class ActivationExtractor:
         processor: Any,
         text_prompt: str = "Describe the physics of this scene.",
     ) -> List[Dict[str, torch.Tensor]]:
-        """Extract activations for a batch of images (one forward pass per image).
-
-        Args:
-            images: List of PIL Images.
-            processor: Model processor.
-            text_prompt: Shared text prompt for all images.
-
-        Returns:
-            List of activation dicts, one per image.
-        """
-        # TODO: Implement true batched extraction for efficiency.
-        # Currently runs one image at a time to avoid sequence length issues.
-        results = []
-        for image in images:
-            acts = self.extract(image, processor, text_prompt)
-            results.append(acts)
-        return results
+        """Extract activations for a list of images (sequential forward passes)."""
+        return [self.extract(img, processor, text_prompt) for img in images]
 
     def save_to_hdf5(
         self,
@@ -288,14 +554,7 @@ class ActivationExtractor:
         scenario_id: str = "",
         physics_labels: Optional[Dict] = None,
     ) -> None:
-        """Save extracted activations to an HDF5 file.
-
-        Args:
-            activations: Dict from extract() — stage_name → tensor.
-            output_path: Output .h5 file path.
-            scenario_id: Identifier for this sample (stored as attribute).
-            physics_labels: Optional physics labels to store as JSON attribute.
-        """
+        """Save extracted activations to an HDF5 file."""
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -303,7 +562,6 @@ class ActivationExtractor:
             for stage_name, tensor in activations.items():
                 arr = tensor.numpy() if isinstance(tensor, torch.Tensor) else tensor
                 f.create_dataset(stage_name, data=arr, compression="gzip", compression_opts=4)
-
             f.attrs["scenario_id"] = scenario_id
             f.attrs["model_name"] = self.model_name
             f.attrs["patch_grid_size"] = self.patch_grid_size

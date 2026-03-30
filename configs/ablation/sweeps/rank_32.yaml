@@ -1,0 +1,23 @@
+# @package _global_
+# LoRA rank ablation — rank=32
+# Higher rank: more trainable parameters, higher capacity for complex adaptations.
+# Watch for overfitting on smaller datasets.
+
+sweep:
+  name: lora_rank_ablation
+  variable: lora.rank
+  value: 32
+
+lora:
+  rank: 32
+  lora_alpha: 64        # alpha = 2 * rank
+  lora_dropout: 0.10    # Slightly higher dropout to compensate for higher rank
+  bias: none
+
+# Approximate trainable params relative to default rank=16:
+# rank=32 → ~2× params  (condition A: ~32M, condition E: ~172M)
+target_trainable_params_scale: 2.0
+
+training:
+  # Lower LR for higher-rank adapters to avoid instability
+  lr: 1.0e-4

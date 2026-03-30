@@ -26,6 +26,8 @@ MODEL_HF_IDS: Dict[str, str] = {
     "qwen2_5_vl_7b": "Qwen/Qwen2.5-VL-7B-Instruct",
     "internvl2_5_8b": "OpenGVLab/InternVL2_5-8B",
     "llava_onevision_7b": "lmms-lab/llava-onevision-qwen2-7b-ov",
+    # Lightweight test model — CPU-compatible, no GPU required
+    "vit_base_patch16_224": "google/vit-base-patch16-224",
 }
 
 # Model families that require trust_remote_code=True
@@ -50,6 +52,27 @@ def _get_bnb_config(load_in_4bit: bool, load_in_8bit: bool) -> Optional[BitsAndB
     if load_in_8bit:
         return BitsAndBytesConfig(load_in_8bit=True)
     return None
+
+
+def load_vit_base(device: str = "cpu") -> Tuple[Any, Any]:
+    """Load google/vit-base-patch16-224 for CPU-compatible pipeline testing.
+
+    Returns:
+        (model, processor) where model is a ViTModel and processor is ViTImageProcessor.
+        The LightweightViTExtractor wraps these — this function exists for completeness
+        in the loader API.
+    """
+    from transformers import ViTModel, ViTImageProcessor
+
+    hf_id = MODEL_HF_IDS["vit_base_patch16_224"]
+    logger.info(f"Loading lightweight test model: {hf_id} on {device}")
+    processor = ViTImageProcessor.from_pretrained(hf_id)
+    model = ViTModel.from_pretrained(hf_id)
+    model.to(device)
+    model.eval()
+    n_params = sum(p.numel() for p in model.parameters()) / 1e6
+    logger.info(f"Loaded vit_base_patch16_224: {n_params:.1f}M parameters")
+    return model, processor
 
 
 def load_vlm(
@@ -80,6 +103,11 @@ def load_vlm(
         >>> model, processor = load_vlm("qwen2_5_vl_7b", load_in_4bit=True)
         >>> print(model.device)
     """
+    if model_name == "vit_base_patch16_224":
+        # Delegate to the lightweight loader
+        device = device_map if isinstance(device_map, str) and device_map != "auto" else "cpu"
+        return load_vit_base(device=device)
+
     if model_name not in MODEL_HF_IDS:
         raise ValueError(
             f"Unknown model: {model_name!r}. "
@@ -190,6 +218,12 @@ def get_model_hidden_dims(model_name: str) -> Dict[str, int]:
             "stage_2_post_proj": 3584,
             "stage_3_llm_8": 3584,
             "stage_4_llm_16": 3584,
+        },
+        "vit_base_patch16_224": {
+            "stage_1_enc_out": 768,
+            "stage_2_post_proj": 768,
+            "stage_3_llm_8": 768,
+            "stage_4_llm_16": 768,
         },
     }
     if model_name not in dims:

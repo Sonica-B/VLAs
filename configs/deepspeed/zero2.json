@@ -1,0 +1,52 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/DeepSpeed/master/deepspeed/runtime/config_schema.json",
+
+  "train_batch_size": "auto",
+  "train_micro_batch_size_per_gpu": "auto",
+  "gradient_accumulation_steps": "auto",
+  "gradient_clipping": 1.0,
+
+  "bf16": {
+    "enabled": "auto"
+  },
+
+  "zero_optimization": {
+    "stage": 2,
+    "allgather_partitions": true,
+    "allgather_bucket_size": 2e8,
+    "overlap_comm": true,
+    "reduce_scatter": true,
+    "reduce_bucket_size": "auto",
+    "contiguous_gradients": true,
+    "offload_optimizer": {
+      "device": "none"
+    }
+  },
+
+  "activation_checkpointing": {
+    "partition_activations": false,
+    "cpu_checkpointing": false,
+    "contiguous_memory_optimization": false,
+    "number_checkpoints": null,
+    "synchronize_checkpoint_boundary": false,
+    "profile": false
+  },
+
+  "steps_per_print": 50,
+  "wall_clock_breakdown": false,
+  "dump_state": false,
+
+  "comms_logger": {
+    "enabled": false
+  },
+
+  "_comment": [
+    "ZeRO Stage 2 config for 7B VLM LoRA fine-tuning.",
+    "Stage 2 shards optimizer states and gradients across GPUs.",
+    "Full model parameters remain on each GPU (unlike Stage 3).",
+    "Suitable for Condition E (full model LoRA, ~86M trainable params).",
+    "Tested on 4× A100-80GB and 8× A100-40GB setups.",
+    "For smaller GPU counts or Conditions A-D, Stage 2 is optional;",
+    "standard DDP with gradient_checkpointing=True is sufficient."
+  ]
+}

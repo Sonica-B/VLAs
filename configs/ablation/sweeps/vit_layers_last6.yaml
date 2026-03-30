@@ -1,0 +1,30 @@
+# @package _global_
+# ViT layer sweep — target the LAST 6 ViT encoder blocks (default for Condition A)
+#
+# This is the baseline ViT layer choice (Condition A). Used as the midpoint
+# for the layer coverage sweep: last_2 — last_6 — all.
+#
+# Layer coverage per model:
+#   Qwen2.5-VL  (32 blocks): blocks 26-31
+#   InternVL2.5 (24 blocks): blocks 18-23
+#   LLaVA-OV   (27 blocks): blocks 21-26
+
+sweep:
+  name: vit_layer_sweep
+  variable: lora.target_layers
+  value: last_6
+
+lora:
+  rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: none
+  target_modules:
+    qwen2_5_vl_7b:
+      - "visual\\.blocks\\.(2[6-9]|3[01])\\.attn\\.(q|v)_proj"
+    internvl2_5_8b:
+      - "vision_model\\.encoder\\.layers\\.(1[89]|2[0-3])\\.self_attn\\.(q|v)_proj"
+    llava_onevision_7b:
+      - "vision_tower\\.vision_model\\.encoder\\.layers\\.(2[1-6])\\.self_attn\\.(q|v)_proj"
+
+target_trainable_params_scale: 1.0   # Same as Condition A baseline

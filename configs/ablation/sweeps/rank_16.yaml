@@ -1,0 +1,15 @@
+# @package _global_
+# LoRA rank ablation — rank=16 (default, used in main ablation conditions A-E)
+
+sweep:
+  name: lora_rank_ablation
+  variable: lora.rank
+  value: 16
+
+lora:
+  rank: 16
+  lora_alpha: 32        # alpha = 2 * rank (standard practice)
+  lora_dropout: 0.05
+  bias: none
+
+target_trainable_params_scale: 1.0   # Baseline (reference point)

@@ -1,0 +1,35 @@
+# @package _global_
+# ViT layer sweep — target ALL ViT encoder blocks
+#
+# Maximum encoder coverage: LoRA applied to Q/V matrices in every ViT block.
+# Tests whether early ViT layers contribute meaningfully to physics encoding.
+# Will be more expensive (~4-5× more params vs last_6).
+#
+# NOTE: Requires more VRAM. Consider using DeepSpeed ZeRO-2 or rank=8 together.
+
+sweep:
+  name: vit_layer_sweep
+  variable: lora.target_layers
+  value: all
+
+lora:
+  rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: none
+  target_modules:
+    qwen2_5_vl_7b:
+      - "visual\\.blocks\\.\\d+\\.attn\\.(q|v)_proj"
+    internvl2_5_8b:
+      - "vision_model\\.encoder\\.layers\\.\\d+\\.self_attn\\.(q|v)_proj"
+    llava_onevision_7b:
+      - "vision_tower\\.vision_model\\.encoder\\.layers\\.\\d+\\.self_attn\\.(q|v)_proj"
+
+training:
+  # Slightly lower LR for full-encoder LoRA to avoid disrupting early feature detectors
+  lr: 1.0e-4
+  gradient_checkpointing: true
+
+# ~5× Condition A params; requires ZeRO-2 or smaller rank
+target_trainable_params_scale: 5.3
+recommended_companion_sweep: rank_8   # Use rank=8 to keep total params manageable

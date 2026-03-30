@@ -1,0 +1,32 @@
+# @package _global_
+# ViT layer sweep — target only the LAST 2 ViT encoder blocks
+#
+# Research question: Is physics information concentrated in the very final
+# ViT layers, or spread across the encoder?
+#
+# Layer coverage per model:
+#   Qwen2.5-VL  (32 ViT blocks): blocks 30-31
+#   InternVL2.5 (24 ViT blocks): blocks 22-23
+#   LLaVA-OV   (27 ViT blocks): blocks 25-26
+
+sweep:
+  name: vit_layer_sweep
+  variable: lora.target_layers
+  value: last_2
+
+lora:
+  rank: 16
+  lora_alpha: 32
+  lora_dropout: 0.05
+  bias: none
+  target_modules:
+    qwen2_5_vl_7b:
+      - "visual\\.blocks\\.(3[01])\\.attn\\.(q|v)_proj"
+    internvl2_5_8b:
+      - "vision_model\\.encoder\\.layers\\.(2[23])\\.self_attn\\.(q|v)_proj"
+    llava_onevision_7b:
+      - "vision_tower\\.vision_model\\.encoder\\.layers\\.(2[56])\\.self_attn\\.(q|v)_proj"
+
+# Hypothesis: if last_2 ≈ last_6 → physics encoded in very last layers
+# If last_2 << last_6 → physics is distributed across the encoder
+target_trainable_params_scale: 0.33   # ~1/3 of condition A

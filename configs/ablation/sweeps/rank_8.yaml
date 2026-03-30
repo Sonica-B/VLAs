@@ -1,0 +1,19 @@
+# @package _global_
+# LoRA rank ablation — rank=8
+# Lower rank: fewer trainable parameters, stronger regularisation.
+# Compare with rank_16.yaml (default) and rank_32.yaml (higher capacity).
+
+sweep:
+  name: lora_rank_ablation
+  variable: lora.rank
+  value: 8
+
+lora:
+  rank: 8
+  lora_alpha: 16        # alpha = 2 * rank
+  lora_dropout: 0.05
+  bias: none
+
+# Approximate trainable params relative to default rank=16:
+# rank=8  → ~0.5× params  (condition A: ~8M, condition E: ~43M)
+target_trainable_params_scale: 0.5

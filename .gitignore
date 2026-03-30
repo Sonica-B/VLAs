@@ -18,8 +18,8 @@ ENV/
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# Data (large files — store separately)
-data/
+# Data (large files — store separately; /data anchors to repo root, not src/data)
+/data/
 *.pkl
 *.hdf5
 *.h5

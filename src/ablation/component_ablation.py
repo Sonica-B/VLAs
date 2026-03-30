@@ -21,6 +21,7 @@ from transformers import Trainer, TrainingArguments, DataCollatorForSeq2Seq
 
 from src.models.vlm_loader import load_vlm
 from src.models.lora_wrapper import LoRAWrapper, ABLATION_CONDITIONS
+from src.data.physics_qa_dataset import PhysicsQADataset, get_collator
 from src.evaluation.physbench_eval import PhysBenchEvaluator
 from src.evaluation.grasp_eval import GRASPEvaluator
 from src.evaluation.conservation_eval import ConservationBenchEvaluator
@@ -103,19 +104,45 @@ class ComponentAblation:
             run_name=f"ablation_{self.model_name}_condition_{condition}",
         )
 
-    def _load_qa_dataset(self, path: str) -> Any:
-        """Load physics QA dataset from JSONL.
+    def _load_qa_dataset(self, path: str) -> PhysicsQADataset:
+        """Load physics QA dataset from JSONL for HuggingFace Trainer.
 
-        TODO: Implement proper VLM-format dataset (image + text) for HF Trainer.
-        Currently returns placeholder — actual implementation requires
-        model-specific chat template formatting and image loading.
+        Returns a PhysicsQADataset that:
+          - Loads image + question + answer from the JSONL
+          - Applies the model-specific chat template
+          - Returns tokenized inputs with answer-only labels (SFT convention)
+
+        Args:
+            path: Path to the QA JSONL file.
+
+        Returns:
+            PhysicsQADataset instance ready for use with HF Trainer.
         """
-        # TODO: Implement PhysicsQADataset class that wraps the JSONL
-        # and formats each sample using the model's chat template.
-        # Must handle: image loading, tokenization, label masking (for SFT).
-        raise NotImplementedError(
-            "Physics QA dataset loading not yet implemented. "
-            "See src/data/physics_qa_generator.py for QA format."
+        if not Path(path).exists():
+            raise FileNotFoundError(
+                f"QA dataset not found: {path}\n"
+                "Generate it first with:\n"
+                "  python scripts/generate_physion_qa.py  (or use synthetic data)"
+            )
+
+        # processor must already be loaded on the model
+        # We load it fresh here to avoid serialisation issues in Trainer
+        from src.models.vlm_loader import MODEL_HF_IDS
+        from transformers import AutoProcessor
+
+        hf_id = MODEL_HF_IDS.get(self.model_name, "")
+        trust_remote = self.model_name in {"internvl2_5_8b"}
+        try:
+            processor = AutoProcessor.from_pretrained(hf_id, trust_remote_code=trust_remote)
+        except Exception:
+            from transformers import AutoTokenizer
+            processor = AutoTokenizer.from_pretrained(hf_id, trust_remote_code=trust_remote)
+
+        return PhysicsQADataset(
+            jsonl_path=path,
+            processor=processor,
+            model_name=self.model_name,
+            max_seq_len=2048,
         )
 
     def train_condition(self, condition: str) -> str:
@@ -144,14 +171,39 @@ class ComponentAblation:
         peft_model = wrapper.apply()
         wrapper.print_trainable_modules()
 
-        # Load dataset
-        # TODO: train_dataset = self._load_qa_dataset(self.train_data_path)
-        # TODO: val_dataset = self._load_qa_dataset(self.val_data_path)
+        # Load datasets
+        train_dataset = self._load_qa_dataset(self.train_data_path)
+        val_dataset = self._load_qa_dataset(self.val_data_path)
+        logger.info(
+            f"  Train: {len(train_dataset)} samples, Val: {len(val_dataset)} samples"
+        )
 
-        # Build trainer
+        # Data collator handles variable-length sequences and pixel_values
+        from src.models.vlm_loader import MODEL_HF_IDS
+        from transformers import AutoProcessor
+        hf_id = MODEL_HF_IDS.get(self.model_name, "")
+        trust_remote = self.model_name in {"internvl2_5_8b"}
+        try:
+            processor = AutoProcessor.from_pretrained(hf_id, trust_remote_code=trust_remote)
+        except Exception:
+            from transformers import AutoTokenizer
+            processor = AutoTokenizer.from_pretrained(hf_id, trust_remote_code=trust_remote)
+        collator = get_collator(processor)
+
+        # Build HF Trainer
         training_args = self._build_training_args(condition, output_dir)
-        # TODO: trainer = Trainer(model=peft_model, args=training_args, ...)
-        # TODO: trainer.train()
+        trainer = Trainer(
+            model=peft_model,
+            args=training_args,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
+            data_collator=collator,
+        )
+
+        # Train
+        logger.info(f"  Starting training for condition {condition}...")
+        trainer.train()
+        logger.info(f"  Training complete.")
 
         # Save adapter
         adapter_path = str(output_dir / "adapter")
