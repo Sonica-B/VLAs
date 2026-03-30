@@ -1,0 +1,60 @@
+# @package _global_
+# Condition D: Encoder + Projection LoRA (combined)
+# Tests the "visual grounding bottleneck" hypothesis:
+# if D > C, physics is bottlenecked in visual encoding, not LLM priors.
+
+ablation:
+  condition: D
+  name: encoder_and_projection
+  description: "LoRA on last 6 encoder blocks AND all projection MLP layers (no LLM)"
+
+  lora:
+    rank: 16
+    lora_alpha: 32
+    lora_dropout: 0.05
+    bias: none
+    target_modules:
+      # Vision encoder (last 6 blocks, Q/V)
+      - "visual\.blocks\.(2[6-9]|3[01])\.attn\.(q|v)_proj"
+      # Vision-language projector (all linear layers)
+      - "visual\.merger\.mlp\.[0-9]+$"
+
+  # Combined: encoder (~13M) + projection (~5M) ≈ 18M
+  target_trainable_params: 18_000_000
+
+  training:
+    optimizer: adamw
+    # Use different LRs per parameter group:
+    lr: 2.0e-4                 # Default for encoder
+    param_group_overrides:
+      - pattern: "merger"
+        lr: 5.0e-4             # Higher LR for projector
+    lr_scheduler: cosine_with_warmup
+    warmup_ratio: 0.05
+    weight_decay: 0.01
+    max_epochs: 3
+    batch_size: 4
+    gradient_accumulation_steps: 8
+    max_grad_norm: 1.0
+    bf16: true
+    gradient_checkpointing: true
+
+  data:
+    dataset: physion_physics_qa
+    train_path: data/physion/qa_train.jsonl
+    val_path: data/physion/qa_val.jsonl
+    max_samples: 50000
+    shuffle: true
+
+  output_dir: results/ablation_metrics/condition_d_enc_proj/
+  save_steps: 500
+  eval_steps: 250
+  logging_steps: 50
+
+  run_name: "ablation_condition_d_enc_proj"
+  tags: ["ablation", "encoder-projection", "lora", "key-hypothesis"]
+
+  # This condition tests Hypothesis 3 from the proposal:
+  # H3: Encoder+Projection LoRA outperforms LLM-only LoRA on physics benchmarks,
+  # indicating that the projection bottleneck is the primary limitation.
+  notes: "KEY CONDITION — compare against C (LLM-only) to test projection bottleneck hypothesis"

@@ -1,0 +1,53 @@
+# @package _global_
+# Condition A: Encoder-only LoRA
+# Apply LoRA exclusively to the last 6 blocks of the vision encoder (Q/V matrices)
+
+ablation:
+  condition: A
+  name: encoder_only
+  description: "LoRA on last 6 vision encoder blocks (Q and V attention matrices only)"
+
+  lora:
+    rank: 16
+    lora_alpha: 32              # alpha = 2 * rank (standard practice)
+    lora_dropout: 0.05
+    bias: none                  # Do not add LoRA bias terms
+    target_modules:             # Regex patterns for targeted matrices
+      - "visual\.blocks\.(2[6-9]|3[01])\.attn\.(q|v)_proj"  # Last 6 of 32 blocks
+    # For InternVL: "vision_model\.encoder\.layers\.(1[89]|2[0-3])\.self_attn\.(q|v)_proj"
+    # For LLaVA: "vision_tower\.vision_model\.encoder\.layers\.(2[1-6])\.self_attn\.(q|v)_proj"
+
+  # Approximate trainable parameters
+  target_trainable_params: 16_000_000   # ~16M params
+
+  # Training hyperparameters
+  training:
+    optimizer: adamw
+    lr: 2.0e-4                  # Higher LR for LoRA (typical range: 1e-4 to 5e-4)
+    lr_scheduler: cosine_with_warmup
+    warmup_ratio: 0.05
+    weight_decay: 0.01
+    max_epochs: 3
+    batch_size: 4
+    gradient_accumulation_steps: 8    # Effective batch size = 32
+    max_grad_norm: 1.0
+    bf16: true
+    gradient_checkpointing: true      # Save memory during backprop through encoder
+
+  # Data
+  data:
+    dataset: physion_physics_qa
+    train_path: data/physion/qa_train.jsonl
+    val_path: data/physion/qa_val.jsonl
+    max_samples: 50000
+    shuffle: true
+
+  # Checkpointing
+  output_dir: results/ablation_metrics/condition_a_encoder/
+  save_steps: 500
+  eval_steps: 250
+  logging_steps: 50
+
+  # W&B tracking
+  run_name: "ablation_condition_a_encoder"
+  tags: ["ablation", "encoder-only", "lora"]

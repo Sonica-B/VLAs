@@ -1,0 +1,64 @@
+# @package _global_
+# Qwen2.5-VL-7B-Instruct model configuration
+
+model:
+  name: qwen2_5_vl_7b
+  hf_name: Qwen/Qwen2.5-VL-7B-Instruct
+  model_type: qwen2_5_vl
+
+  # Architecture specs (do not change — these are fixed model properties)
+  vision_encoder:
+    type: qwen2_vl_vision
+    hidden_dim: 1280
+    num_layers: 32
+    num_heads: 16
+    patch_size: 14
+    image_size: 448
+    num_patches: 1024           # 32×32 for 448px input at patch_size=14
+    window_size: 14             # Local attention window
+    fullatt_block_indexes: [7, 15, 23, 31]  # Layers with full attention
+
+  projection:
+    type: mlp_2_layer
+    input_dim: 1280
+    output_dim: 3584
+    hidden_dim: 3584
+
+  llm:
+    type: qwen2
+    hidden_dim: 3584
+    num_layers: 28
+    num_heads: 28
+    num_kv_heads: 4
+    intermediate_size: 18944
+
+  # Loading configuration
+  loading:
+    torch_dtype: bfloat16        # Use bfloat16 on A100
+    load_in_4bit: false          # Set true to reduce VRAM usage (~6GB vs ~16GB)
+    load_in_8bit: false
+    device_map: auto             # Let accelerate handle multi-GPU distribution
+    attn_implementation: flash_attention_2  # Use flash attention on A100
+
+  # Activation extraction — which layers to hook at each stage
+  activation_hooks:
+    stage_1_enc_out:
+      module_path: model.visual.blocks[-1]   # Last ViT block
+      hook_type: post_forward
+    stage_2_post_proj:
+      module_path: model.visual.merger        # MLP merger (projector)
+      hook_type: post_forward
+    stage_3_llm_8:
+      module_path: model.model.layers[8]      # LLM layer 8
+      hook_type: post_forward
+    stage_4_llm_16:
+      module_path: model.model.layers[16]     # LLM layer 16
+      hook_type: post_forward
+
+  # Image preprocessing
+  processor:
+    image_resolution: 448
+    min_pixels: 4096             # 64×64 min
+    max_pixels: 1003520          # ~1MP max
+    do_resize: true
+    do_normalize: true

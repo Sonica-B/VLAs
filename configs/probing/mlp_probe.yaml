@@ -1,0 +1,67 @@
+# @package _global_
+# MLP probe configuration (single hidden layer, 512 units)
+
+probe:
+  type: mlp
+  name: mlp_probe
+
+  # Architecture
+  hidden_dim: 512
+  activation: relu
+  dropout: 0.1
+  output_dim: 1               # Scalar physics property prediction
+
+  # Optimization
+  optimizer: adam
+  lr: 1.0e-3
+  lr_scheduler: cosine
+  weight_decay: 1.0e-4
+  epochs: 50
+  batch_size: 512             # Large batch — activations fit in memory
+  early_stopping_patience: 10
+
+  # Training setup
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  random_seed: 42
+
+  # Input preprocessing
+  normalize_features: true
+  exclude_background_patches: true
+
+  # Evaluation metrics
+  metrics:
+    - r2
+    - pearson_r
+    - mse
+    - mae
+
+  # Per-patch saliency via gradient × input
+  compute_saliency: true
+  saliency_method: gradient_x_input   # |grad_input * input| per patch
+
+  # Bootstrap CI
+  bootstrap:
+    enabled: true
+    n_resamples: 1000
+    confidence_level: 0.95
+
+  # Physics variables to probe
+  target_variables:
+    - mass
+    - friction
+    - elasticity
+    - stability
+
+  # Pipeline stages to probe
+  pipeline_stages:
+    - stage_1_enc_out
+    - stage_2_post_proj
+    - stage_3_llm_8
+    - stage_4_llm_16
+
+  # Logging
+  log_every_n_epochs: 5
+  save_best_checkpoint: true
+  checkpoint_dir: results/probe_metrics/mlp_checkpoints/

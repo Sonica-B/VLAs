@@ -1,0 +1,51 @@
+# @package _global_
+# Condition C: LLM-only LoRA
+# Apply LoRA to first 8 LLM transformer layers (Q/V matrices only)
+
+ablation:
+  condition: C
+  name: llm_only
+  description: "LoRA on first 8 LLM transformer layers (Q and V attention matrices only)"
+
+  lora:
+    rank: 16
+    lora_alpha: 32
+    lora_dropout: 0.05
+    bias: none
+    target_modules:
+      # Qwen2 / InternLM2 first 8 layers
+      - "model\.layers\.[0-7]\.self_attn\.(q|v)_proj"
+      # For InternVL:
+      # - "language_model\.model\.layers\.[0-7]\.self_attn\.(q|v)_proj"
+      # For LLaVA (also Qwen2 backbone):
+      # - "model\.language_model\.model\.layers\.[0-7]\.self_attn\.(q|v)_proj"
+
+  target_trainable_params: 16_000_000
+
+  training:
+    optimizer: adamw
+    lr: 1.0e-4
+    lr_scheduler: cosine_with_warmup
+    warmup_ratio: 0.05
+    weight_decay: 0.01
+    max_epochs: 3
+    batch_size: 4
+    gradient_accumulation_steps: 8
+    max_grad_norm: 1.0
+    bf16: true
+    gradient_checkpointing: true
+
+  data:
+    dataset: physion_physics_qa
+    train_path: data/physion/qa_train.jsonl
+    val_path: data/physion/qa_val.jsonl
+    max_samples: 50000
+    shuffle: true
+
+  output_dir: results/ablation_metrics/condition_c_llm/
+  save_steps: 500
+  eval_steps: 250
+  logging_steps: 50
+
+  run_name: "ablation_condition_c_llm"
+  tags: ["ablation", "llm-only", "lora"]

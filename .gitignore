@@ -1,0 +1,75 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.Python
+env/
+venv/
+.venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Data (large files — store separately)
+data/
+*.pkl
+*.hdf5
+*.h5
+*.lmdb
+
+# Model weights
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+
+# Results (generated, not versioned)
+results/saliency_maps/
+results/probe_metrics/
+results/ablation_metrics/
+results/figures/
+
+# Experiment tracking
+wandb/
+mlruns/
+lightning_logs/
+runs/
+
+# Environment / secrets
+.env
+.env.local
+*.key
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*.DS_Store
+Thumbs.db
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Hydra outputs
+outputs/
+multirun/
+.hydra/
+
+# HuggingFace cache (don't commit model caches)
+.cache/
+
+# SLURM logs
+slurm-*.out
+*.sbatch.log

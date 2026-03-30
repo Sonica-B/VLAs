@@ -1,0 +1,54 @@
+# @package _global_
+# Linear ridge regression probe configuration
+
+probe:
+  type: linear
+  name: linear_probe
+
+  # Ridge regression hyperparameters
+  alpha: 1.0                   # L2 regularization strength (tuned via CV)
+  alpha_candidates: [0.01, 0.1, 1.0, 10.0, 100.0]  # Grid search candidates
+  fit_intercept: true
+  max_iter: 1000
+  solver: lsqr                 # Efficient for large feature dims
+
+  # Training setup
+  train_split: 0.7
+  val_split: 0.15
+  test_split: 0.15
+  random_seed: 42
+
+  # Input preprocessing
+  normalize_features: true     # StandardScaler before fitting
+  exclude_background_patches: true  # Only use patches with assigned physics labels
+
+  # Evaluation metrics
+  metrics:
+    - r2                       # Primary metric: coefficient of determination
+    - pearson_r                # Pearson correlation
+    - mse                      # Mean squared error
+    - mae                      # Mean absolute error
+
+  # Per-patch R² computation (for saliency maps)
+  compute_per_patch_scores: true
+  per_patch_method: leave_one_patch_out  # or "individual_fit"
+
+  # Bootstrap CI for statistical testing
+  bootstrap:
+    enabled: true
+    n_resamples: 1000
+    confidence_level: 0.95
+
+  # Physics variables to probe
+  target_variables:
+    - mass
+    - friction
+    - elasticity
+    - stability              # Derived from temporal dynamics
+
+  # Pipeline stages to probe
+  pipeline_stages:
+    - stage_1_enc_out
+    - stage_2_post_proj
+    - stage_3_llm_8
+    - stage_4_llm_16

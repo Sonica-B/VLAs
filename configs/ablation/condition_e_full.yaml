@@ -1,0 +1,58 @@
+# @package _global_
+# Condition E: Full Model LoRA (baseline upper bound)
+# Apply LoRA to all Q/V matrices across encoder, projection, and LLM.
+# Serves as the performance ceiling for comparison with A-D.
+
+ablation:
+  condition: E
+  name: full_model
+  description: "LoRA on all Q/V matrices across the full VLM (encoder + projection + LLM)"
+
+  lora:
+    rank: 16
+    lora_alpha: 32
+    lora_dropout: 0.05
+    bias: none
+    # All Q/V in the entire model — use task_type instead of per-module patterns
+    task_type: CAUSAL_LM
+    target_modules:
+      - q_proj
+      - v_proj
+      # Also include projection layers:
+      - "visual\.merger\.mlp\.[0-9]+$"
+
+  # Full model LoRA: encoder (26M) + projection (5M) + LLM (55M) ≈ 86M
+  # Reduce rank to 8 if GPU memory is insufficient
+  target_trainable_params: 86_000_000
+
+  training:
+    optimizer: adamw
+    lr: 1.0e-4                 # Lower LR for larger param count
+    lr_scheduler: cosine_with_warmup
+    warmup_ratio: 0.05
+    weight_decay: 0.01
+    max_epochs: 3
+    batch_size: 2              # Smaller batch due to more VRAM usage
+    gradient_accumulation_steps: 16   # Effective batch size = 32
+    max_grad_norm: 1.0
+    bf16: true
+    gradient_checkpointing: true
+    # DeepSpeed ZeRO-2 recommended for full-model LoRA on single node
+    deepspeed_config: configs/deepspeed/zero2.json
+
+  data:
+    dataset: physion_physics_qa
+    train_path: data/physion/qa_train.jsonl
+    val_path: data/physion/qa_val.jsonl
+    max_samples: 50000
+    shuffle: true
+
+  output_dir: results/ablation_metrics/condition_e_full/
+  save_steps: 500
+  eval_steps: 250
+  logging_steps: 50
+
+  run_name: "ablation_condition_e_full"
+  tags: ["ablation", "full-model", "lora", "upper-bound"]
+
+  notes: "Upper bound condition — if A/D approach E, targeted LoRA is sufficient"

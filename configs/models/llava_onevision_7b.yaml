@@ -1,0 +1,68 @@
+# @package _global_
+# LLaVA-OneVision-7B model configuration
+
+model:
+  name: llava_onevision_7b
+  hf_name: lmms-lab/llava-onevision-qwen2-7b-ov
+  model_type: llava_onevision
+
+  # Architecture specs
+  vision_encoder:
+    type: siglip_so400m
+    hidden_dim: 1152             # SigLIP-SO400M hidden dim
+    num_layers: 27
+    num_heads: 16
+    patch_size: 14
+    image_size: 384              # SigLIP uses 384px
+    num_patches: 729             # 27×27 for 384px at patch_size=14
+    freeze_vit: true             # LLaVA-OV keeps SigLIP fully frozen
+
+  projection:
+    type: mlp_2_layer
+    input_dim: 1152
+    output_dim: 3584             # Qwen2-7B hidden dim
+    hidden_dim: 3584
+
+  llm:
+    type: qwen2
+    hidden_dim: 3584
+    num_layers: 28
+    num_heads: 28
+    num_kv_heads: 4
+    intermediate_size: 18944
+
+  # Loading configuration
+  loading:
+    torch_dtype: bfloat16
+    load_in_4bit: false
+    device_map: auto
+    attn_implementation: flash_attention_2
+
+  # Activation extraction
+  # Note: LLaVA uses SigLIP, so vision_tower is separate from the LM
+  activation_hooks:
+    stage_1_enc_out:
+      module_path: model.vision_tower.vision_model.encoder.layers[-1]
+      hook_type: post_forward
+    stage_2_post_proj:
+      module_path: model.mm_projector                # 2-layer MLP
+      hook_type: post_forward
+    stage_3_llm_8:
+      module_path: model.language_model.model.layers[8]
+      hook_type: post_forward
+    stage_4_llm_16:
+      module_path: model.language_model.model.layers[16]
+      hook_type: post_forward
+
+  # Image preprocessing
+  processor:
+    image_size: 384
+    image_mean: [0.5, 0.5, 0.5]    # SigLIP normalization
+    image_std: [0.5, 0.5, 0.5]
+    do_resize: true
+    anyres_grids:                   # AnyRes tiling options
+      - [1, 2]
+      - [2, 1]
+      - [2, 2]
+      - [2, 4]
+      - [4, 2]
