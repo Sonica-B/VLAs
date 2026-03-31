@@ -1,0 +1,74 @@
+{
+  "stage_1_enc_out": {
+    "mass_vs_stability": {
+      "pearson_r": 0.21030374715051214,
+      "p_value": 0.0030906075466394576
+    },
+    "mass_vs_friction": {
+      "pearson_r": 0.005655835526411206,
+      "p_value": 0.9372904530815086
+    },
+    "mass_vs_elasticity": {
+      "pearson_r": NaN,
+      "p_value": NaN
+    },
+    "stability_vs_friction": {
+      "pearson_r": 0.13193210905404656,
+      "p_value": 0.06528509421833313
+    }
+  },
+  "stage_2_post_proj": {
+    "mass_vs_stability": {
+      "pearson_r": 0.593817454949526,
+      "p_value": 4.595710857417262e-20
+    },
+    "mass_vs_friction": {
+      "pearson_r": -0.04120860449683853,
+      "p_value": 0.5663238263652293
+    },
+    "mass_vs_elasticity": {
+      "pearson_r": NaN,
+      "p_value": NaN
+    },
+    "stability_vs_friction": {
+      "pearson_r": 0.13385480384045256,
+      "p_value": 0.06142737805388743
+    }
+  },
+  "stage_3_llm_8": {
+    "mass_vs_stability": {
+      "pearson_r": 0.4902202692537538,
+      "p_value": 3.032124738717676e-13
+    },
+    "mass_vs_friction": {
+      "pearson_r": -0.04686221460333943,
+      "p_value": 0.5142508686929909
+    },
+    "mass_vs_elasticity": {
+      "pearson_r": NaN,
+      "p_value": NaN
+    },
+    "stability_vs_friction": {
+      "pearson_r": -0.03126761257501316,
+      "p_value": 0.6635239564644662
+    }
+  },
+  "stage_4_llm_16": {
+    "mass_vs_stability": {
+      "pearson_r": 0.08719822609394265,
+      "p_value": 0.22425821189166364
+    },
+    "mass_vs_friction": {
+      "pearson_r": 0.19553535331228494,
+      "p_value": 0.006022603469288375
+    },
+    "mass_vs_elasticity": {
+      "pearson_r": 0.0958278672295342,
+      "p_value": 0.18152125031243557
+    },
+    "stability_vs_friction": {
+      "pearson_r": -0.024599818153596954,
+      "p_value": 0.7321654891976116
+    }
+  }
+}

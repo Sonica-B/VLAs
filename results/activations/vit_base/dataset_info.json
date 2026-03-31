@@ -1,0 +1,29 @@
+{
+  "n_scenes": 1000,
+  "seed": 42,
+  "model": "vit_base_patch16_224",
+  "patch_grid_size": 14,
+  "image_size": 224,
+  "properties": [
+    "mass",
+    "friction",
+    "elasticity",
+    "stability"
+  ],
+  "stages": [
+    "stage_1_enc_out",
+    "stage_2_post_proj",
+    "stage_3_llm_8",
+    "stage_4_llm_16"
+  ],
+  "activation_shape": [
+    1000,
+    196,
+    768
+  ],
+  "label_shape": [
+    1000,
+    196,
+    4
+  ]
+}
