@@ -149,7 +149,7 @@ class PhysicsQAGenerator:
             return None
 
         # Determine stability ground truth
-        is_unstable = float(np.nanmean(stability_labels)) > self.stability_threshold
+        is_unstable = float(np.nanmean(stability_labels)) < self.stability_threshold
         answer_pool = STABILITY_ANSWERS_UNSTABLE if is_unstable else STABILITY_ANSWERS_STABLE
         gt_label = "unstable" if is_unstable else "stable"
 

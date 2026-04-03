@@ -263,7 +263,6 @@ class MLPProbe:
 
         return {"r2": float(r2), "pearson_r": float(pearson_r), "mse": mse, "mae": mae}
 
-    @torch.no_grad()
     def get_saliency(self, X: np.ndarray) -> np.ndarray:
         """Compute gradient × input saliency scores for each feature.
 
