@@ -1,6 +1,6 @@
 {
   "experiment": "week2_day8_9_real_vlm_probes",
-  "timestamp": "2026-04-03 01:45:50",
+  "timestamp": "2026-04-03 14:20:24",
   "stages": {
     "stage_1_enc_out": {
       "mass": {
@@ -204,13 +204,13 @@
       "stage1_r2": -0.5819255113601685,
       "stage2_r2": -0.2486506700515747,
       "delta_r2": 0.33327484130859375,
-      "retention_ratio": -248650.6700515747
+      "retention_ratio": NaN
     },
     "friction": {
       "stage1_r2": -1.0700163841247559,
       "stage2_r2": -0.4006032943725586,
       "delta_r2": 0.6694130897521973,
-      "retention_ratio": -400603.2943725586
+      "retention_ratio": NaN
     },
     "hue": {
       "stage1_r2": 0.74997878074646,
@@ -219,10 +219,10 @@
       "retention_ratio": 1.091361405425098
     },
     "differential_degradation": {
-      "mass_retention": -248650.6700515747,
+      "mass_retention": NaN,
       "hue_retention": 1.091361405425098,
-      "physics_minus_appearance": -248651.76141298012,
-      "interpretation": "Physics DEGRADED more through projection (physics-blind merger)"
+      "physics_minus_appearance": NaN,
+      "interpretation": "Stage1 mass R2 too low for retention analysis. Delta comparison: mass delta=+0.3333, hue delta=+0.0685"
     }
   }
 }
