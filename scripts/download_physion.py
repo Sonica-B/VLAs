@@ -1,11 +1,19 @@
 """
 Download and verify the Physion++ dataset.
 
-Physion++ is hosted on S3. This script downloads all scenario types,
-verifies checksums, and validates the metadata structure.
+Two download methods:
+  1. S3 sync: Downloads individual scenario types from the S3 bucket (~50GB total)
+  2. ZIP download: Downloads readout_data.zip from the Physion-V2 release (~5-10GB)
 
 Usage:
+    # Full S3 download (all scenarios)
     python scripts/download_physion.py --output-dir data/physion --verify-checksums
+
+    # Readout-only ZIP download (smaller, preferred for probing)
+    python scripts/download_physion.py --output-dir data/physion --readout-only
+
+    # Download specific scenarios
+    python scripts/download_physion.py --output-dir data/physion --scenarios dominoes collide
 """
 
 import argparse
@@ -13,13 +21,21 @@ import hashlib
 import logging
 import subprocess
 import sys
+import zipfile
 from pathlib import Path
+from urllib.request import urlretrieve
 
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 logger = logging.getLogger(__name__)
 
-# Physion++ S3 bucket (update with actual URL when available)
+# Physion++ S3 bucket
 PHYSION_S3_BASE = "s3://physion-plus-plus-data"
+
+# Physion-V2 direct download URLs
+PHYSION_V2_URLS = {
+    "train": "https://physion-v2.s3.amazonaws.com/train_data.zip",
+    "readout": "https://physion-v2.s3.amazonaws.com/readout_data.zip",
+}
 
 SCENARIO_TYPES = [
     "dominoes",
@@ -115,12 +131,63 @@ def verify_metadata_structure(output_dir: Path, scenario: str) -> bool:
         return False
 
 
+def download_readout_zip(output_dir: Path, dry_run: bool = False) -> bool:
+    """Download the Physion-V2 readout_data.zip (smaller than full dataset).
+
+    The readout set contains a subset of scenarios with labels, suitable
+    for probing experiments without the full 50GB training set.
+    """
+    url = PHYSION_V2_URLS["readout"]
+    zip_path = output_dir / "readout_data.zip"
+
+    if dry_run:
+        logger.info(f"[DRY RUN] Would download: {url} → {zip_path}")
+        return True
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    if zip_path.exists():
+        logger.info(f"  readout_data.zip already exists at {zip_path}")
+    else:
+        logger.info(f"Downloading readout_data.zip from {url}...")
+        logger.info("  This may take a while depending on connection speed.")
+        try:
+            def _progress(block_num, block_size, total_size):
+                downloaded = block_num * block_size
+                if total_size > 0:
+                    pct = downloaded / total_size * 100
+                    mb = downloaded / 1024**2
+                    print(f"\r  {mb:.1f}MB ({pct:.1f}%)", end="", flush=True)
+
+            urlretrieve(url, str(zip_path), reporthook=_progress)
+            print()  # newline after progress
+            logger.info(f"  Downloaded to {zip_path}")
+        except Exception as e:
+            logger.error(f"Download failed: {e}")
+            logger.info("Manual download:")
+            logger.info(f"  curl -L -o {zip_path} {url}")
+            return False
+
+    # Extract
+    logger.info(f"Extracting {zip_path}...")
+    try:
+        with zipfile.ZipFile(str(zip_path), "r") as zf:
+            zf.extractall(str(output_dir))
+        logger.info(f"  Extracted to {output_dir}")
+        return True
+    except Exception as e:
+        logger.error(f"Extraction failed: {e}")
+        return False
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Download the Physion++ dataset")
     parser.add_argument("--output-dir", type=str, default="data/physion",
                         help="Local directory to download into")
     parser.add_argument("--scenarios", nargs="+", default=["all"],
                         help="Scenario types to download (default: all)")
+    parser.add_argument("--readout-only", action="store_true",
+                        help="Download only readout_data.zip (smaller)")
     parser.add_argument("--verify-checksums", action="store_true",
                         help="Verify metadata structure after downloading")
     parser.add_argument("--dry-run", action="store_true",
@@ -131,6 +198,14 @@ def main() -> None:
 
     output_dir = Path(args.output_dir)
     output_dir.mkdir(parents=True, exist_ok=True)
+
+    # Readout-only mode: download zip instead of S3 sync
+    if args.readout_only:
+        success = download_readout_zip(output_dir, dry_run=args.dry_run)
+        if not success:
+            sys.exit(1)
+        logger.info("Readout dataset ready.")
+        return
 
     if "all" in args.scenarios:
         scenarios = SCENARIO_TYPES
