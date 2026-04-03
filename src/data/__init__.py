@@ -5,6 +5,7 @@ from src.data.patch_label_assigner import PatchLabelAssigner
 from src.data.physics_qa_generator import PhysicsQAGenerator
 from src.data.physics_qa_dataset import PhysicsQADataset, DataCollatorForVLMSFT
 from src.data.deconfounded_physion import DeconfoundedPhysicsDataset
+from src.data.realistic_physion import RealisticPhysicsDataset
 from src.data.synthetic_physion import SyntheticPhysicsDataset, SyntheticPhysionDiskDataset
 
 __all__ = [
@@ -15,6 +16,7 @@ __all__ = [
     "PhysicsQADataset",
     "DataCollatorForVLMSFT",
     "DeconfoundedPhysicsDataset",
+    "RealisticPhysicsDataset",
     "SyntheticPhysicsDataset",
     "SyntheticPhysionDiskDataset",
 ]
