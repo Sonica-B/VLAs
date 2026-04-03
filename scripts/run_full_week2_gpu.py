@@ -163,7 +163,7 @@ def report_vram():
     if torch.cuda.is_available():
         allocated = torch.cuda.memory_allocated() / 1e9
         reserved = torch.cuda.memory_reserved() / 1e9
-        total = torch.cuda.get_device_properties(0).total_mem / 1e9
+        total = torch.cuda.get_device_properties(0).total_memory / 1e9
         print(f"  VRAM: {allocated:.2f}GB allocated / {reserved:.2f}GB reserved / {total:.1f}GB total")
     else:
         print("  No CUDA device available")
@@ -339,32 +339,19 @@ def step2_load_model_test_mode():
 
 
 def step2_load_model_gpu(model_key: str):
-    """Load Qwen2.5-VL-7B in 4-bit quantization."""
+    """Load Qwen2.5-VL-7B with automatic device mapping."""
     from transformers import AutoProcessor, Qwen2_5_VLForConditionalGeneration
 
     print(f"  Loading model: {MODEL_IDS[model_key]}")
     report_vram()
 
-    # Try pre-quantized first
+    model_id = MODEL_IDS.get(model_key, MODEL_IDS["qwen"])
+
+    # Strategy 1: Try 4-bit quantization with BitsAndBytesConfig
+    loaded = False
     try:
-        print("  Attempting pre-quantized model (unsloth/Qwen2.5-VL-7B-Instruct-bnb-4bit)...")
         from transformers import BitsAndBytesConfig
-
-        model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
-            "unsloth/Qwen2.5-VL-7B-Instruct-bnb-4bit",
-            device_map="auto",
-            trust_remote_code=True,
-            torch_dtype=torch.bfloat16,
-        )
-        processor = AutoProcessor.from_pretrained(
-            "Qwen/Qwen2.5-VL-7B-Instruct",
-            trust_remote_code=True,
-        )
-        print("  Pre-quantized model loaded!")
-    except Exception as e:
-        print(f"  Pre-quantized failed ({e}), loading with BitsAndBytesConfig...")
-        from transformers import BitsAndBytesConfig
-
+        print("  Attempting 4-bit quantization with BitsAndBytesConfig...")
         bnb_config = BitsAndBytesConfig(
             load_in_4bit=True,
             bnb_4bit_quant_type="nf4",
@@ -378,11 +365,39 @@ def step2_load_model_gpu(model_key: str):
             trust_remote_code=True,
             torch_dtype=torch.bfloat16,
         )
+        # Quick sanity check - run a tiny forward pass to catch bitsandbytes errors
+        print("  Verifying model with sanity check...")
         processor = AutoProcessor.from_pretrained(
             MODEL_IDS["qwen"],
             trust_remote_code=True,
         )
+        loaded = True
         print("  Model loaded with 4-bit quantization!")
+    except Exception as e:
+        print(f"  4-bit quantization failed: {e}")
+
+    # Strategy 2: Load in float16 with device_map="auto" (splits GPU/CPU)
+    if not loaded:
+        try:
+            print("  Attempting float16 with auto device mapping (GPU+CPU offload)...")
+            model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+                MODEL_IDS["qwen"],
+                device_map="auto",
+                trust_remote_code=True,
+                torch_dtype=torch.float16,
+                low_cpu_mem_usage=True,
+            )
+            processor = AutoProcessor.from_pretrained(
+                MODEL_IDS["qwen"],
+                trust_remote_code=True,
+            )
+            loaded = True
+            print("  Model loaded in float16 with GPU+CPU offload!")
+        except Exception as e:
+            print(f"  Float16 loading failed: {e}")
+
+    if not loaded:
+        raise RuntimeError("Could not load model with any strategy")
 
     report_vram()
     model.eval()
@@ -513,43 +528,47 @@ def step3_extract_activations_gpu(
         return hook_fn
 
     # Stage 1: Visual encoder last block output
+    # Try both model.visual (older) and model.model.visual (newer transformers)
+    visual = getattr(model, 'visual', None) or getattr(model.model, 'visual', None)
     try:
-        enc_hook = model.visual.blocks[-1].register_forward_hook(
+        enc_hook = visual.blocks[-1].register_forward_hook(
             make_hook("stage_1_enc_out")
         )
         hooks.append(enc_hook)
-        print("  Hooked: visual.blocks[-1] (encoder output)")
-    except (AttributeError, IndexError) as e:
+        print(f"  Hooked: visual.blocks[-1] (encoder output, {len(visual.blocks)} blocks)")
+    except (AttributeError, IndexError, TypeError) as e:
         print(f"  WARNING: Could not hook encoder: {e}")
 
     # Stage 2: Merger/projection output
     try:
-        merger_hook = model.visual.merger.register_forward_hook(
+        merger_hook = visual.merger.register_forward_hook(
             make_hook("stage_2_post_proj")
         )
         hooks.append(merger_hook)
         print("  Hooked: visual.merger (post-projection)")
-    except AttributeError as e:
+    except (AttributeError, TypeError) as e:
         print(f"  WARNING: Could not hook merger: {e}")
 
     # Stage 3: LLM layer 8
+    # Try both model.model.layers (older) and model.model.language_model.layers (newer)
+    llm_layers = getattr(model.model, 'layers', None) or getattr(getattr(model.model, 'language_model', None), 'layers', None)
     try:
-        llm_l8_hook = model.model.layers[8].register_forward_hook(
+        llm_l8_hook = llm_layers[8].register_forward_hook(
             make_hook("stage_3_llm_8")
         )
         hooks.append(llm_l8_hook)
-        print("  Hooked: model.layers[8] (LLM layer 8)")
-    except (AttributeError, IndexError) as e:
+        print(f"  Hooked: LLM layers[8] (of {len(llm_layers)} layers)")
+    except (AttributeError, IndexError, TypeError) as e:
         print(f"  WARNING: Could not hook LLM layer 8: {e}")
 
     # Stage 4: LLM layer 16
     try:
-        llm_l16_hook = model.model.layers[16].register_forward_hook(
+        llm_l16_hook = llm_layers[16].register_forward_hook(
             make_hook("stage_4_llm_16")
         )
         hooks.append(llm_l16_hook)
-        print("  Hooked: model.layers[16] (LLM layer 16)")
-    except (AttributeError, IndexError) as e:
+        print(f"  Hooked: LLM layers[16] (of {len(llm_layers)} layers)")
+    except (AttributeError, IndexError, TypeError) as e:
         print(f"  WARNING: Could not hook LLM layer 16: {e}")
 
     # -----------------------------------------------------------------------
@@ -654,7 +673,7 @@ def step3_extract_activations_gpu(
             # For encoder/merger stages, all tokens are visual
             if stage_name in ("stage_1_enc_out", "stage_2_post_proj"):
                 # Take all tokens (they're all visual patches)
-                visual_act = act.numpy()
+                visual_act = act.float().numpy()
             else:
                 # For LLM stages, extract only visual token positions
                 # Visual tokens are typically the first n_visual_tokens after
@@ -669,14 +688,14 @@ def step3_extract_activations_gpu(
                         ids = input_ids[0].cpu()
                         img_positions = (ids == img_token_id).nonzero(as_tuple=True)[0]
                         if len(img_positions) >= n_visual_tokens:
-                            visual_act = act[img_positions[:n_visual_tokens]].numpy()
+                            visual_act = act[img_positions[:n_visual_tokens]].float().numpy()
                         else:
                             # Fallback: take first n_visual_tokens
-                            visual_act = act[:n_visual_tokens].numpy()
+                            visual_act = act[:n_visual_tokens].float().numpy()
                     else:
-                        visual_act = act[:n_visual_tokens].numpy()
+                        visual_act = act[:n_visual_tokens].float().numpy()
                 else:
-                    visual_act = act.numpy()
+                    visual_act = act.float().numpy()
 
             all_activations[stage_name].append(visual_act)
 

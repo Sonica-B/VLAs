@@ -169,7 +169,7 @@ def parse_args():
 def report_vram():
     if torch.cuda.is_available():
         alloc = torch.cuda.memory_allocated() / 1e9
-        total = torch.cuda.get_device_properties(0).total_mem / 1e9
+        total = torch.cuda.get_device_properties(0).total_memory / 1e9
         print(f"  VRAM: {alloc:.2f}GB / {total:.1f}GB")
 
 

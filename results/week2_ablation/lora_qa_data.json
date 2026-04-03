@@ -1,0 +1,2402 @@
+[
+  {
+    "scene_idx": 0,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 5.21, compared to object 1 with mass 0.75.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 0,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 1,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 4.77, compared to object 2 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 1,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 2,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 8.68, compared to object 4 with mass 0.21.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 2,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 3,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 4.20, compared to object 4 with mass 1.05.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 3,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 4,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 7.38, compared to object 1 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 4,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 5,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.22, compared to object 3 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 5,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 6,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 2.45, compared to object 2 with mass 1.07.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 6,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 7,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 1.77, compared to object 2 with mass 0.61.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 7,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 8,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 8.85, compared to object 6 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 8,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 9,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.74, compared to object 3 with mass 0.28.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 9,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 10,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 8.64, compared to object 3 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 10,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 11,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 7.35, compared to object 4 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 11,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 12,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 1.43, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 12,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 13,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 5.51, compared to object 2 with mass 0.27.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 13,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 14,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 9.15, compared to object 1 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 14,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 15,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.81, compared to object 3 with mass 0.48.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 15,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 16,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 5.75, compared to object 5 with mass 0.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 16,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 17,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 4.49, compared to object 6 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 17,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 18,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.57, compared to object 1 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 18,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 19,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.50, compared to object 4 with mass 0.74.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 19,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 20,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.64, compared to object 3 with mass 0.38.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 20,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 21,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 9.65, compared to object 2 with mass 0.25.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 21,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 22,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 5.21, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 22,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 23,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.09, compared to object 3 with mass 0.29.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 23,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 24,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 4.99, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 24,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 25,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 1.57, compared to object 1 with mass 0.18.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 25,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 26,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 8.95, compared to object 3 with mass 1.79.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 26,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 27,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 5.37, compared to object 1 with mass 1.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 27,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 28,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 8.52, compared to object 2 with mass 0.44.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 28,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 29,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.33, compared to object 5 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 29,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 30,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 2.70, compared to object 1 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 30,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 31,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.34, compared to object 5 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 31,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 32,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 2.25, compared to object 1 with mass 1.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 32,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 33,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 7.35, compared to object 1 with mass 0.20.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 33,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 34,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 9.36, compared to object 4 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 34,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 35,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.27, compared to object 2 with mass 0.31.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 35,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 36,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 6.77, compared to object 4 with mass 0.56.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 36,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 37,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 7.02, compared to object 3 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 37,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 38,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 1.89, compared to object 1 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 38,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 39,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 6.67, compared to object 1 with mass 0.27.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 39,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 40,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.13, compared to object 2 with mass 0.27.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 40,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 41,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 1.81, compared to object 1 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 41,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 42,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 6.32, compared to object 4 with mass 0.29.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 42,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 43,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 5.76, compared to object 2 with mass 0.84.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 43,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 44,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 8.30, compared to object 1 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 44,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 45,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.69, compared to object 2 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 45,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 46,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.55, compared to object 5 with mass 0.18.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 46,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 47,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 6.34, compared to object 3 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 47,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 48,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 2.47, compared to object 5 with mass 0.18.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 48,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 49,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 6.61, compared to object 3 with mass 0.38.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 49,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 50,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 0.50, compared to object 4 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 50,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 51,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 8.79, compared to object 5 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 51,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 52,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.78, compared to object 3 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 52,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 53,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 6.71, compared to object 2 with mass 0.28.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 53,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 54,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.94, compared to object 6 with mass 0.15.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 54,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 55,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.06, compared to object 1 with mass 0.73.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 55,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 56,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 5.04, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 56,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 57,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 8.80, compared to object 6 with mass 0.37.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 57,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 58,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 8.86, compared to object 3 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 58,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 59,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.71, compared to object 4 with mass 0.39.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 59,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 60,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.44, compared to object 3 with mass 0.39.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 60,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 61,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 5.25, compared to object 5 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 61,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 62,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 3.22, compared to object 3 with mass 0.18.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 62,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 63,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 9.61, compared to object 2 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 63,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 64,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 8.49, compared to object 1 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 64,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 65,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 2.95, compared to object 1 with mass 0.90.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 65,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 66,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.84, compared to object 2 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 66,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 67,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 4.82, compared to object 5 with mass 0.24.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 67,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 68,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 5.66, compared to object 4 with mass 0.30.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 68,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 69,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.43, compared to object 1 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 69,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 70,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 4.88, compared to object 3 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 70,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 71,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 1.66, compared to object 2 with mass 0.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 71,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 72,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 2.56, compared to object 1 with mass 0.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 72,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 73,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 4.39, compared to object 4 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 73,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 74,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 8.21, compared to object 1 with mass 5.67.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 74,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 75,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 1.61, compared to object 1 with mass 0.21.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 75,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 76,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 7.50, compared to object 3 with mass 0.27.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 76,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 77,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.35, compared to object 3 with mass 0.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 77,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 78,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 2.03, compared to object 1 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 78,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 79,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.45, compared to object 1 with mass 0.39.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 79,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 80,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 4.42, compared to object 1 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 80,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 81,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 0.28, compared to object 1 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 81,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 82,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 8.68, compared to object 6 with mass 0.23.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 82,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 83,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 0.97, compared to object 4 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 83,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 84,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.08, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 84,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 85,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 6.61, compared to object 1 with mass 0.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 85,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 86,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 1.49, compared to object 4 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 86,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 87,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 6.26, compared to object 1 with mass 0.29.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 87,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 88,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.21, compared to object 1 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 88,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 89,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.59, compared to object 4 with mass 0.15.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 89,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 90,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 5.82, compared to object 6 with mass 1.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 90,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 91,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 1.57, compared to object 5 with mass 0.30.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 91,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 92,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 3.92, compared to object 4 with mass 0.40.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 92,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 93,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.42, compared to object 4 with mass 0.28.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 93,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 94,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 7.78, compared to object 1 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 94,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 95,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 1.78, compared to object 1 with mass 0.35.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 95,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 96,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 7.53, compared to object 2 with mass 1.32.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 96,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 97,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 7.94, compared to object 3 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 97,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 98,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 2.60, compared to object 3 with mass 0.28.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 98,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 99,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 9.88, compared to object 2 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 99,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 100,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 8.34, compared to object 1 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 100,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 101,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 8.99, compared to object 6 with mass 0.59.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 101,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 102,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 0.40, compared to object 1 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 102,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 103,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 5.77, compared to object 3 with mass 0.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 103,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 104,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 6.44, compared to object 6 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 104,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 105,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.67, compared to object 3 with mass 1.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 105,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 106,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.00, compared to object 1 with mass 1.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 106,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 107,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 3.00, compared to object 2 with mass 0.28.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 107,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 108,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 7.27, compared to object 3 with mass 0.47.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 108,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 109,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 2.62, compared to object 1 with mass 0.53.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 109,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 110,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 3.79, compared to object 2 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 110,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 111,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 7.94, compared to object 2 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 111,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 112,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 6.52, compared to object 3 with mass 0.25.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 112,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 113,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 4.58, compared to object 2 with mass 0.53.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 113,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 114,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 7.33, compared to object 1 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 114,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 115,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 5.30, compared to object 3 with mass 0.25.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 115,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 116,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.61, compared to object 3 with mass 1.55.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 116,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 117,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 9.99, compared to object 3 with mass 0.38.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 117,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 118,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 1.93, compared to object 2 with mass 0.52.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 118,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 119,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 3.84, compared to object 5 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 119,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 120,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 4.24, compared to object 4 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 120,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 121,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 3.95, compared to object 1 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 121,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 122,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 8.51, compared to object 3 with mass 0.21.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 122,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 123,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 7.68, compared to object 5 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 123,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 124,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 7.67, compared to object 1 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 124,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 125,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.92, compared to object 3 with mass 0.20.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 125,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 126,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.31, compared to object 1 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 126,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 127,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 3.68, compared to object 4 with mass 0.25.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 127,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 128,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 8.85, compared to object 6 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 128,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 129,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 4.39, compared to object 3 with mass 0.35.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 129,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 130,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 7.02, compared to object 3 with mass 0.41.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 130,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 131,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 3.87, compared to object 2 with mass 0.36.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 131,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 132,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 7.00, compared to object 4 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 132,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 133,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.13, compared to object 3 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 133,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 134,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 7.30, compared to object 1 with mass 0.20.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 134,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 135,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 4.38, compared to object 5 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 135,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 136,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 3.32, compared to object 2 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 136,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 137,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 8.36, compared to object 3 with mass 0.18.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 137,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 138,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.17, compared to object 3 with mass 0.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 138,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 139,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 5.90, compared to object 2 with mass 0.79.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 139,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 140,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.78, compared to object 5 with mass 0.38.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 140,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 141,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 6.39, compared to object 3 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 141,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 142,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 5.75, compared to object 1 with mass 1.47.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 142,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 143,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.18, compared to object 4 with mass 0.44.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 143,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 144,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 5.55, compared to object 1 with mass 1.86.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 144,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 145,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 5.07, compared to object 3 with mass 0.41.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 145,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 146,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.73, compared to object 3 with mass 1.68.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 146,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 147,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 4.51, compared to object 1 with mass 0.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 147,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 148,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 9.57, compared to object 1 with mass 0.15.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 148,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 149,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 3.86, compared to object 2 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 149,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 150,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 8.46, compared to object 2 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 150,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 151,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 2.56, compared to object 4 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 151,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 152,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 8.17, compared to object 2 with mass 0.34.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 152,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 153,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.69, compared to object 1 with mass 0.15.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 153,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 154,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 7.12, compared to object 4 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 154,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 155,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 6 is heavier with mass 9.24, compared to object 4 with mass 0.44.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 155,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 156,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 4.40, compared to object 2 with mass 0.15.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 156,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 157,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.64, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 157,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 158,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.13, compared to object 2 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 158,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 159,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 2.33, compared to object 2 with mass 0.95.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 159,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 160,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.28, compared to object 1 with mass 0.77.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 160,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 161,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 0.49, compared to object 2 with mass 0.15.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 161,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 162,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 4.21, compared to object 4 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 162,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 163,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 4.43, compared to object 5 with mass 0.19.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 163,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 164,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 9.87, compared to object 5 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 164,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 165,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 5.86, compared to object 1 with mass 0.98.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 165,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 166,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 7.13, compared to object 2 with mass 0.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 166,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 167,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 3.03, compared to object 3 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 167,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 168,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.33, compared to object 4 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 168,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 169,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 1.93, compared to object 2 with mass 0.26.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 169,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 170,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 3.74, compared to object 1 with mass 0.39.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 170,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 171,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.58, compared to object 3 with mass 0.62.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 171,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 172,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 6.40, compared to object 2 with mass 0.13.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 172,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 173,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 9.75, compared to object 1 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 173,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 174,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 8.69, compared to object 2 with mass 0.50.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 174,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 175,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 5 is heavier with mass 6.49, compared to object 4 with mass 0.48.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 175,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 176,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.96, compared to object 4 with mass 0.21.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 176,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 177,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.44, compared to object 1 with mass 0.39.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 177,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 178,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 6.83, compared to object 1 with mass 0.23.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 178,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 179,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 6.38, compared to object 1 with mass 0.34.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 179,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 180,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 6.18, compared to object 1 with mass 2.55.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 180,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 181,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 2.49, compared to object 3 with mass 0.42.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 181,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 182,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.85, compared to object 3 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 182,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 183,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 9.93, compared to object 3 with mass 0.29.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 183,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 184,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 7.97, compared to object 5 with mass 0.16.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 184,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 185,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 5.08, compared to object 2 with mass 0.22.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 185,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 186,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 3.15, compared to object 3 with mass 0.37.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 186,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 187,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 6.81, compared to object 2 with mass 0.10.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 187,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 188,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 3 is heavier with mass 9.68, compared to object 4 with mass 0.63.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 188,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 189,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 5.51, compared to object 2 with mass 0.20.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 189,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 190,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 2.17, compared to object 3 with mass 0.35.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 190,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 191,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 1 is heavier with mass 1.44, compared to object 2 with mass 0.17.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 191,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 192,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 1.01, compared to object 2 with mass 0.37.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 192,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 193,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 6.16, compared to object 2 with mass 0.14.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 193,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 194,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 6.91, compared to object 1 with mass 0.43.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 194,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 195,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 4.46, compared to object 6 with mass 0.12.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 195,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 196,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 8.06, compared to object 3 with mass 1.53.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 196,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 197,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 6.05, compared to object 1 with mass 0.31.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 197,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 198,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 4 is heavier with mass 1.10, compared to object 1 with mass 0.11.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 198,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  },
+  {
+    "scene_idx": 199,
+    "question": "Which object in this scene is heavier?",
+    "answer": "Object 2 is heavier with mass 3.00, compared to object 4 with mass 0.28.",
+    "property": "mass"
+  },
+  {
+    "scene_idx": 199,
+    "question": "Will this arrangement of objects remain stable?",
+    "answer": "Yes, this arrangement appears stable.",
+    "property": "stability"
+  }
+]

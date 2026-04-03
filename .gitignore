@@ -73,3 +73,4 @@ multirun/
 # SLURM logs
 slurm-*.out
 *.sbatch.log
+results/*/activations/
