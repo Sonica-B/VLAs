@@ -124,6 +124,42 @@ fine-tuning the LLM.
 
 ---
 
+## Phase 4: Multi-Model Baselines (PREDICTIONS — not yet tested)
+
+Evaluating 4 additional SOTA VLMs to test generality of the merger bottleneck
+hypothesis. If the physics degradation pattern holds across architecturally
+different models, the finding is much stronger for NeurIPS.
+
+### PhysBench Accuracy Predictions
+
+| Model | Architecture | Expected PhysBench Test | Rationale |
+|---|---|---|---|
+| Qwen3-VL-8B | SigLIP-2 → 2-layer MLP merger → Qwen3 decoder | 48-52% | Newer than Qwen2.5, improved encoder + merger |
+| InternVL3-8B | InternViT → MLP projector → InternLM2 | 45-50% | SOTA open-source, strong reasoning capability |
+| Gemma 3 12B | SigLIP → projection → Gemma decoder | 42-48% | Larger model but general-purpose, not physics-tuned |
+| GLM-4.5V | AIMv2-Huge → MLP adapter → GLM-4.5 MoE (106B/12B active) | 50-55% | 3D-RoPE for spatial understanding, MoE capacity |
+| Our Qwen2.5-VL-7B (measured) | — | 44.0% | Measured baseline for comparison |
+
+### Probing R² Predictions (mass, encoder stage)
+
+| Model | Expected R² mass (encoder) | Expected degradation pattern | Rationale |
+|---|---|---|---|
+| Qwen3-VL-8B | 0.50-0.60 | Similar merger bottleneck (same arch family) | SigLIP-2 encoder likely similar to Qwen2.5's SigLIP |
+| InternVL3-8B | 0.45-0.55 | Different ViT, same MLP projection pattern | InternViT is different encoder, but MLP projector is similar bottleneck |
+| Gemma 3 12B | 0.40-0.50 | SigLIP encoder, novel projection layer | Different projection design may show different degradation |
+| GLM-4.5V | 0.55-0.65 | AIMv2 encoder, 3D-RoPE might preserve spatial | 3D-RoPE positional encoding could help retain physics info |
+
+### Key hypotheses for multi-model comparison
+
+| Hypothesis | Test | Expected |
+|---|---|---|
+| H5: Merger bottleneck is universal | Compare R² drop at projection across 4 models | All show encoder→projection R² drop |
+| H5b: Architecture affects degradation | Compare degradation magnitude | GLM-4.5V (3D-RoPE) shows least degradation |
+| H6: Encoder quality predicts physics | Correlate encoder R² with PhysBench accuracy | Positive correlation across models |
+| H6b: Best encoder ≠ best downstream | Compare encoder R² rank vs PhysBench rank | Ranks differ (projection quality matters) |
+
+---
+
 ## Appendix: Published Baselines (PhysBench paper)
 
 | Model | Published Test Accuracy |
