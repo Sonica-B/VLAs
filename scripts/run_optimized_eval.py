@@ -111,7 +111,7 @@ def check_dependencies():
     if torch.cuda.is_available():
         name = torch.cuda.get_device_name(0)
         props = torch.cuda.get_device_properties(0)
-        mem = props.total_mem / 1e9
+        mem = props.total_memory / 1e9
         print(f"  GPU: {name} ({mem:.0f}GB)")
         # Check compute capability for bf16
         cc = (props.major, props.minor)
@@ -211,6 +211,12 @@ def try_compile(model, model_name: str):
     """Attempt torch.compile on model for faster inference."""
     if not hasattr(torch, "compile"):
         return model
+    # torch.compile requires triton, which is not available on Windows
+    try:
+        import triton  # noqa: F401
+    except ImportError:
+        print(f"  torch.compile skipped for {model_name}: triton not available")
+        return model
     try:
         model.forward = torch.compile(model.forward, mode="reduce-overhead", fullgraph=False)
         print(f"  torch.compile applied to {model_name} (reduce-overhead mode)")
@@ -293,15 +299,33 @@ def load_internvl3(model_id: str) -> tuple:
     if model is None:
         attn_impl = get_attn_implementation()
         print(f"  Loading with bitsandbytes 4-bit, attention={attn_impl}")
-        model = AutoModel.from_pretrained(
-            model_id,
-            quantization_config=make_bnb_4bit_config(),
-            device_map="auto",
-            torch_dtype=torch.bfloat16,
-            attn_implementation=attn_impl,
-            trust_remote_code=True,
-            low_cpu_mem_usage=True,
-        )
+        try:
+            model = AutoModel.from_pretrained(
+                model_id,
+                quantization_config=make_bnb_4bit_config(),
+                device_map="auto",
+                torch_dtype=torch.bfloat16,
+                attn_implementation=attn_impl,
+                trust_remote_code=True,
+                low_cpu_mem_usage=True,
+            )
+        except (ValueError, RuntimeError) as e:
+            err_str = str(e)
+            # InternVL custom code calls .item() during init which is incompatible
+            # with meta tensors (used by bnb quantization and device_map="auto").
+            # Fall back to bf16 on CPU, then move to GPU.
+            if ("meta tensors" in err_str or "scaled_dot_product_attention" in err_str):
+                print(f"  bnb 4-bit failed ({type(e).__name__}), falling back to bf16 on CPU then GPU")
+                model = AutoModel.from_pretrained(
+                    model_id,
+                    torch_dtype=torch.bfloat16,
+                    attn_implementation="eager",
+                    trust_remote_code=True,
+                    low_cpu_mem_usage=False,
+                )
+                model = model.cuda()
+            else:
+                raise
 
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     model.eval()
