@@ -634,18 +634,48 @@ def evaluate_model(
 # ---------------------------------------------------------------------------
 
 def unload_model(model, processor):
-    """Free GPU memory between model evaluations."""
+    """Aggressively free GPU memory between model evaluations.
+
+    Moves model to CPU, deletes references, runs multi-pass GC, clears CUDA
+    cache, and verifies memory was actually freed. Critical for sequential
+    evaluation on 16GB consumer GPUs.
+    """
+    # Move model to CPU first (helps with some quantized models)
+    try:
+        if hasattr(model, "cpu"):
+            model.cpu()
+    except Exception:
+        pass
+
     del model
     del processor
+
+    # Multi-pass garbage collection to catch cyclic references
     gc.collect()
+    gc.collect()
+
     if torch.cuda.is_available():
         torch.cuda.empty_cache()
         torch.cuda.synchronize()
+        torch.cuda.reset_peak_memory_stats()
+
     # Brief pause to let memory settle
     time.sleep(2)
+
     if torch.cuda.is_available():
-        vram = torch.cuda.memory_allocated() / 1e9
-        print(f"  VRAM after cleanup: {vram:.2f} GB")
+        free_mem, total_mem = torch.cuda.mem_get_info()
+        free_gb = free_mem / 1e9
+        total_gb = total_mem / 1e9
+        usage_pct = (total_gb - free_gb) / total_gb * 100 if total_gb > 0 else 0
+        print(f"  GPU memory after unload: {free_gb:.1f} / {total_gb:.1f} GB free ({usage_pct:.0f}% used)")
+        if free_gb < total_gb * 0.75:
+            print(f"  WARNING: GPU not fully freed. Attempting forceful cleanup...")
+            gc.collect()
+            torch.cuda.empty_cache()
+            torch.cuda.synchronize()
+            time.sleep(3)
+            free_mem, total_mem = torch.cuda.mem_get_info()
+            print(f"  After second cleanup: {free_mem/1e9:.1f} / {total_mem/1e9:.1f} GB free")
 
 
 # ---------------------------------------------------------------------------
