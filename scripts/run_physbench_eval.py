@@ -41,6 +41,8 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
+os.environ.setdefault("PYTORCH_CUDA_ALLOC_CONF", "expandable_segments:True")
+
 import torch
 
 
@@ -131,7 +133,11 @@ def format_question_for_vlm(item: dict, media_paths: list) -> tuple:
             path = media_paths[media_idx]
             media_idx += 1
             if path and os.path.exists(path):
-                content.append({"type": "image", "image": f"file://{path}"})
+                content.append({
+                    "type": "image", "image": path,
+                    "max_pixels": 256 * 256,
+                    "min_pixels": 28 * 28,
+                })
                 has_media = True
             else:
                 content.append({"type": "text", "text": "[image unavailable]"})
@@ -139,7 +145,10 @@ def format_question_for_vlm(item: dict, media_paths: list) -> tuple:
             path = media_paths[media_idx]
             media_idx += 1
             if path and os.path.exists(path):
-                content.append({"type": "video", "video": f"file://{path}"})
+                content.append({
+                    "type": "video", "video": path,
+                    "nframes": 4,
+                })
                 has_media = True
             else:
                 content.append({"type": "text", "text": "[video unavailable]"})
@@ -249,7 +258,7 @@ def run_inference(model, processor, messages: list, max_new_tokens: int = 32) ->
     # Apply chat template
     text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
-    # Process vision inputs
+    # Process vision inputs (pixel limits set in format_question_for_vlm)
     image_inputs, video_inputs = process_vision_info(messages)
 
     inputs = processor(
@@ -273,6 +282,10 @@ def run_inference(model, processor, messages: list, max_new_tokens: int = 32) ->
     input_len = inputs["input_ids"].shape[1]
     generated = output_ids[0][input_len:]
     response = processor.decode(generated, skip_special_tokens=True)
+
+    # Free VRAM after each inference
+    del inputs, output_ids
+    torch.cuda.empty_cache()
 
     return response
 
