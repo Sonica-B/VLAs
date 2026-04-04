@@ -14,7 +14,7 @@ paper (Option C: Where Does Physics Understanding Break Down in VLMs?).
 | Metric | Expected | Actual | Status |
 |---|---|---|---|
 | PhysBench val accuracy | 35-45% (published Qwen2-VL-7B: 37%) | **60.31%** | BETTER than expected |
-| PhysBench test accuracy | 35-45% | **PENDING** (running) | |
+| PhysBench test accuracy | 35-45% | **44.0%** (4311/9797) | IN RANGE |
 | Val: dynamics domain | ~35% | 61.5% | BETTER |
 | Val: property domain | ~40% | 63.9% | BETTER |
 | Val: relationships domain | ~35% | 66.0% | BETTER |
@@ -134,4 +134,4 @@ fine-tuning the LLM.
 | InternVL2-76B | 42.2% |
 | Qwen2-VL-7B | 37.0% |
 | **Our Qwen2.5-VL-7B (4bit) — val** | **60.31%** |
-| **Our Qwen2.5-VL-7B (4bit) — test** | **PENDING** |
+| **Our Qwen2.5-VL-7B (4bit) — test** | **44.0%** |
