@@ -1,0 +1,285 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+W0404 00:31:12.836000 7220 torch\utils\flop_counter.py:29] triton not found; flop counting will not work for triton kernels
+PhysBench Evaluation
+  Model: Qwen/Qwen2.5-VL-7B-Instruct
+  Split: test
+  Data dir: D:\WPI Assignments\AlgoVerse\VLAs\data\physbench
+  Output dir: D:\WPI Assignments\AlgoVerse\VLAs\results\physbench\Qwen2.5-VL-7B-Instruct_baseline
+Loaded 9802 questions from D:\WPI Assignments\AlgoVerse\VLAs\data\physbench\test.json
+
+Dataset distribution:
+  dynamics: 2932
+  property: 2542
+  relationships: 2088
+  scene: 2240
+
+Loading model: Qwen/Qwen2.5-VL-7B-Instruct
+  Quantization: 4bit
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files: 100%|##########| 5/5 [00:00<00:00, 23537.06it/s]
+C:\Users\shrey\AppData\Roaming\Python\Python314\site-packages\accelerate\utils\modeling.py:804: UserWarning: expandable_segments not supported on this platform (Triggered internally at C:\actions-runner\_work\pytorch\pytorch\pytorch\c10/cuda/CUDAAllocatorConfig.h:39.)
+  _ = torch.tensor([0], device=i)
+Loading weights:   0%|          | 0/729 [00:00<?, ?it/s]Loading weights:   0%|          | 1/729 [00:00<07:58,  1.52it/s]Loading weights:   0%|          | 2/729 [00:01<08:07,  1.49it/s]C:\Users\shrey\AppData\Roaming\Python\Python314\site-packages\bitsandbytes\backends\cuda\ops.py:213: FutureWarning: _check_is_size will be removed in a future PyTorch release along with guard_size_oblivious.     Use _check(i >= 0) instead.
+  torch._check_is_size(blocksize)
+Loading weights:   1%|          | 4/729 [00:01<03:45,  3.21it/s]Loading weights:   1%|          | 6/729 [00:01<02:30,  4.80it/s]Loading weights:   2%|2         | 16/729 [00:01<00:41, 17.06it/s]Loading weights:   3%|2         | 20/729 [00:02<00:39, 18.12it/s]Loading weights:   4%|3         | 28/729 [00:02<00:26, 26.16it/s]Loading weights:   4%|4         | 32/729 [00:02<00:27, 25.05it/s]Loading weights:   5%|5         | 40/729 [00:02<00:21, 31.92it/s]Loading weights:   6%|6         | 44/729 [00:02<00:22, 29.88it/s]Loading weights:   7%|7         | 52/729 [00:02<00:18, 35.81it/s]Loading weights:   8%|7         | 56/729 [00:03<00:20, 32.47it/s]Loading weights:   9%|8         | 64/729 [00:03<00:17, 38.37it/s]Loading weights:   9%|9         | 69/729 [00:03<00:18, 34.85it/s]Loading weights:  10%|#         | 76/729 [00:03<00:17, 37.74it/s]Loading weights:  11%|#         | 80/729 [00:03<00:19, 33.28it/s]Loading weights:  12%|#2        | 88/729 [00:03<00:16, 38.53it/s]Loading weights:  13%|#2        | 92/729 [00:03<00:18, 34.26it/s]Loading weights:  14%|#3        | 100/729 [00:04<00:16, 39.15it/s]Loading weights:  14%|#4        | 104/729 [00:04<00:18, 34.52it/s]Loading weights:  15%|#5        | 112/729 [00:04<00:15, 39.28it/s]Loading weights:  16%|#5        | 116/729 [00:04<00:18, 33.24it/s]Loading weights:  17%|#7        | 124/729 [00:04<00:15, 37.82it/s]Loading weights:  18%|#7        | 128/729 [00:04<00:17, 33.40it/s]Loading weights:  19%|#8        | 136/729 [00:05<00:15, 38.83it/s]Loading weights:  19%|#9        | 140/729 [00:05<00:17, 34.12it/s]Loading weights:  20%|##        | 148/729 [00:05<00:14, 39.34it/s]Loading weights:  21%|##        | 153/729 [00:05<00:16, 35.45it/s]Loading weights:  22%|##1       | 160/729 [00:05<00:14, 38.65it/s]Loading weights:  22%|##2       | 164/729 [00:05<00:16, 34.22it/s]Loading weights:  24%|##3       | 172/729 [00:06<00:14, 39.15it/s]Loading weights:  24%|##4       | 176/729 [00:06<00:15, 34.85it/s]Loading weights:  25%|##5       | 184/729 [00:06<00:13, 39.71it/s]Loading weights:  26%|##5       | 189/729 [00:06<00:15, 34.76it/s]Loading weights:  27%|##6       | 196/729 [00:06<00:14, 37.63it/s]Loading weights:  27%|##7       | 200/729 [00:06<00:15, 33.29it/s]Loading weights:  29%|##8       | 208/729 [00:07<00:13, 38.19it/s]Loading weights:  29%|##9       | 212/729 [00:07<00:15, 33.62it/s]Loading weights:  30%|###       | 220/729 [00:07<00:13, 38.33it/s]Loading weights:  31%|###       | 224/729 [00:07<00:15, 32.16it/s]Loading weights:  32%|###1      | 232/729 [00:07<00:13, 35.96it/s]Loading weights:  32%|###2      | 236/729 [00:08<00:15, 31.72it/s]Loading weights:  33%|###3      | 244/729 [00:08<00:12, 37.44it/s]Loading weights:  34%|###4      | 248/729 [00:08<00:14, 33.24it/s]Loading weights:  35%|###5      | 256/729 [00:08<00:12, 37.87it/s]Loading weights:  36%|###5      | 260/729 [00:08<00:14, 33.39it/s]Loading weights:  37%|###6      | 268/729 [00:08<00:12, 37.44it/s]Loading weights:  37%|###7      | 272/729 [00:09<00:13, 32.83it/s]Loading weights:  38%|###8      | 280/729 [00:09<00:11, 38.04it/s]Loading weights:  39%|###8      | 284/729 [00:09<00:13, 33.11it/s]Loading weights:  40%|####      | 292/729 [00:09<00:11, 36.73it/s]Loading weights:  41%|####      | 296/729 [00:09<00:13, 32.00it/s]Loading weights:  42%|####1     | 304/729 [00:09<00:11, 36.45it/s]Loading weights:  42%|####2     | 308/729 [00:10<00:12, 32.50it/s]Loading weights:  43%|####3     | 316/729 [00:10<00:11, 37.41it/s]Loading weights:  44%|####3     | 320/729 [00:10<00:12, 33.62it/s]Loading weights:  45%|####4     | 328/729 [00:10<00:10, 37.98it/s]Loading weights:  46%|####5     | 332/729 [00:10<00:11, 33.32it/s]Loading weights:  48%|####8     | 353/729 [00:10<00:05, 68.36it/s]Loading weights:  53%|#####2    | 385/729 [00:10<00:02, 123.62it/s]Loading weights:  57%|#####7    | 419/729 [00:11<00:01, 173.27it/s]Loading weights:  62%|######2   | 455/729 [00:11<00:01, 216.48it/s]Loading weights:  67%|######7   | 489/729 [00:11<00:00, 248.78it/s]Loading weights:  72%|#######2  | 525/729 [00:11<00:00, 274.75it/s]Loading weights:  77%|#######6  | 561/729 [00:11<00:00, 293.15it/s]Loading weights:  82%|########1 | 595/729 [00:11<00:00, 302.42it/s]Loading weights:  86%|########6 | 627/729 [00:11<00:00, 300.26it/s]Loading weights:  90%|######### | 658/729 [00:11<00:00, 300.16it/s]Loading weights:  95%|#########4| 691/729 [00:11<00:00, 305.30it/s]Loading weights:  99%|#########9| 722/729 [00:11<00:00, 304.70it/s]Loading weights: 100%|##########| 729/729 [00:12<00:00, 60.52it/s] 
+qwen-vl-utils using decord to read video.
+C:\Users\shrey\AppData\Roaming\Python\Python314\site-packages\bitsandbytes\backends\cuda\ops.py:468: FutureWarning: _check_is_size will be removed in a future PyTorch release along with guard_size_oblivious.     Use _check(i >= 0) instead.
+  torch._check_is_size(blocksize)
+  Parameters: 4.7B
+  VRAM used: 5.9 GB
+  [50/9802] Acc: 50.0% (25/50) | Skip: 0 Err: 0 | 0.5 q/s | ETA: 335.3min
+  [100/9802] Acc: 59.0% (59/100) | Skip: 0 Err: 0 | 0.4 q/s | ETA: 418.9min
+  [150/9802] Acc: 64.0% (96/150) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 718.2min
+  [200/9802] Acc: 64.0% (128/200) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 910.0min
+  [250/9802] Acc: 62.8% (157/250) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 1030.3min
+  [300/9802] Acc: 58.7% (176/300) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1108.9min
+  [350/9802] Acc: 55.4% (194/350) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1162.3min
+  [400/9802] Acc: 52.5% (210/400) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1200.1min
+  [450/9802] Acc: 51.3% (231/450) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1227.4min
+  [500/9802] Acc: 50.6% (253/500) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1247.7min
+  [550/9802] Acc: 49.5% (272/550) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1262.9min
+  [600/9802] Acc: 48.0% (288/600) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1274.5min
+  [650/9802] Acc: 47.1% (306/650) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1282.9min
+  [700/9802] Acc: 45.6% (319/700) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1269.1min
+  [750/9802] Acc: 45.6% (342/750) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1220.9min
+  [800/9802] Acc: 45.6% (365/800) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1178.8min
+  [850/9802] Acc: 45.9% (390/850) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1141.0min
+  [900/9802] Acc: 45.7% (411/900) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1107.0min
+  [950/9802] Acc: 46.9% (446/950) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 1050.0min
+  [1000/9802] Acc: 47.6% (476/1000) | Skip: 0 Err: 0 | 0.1 q/s | ETA: 996.9min
+  [1050/9802] Acc: 47.8% (502/1050) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 949.0min
+  [1100/9802] Acc: 47.9% (527/1100) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 905.4min
+  [1150/9802] Acc: 48.6% (559/1150) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 877.3min
+  [1200/9802] Acc: 47.7% (572/1200) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 861.6min
+  [1250/9802] Acc: 46.5% (581/1250) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 846.8min
+  [1300/9802] Acc: 46.4% (603/1300) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 824.3min
+  [1350/9802] Acc: 47.5% (641/1350) | Skip: 0 Err: 0 | 0.2 q/s | ETA: 792.7min
+  ERROR on item 1391: 
+  ERROR on item 1392: 
+  ERROR on item 1395: 
+  ERROR on item 1396: 
+  ERROR on item 1397: 
+  [1400/9802] Acc: 48.2% (672/1395) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 767.7min
+  [1450/9802] Acc: 48.7% (704/1445) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 740.7min
+  [1500/9802] Acc: 50.0% (748/1495) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 718.3min
+  [1550/9802] Acc: 50.7% (783/1545) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 694.1min
+  [1600/9802] Acc: 50.8% (811/1595) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 676.8min
+  [1650/9802] Acc: 51.1% (841/1645) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 658.0min
+  [1700/9802] Acc: 50.9% (862/1695) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 649.3min
+  [1750/9802] Acc: 50.2% (876/1745) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 643.3min
+  [1800/9802] Acc: 49.9% (896/1795) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 633.5min
+  [1850/9802] Acc: 49.6% (915/1845) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 617.3min
+  [1900/9802] Acc: 49.3% (934/1895) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 602.0min
+  [1950/9802] Acc: 49.0% (954/1945) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 587.5min
+  [2000/9802] Acc: 48.8% (974/1995) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 574.1min
+  [2050/9802] Acc: 48.4% (989/2045) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 561.2min
+  [2100/9802] Acc: 48.4% (1013/2095) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 548.5min
+  [2150/9802] Acc: 48.1% (1031/2145) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 536.3min
+  [2200/9802] Acc: 47.8% (1049/2195) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 524.5min
+  [2250/9802] Acc: 47.7% (1070/2245) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 513.3min
+  [2300/9802] Acc: 47.8% (1096/2295) | Skip: 0 Err: 5 | 0.2 q/s | ETA: 502.5min
+  [2350/9802] Acc: 47.3% (1109/2345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 492.1min
+  [2400/9802] Acc: 47.1% (1128/2395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 482.2min
+  [2450/9802] Acc: 47.0% (1148/2445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 472.6min
+  [2500/9802] Acc: 46.7% (1166/2495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 463.3min
+  [2550/9802] Acc: 46.5% (1183/2545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 454.3min
+  [2600/9802] Acc: 46.3% (1201/2595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 445.7min
+  [2650/9802] Acc: 46.1% (1219/2645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 437.3min
+  [2700/9802] Acc: 45.9% (1237/2695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 429.2min
+  [2750/9802] Acc: 45.7% (1254/2745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 421.4min
+  [2800/9802] Acc: 45.3% (1266/2795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 413.8min
+  [2850/9802] Acc: 45.2% (1286/2845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 406.4min
+  [2900/9802] Acc: 45.1% (1305/2895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 399.2min
+  [2950/9802] Acc: 45.2% (1331/2945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 392.3min
+  [3000/9802] Acc: 44.9% (1346/2995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 385.5min
+  [3050/9802] Acc: 44.7% (1360/3045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 378.9min
+  [3100/9802] Acc: 44.5% (1377/3095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 372.5min
+  [3150/9802] Acc: 44.3% (1393/3145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 368.2min
+  [3200/9802] Acc: 44.1% (1409/3195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 367.2min
+  [3250/9802] Acc: 43.8% (1422/3245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 366.0min
+  [3300/9802] Acc: 43.6% (1437/3295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 364.8min
+  [3350/9802] Acc: 43.5% (1456/3345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 360.5min
+  [3400/9802] Acc: 43.4% (1474/3395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 353.4min
+  [3450/9802] Acc: 43.3% (1491/3445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 346.6min
+  [3500/9802] Acc: 43.2% (1510/3495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 340.0min
+  [3550/9802] Acc: 43.0% (1525/3545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 333.5min
+  [3600/9802] Acc: 42.9% (1541/3595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 327.2min
+  [3650/9802] Acc: 42.9% (1562/3645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 321.0min
+  [3700/9802] Acc: 42.8% (1582/3695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 315.0min
+  [3750/9802] Acc: 42.6% (1596/3745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 313.7min
+  [3800/9802] Acc: 42.5% (1612/3795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 312.0min
+  [3850/9802] Acc: 42.0% (1614/3845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 306.7min
+  [3900/9802] Acc: 41.6% (1622/3895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 302.2min
+  [3950/9802] Acc: 41.5% (1636/3945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 301.2min
+  [4000/9802] Acc: 41.3% (1648/3995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 300.1min
+  [4050/9802] Acc: 41.0% (1660/4045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 296.9min
+  [4100/9802] Acc: 40.9% (1676/4095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 295.7min
+  [4150/9802] Acc: 40.7% (1689/4145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 294.5min
+  [4200/9802] Acc: 40.6% (1703/4195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 293.2min
+  [4250/9802] Acc: 40.6% (1722/4245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 290.5min
+  [4300/9802] Acc: 40.5% (1741/4295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 288.1min
+  [4350/9802] Acc: 40.5% (1761/4345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 286.7min
+  [4400/9802] Acc: 40.5% (1781/4395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 285.2min
+  [4450/9802] Acc: 40.6% (1803/4445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 283.7min
+  [4500/9802] Acc: 40.7% (1831/4495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 282.2min
+  [4550/9802] Acc: 40.7% (1851/4545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 280.6min
+  [4600/9802] Acc: 40.7% (1869/4595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 278.9min
+  [4650/9802] Acc: 40.7% (1891/4645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 277.2min
+  [4700/9802] Acc: 40.8% (1916/4695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 275.4min
+  [4750/9802] Acc: 40.8% (1937/4745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 273.6min
+  [4800/9802] Acc: 40.8% (1954/4795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 271.7min
+  [4850/9802] Acc: 40.6% (1965/4845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 269.9min
+  [4900/9802] Acc: 40.7% (1990/4895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 268.0min
+  [4950/9802] Acc: 40.6% (2007/4945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 266.1min
+  [5000/9802] Acc: 40.6% (2028/4995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 264.2min
+  [5050/9802] Acc: 40.5% (2043/5045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 262.2min
+  [5100/9802] Acc: 40.4% (2060/5095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 260.2min
+  [5150/9802] Acc: 40.5% (2085/5145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 258.2min
+  [5200/9802] Acc: 40.6% (2108/5195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 256.1min
+  [5250/9802] Acc: 40.6% (2131/5245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 254.0min
+  [5300/9802] Acc: 40.6% (2149/5295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 251.9min
+  [5350/9802] Acc: 40.6% (2170/5345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 249.7min
+  [5400/9802] Acc: 40.7% (2194/5395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 247.5min
+  [5450/9802] Acc: 40.6% (2208/5445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 245.3min
+  [5500/9802] Acc: 40.5% (2223/5495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 243.0min
+  [5550/9802] Acc: 40.4% (2242/5545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 240.7min
+  [5600/9802] Acc: 40.4% (2261/5595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 238.4min
+  [5650/9802] Acc: 40.5% (2285/5645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 236.1min
+  [5700/9802] Acc: 40.5% (2306/5695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 233.7min
+  [5750/9802] Acc: 40.4% (2321/5745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 231.4min
+  [5800/9802] Acc: 40.3% (2338/5795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 229.0min
+  [5850/9802] Acc: 40.4% (2360/5845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 226.6min
+  [5900/9802] Acc: 40.4% (2379/5895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 224.1min
+  [5950/9802] Acc: 40.3% (2395/5945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 221.7min
+  [6000/9802] Acc: 40.3% (2414/5995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 219.2min
+  [6050/9802] Acc: 40.2% (2431/6045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 216.8min
+  [6100/9802] Acc: 40.1% (2443/6095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 214.3min
+  [6150/9802] Acc: 40.0% (2456/6145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 211.8min
+  [6200/9802] Acc: 40.0% (2476/6195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 208.9min
+  [6250/9802] Acc: 39.9% (2492/6245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 206.4min
+  [6300/9802] Acc: 39.9% (2511/6295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 203.9min
+  [6350/9802] Acc: 39.8% (2527/6345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 201.3min
+  [6400/9802] Acc: 39.7% (2539/6395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 198.7min
+  [6450/9802] Acc: 39.6% (2553/6445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 196.2min
+  [6500/9802] Acc: 39.6% (2572/6495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 193.6min
+  [6550/9802] Acc: 39.8% (2602/6545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 190.9min
+  [6600/9802] Acc: 39.7% (2621/6595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 188.3min
+  [6650/9802] Acc: 39.6% (2632/6645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 184.5min
+  [6700/9802] Acc: 39.5% (2642/6695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 181.0min
+  [6750/9802] Acc: 39.3% (2653/6745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 177.9min
+  [6800/9802] Acc: 39.1% (2657/6795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 174.1min
+  [6850/9802] Acc: 39.0% (2671/6845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 171.5min
+  [6900/9802] Acc: 38.9% (2685/6895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 168.9min
+  [6950/9802] Acc: 38.8% (2696/6945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 166.0min
+  [7000/9802] Acc: 38.7% (2706/6995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 163.1min
+  [7050/9802] Acc: 38.6% (2719/7045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 160.5min
+  [7100/9802] Acc: 38.5% (2734/7095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 157.8min
+  [7150/9802] Acc: 38.5% (2751/7145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 155.1min
+  [7200/9802] Acc: 38.4% (2760/7195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 151.4min
+  [7250/9802] Acc: 38.7% (2802/7245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 148.4min
+  [7300/9802] Acc: 38.9% (2839/7295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 145.7min
+  [7350/9802] Acc: 39.2% (2879/7345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 143.0min
+  [7400/9802] Acc: 39.6% (2925/7395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 140.2min
+  [7450/9802] Acc: 39.8% (2965/7445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 137.5min
+  [7500/9802] Acc: 40.1% (3004/7495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 134.6min
+  [7550/9802] Acc: 40.4% (3048/7545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 131.9min
+  [7600/9802] Acc: 40.7% (3090/7595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 129.1min
+  [7650/9802] Acc: 40.9% (3130/7645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 126.2min
+  [7700/9802] Acc: 41.2% (3168/7695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 123.4min
+  [7750/9802] Acc: 41.4% (3208/7745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 120.6min
+  [7800/9802] Acc: 41.6% (3246/7795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 117.8min
+  [7850/9802] Acc: 41.9% (3284/7845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 115.0min
+  [7900/9802] Acc: 42.0% (3319/7895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 112.2min
+  [7950/9802] Acc: 42.2% (3356/7945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 109.3min
+  [8000/9802] Acc: 42.5% (3394/7995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 106.4min
+  [8050/9802] Acc: 42.7% (3438/8045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 103.6min
+  [8100/9802] Acc: 42.9% (3472/8095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 100.6min
+  [8150/9802] Acc: 42.9% (3496/8145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 97.6min
+  [8200/9802] Acc: 42.7% (3500/8195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 94.2min
+  [8250/9802] Acc: 42.9% (3536/8245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 90.8min
+  [8300/9802] Acc: 43.1% (3573/8295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 87.5min
+  [8350/9802] Acc: 43.0% (3592/8345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 84.5min
+  [8400/9802] Acc: 43.2% (3630/8395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 81.7min
+  [8450/9802] Acc: 43.5% (3671/8445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 78.9min
+  [8500/9802] Acc: 43.6% (3705/8495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 75.9min
+  [8550/9802] Acc: 43.6% (3723/8545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 72.7min
+  [8600/9802] Acc: 43.5% (3737/8595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 69.4min
+  [8650/9802] Acc: 43.4% (3750/8645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 66.3min
+  [8700/9802] Acc: 43.3% (3769/8695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 63.1min
+  [8750/9802] Acc: 43.3% (3789/8745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 60.0min
+  [8800/9802] Acc: 43.2% (3803/8795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 56.8min
+  [8850/9802] Acc: 43.2% (3824/8845) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 53.8min
+  [8900/9802] Acc: 43.2% (3840/8895) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 50.7min
+  [8950/9802] Acc: 43.2% (3860/8945) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 47.7min
+  [9000/9802] Acc: 43.1% (3879/8995) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 44.7min
+  [9050/9802] Acc: 43.2% (3909/9045) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 41.9min
+  [9100/9802] Acc: 43.3% (3942/9095) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 39.0min
+  [9150/9802] Acc: 43.5% (3976/9145) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 36.2min
+  [9200/9802] Acc: 43.6% (4013/9195) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 33.4min
+  [9250/9802] Acc: 43.7% (4041/9245) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 30.6min
+  [9300/9802] Acc: 43.8% (4072/9295) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 27.7min
+  [9350/9802] Acc: 43.7% (4085/9345) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 24.9min
+  [9400/9802] Acc: 43.7% (4108/9395) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 22.1min
+  [9450/9802] Acc: 44.0% (4152/9445) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 19.3min
+  [9500/9802] Acc: 44.1% (4186/9495) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 16.5min
+  [9550/9802] Acc: 44.2% (4222/9545) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 13.7min
+  [9600/9802] Acc: 44.2% (4239/9595) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 11.0min
+  [9650/9802] Acc: 44.1% (4250/9645) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 8.2min
+  [9700/9802] Acc: 44.0% (4267/9695) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 5.5min
+  [9750/9802] Acc: 44.0% (4291/9745) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 2.8min
+  [9800/9802] Acc: 44.0% (4311/9795) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 0.1min
+  [9802/9802] Acc: 44.0% (4311/9797) | Skip: 0 Err: 5 | 0.3 q/s | ETA: 0.0min
+
+======================================================================
+PHYSBENCH EVALUATION RESULTS - Qwen2.5-VL-7B-Instruct (4bit)
+======================================================================
+Overall Accuracy: 44.00% (4311/9797)
+Skipped: 0 | Errors: 5
+Time: 31406s (0.3 q/s)
+
+--- By Task Type (Domain) ---
+  dynamics                      :  41.1% (1202/2927)
+  property                      :  51.1% (1300/2542)
+  relationships                 :  47.4% (989/2088)
+  scene                         :  36.6% (820/2240)
+
+--- By Sub Type ---
+  air                           :  78.7% (37/47)
+  attribute                     :  43.4% (606/1397)
+  chemistry                     :  71.6% (48/67)
+  collision                     :  35.3% (228/645)
+  color                         :  76.5% (225/294)
+  depth                         :  61.8% (173/280)
+  distance                      :  72.2% (39/54)
+  fluid                         :  47.2% (303/642)
+  light                         :  37.1% (403/1086)
+  location                      :  66.3% (189/285)
+  manipulation                  :  23.2% (190/818)
+  mass                          :  49.5% (138/279)
+  motion                        :  38.9% (557/1433)
+  number                        :  57.9% (331/572)
+  others                        :  73.0% (252/345)
+  size                          :  86.1% (31/36)
+  temperature                   :  81.0% (47/58)
+  throwing                      :  44.1% (181/410)
+  viewpoint                     :  31.7% (333/1049)
+
+--- By Ability ---
+  comparison                    :  37.6% (535/1423)
+  dynamic                       :  72.0% (136/189)
+  identify                      :  68.4% (765/1119)
+  judgment                      :  27.2% (209/767)
+  perception                    :  56.3% (517/919)
+  prediction                    :  42.7% (609/1425)
+  reasoning                     :  33.4% (687/2056)
+  static                        :  44.9% (853/1899)
+
+--- Published Baselines (from PhysBench paper) ---
+  GPT-4o:                        49.5%
+  Gemini-1.5-Pro:                43.2%
+  Qwen2-VL-72B:                  46.8%
+  InternVL2-76B:                 42.2%
+  Qwen2-VL-7B:                   37.0%
+  Our result                    : 44.0%
+
+Detailed results saved to: D:\WPI Assignments\AlgoVerse\VLAs\results\physbench\Qwen2.5-VL-7B-Instruct_baseline\physbench_results.json
+Summary saved to: D:\WPI Assignments\AlgoVerse\VLAs\results\physbench\Qwen2.5-VL-7B-Instruct_baseline\physbench_summary.json

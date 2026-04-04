@@ -1,188 +1,188 @@
 {
   "model": "Qwen2.5-VL-7B-Instruct (4bit)",
-  "overall_accuracy": 60.31,
-  "correct": 117,
-  "total": 194,
+  "overall_accuracy": 44.0,
+  "correct": 4311,
+  "total": 9797,
   "skipped": 0,
-  "errors": 6,
-  "elapsed_seconds": 271.3,
-  "questions_per_second": 0.72,
+  "errors": 5,
+  "elapsed_seconds": 31406.2,
+  "questions_per_second": 0.31,
   "by_task_type": {
     "dynamics": {
-      "accuracy": 61.53846153846154,
-      "correct": 40,
-      "total": 65
+      "accuracy": 41.06593782029382,
+      "correct": 1202,
+      "total": 2927
     },
     "property": {
-      "accuracy": 63.888888888888886,
-      "correct": 23,
-      "total": 36
+      "accuracy": 51.140833988985044,
+      "correct": 1300,
+      "total": 2542
     },
     "relationships": {
-      "accuracy": 66.0,
-      "correct": 33,
-      "total": 50
+      "accuracy": 47.36590038314176,
+      "correct": 989,
+      "total": 2088
     },
     "scene": {
-      "accuracy": 48.837209302325576,
-      "correct": 21,
-      "total": 43
+      "accuracy": 36.607142857142854,
+      "correct": 820,
+      "total": 2240
     }
   },
   "by_sub_type": {
     "air": {
-      "accuracy": 87.5,
-      "correct": 7,
-      "total": 8
+      "accuracy": 78.72340425531915,
+      "correct": 37,
+      "total": 47
     },
     "attribute": {
-      "accuracy": 50.0,
-      "correct": 6,
-      "total": 12
+      "accuracy": 43.37866857551897,
+      "correct": 606,
+      "total": 1397
     },
     "chemistry": {
-      "accuracy": 71.42857142857143,
-      "correct": 5,
-      "total": 7
+      "accuracy": 71.64179104477611,
+      "correct": 48,
+      "total": 67
     },
     "collision": {
-      "accuracy": 57.14285714285714,
-      "correct": 4,
-      "total": 7
+      "accuracy": 35.348837209302324,
+      "correct": 228,
+      "total": 645
     },
     "color": {
-      "accuracy": 80.0,
-      "correct": 4,
-      "total": 5
+      "accuracy": 76.53061224489795,
+      "correct": 225,
+      "total": 294
     },
     "depth": {
-      "accuracy": 60.0,
-      "correct": 3,
-      "total": 5
+      "accuracy": 61.78571428571429,
+      "correct": 173,
+      "total": 280
     },
     "distance": {
-      "accuracy": 50.0,
-      "correct": 3,
-      "total": 6
+      "accuracy": 72.22222222222221,
+      "correct": 39,
+      "total": 54
     },
     "fluid": {
-      "accuracy": 85.71428571428571,
-      "correct": 6,
-      "total": 7
+      "accuracy": 47.19626168224299,
+      "correct": 303,
+      "total": 642
     },
     "light": {
-      "accuracy": 23.076923076923077,
-      "correct": 3,
-      "total": 13
+      "accuracy": 37.10865561694291,
+      "correct": 403,
+      "total": 1086
     },
     "location": {
-      "accuracy": 66.66666666666666,
-      "correct": 4,
-      "total": 6
+      "accuracy": 66.3157894736842,
+      "correct": 189,
+      "total": 285
     },
     "manipulation": {
-      "accuracy": 36.36363636363637,
-      "correct": 4,
-      "total": 11
+      "accuracy": 23.227383863080682,
+      "correct": 190,
+      "total": 818
     },
     "mass": {
-      "accuracy": 64.28571428571429,
-      "correct": 9,
-      "total": 14
+      "accuracy": 49.46236559139785,
+      "correct": 138,
+      "total": 279
     },
     "motion": {
-      "accuracy": 69.23076923076923,
-      "correct": 9,
-      "total": 13
+      "accuracy": 38.869504535938596,
+      "correct": 557,
+      "total": 1433
     },
     "number": {
-      "accuracy": 80.0,
-      "correct": 4,
-      "total": 5
+      "accuracy": 57.86713286713287,
+      "correct": 331,
+      "total": 572
     },
     "others": {
-      "accuracy": 77.27272727272727,
-      "correct": 17,
-      "total": 22
+      "accuracy": 73.04347826086956,
+      "correct": 252,
+      "total": 345
     },
     "size": {
-      "accuracy": 70.0,
-      "correct": 14,
-      "total": 20
+      "accuracy": 86.11111111111111,
+      "correct": 31,
+      "total": 36
     },
     "temperature": {
-      "accuracy": 80.0,
-      "correct": 8,
-      "total": 10
+      "accuracy": 81.03448275862068,
+      "correct": 47,
+      "total": 58
     },
     "throwing": {
-      "accuracy": 36.36363636363637,
-      "correct": 4,
-      "total": 11
+      "accuracy": 44.146341463414636,
+      "correct": 181,
+      "total": 410
     },
     "viewpoint": {
-      "accuracy": 25.0,
-      "correct": 3,
-      "total": 12
+      "accuracy": 31.744518589132507,
+      "correct": 333,
+      "total": 1049
     }
   },
   "by_ability_type": {
     "comparison": {
-      "accuracy": 40.0,
-      "correct": 4,
-      "total": 10
+      "accuracy": 37.596626844694306,
+      "correct": 535,
+      "total": 1423
     },
     "dynamic": {
-      "accuracy": 69.23076923076923,
-      "correct": 18,
-      "total": 26
+      "accuracy": 71.95767195767195,
+      "correct": 136,
+      "total": 189
     },
     "identify": {
-      "accuracy": 73.07692307692307,
-      "correct": 19,
-      "total": 26
+      "accuracy": 68.36461126005362,
+      "correct": 765,
+      "total": 1119
     },
     "judgment": {
-      "accuracy": 80.0,
-      "correct": 8,
-      "total": 10
+      "accuracy": 27.249022164276404,
+      "correct": 209,
+      "total": 767
     },
     "perception": {
-      "accuracy": 65.3061224489796,
-      "correct": 32,
-      "total": 49
+      "accuracy": 56.25680087051143,
+      "correct": 517,
+      "total": 919
     },
     "prediction": {
-      "accuracy": 27.77777777777778,
-      "correct": 5,
-      "total": 18
+      "accuracy": 42.73684210526316,
+      "correct": 609,
+      "total": 1425
     },
     "reasoning": {
-      "accuracy": 51.61290322580645,
-      "correct": 16,
-      "total": 31
+      "accuracy": 33.41439688715953,
+      "correct": 687,
+      "total": 2056
     },
     "static": {
-      "accuracy": 62.5,
-      "correct": 15,
-      "total": 24
+      "accuracy": 44.918378093733544,
+      "correct": 853,
+      "total": 1899
     }
   },
   "by_mode": {
     "general": {
-      "accuracy": 53.333333333333336,
-      "correct": 8,
-      "total": 15
+      "accuracy": 30.79381992541289,
+      "correct": 578,
+      "total": 1877
     },
     "image&video": {
-      "accuracy": 66.66666666666666,
-      "correct": 90,
-      "total": 135
+      "accuracy": 46.823369102367565,
+      "correct": 2749,
+      "total": 5871
     },
     "image-only": {
-      "accuracy": 43.18181818181818,
-      "correct": 19,
-      "total": 44
+      "accuracy": 48.02342606149341,
+      "correct": 984,
+      "total": 2049
     }
   }
 }
