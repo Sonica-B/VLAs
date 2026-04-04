@@ -514,6 +514,15 @@ def main():
     )
 
     args = parser.parse_args()
+
+    # Auto-detect high-VRAM GPUs (A100, H100) and use bf16 instead of 4-bit
+    if torch.cuda.is_available() and args.quantize == "4bit":
+        total_mem = torch.cuda.get_device_properties(0).total_mem
+        if total_mem > 40e9:  # >40GB VRAM
+            args.quantize = "none"
+            gpu_name = torch.cuda.get_device_name(0)
+            print(f"  A100 auto-detect ({gpu_name}, {total_mem / 1e9:.0f}GB): quantize -> none (bf16)")
+
     args.data_dir = os.path.abspath(args.data_dir)
     args.output_dir = os.path.abspath(args.output_dir)
 

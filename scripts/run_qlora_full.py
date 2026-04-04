@@ -2042,8 +2042,28 @@ Examples:
     return p.parse_args()
 
 
+def _auto_detect_gpu_defaults(args):
+    """Auto-detect GPU and adjust defaults for high-VRAM GPUs (A100, H100, etc.)."""
+    if not torch.cuda.is_available():
+        return
+    total_mem = torch.cuda.get_device_properties(0).total_mem
+    gpu_name = torch.cuda.get_device_name(0)
+    if total_mem > 40e9:  # >40GB VRAM (A100 80GB, H100, etc.)
+        # Only override if user didn't explicitly set these
+        if args.batch_size == 1:  # default was 1
+            args.batch_size = 4
+            print(f"  A100 auto-detect ({gpu_name}, {total_mem / 1e9:.0f}GB): batch_size -> 4")
+        if args.gradient_accumulation == 16:  # default was 16
+            args.gradient_accumulation = 4
+            print(f"  A100 auto-detect: gradient_accumulation -> 4")
+        if args.quantize == "4bit":  # default was 4bit
+            args.quantize = "none"
+            print(f"  A100 auto-detect: quantize -> none (bf16 is better with enough VRAM)")
+
+
 def main():
     args = parse_args()
+    _auto_detect_gpu_defaults(args)
     np.random.seed(args.seed)
     torch.manual_seed(args.seed)
 
