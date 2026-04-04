@@ -55,24 +55,21 @@ def load_physbench_data(data_dir: str, split: str = "test", max_samples: int = N
 
     if json_path.exists():
         with open(json_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+            content = f.read().strip()
+        # Support both JSON array and JSONL formats
+        if content.startswith("["):
+            data = json.loads(content)
+        else:
+            data = [json.loads(line) for line in content.splitlines() if line.strip()]
         # Filter by split if the JSON contains mixed splits
         if data and isinstance(data[0], dict) and "split" in data[0]:
             data = [d for d in data if d.get("split") == split]
         print(f"Loaded {len(data)} questions from {json_path}")
     else:
-        # Try parquet via datasets
-        try:
-            from datasets import load_dataset
-            ds = load_dataset("USC-PSI-Lab/PhysBench", split=split)
-            data = [dict(row) for row in ds]
-            print(f"Loaded {len(data)} questions from HuggingFace")
-        except Exception as e:
-            print(f"ERROR: Could not load PhysBench data from {data_dir}")
-            print(f"  JSON path tried: {json_path}")
-            print(f"  HuggingFace error: {e}")
-            print(f"\nPlease run: python scripts/download_physbench.py --data-dir {data_dir}")
-            sys.exit(1)
+        print(f"ERROR: Could not load PhysBench data from {data_dir}")
+        print(f"  JSON path tried: {json_path}")
+        print(f"\nPlease run: python scripts/download_physbench.py --data-dir {data_dir}")
+        sys.exit(1)
 
     if max_samples:
         data = data[:max_samples]
@@ -412,7 +409,7 @@ def evaluate(
 
     # Print summary
     print("\n" + "=" * 70)
-    print(f"PHYSBENCH EVALUATION RESULTS — {model_name}")
+    print(f"PHYSBENCH EVALUATION RESULTS - {model_name}")
     print("=" * 70)
     print(f"Overall Accuracy: {overall_acc:.2f}% ({correct}/{total})")
     print(f"Skipped: {skipped} | Errors: {errors}")
