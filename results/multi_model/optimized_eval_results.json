@@ -1,0 +1,137 @@
+{
+  "pipeline": {
+    "total_elapsed_seconds": 252.0,
+    "split": "val",
+    "n_samples": 200,
+    "gpu": "NVIDIA GeForce RTX 5070 Ti Laptop GPU",
+    "optimizations": {
+      "quantization": "bitsandbytes-4bit-nf4-double-quant",
+      "attention": "sdpa",
+      "torch_compile": true,
+      "max_new_tokens": 10,
+      "inference_mode": true
+    },
+    "generated_at": "2026-04-04 14:38:06"
+  },
+  "baseline": {
+    "model": "Qwen2.5-VL-7B",
+    "overall_accuracy": 44.0,
+    "by_task_type": {
+      "property": {
+        "accuracy": 51.1
+      },
+      "dynamics": {
+        "accuracy": 41.1
+      },
+      "relationships": {
+        "accuracy": 47.4
+      },
+      "scene": {
+        "accuracy": 36.6
+      }
+    }
+  },
+  "models": {
+    "qwen3-vl-8b": {
+      "model": "qwen3-vl-8b",
+      "model_id": "Qwen/Qwen3-VL-8B-Instruct",
+      "model_name": "Qwen3-VL-8B",
+      "quantization": "4bit-nf4-double-quant",
+      "optimizations": {
+        "attention": "sdpa",
+        "quantization": "bitsandbytes-4bit-nf4",
+        "torch_compile": true,
+        "max_new_tokens": 10,
+        "inference_mode": true
+      },
+      "overall_accuracy": 64.5,
+      "correct": 129,
+      "total": 200,
+      "skipped": 0,
+      "errors": 0,
+      "elapsed_seconds": 212.4,
+      "questions_per_second": 0.94,
+      "by_task_type": {
+        "dynamics": {
+          "accuracy": 69.01,
+          "correct": 49,
+          "total": 71
+        },
+        "property": {
+          "accuracy": 66.67,
+          "correct": 24,
+          "total": 36
+        },
+        "relationships": {
+          "accuracy": 62.0,
+          "correct": 31,
+          "total": 50
+        },
+        "scene": {
+          "accuracy": 58.14,
+          "correct": 25,
+          "total": 43
+        }
+      },
+      "by_ability_type": {
+        "comparison": {
+          "accuracy": 30.0,
+          "correct": 3,
+          "total": 10
+        },
+        "dynamic": {
+          "accuracy": 57.69,
+          "correct": 15,
+          "total": 26
+        },
+        "identify": {
+          "accuracy": 80.77,
+          "correct": 21,
+          "total": 26
+        },
+        "judgment": {
+          "accuracy": 70.0,
+          "correct": 7,
+          "total": 10
+        },
+        "perception": {
+          "accuracy": 77.55,
+          "correct": 38,
+          "total": 49
+        },
+        "prediction": {
+          "accuracy": 54.17,
+          "correct": 13,
+          "total": 24
+        },
+        "reasoning": {
+          "accuracy": 51.61,
+          "correct": 16,
+          "total": 31
+        },
+        "static": {
+          "accuracy": 66.67,
+          "correct": 16,
+          "total": 24
+        }
+      },
+      "by_mode": {
+        "general": {
+          "accuracy": 71.43,
+          "correct": 15,
+          "total": 21
+        },
+        "image&video": {
+          "accuracy": 66.67,
+          "correct": 90,
+          "total": 135
+        },
+        "image-only": {
+          "accuracy": 54.55,
+          "correct": 24,
+          "total": 44
+        }
+      }
+    }
+  }
+}
