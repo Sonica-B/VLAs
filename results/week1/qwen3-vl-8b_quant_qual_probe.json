@@ -1,5 +1,6 @@
 {
-  "model": "Qwen/Qwen3-VL-8B-Instruct",
+  "model": "qwen3-vl-8b",
+  "model_hf_id": "Qwen/Qwen3-VL-8B-Instruct",
   "split": "val",
   "n_samples": 200,
   "n_quant": 55,

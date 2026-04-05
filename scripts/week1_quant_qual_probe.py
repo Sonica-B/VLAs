@@ -91,14 +91,127 @@ from scripts.run_physbench_eval import (  # noqa: E402
 
 
 # ---------------------------------------------------------------------------
-# Model loading (Qwen3-VL-8B in 4-bit, via src.optim).
+# Model registry — dispatch table for multi-model probing.
+# ---------------------------------------------------------------------------
+#
+# Each entry contains:
+#   hf_id:       HuggingFace repo id
+#   loader:      name of the loader function to use
+#   input_kind:  which input-builder path to take ("qwen_vl_utils" / "internvl" / "gemma")
+#   probe_candidates: ordered list of ProbeSites path dicts to try during
+#                     discover_probe_sites. First set that fully resolves wins.
+
+MODEL_REGISTRY: Dict[str, Dict] = {
+    "qwen3-vl-8b": {
+        "hf_id": "Qwen/Qwen3-VL-8B-Instruct",
+        "loader": "qwen3_vl",
+        "input_kind": "qwen_vl_utils",
+        "probe_candidates": [
+            {
+                "enc_out":   "model.visual.blocks.26",
+                "post_proj": "model.visual.merger",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+        ],
+    },
+    "qwen2.5-vl-7b": {
+        "hf_id": "Qwen/Qwen2.5-VL-7B-Instruct",
+        "loader": "qwen25_vl",
+        "input_kind": "qwen_vl_utils",
+        "probe_candidates": [
+            # Qwen2.5-VL has 32 LLM layers and 32 ViT blocks; use last ViT
+            # block (index 31) and mid LLM layers 8/16.
+            {
+                "enc_out":   "model.visual.blocks.31",
+                "post_proj": "model.visual.merger",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+            {
+                "enc_out":   "visual.blocks.31",
+                "post_proj": "visual.merger",
+                "llm_8":     "model.layers.8",
+                "llm_16":    "model.layers.16",
+            },
+        ],
+    },
+    "internvl3-8b": {
+        "hf_id": "OpenGVLab/InternVL3-8B-hf",
+        "loader": "internvl3",
+        "input_kind": "internvl",
+        "probe_candidates": [
+            # HF-native InternVL3 structure:
+            #   InternVLForConditionalGeneration -> model:
+            #     .vision_tower: InternVLVisionModel (.encoder.layer: ModuleList)
+            #     .multi_modal_projector: InternVLMultiModalProjector
+            #     .language_model: Qwen2Model (.layers: ModuleList, 28 layers)
+            # NOTE: HF uses `layer` (singular) inside the vision encoder.
+            {
+                "enc_out":   "model.vision_tower.encoder.layer.23",  # last ViT layer
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+            # Fallback: fewer ViT layers (12-layer InternViT variants)
+            {
+                "enc_out":   "model.vision_tower.encoder.layer.11",
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+        ],
+    },
+    "gemma4-e4b": {
+        "hf_id": "google/gemma-3-4b-it",  # gated repo — requires HF_TOKEN with Gemma access
+        "loader": "gemma4",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            {
+                "enc_out":   "model.vision_tower.vision_model.encoder.layers.26",
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+            {
+                "enc_out":   "vision_tower.vision_model.encoder.layers.26",
+                "post_proj": "multi_modal_projector",
+                "llm_8":     "language_model.model.layers.8",
+                "llm_16":    "language_model.model.layers.16",
+            },
+        ],
+    },
+    # Ungated alternative to Gemma: different architecture family
+    # (CLIP ViT-L + Phi-3.5-mini LLM) for cross-architecture replication.
+    "phi3.5-vision": {
+        "hf_id": "microsoft/Phi-3.5-vision-instruct",
+        "loader": "phi35_vision",
+        "input_kind": "gemma",  # same PIL-based input path as gemma
+        "probe_candidates": [
+            # Phi-3.5-vision uses img_processor + img_projection + model (Phi)
+            {
+                "enc_out":   "model.vision_embed_tokens.img_processor.vision_model.encoder.layers.23",
+                "post_proj": "model.vision_embed_tokens.img_projection",
+                "llm_8":     "model.layers.8",
+                "llm_16":    "model.layers.16",
+            },
+            {
+                "enc_out":   "vision_embed_tokens.img_processor.vision_model.encoder.layers.23",
+                "post_proj": "vision_embed_tokens.img_projection",
+                "llm_8":     "model.layers.8",
+                "llm_16":    "model.layers.16",
+            },
+        ],
+    },
+}
+
+
+# ---------------------------------------------------------------------------
+# Model loaders (one per family).
 # ---------------------------------------------------------------------------
 
-def load_qwen3_vl_8b(model_id: str = "Qwen/Qwen3-VL-8B-Instruct"):
-    """Load Qwen3-VL-8B using the src.optim stack.
-
-    Returns (model, processor).
-    """
+def load_qwen3_vl(model_id: str):
+    """Qwen3-VL-8B-Instruct via Qwen3VLForConditionalGeneration + AutoProcessor."""
     from transformers import AutoProcessor
     try:
         from transformers import Qwen3VLForConditionalGeneration as ModelCls
@@ -123,59 +236,169 @@ def load_qwen3_vl_8b(model_id: str = "Qwen/Qwen3-VL-8B-Instruct"):
     return model, processor
 
 
+def load_qwen25_vl(model_id: str):
+    """Qwen2.5-VL-7B-Instruct via Qwen2_5_VLForConditionalGeneration."""
+    from transformers import AutoProcessor
+    try:
+        from transformers import Qwen2_5_VLForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForVision2Seq as ModelCls
+
+    attn_impl = pick_attn_impl()
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_internvl3(model_id: str):
+    """InternVL3-8B via HF-native variant (InternVLForConditionalGeneration).
+
+    Uses the -hf variant to bypass the PyTorch 2.11 meta-tensor incompatibility
+    in OpenGVLab's custom InternVL code (which calls .item() during init).
+    """
+    from transformers import AutoProcessor
+    try:
+        from transformers import InternVLForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForImageTextToText as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id} (HF-native InternVL3)")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_gemma4(model_id: str):
+    """Gemma 3/4 multimodal via AutoModelForImageTextToText."""
+    from transformers import AutoProcessor
+    try:
+        from transformers import Gemma3ForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForImageTextToText as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_phi35_vision(model_id: str):
+    """Phi-3.5-vision-instruct: CLIP ViT-L + Phi-3.5-mini LLM.
+
+    Phi3V's custom modeling file hardcodes flash_attention_2 as the default
+    and does not support it on this box. Force `eager` to bypass.
+    """
+    from transformers import AutoProcessor, AutoModelForCausalLM
+
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation=eager (Phi3V requirement), quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation="eager",
+        trust_remote_code=True,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(
+        model_id, trust_remote_code=True, num_crops=4,
+    )
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+# Dispatch by loader name.
+_LOADERS = {
+    "qwen3_vl":     load_qwen3_vl,
+    "qwen25_vl":    load_qwen25_vl,
+    "internvl3":    load_internvl3,
+    "gemma4":       load_gemma4,
+    "phi35_vision": load_phi35_vision,
+}
+
+
+def load_model(model_key: str):
+    """Load a model by short name (from MODEL_REGISTRY)."""
+    if model_key not in MODEL_REGISTRY:
+        raise ValueError(
+            f"Unknown model '{model_key}'. Options: {list(MODEL_REGISTRY.keys())}"
+        )
+    spec = MODEL_REGISTRY[model_key]
+    loader = _LOADERS[spec["loader"]]
+    return loader(spec["hf_id"])
+
+
 # ---------------------------------------------------------------------------
-# Probe site discovery — handles Qwen3-VL module-path variants robustly.
+# Probe site discovery — uses per-model candidates from MODEL_REGISTRY.
 # ---------------------------------------------------------------------------
 
-def discover_probe_sites(model: nn.Module) -> ProbeSites:
+def discover_probe_sites(model: nn.Module, model_key: str) -> ProbeSites:
     """Return a ProbeSites config that actually resolves on this model.
 
-    Tries several candidate path sets for Qwen3-VL-8B (HF structure varies
-    slightly between transformers versions). Falls back to walking the module
-    tree if none work.
+    Tries each candidate path set from MODEL_REGISTRY[model_key]['probe_candidates'].
+    First set that fully resolves wins. Dumps the top-level structure on
+    failure to help the user find the real paths.
     """
-    # IMPORTANT: enc_out must be the LAST ViT block (pre-merger), not the
-    # `visual` wrapper — the wrapper's forward includes the merger, so hooking
-    # there captures post-projection features and collapses the enc_out vs
-    # post_proj distinction we're testing.
-    candidates = [
-        # Qwen3-VL / transformers >= 4.49 nested structure (Qwen3VLForConditionalGeneration.model.visual...)
-        {
-            "enc_out":   "model.visual.blocks.26",        # last of 27 ViT blocks (Qwen3-VL-8B)
-            "post_proj": "model.visual.merger",
-            "llm_8":     "model.language_model.layers.8",
-            "llm_16":    "model.language_model.layers.16",
-        },
-        # Some transformers versions expose the outer wrapper as the root.
-        {
-            "enc_out":   "visual.blocks.26",
-            "post_proj": "visual.merger",
-            "llm_8":     "language_model.layers.8",
-            "llm_16":    "language_model.layers.16",
-        },
-        # Fallback for models with fewer ViT blocks — try block 23.
-        {
-            "enc_out":   "model.visual.blocks.23",
-            "post_proj": "model.visual.merger",
-            "llm_8":     "model.language_model.layers.8",
-            "llm_16":    "model.language_model.layers.16",
-        },
-    ]
+    spec = MODEL_REGISTRY[model_key]
+    candidates = spec["probe_candidates"]
+
     for paths in candidates:
         try:
             for _name, path in paths.items():
                 _resolve_module(model, path)
             print(f"  probe sites resolved: {paths}")
-            return ProbeSites(model_name="qwen3-vl-8b", paths=paths)
-        except KeyError:
+            return ProbeSites(model_name=model_key, paths=paths)
+        except KeyError as e:
+            print(f"  candidate failed: {e}")
             continue
 
-    # Nothing matched — dump the top-level structure to help the user.
+    # Nothing matched — dump the top-level structure.
     print("\nERROR: could not resolve probe site paths. Model top-level children:")
     for name, _mod in model.named_children():
         print(f"  - {name}")
-    print("\nRun with --print-structure for a deeper dump.")
-    raise RuntimeError("probe site discovery failed")
+        # One extra level of detail
+        for subname, _submod in _mod.named_children():
+            print(f"      .{subname}: {type(_submod).__name__}")
+    raise RuntimeError(f"probe site discovery failed for {model_key}")
 
 
 def print_module_structure(model: nn.Module, max_depth: int = 4) -> None:
@@ -198,18 +421,118 @@ def print_module_structure(model: nn.Module, max_depth: int = 4) -> None:
 # Per-sample forward pass + feature capture.
 # ---------------------------------------------------------------------------
 
-def build_inputs(processor, messages: list) -> dict:
-    """Apply chat template + vision preprocessing; return model-ready inputs."""
-    from qwen_vl_utils import process_vision_info
+def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils") -> dict:
+    """Apply chat template + vision preprocessing; return model-ready inputs.
 
-    text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-    image_inputs, video_inputs = process_vision_info(messages)
+    Dispatches by `input_kind`:
+      - "qwen_vl_utils": Qwen2.5-VL, Qwen3-VL — uses qwen_vl_utils.process_vision_info
+      - "internvl":     InternVL3 HF variant — uses AutoProcessor with PIL images
+      - "gemma":        Gemma 3/4 multimodal — uses AutoProcessor with PIL images
+
+    For InternVL and Gemma, video entries are collapsed to their first frame
+    (we load the video, take frame 0 as a PIL image). This is a simplification
+    for probing — we lose temporal context but gain one forward pass per sample
+    without wrestling with each model's native video pipeline.
+    """
+    if input_kind == "qwen_vl_utils":
+        from qwen_vl_utils import process_vision_info
+        text = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+        image_inputs, video_inputs = process_vision_info(messages)
+        return processor(
+            text=[text],
+            images=image_inputs,
+            videos=video_inputs,
+            padding=True,
+            return_tensors="pt",
+        )
+
+    if input_kind in ("internvl", "gemma"):
+        return _build_inputs_pil(processor, messages, input_kind)
+
+    raise ValueError(f"Unknown input_kind: {input_kind}")
+
+
+def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
+    """Build inputs for models that take raw PIL images via AutoProcessor.
+
+    Extracts images from the Qwen-style message content list, loads video
+    first-frames as PIL images, and builds a chat message with interleaved
+    {type:"image"} / {type:"text"} blocks per the target processor's template.
+    """
+    from PIL import Image
+
+    # Flatten the Qwen-style messages content into a (text, [PIL images]) pair.
+    pil_images: List = []
+    text_parts: List[str] = []
+    for msg in messages:
+        content = msg.get("content", [])
+        for part in content:
+            t = part.get("type")
+            if t == "text":
+                text_parts.append(part.get("text", ""))
+            elif t == "image":
+                img_path = part.get("image")
+                if img_path and Path(img_path).exists():
+                    try:
+                        pil_images.append(Image.open(img_path).convert("RGB"))
+                    except Exception:
+                        pass
+            elif t == "video":
+                vid_path = part.get("video")
+                if vid_path and Path(vid_path).exists():
+                    # Load first frame only.
+                    try:
+                        import decord
+                        vr = decord.VideoReader(vid_path, num_threads=1)
+                        frame = vr[0].asnumpy()
+                        pil_images.append(Image.fromarray(frame).convert("RGB"))
+                    except Exception:
+                        # Fallback: try OpenCV
+                        try:
+                            import cv2
+                            cap = cv2.VideoCapture(vid_path)
+                            ret, frame = cap.read()
+                            cap.release()
+                            if ret:
+                                frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                                pil_images.append(Image.fromarray(frame))
+                        except Exception:
+                            pass
+
+    if not pil_images:
+        raise RuntimeError("build_inputs_pil: no images resolved from messages")
+
+    # Cap image count HARD to 1 for InternVL/Gemma — InternVL tiles images
+    # into 6-12 patches of 448x448, so 5 images × 12 tiles = 60 tiles →
+    # several GB of activation memory in the vision tower → OOM on 12.8GB.
+    # Single-image probing loses the answer-option context but preserves
+    # the layer-wise probe signal we need for H3.
+    pil_images = pil_images[:1]
+    # Also resize down to 448×448 to cap tile count at 1.
+    pil_images = [img.resize((448, 448)) for img in pil_images]
+    prompt_text = "\n".join(p for p in text_parts if p.strip())
+
+    # Build a chat template the target processor can consume.
+    chat = [
+        {
+            "role": "user",
+            "content": (
+                [{"type": "image", "image": img} for img in pil_images]
+                + [{"type": "text", "text": prompt_text}]
+            ),
+        }
+    ]
+    try:
+        prompt = processor.apply_chat_template(chat, tokenize=False, add_generation_prompt=True)
+    except Exception:
+        # Some processors need the older flat-string template path.
+        prompt = prompt_text
+
     inputs = processor(
-        text=[text],
-        images=image_inputs,
-        videos=video_inputs,
-        padding=True,
+        images=pil_images,
+        text=prompt,
         return_tensors="pt",
+        padding=True,
     )
     return inputs
 
@@ -359,7 +682,9 @@ def fit_probe(
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model-id", default="Qwen/Qwen3-VL-8B-Instruct")
+    ap.add_argument("--model", default="qwen3-vl-8b",
+                    choices=list(MODEL_REGISTRY.keys()),
+                    help="Short model key (from MODEL_REGISTRY). Default qwen3-vl-8b.")
     ap.add_argument("--data-dir", default="data/physbench", type=Path)
     ap.add_argument("--output-dir", default="results/week1", type=Path)
     ap.add_argument("--cache-dir", default="cache/week1", type=Path)
@@ -382,12 +707,17 @@ def main():
                          "probe step with different hyperparameters.")
     args = ap.parse_args()
 
+    model_key = args.model
+    model_spec = MODEL_REGISTRY[model_key]
+    input_kind = model_spec["input_kind"]
+
     args.output_dir.mkdir(parents=True, exist_ok=True)
     args.cache_dir.mkdir(parents=True, exist_ok=True)
 
-    logger = configure_traceback_logging(args.log_dir, "week1_quant_qual")
+    logger = configure_traceback_logging(args.log_dir, f"week1_{model_key}")
     logger.info("=" * 70)
-    logger.info("Week 1 experiment: quantitative vs qualitative physics localization")
+    logger.info(f"Week 1 experiment: quant vs qual physics localization "
+                f"[model={model_key}]")
     logger.info("=" * 70)
 
     # ---- Load PhysBench val + split ----
@@ -406,7 +736,7 @@ def main():
         jsonl_path.unlink()
 
     # Peek at current state to warn the user about inconsistencies.
-    cache_preview = FeatureCache(args.cache_dir / "features", "qwen3-vl-8b", "val")
+    cache_preview = FeatureCache(args.cache_dir / "features", model_key, "val")
     cache_ids = cache_preview.completed_ids()
     del cache_preview
 
@@ -450,7 +780,7 @@ def main():
         processor = None
         # Build a synthetic ProbeSites from whatever the cache contains so the
         # downstream code has a consistent `sites.paths` to iterate over.
-        cache_preview2 = FeatureCache(args.cache_dir / "features", "qwen3-vl-8b", "val")
+        cache_preview2 = FeatureCache(args.cache_dir / "features", model_key, "val")
         cache_sites = list(cache_preview2._index.get("dims", {}).keys())
         del cache_preview2
         if not cache_sites:
@@ -458,13 +788,13 @@ def main():
                          "Run without --probe-only first to populate the cache.")
             return 2
         sites = ProbeSites(
-            model_name="qwen3-vl-8b",
+            model_name=model_key,
             paths={name: f"cached::{name}" for name in cache_sites},
         )
         captured, handles = {}, []
     else:
         before_vram = snapshot_vram()
-        model, processor = load_qwen3_vl_8b(args.model_id)
+        model, processor = load_model(model_key)
         after_vram = snapshot_vram()
         logger.info(format_vram_delta(before_vram, after_vram))
 
@@ -473,13 +803,13 @@ def main():
             return 0
 
         # ---- Discover + register probe sites ----
-        sites = discover_probe_sites(model)
+        sites = discover_probe_sites(model, model_key)
         captured, handles = register_probe_hooks(model, sites)
 
     # ---- Feature extraction with resume ----
     # Resume is driven by the FeatureCache (source of truth for "has features").
     # The JSONL is an audit log; we only use it to warn about dirty state.
-    cache = FeatureCache(args.cache_dir / "features", "qwen3-vl-8b", "val")
+    cache = FeatureCache(args.cache_dir / "features", model_key, "val")
     cached_id_set = cache.completed_ids()
     logger.info(f"Resume: FeatureCache has {len(cached_id_set)} cached samples")
 
@@ -560,7 +890,7 @@ def main():
                             errors += 1
                             continue
 
-                        inputs = build_inputs(processor, messages)
+                        inputs = build_inputs(processor, messages, input_kind=input_kind)
                         forward_and_capture(model, inputs, captured)
 
                         # Pull per-site features. Qwen3-VL vision blocks output
@@ -599,9 +929,9 @@ def main():
                             "sample_id": sid,
                             "status":    "ok",
                             "slice":     slice_name,
-                            "answer":    label,
-                            "task_type": item.get("task_type"),
-                            "sub_type":  item.get("sub_type"),
+                            "answer":    ans_label,
+                            "task_type": task_label,
+                            "sub_type":  sub_label,
                             "dims":      {k: int(v.shape[-1]) for k, v in np_feats.items()},
                         })
                         processed += 1
@@ -715,10 +1045,11 @@ def main():
             }
 
     # Save full results.
-    results_path = args.output_dir / "quant_qual_probe.json"
+    results_path = args.output_dir / f"{model_key}_quant_qual_probe.json"
     with open(results_path, "w", encoding="utf-8") as f:
         json.dump({
-            "model": args.model_id,
+            "model": model_key,
+            "model_hf_id": model_spec["hf_id"],
             "split": "val",
             "n_samples": len(samples),
             "n_quant": len(quant_samples),
