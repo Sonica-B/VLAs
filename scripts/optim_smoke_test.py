@@ -175,6 +175,19 @@ def test_resilience():
         done2 = resume_completed_ids(jsonl)
         assert done2 == {"a", "b"}, f"expected resume to skip truncated line, got {done2}"
         print(f"  jsonl append+resume OK, completed={sorted(done2)}")
+
+        # Status-filter regression test: error entries should NOT block retry.
+        jsonl_status = Path(tmp) / "results_status.jsonl"
+        with JsonlAppender(jsonl_status) as app:
+            app.write({"sample_id": "ok1", "status": "ok", "score": 1})
+            app.write({"sample_id": "err1", "status": "error", "error": "boom"})
+            app.write({"sample_id": "ok2", "status": "ok", "score": 1})
+            app.write({"sample_id": "legacy", "score": 1})  # no status = legacy ok
+        done_filtered = resume_completed_ids(jsonl_status)
+        assert done_filtered == {"ok1", "ok2", "legacy"}, (
+            f"status filter failed: expected {{ok1, ok2, legacy}}, got {done_filtered}"
+        )
+        print(f"  status filter OK: err1 correctly excluded, {sorted(done_filtered)}")
         print(f"  log files in {log_dir}: {[p.name for p in log_dir.iterdir()]}")
         # Close all logger handlers so Windows can delete the log file on cleanup.
         for h in list(logger.handlers):

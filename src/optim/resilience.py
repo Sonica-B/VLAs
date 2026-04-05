@@ -23,7 +23,7 @@ import time
 import traceback
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Any, Dict, Iterable, List, Optional, Set
+from typing import Any, Dict, Iterable, List, Optional, Set  # noqa: F401
 
 
 # ---------------------------------------------------------------------------
@@ -66,12 +66,39 @@ class JsonlAppender:
         self.close()
 
 
-def resume_completed_ids(path: Path, id_key: str = "sample_id") -> Set[str]:
-    """Read a JSONL file and return the set of sample_ids already completed.
+def resume_completed_ids(
+    path: Path,
+    id_key: str = "sample_id",
+    status_key: str = "status",
+    ok_statuses: Optional[Set[str]] = None,
+) -> Set[str]:
+    """Read a JSONL file and return the set of sample_ids that completed successfully.
+
+    CRITICAL: filters by `status` field. Error entries are NOT returned, so a
+    script can retry previously-failed samples on the next run. This was the
+    source of a silent block bug in the Week 1 experiment — an earlier run
+    that wrote 190 error entries was permanently skipping those samples on
+    resume because the old implementation returned every sample_id it saw.
 
     Tolerates truncated/corrupted final lines (returns what it can parse).
     Returns an empty set if the file doesn't exist.
+
+    Args:
+        path: JSONL file to read.
+        id_key: Field name holding the sample identifier. Default "sample_id".
+        status_key: Field name holding the status. Default "status".
+        ok_statuses: Set of status strings that count as "done". Default {"ok"}.
+                     Entries with other status values (e.g. "error",
+                     "no_media") are NOT returned, allowing retry. Pass an
+                     empty set or `None` to disable status filtering (legacy
+                     behavior — every seen sample_id counts as done).
+
+    Returns:
+        Set of sample_id strings that are considered complete.
     """
+    if ok_statuses is None:
+        ok_statuses = {"ok"}
+
     p = Path(path)
     if not p.exists():
         return set()
@@ -87,8 +114,17 @@ def resume_completed_ids(path: Path, id_key: str = "sample_id") -> Set[str]:
                 # Truncated line from a crash — skip and move on.
                 continue
             sid = obj.get(id_key)
-            if sid is not None:
-                done.add(str(sid))
+            if sid is None:
+                continue
+            # When ok_statuses is an empty set (caller explicitly disabled
+            # filtering), fall through and accept anything with an id.
+            if ok_statuses:
+                status = obj.get(status_key)
+                # Missing status field = legacy/simple writer → treat as ok.
+                # Explicit non-ok value → filter out (allows error retry).
+                if status is not None and status not in ok_statuses:
+                    continue
+            done.add(str(sid))
     return done
 
 

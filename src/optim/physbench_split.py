@@ -64,6 +64,30 @@ MC_OPTION_PATTERN = re.compile(r"^\s*\(?([A-Ea-e])\)?[\.\)]\s+")
 
 
 # ---------------------------------------------------------------------------
+# PhysBench-specific gold-standard split via sub_type.
+# ---------------------------------------------------------------------------
+#
+# PhysBench ships a `sub_type` label per sample. The sub_types below are the
+# ones whose semantics are fundamentally about numerical magnitudes — size,
+# mass, distance, temperature, count. Everything else (collision, motion,
+# light, viewpoint, location, depth, color, fluid, chemistry, air,
+# manipulation, throwing, attribute, others) is qualitative/categorical.
+#
+# This is the AUTHORITATIVE split for the Option C pivot claim. The lexical
+# classifier below is only a fallback for datasets without sub_type metadata.
+
+PHYSBENCH_QUANT_SUBTYPES = frozenset({
+    "size",
+    "mass",
+    "number",
+    "distance",
+    "temperature",
+    # "depth" is borderline — it's numerical but PhysBench treats it as
+    # ordinal/categorical depth-ordering. Leave it qualitative by default.
+})
+
+
+# ---------------------------------------------------------------------------
 # Classifier.
 # ---------------------------------------------------------------------------
 
@@ -71,10 +95,12 @@ def classify_quantitative(sample: Dict[str, Any]) -> str:
     """Classify a PhysBench sample as 'quantitative' or 'qualitative'.
 
     Input contract: the sample is a dict with at least a 'question' field
-    (string) and optionally 'options' (list of strings) and 'answer' (string).
-    The classifier looks at question + options + answer.
+    (string) and optionally 'options' (list of strings), 'answer' (string),
+    and 'sub_type' (PhysBench taxonomy label).
 
     Heuristics (in order):
+        0. PhysBench sub_type gold label — AUTHORITATIVE when present
+           (size / mass / number / distance / temperature → quantitative).
         1. If the question contains a strong QUANT_KEYWORD → quantitative.
         2. If ANY option contains a unit (kg, m/s, etc.) → quantitative.
         3. If the answer is purely numeric → quantitative.
@@ -83,6 +109,15 @@ def classify_quantitative(sample: Dict[str, Any]) -> str:
 
     Returns one of: "quantitative", "qualitative".
     """
+    # Rule 0: PhysBench sub_type taxonomy trumps everything.
+    sub_type = str(sample.get("sub_type", "") or "").lower().strip()
+    if sub_type:
+        if sub_type in PHYSBENCH_QUANT_SUBTYPES:
+            return "quantitative"
+        # If sub_type is present and NOT in the quant set, treat as qualitative
+        # — PhysBench's own taxonomy is more reliable than lexical cues.
+        return "qualitative"
+
     question = str(sample.get("question", "")).lower()
     options = sample.get("options") or []
     options = [str(o).lower() for o in options] if isinstance(options, list) else []

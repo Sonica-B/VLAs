@@ -24,7 +24,9 @@ internals in application code again.
 
 from __future__ import annotations
 
+import gc
 import json
+import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional, Tuple
@@ -32,6 +34,47 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 import numpy as np
 import torch
 import torch.nn as nn
+
+
+# ---------------------------------------------------------------------------
+# Windows-safe np.save with retry on transient file-lock errors.
+# ---------------------------------------------------------------------------
+
+def _windows_safe_np_save(path: Path, arr: np.ndarray, retries: int = 6,
+                           backoff_s: float = 0.15) -> None:
+    """Write `arr` to `path` as a .npy file, retrying on Windows PermissionError.
+
+    Windows Defender Real-time Protection briefly holds a read lock on
+    newly-created files while it scans them. Rapid successive writes to the
+    same path (as happens when we re-save a growing feature cache after every
+    PhysBench sample) race with Defender and raise WinError 5 ~5% of the time.
+
+    Retry with exponential backoff handles the transient case cleanly. Total
+    worst-case wait is ~0.15 * (2^6 - 1) = ~9.5s before giving up — still
+    shorter than a single Qwen3-VL-8B forward pass.
+    """
+    last_err: Optional[BaseException] = None
+    for attempt in range(retries):
+        try:
+            # np.save appends .npy if the extension is missing; we always pass
+            # a path ending in .npy so the saved file matches `path` exactly.
+            np.save(path, arr, allow_pickle=False)
+            return
+        except PermissionError as e:
+            last_err = e
+            gc.collect()  # release any lingering file handles
+            time.sleep(backoff_s * (2 ** attempt))
+        except OSError as e:
+            # WinError 5 sometimes surfaces as OSError instead of PermissionError.
+            if getattr(e, "winerror", None) in (5, 32):
+                last_err = e
+                gc.collect()
+                time.sleep(backoff_s * (2 ** attempt))
+            else:
+                raise
+    raise RuntimeError(
+        f"_windows_safe_np_save: failed to write {path} after {retries} retries"
+    ) from last_err
 
 
 # ---------------------------------------------------------------------------
@@ -114,22 +157,30 @@ class ProbeSites:
 # ---------------------------------------------------------------------------
 
 class FeatureCache:
-    """Disk-backed feature store, one .npy file per (model, split, site).
+    """Disk-backed feature store, one .npy file per (sample, site).
 
     Layout:
         cache_dir/{model}_{split}/
-            enc_out.npy          shape [N, D]   memmap
-            post_proj.npy        shape [N, D]   memmap
-            llm_8.npy            shape [N, D]   memmap
-            llm_16.npy           shape [N, D]   memmap
-            index.json           {"sample_ids": [...], "dims": {site: D, ...}}
+            index.json                      {"sample_ids": [...], "dims": {site: D, ...}}
+            enc_out/{sample_id}.npy         shape [dim]  per-sample features
+            post_proj/{sample_id}.npy
+            llm_8/{sample_id}.npy
+            llm_16/{sample_id}.npy
 
-    Probing code should open each site with `np.load(path, mmap_mode='r')` —
-    no loading the full array into RAM.
+    Per-sample files are the Windows-safe alternative to a single growing
+    .npy. A single-file append-then-overwrite approach races with Windows
+    Defender real-time scanning and raises PermissionError (WinError 5) or
+    OSError EINVAL after the first overwrite attempt. Per-sample files
+    write each sample exactly once to a unique path — no overwrite, no
+    rename, no race.
 
-    Append-only semantics: `append_batch(sample_ids, site_to_tensor)` extends
-    each site's .npy file in place. A crash mid-run leaves a valid prefix that
-    can be resumed via `completed_ids()`.
+    At PhysBench val scale (200 samples × 4 sites × ~4 KB/file = ~3 MB/site
+    in ~800 files total) this has negligible overhead vs. monolithic .npy.
+
+    `load_site(site)` assembles a [N, D] ndarray from the per-sample files
+    for downstream probing. It's a one-time load into RAM (trivially cheap
+    at this scale) rather than a memmap — mmap on Windows has its own
+    lock problems we're avoiding.
     """
 
     def __init__(self, cache_dir: Path, model_name: str, split: str, dtype: np.dtype = np.float32):
@@ -138,6 +189,7 @@ class FeatureCache:
         self.dtype = dtype
         self.index_path = self.root / "index.json"
         self._index = self._load_index()
+        self._migrate_legacy_if_needed()
 
     def _load_index(self) -> Dict:
         if self.index_path.exists():
@@ -145,56 +197,131 @@ class FeatureCache:
         return {"sample_ids": [], "dims": {}}
 
     def _save_index(self) -> None:
+        # Direct write is fine for the index — it's text, small, and writes
+        # are single-shot.
         self.index_path.write_text(json.dumps(self._index, indent=2))
+
+    def _migrate_legacy_if_needed(self) -> None:
+        """One-time migration of legacy single-file .npy layout to per-sample.
+
+        Detects legacy layout by presence of {site}.npy at root alongside
+        sample_ids in the index. Reads each legacy file, writes per-sample
+        files into {site}/{sample_id}.npy, then removes the legacy file.
+        """
+        sample_ids = self._index.get("sample_ids", [])
+        if not sample_ids:
+            return
+        for site in list(self._index.get("dims", {}).keys()):
+            legacy_path = self.root / f"{site}.npy"
+            per_sample_dir = self.root / site
+            if legacy_path.exists() and not per_sample_dir.exists():
+                per_sample_dir.mkdir(parents=True, exist_ok=True)
+                legacy_arr = np.load(legacy_path, mmap_mode=None)
+                if legacy_arr.shape[0] != len(sample_ids):
+                    raise RuntimeError(
+                        f"FeatureCache migration: legacy {legacy_path} has "
+                        f"{legacy_arr.shape[0]} rows but index claims "
+                        f"{len(sample_ids)} samples"
+                    )
+                for i, sid in enumerate(sample_ids):
+                    sample_path = per_sample_dir / f"{sid}.npy"
+                    if not sample_path.exists():
+                        np.save(sample_path, legacy_arr[i])
+                # Remove the legacy file after successful migration.
+                try:
+                    legacy_path.unlink()
+                except OSError:
+                    pass  # leave it if we can't delete; harmless
 
     def completed_ids(self) -> set:
         """Sample IDs already written to the cache. Used for resume."""
         return set(self._index["sample_ids"])
 
-    def site_path(self, site: str) -> Path:
-        return self.root / f"{site}.npy"
+    def site_dir(self, site: str) -> Path:
+        return self.root / site
+
+    def sample_path(self, site: str, sample_id: str) -> Path:
+        return self.site_dir(site) / f"{sample_id}.npy"
 
     def append_batch(self, sample_ids: List[str], site_to_tensor: Dict[str, np.ndarray]) -> None:
-        """Append a batch of features to every site.
+        """Write features for a batch of samples, one file per (sample, site).
 
-        Every tensor must have shape [batch, dim]. First call sets the dim;
-        subsequent calls must match. Uses np.save with append by concatenating
-        to an in-memory view then rewriting — cheap at PhysBench scale
-        (10k samples × 4 sites × ~4k dim = ~600 MB per site, fits in RAM).
+        Every tensor must have shape [batch, dim]. First call sets the dim per
+        site; subsequent calls must match. Each sample writes to a unique
+        path so there is no overwrite and no Windows file-lock race.
 
-        For truly memory-bound cases, switch to .npy append-mode via numpy-format
-        low-level writer; not needed for PhysBench val (200 samples).
+        Semantics:
+            - Atomicity: each site writes its N files in order. A crash at
+              file K of site S leaves K files written for S but 0 files for
+              S+1. The index update happens only AFTER all sites have written
+              successfully, so a crash keeps the cache self-consistent —
+              next run treats these sample_ids as not-yet-cached.
+            - Idempotent: rewriting an existing sample file is a no-op
+              (we skip if it already exists).
         """
         if not sample_ids:
             return
+
+        # Validate shapes upfront.
         for site, tensor in site_to_tensor.items():
             if tensor.ndim != 2 or tensor.shape[0] != len(sample_ids):
                 raise ValueError(
                     f"FeatureCache.append_batch: site '{site}' tensor shape "
                     f"{tensor.shape} does not match batch size {len(sample_ids)}"
                 )
-            tensor = tensor.astype(self.dtype, copy=False)
-            path = self.site_path(site)
-            if path.exists():
-                existing = np.load(path, mmap_mode="r")
-                if existing.shape[1] != tensor.shape[1]:
-                    raise ValueError(
-                        f"FeatureCache.append_batch: site '{site}' dim mismatch "
-                        f"(cache={existing.shape[1]}, new={tensor.shape[1]})"
-                    )
-                combined = np.concatenate([np.asarray(existing), tensor], axis=0)
-                np.save(path, combined)
-                del existing
-            else:
-                np.save(path, tensor)
-                self._index["dims"][site] = int(tensor.shape[1])
 
-        self._index["sample_ids"].extend(sample_ids)
+        # Write every (site, sample) file. Dim check against index.
+        for site, tensor in site_to_tensor.items():
+            tensor = tensor.astype(self.dtype, copy=False)
+            dim = int(tensor.shape[1])
+            known_dim = self._index["dims"].get(site)
+            if known_dim is None:
+                self._index["dims"][site] = dim
+            elif known_dim != dim:
+                raise ValueError(
+                    f"FeatureCache.append_batch: site '{site}' dim mismatch "
+                    f"(cache={known_dim}, new={dim})"
+                )
+            site_dir = self.site_dir(site)
+            site_dir.mkdir(parents=True, exist_ok=True)
+            for i, sid in enumerate(sample_ids):
+                sample_path = site_dir / f"{sid}.npy"
+                if sample_path.exists():
+                    continue  # idempotent skip
+                # Each sample_path is unique — no overwrite, no rename, no
+                # lock race. Direct np.save is safe.
+                np.save(sample_path, tensor[i])
+
+        # Only advance the index once every site has written successfully.
+        existing_ids = set(self._index["sample_ids"])
+        for sid in sample_ids:
+            if sid not in existing_ids:
+                self._index["sample_ids"].append(sid)
+                existing_ids.add(sid)
         self._save_index()
 
-    def load_site(self, site: str) -> np.memmap:
-        """Open a site's features as a read-only memmap. No RAM cost."""
-        return np.load(self.site_path(site), mmap_mode="r")
+    def load_site(self, site: str) -> np.ndarray:
+        """Load all features for a site as a [N, D] ndarray, in index order.
+
+        Not a memmap — we load into RAM. At PhysBench val scale this is ~3 MB
+        per site, ~12 MB total across 4 sites. Full-load is both simpler and
+        faster at this size (no Windows mmap lock issues).
+        """
+        sample_ids = self._index["sample_ids"]
+        if not sample_ids:
+            dim = self._index["dims"].get(site, 0)
+            return np.zeros((0, dim), dtype=self.dtype)
+        site_dir = self.site_dir(site)
+        rows = []
+        for sid in sample_ids:
+            sample_path = site_dir / f"{sid}.npy"
+            if not sample_path.exists():
+                raise FileNotFoundError(
+                    f"FeatureCache.load_site: missing {sample_path} "
+                    f"(index claims sample_id '{sid}' is cached for site '{site}')"
+                )
+            rows.append(np.load(sample_path, mmap_mode=None))
+        return np.stack(rows, axis=0).astype(self.dtype, copy=False)
 
 
 # ---------------------------------------------------------------------------

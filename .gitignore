@@ -74,3 +74,9 @@ multirun/
 slurm-*.out
 *.sbatch.log
 results/*/activations/
+
+# Local caches + logs (feature extraction, run logs)
+cache/
+logs/
+# Week 1 raw audit log (regenerable; keep aggregate JSON instead)
+results/week1/feature_extraction.jsonl
