@@ -25,9 +25,9 @@
 set -e
 mkdir -p jobs results/week3_turing logs/turing
 
-module load python
-module load cuda/12.2
-source activate vla_physics 2>/dev/null || conda activate vla_physics 2>/dev/null
+# Load environment (modules + pip packages).
+source /home/ssboyane/VLAs/.turing_env
+
 
 export FULL_RESOLUTION=1
 export HF_TOKEN="${HF_TOKEN}"
