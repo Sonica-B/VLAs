@@ -150,10 +150,14 @@ def main() -> int:
     print(f"  quant pool: {len(quant_pool)}  qual pool: {len(qual_pool)}")
 
     # ---- Sample balanced subsets ----
+    # Cap BOTH slices at the smaller pool size to enforce balance.
+    # PhysBench test has ~999 quant vs ~8803 qual, so the quant pool is the
+    # binding constraint. Both slices get min(quant_pool, qual_pool, max_per_slice).
+    cap = min(len(quant_pool), len(qual_pool), args.max_per_slice)
     rng.shuffle(quant_pool)
     rng.shuffle(qual_pool)
-    quant_selected = quant_pool[: args.max_per_slice]
-    qual_selected = qual_pool[: args.max_per_slice]
+    quant_selected = quant_pool[:cap]
+    qual_selected = qual_pool[:cap]
     print(f"  selected: {len(quant_selected)} quant + {len(qual_selected)} qual "
           f"= {len(quant_selected) + len(qual_selected)} total")
 

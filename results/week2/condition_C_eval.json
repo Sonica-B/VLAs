@@ -1,0 +1,11 @@
+{
+  "tag": "condition_C",
+  "n_total": 200,
+  "n_quant": 55,
+  "n_qual": 145,
+  "correct_quant": 40,
+  "correct_qual": 88,
+  "acc_all": 0.64,
+  "acc_quant": 0.7272727272727273,
+  "acc_qual": 0.6068965517241379
+}
