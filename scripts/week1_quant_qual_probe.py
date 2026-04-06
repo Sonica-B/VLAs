@@ -502,14 +502,19 @@ def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
     if not pil_images:
         raise RuntimeError("build_inputs_pil: no images resolved from messages")
 
-    # Cap image count HARD to 1 for InternVL/Gemma — InternVL tiles images
-    # into 6-12 patches of 448x448, so 5 images × 12 tiles = 60 tiles →
-    # several GB of activation memory in the vision tower → OOM on 12.8GB.
-    # Single-image probing loses the answer-option context but preserves
-    # the layer-wise probe signal we need for H3.
-    pil_images = pil_images[:1]
-    # Also resize down to 448×448 to cap tile count at 1.
-    pil_images = [img.resize((448, 448)) for img in pil_images]
+    # VRAM-adaptive image handling:
+    # On laptop (12.8GB): cap to 1 image at 448x448 to avoid OOM.
+    # On Turing (40-80GB): keep ALL images at full resolution for clean results.
+    # Controlled by FULL_RESOLUTION env var (set in Turing sbatch scripts).
+    import os
+    if os.environ.get("FULL_RESOLUTION", "0") != "1":
+        # Laptop mode: cap images to avoid OOM on 12.8GB GPU.
+        pil_images = pil_images[:1]
+        pil_images = [img.resize((448, 448)) for img in pil_images]
+    else:
+        # Turing mode: keep all images at original resolution.
+        # Cap at 5 images max (PhysBench maximum) as a safety net.
+        pil_images = pil_images[:5]
     prompt_text = "\n".join(p for p in text_parts if p.strip())
 
     # Build a chat template the target processor can consume.
