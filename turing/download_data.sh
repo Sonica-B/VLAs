@@ -3,7 +3,7 @@
 # Run as SLURM job: sbatch --wrap="bash ~/VLAs/turing/download_data.sh" --partition=cpu --mem=16G --time=2:00:00
 
 set -e
-source ~/vlas_env/bin/activate
+conda activate vla_physics || echo "Activate the vla_physics environment first with 'conda activate vla_physics'"
 cd ~/VLAs
 
 echo "=== Downloading Physion++ readout data ==="
@@ -18,6 +18,7 @@ fi
 
 echo "=== Downloading PhysBench ==="
 cd ~/VLAs
+huggingface-cli login
 python3 scripts/download_physbench.py --data-dir data/physbench
 
 echo "=== Downloading Qwen2.5-VL-7B (will cache in ~/.cache/huggingface/) ==="

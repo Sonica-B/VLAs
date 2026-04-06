@@ -6,15 +6,17 @@ set -e
 echo "=== Turing Environment Setup ==="
 
 # 1. Pull latest code.
-if [ -d ".git" ]; then
-    echo "Repo exists, pulling latest..."
-    git fetch --all
-    git checkout physics-steering 2>/dev/null || git checkout -b physics-steering origin/physics-steering
-    git pull origin physics-steering || echo "No remote physics-steering yet"
-else
-    echo "ERROR: Run this from the VLAs repo root on Turing."
-    exit 1
-fi
+# if [ -d "VLAs.git" ]; then
+#     echo "Repo exists, pulling latest..."
+#     git fetch --all
+#     git checkout physics-steering 2>/dev/null || git checkout -b physics-steering origin/physics-steering
+#     git pull origin physics-steering || echo "No remote physics-steering yet"
+# else
+#     echo "ERROR: Run this from the VLAs repo root on Turing."
+#     exit 1
+# fi
+
+# miniconda3/bin/conda init 
 
 # 2. Conda environment.
 if ! conda info --envs 2>/dev/null | grep -q "vla_physics"; then
