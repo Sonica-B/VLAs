@@ -228,59 +228,54 @@ def build_train_messages(sample: Dict, data_dir: Path) -> Tuple[List[Dict], str]
     if answer not in {"A", "B", "C", "D"}:
         raise RuntimeError(f"invalid answer label: {answer!r}")
 
-    # Apply compute-efficiency caps to the message content.
-    # This is the single biggest speedup: reducing vision token count from
-    # ~4000-8000 to ~200-400 cuts forward+backward time from ~40-100s to ~3-5s
-    # per sample.
-    #
-    # CRITICAL: Videos are converted to single-frame images (first frame
-    # extracted via decord or cv2, saved to a temp file). qwen_vl_utils
-    # ignores the `nframes` parameter and always uses fps=24 by default,
-    # generating 120-720 frames per video. The ONLY reliable way to cap
-    # video tokens is to bypass the video pipeline entirely.
-    #
-    # This does NOT affect evaluation authenticity: the PhysBench val eval
-    # (evaluate_physbench_val) uses the ORIGINAL format_question_for_vlm
-    # at full resolution with full video — only the TRAINING path is optimized.
+    # VRAM-adaptive training input handling:
+    # On laptop (12.8GB): reduce resolution + convert video to single frame.
+    # On Turing (40-80GB): keep full resolution, limit video to 4 frames.
+    # Controlled by FULL_RESOLUTION env var (set in Turing sbatch scripts).
+    import os as _os
+    full_res = _os.environ.get("FULL_RESOLUTION", "0") == "1"
+
     for msg in messages:
         content = msg.get("content", [])
         new_content = []
         for part in content:
             t = part.get("type")
             if t == "image":
-                part["max_pixels"] = 256 * 256
-                part["min_pixels"] = 28 * 28
+                if not full_res:
+                    part["max_pixels"] = 256 * 256
+                    part["min_pixels"] = 28 * 28
                 new_content.append(part)
             elif t == "video":
-                # Convert video to single-frame image.
-                vid_path = part.get("video")
-                if vid_path and Path(vid_path).exists():
-                    try:
-                        import decord
-                        vr = decord.VideoReader(vid_path, num_threads=1)
-                        frame = vr[0].asnumpy()
-                        from PIL import Image as _PILImage
-                        pil = _PILImage.fromarray(frame)
-                        # Save temp frame (reused across calls via cache).
-                        import hashlib
-                        h = hashlib.md5(vid_path.encode()).hexdigest()[:12]
-                        tmp_dir = Path("cache/week2/video_frames")
-                        tmp_dir.mkdir(parents=True, exist_ok=True)
-                        frame_path = tmp_dir / f"{h}.jpg"
-                        if not frame_path.exists():
-                            pil.save(str(frame_path), quality=80)
-                        new_content.append({
-                            "type": "image",
-                            "image": str(frame_path),
-                            "max_pixels": 256 * 256,
-                            "min_pixels": 28 * 28,
-                        })
-                    except Exception:
-                        # If frame extraction fails, skip the video entirely
-                        # rather than feeding a 720-frame video that takes 2 min.
-                        pass
+                if full_res:
+                    # Turing: keep video but limit frames to 4.
+                    part["nframes"] = 4
+                    new_content.append(part)
                 else:
-                    pass  # skip unresolvable video
+                    # Laptop: convert video to single-frame image (bypass
+                    # qwen_vl_utils fps=24 default which generates 120-720 frames).
+                    vid_path = part.get("video")
+                    if vid_path and Path(vid_path).exists():
+                        try:
+                            import decord
+                            vr = decord.VideoReader(vid_path, num_threads=1)
+                            frame = vr[0].asnumpy()
+                            from PIL import Image as _PILImage
+                            pil = _PILImage.fromarray(frame)
+                            import hashlib
+                            h = hashlib.md5(vid_path.encode()).hexdigest()[:12]
+                            tmp_dir = Path("cache/week2/video_frames")
+                            tmp_dir.mkdir(parents=True, exist_ok=True)
+                            frame_path = tmp_dir / f"{h}.jpg"
+                            if not frame_path.exists():
+                                pil.save(str(frame_path), quality=80)
+                            new_content.append({
+                                "type": "image",
+                                "image": str(frame_path),
+                                "max_pixels": 256 * 256,
+                                "min_pixels": 28 * 28,
+                            })
+                        except Exception:
+                            pass
             else:
                 new_content.append(part)
         msg["content"] = new_content
