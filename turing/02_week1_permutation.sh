@@ -18,7 +18,8 @@
 #SBATCH -N 1
 #SBATCH -n 16
 #SBATCH --mem=32G
-#SBATCH -t 4:00:00
+#SBATCH -t 12:00:00
+#SBATCH --gres=gpu:H100:1
 #SBATCH --account=cngan
 #SBATCH --export=ALL
 #SBATCH -D /home/ssboyane/VLAs
