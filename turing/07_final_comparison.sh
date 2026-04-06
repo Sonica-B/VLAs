@@ -29,8 +29,9 @@
 set -e
 mkdir -p jobs results/final_comparison
 
-module load python
-source activate vla_physics 2>/dev/null || conda activate vla_physics 2>/dev/null
+# Load environment (modules + pip packages).
+source /home/ssboyane/VLAs/.turing_env
+
 
 echo "=== JOB 7/7: Final Cross-Method Comparison ($(date)) ==="
 

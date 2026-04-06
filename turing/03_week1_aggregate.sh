@@ -23,8 +23,9 @@
 set -e
 mkdir -p jobs
 
-module load python
-source activate vla_physics 2>/dev/null || conda activate vla_physics 2>/dev/null
+# Load environment (modules + pip packages).
+source /home/ssboyane/VLAs/.turing_env
+
 
 echo "=== JOB 3/7: Week 1 Aggregation ($(date)) ==="
 

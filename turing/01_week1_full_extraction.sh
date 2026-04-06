@@ -33,9 +33,9 @@
 set -e
 mkdir -p jobs results/week1_turing cache/week1_turing/features logs/turing
 
-module load python
-module load cuda/12.2
-source activate vla_physics 2>/dev/null || conda activate vla_physics 2>/dev/null
+# Load environment (modules + pip packages).
+source /home/ssboyane/VLAs/.turing_env
+
 
 # FULL_RESOLUTION=1 tells the PIL input builder to keep ALL images at
 # native resolution (no 1-image cap, no 448x448 resize).
