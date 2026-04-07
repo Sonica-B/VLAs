@@ -1,0 +1,18 @@
+
+EnvironmentLocationNotFound: Not a conda environment: /home/ssboyane/VLAs/vla_physics
+
+=== JOB 1/7: Week 1 Full-Fidelity Extraction (Mon 06 Apr 2026 10:27:32 PM EDT) ===
+GPU: NVIDIA A100-SXM4-80GB, 81920 MiB
+FULL_RESOLUTION=1
+
+================================================================
+  Extracting: qwen3-vl-8b at FULL RESOLUTION (Mon 06 Apr 2026 10:27:32 PM EDT)
+================================================================
+2026-04-06 22:27:33 [INFO] week1_qwen3-vl-8b: Logging to logs/turing/week1_qwen3-vl-8b_20260406_222733.log
+2026-04-06 22:27:33 [INFO] week1_qwen3-vl-8b: ======================================================================
+2026-04-06 22:27:33 [INFO] week1_qwen3-vl-8b: Week 1 experiment: quant vs qual physics localization [model=qwen3-vl-8b]
+2026-04-06 22:27:33 [INFO] week1_qwen3-vl-8b: ======================================================================
+ERROR: Could not load PhysBench data from data/physbench
+  JSON path tried: data/physbench/val.json
+
+Please run: python scripts/download_physbench.py --data-dir data/physbench

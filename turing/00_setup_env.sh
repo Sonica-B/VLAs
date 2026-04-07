@@ -20,7 +20,7 @@ module avail CUDA 2>&1 | head -20 || true
 module avail nvidia 2>&1 | head -20 || true
 
 # Try loading CUDA (common names on HPC clusters).
-for CUDA_MOD in cuda/12.2 cuda/12.1 cuda/12.0 cuda/11.8 cuda cuda/12 CUDA/12.2 nvidia/cuda/12.2; do
+for CUDA_MOD in cuda/12.2.2 cuda/12.1.1 cuda/12.0 cuda/11.8 cuda cuda/12 CUDA/12.2 nvidia/cuda/12.2; do
     if module load ${CUDA_MOD} 2>/dev/null; then
         echo "Loaded CUDA module: ${CUDA_MOD}"
         echo "export CUDA_MODULE=${CUDA_MOD}" > /home/ssboyane/VLAs/.turing_cuda_module
@@ -43,10 +43,10 @@ module load python 2>/dev/null || module load Python 2>/dev/null || echo "Using 
 echo "Python: $(python --version 2>&1)"
 echo "Pip: $(pip --version 2>&1)"
 
-# 3. Install ALL dependencies with --user (no sudo needed).
+# 3. Install ALL dependencies .
 echo ""
-echo "Installing Python packages (--user, no sudo required)..."
-pip install --user \
+echo "Installing Python packages..."
+pip install  \
     torch torchvision \
     transformers accelerate bitsandbytes peft \
     scikit-learn numpy scipy \
@@ -56,7 +56,7 @@ pip install --user \
     2>&1 | tail -20
 
 # Try flash-attn (optional, often fails without a build environment).
-pip install --user flash-attn --no-build-isolation 2>/dev/null \
+pip install flash-attn --no-build-isolation 2>/dev/null \
     && echo "flash-attn installed" \
     || echo "flash-attn skipped (optional, will use SDPA)"
 
@@ -106,7 +106,7 @@ if [ -f /home/ssboyane/VLAs/.turing_cuda_module ]; then
     module load ${CUDA_MODULE} 2>/dev/null || true
 fi
 
-# Ensure --user packages are on PATH.
+# Ensure packages are on PATH.
 export PATH="${HOME}/.local/bin:${PATH}"
 export PYTHONPATH="${HOME}/.local/lib/python3.13/site-packages:${PYTHONPATH}"
 INNER

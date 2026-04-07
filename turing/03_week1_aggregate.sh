@@ -9,7 +9,7 @@
 # ============================================================================
 
 #SBATCH -J week1-aggregate
-#SBATCH -p short
+#SBATCH -p quick
 #SBATCH -N 1
 #SBATCH -n 4
 #SBATCH --mem=16G

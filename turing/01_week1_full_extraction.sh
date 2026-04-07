@@ -19,14 +19,14 @@
 # ============================================================================
 
 #SBATCH -J week1-full-extract
-#SBATCH -p short
+#SBATCH -p long
 #SBATCH -N 1
 #SBATCH -n 8
 #SBATCH --mem=64G
 #SBATCH -t 12:00:00
 #SBATCH --account=cngan
 #SBATCH --export=ALL
-#SBATCH --gres=gpu:H100:1
+#SBATCH --gres=gpu:A100:1
 #SBATCH -D /home/ssboyane/VLAs
 #SBATCH -o jobs/%x.%j.out
 
@@ -34,7 +34,7 @@ set -e
 mkdir -p jobs results/week1_turing cache/week1_turing/features logs/turing
 
 # Load environment (modules + pip packages).
-source /home/ssboyane/VLAs/.turing_env
+source activate /home/ssboyane/VLAs/vla_physics || conda activate vla_physics || source activate vla_physics
 
 
 # FULL_RESOLUTION=1 tells the PIL input builder to keep ALL images at
@@ -59,6 +59,7 @@ for MODEL in qwen3-vl-8b qwen2.5-vl-7b internvl3-8b gemma4-e4b; do
         --cache-dir cache/week1_turing \
         --output-dir results/week1_turing \
         --log-dir logs/turing \
+        --data-dir data/physbench\
         2>&1
     echo "  ${MODEL} complete."
 done

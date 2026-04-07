@@ -14,7 +14,7 @@
 # ============================================================================
 
 #SBATCH -J week1-permutation
-#SBATCH -p short
+#SBATCH -p quick
 #SBATCH -N 1
 #SBATCH -n 16
 #SBATCH --mem=32G
