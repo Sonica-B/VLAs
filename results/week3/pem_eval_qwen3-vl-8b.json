@@ -1,0 +1,17 @@
+{
+  "model": "qwen3-vl-8b",
+  "pem_params": 2136833,
+  "low_var_k": 64,
+  "epochs": 3,
+  "training_time_min": 13.042851614952088,
+  "best_train_loss": 8.251043209332025,
+  "eval": {
+    "acc_quant": 0.7090909090909091,
+    "acc_qual": 0.6206896551724138,
+    "acc_all": 0.645,
+    "n_quant": 55,
+    "n_qual": 145,
+    "correct_quant": 39,
+    "correct_qual": 90
+  }
+}
