@@ -101,11 +101,25 @@ class PhysicsSubspaceExtractor(nn.Module):
 class PhysicsTransform(nn.Module):
     """Learnable MLP that maps physics subspace features to LLM embedding space.
 
-    Architecture: K -> hidden -> llm_dim with LayerNorm + GELU.
-    Initialized with small random weights so initial contribution is near-zero.
+    Architecture: K -> hidden -> llm_dim with LayerNorm + GELU + output normalization.
+
+    OUTPUT NORMALIZATION (critical fix from PEM v2 failure):
+        PEM v2 achieved good training loss (2.04) but destroyed eval accuracy
+        (7.3% quant) because the MLP output had std >> post_proj std (0.166).
+        Even with gate=0.007, the injection 0.007 * large_features corrupted
+        the LLM input.
+
+        Fix: normalize the MLP output to match the target_std of post_proj
+        features (measured from Week 1 cache). This ensures the PEM's
+        contribution is always in the same scale as the merger output,
+        regardless of what the MLP learns internally.
+
+        The normalization is: output = output * (target_std / output.std())
+        Applied per-sample (not per-batch) so each sample is independently scaled.
     """
 
-    def __init__(self, K: int, llm_dim: int, hidden_dim: int = 512):
+    def __init__(self, K: int, llm_dim: int, hidden_dim: int = 512,
+                 target_std: float = 0.166):
         super().__init__()
         self.net = nn.Sequential(
             nn.LayerNorm(K),
@@ -119,15 +133,25 @@ class PhysicsTransform(nn.Module):
         nn.init.normal_(self.net[-1].weight, std=0.01)
         nn.init.zeros_(self.net[-1].bias)
 
+        # Target std for output normalization (from post_proj cache stats).
+        self.register_buffer("target_std", torch.tensor(target_std))
+
     def forward(self, physics_features: torch.Tensor) -> torch.Tensor:
         """
         Args:
             physics_features: [..., K] from SubspaceExtractor
 
         Returns:
-            [..., llm_dim] physics features in LLM embedding space
+            [..., llm_dim] physics features normalized to post_proj scale
         """
-        return self.net(physics_features)
+        raw = self.net(physics_features)
+        # Normalize output to match post_proj feature scale.
+        # This prevents the MLP from outputting features at 10x-100x the
+        # expected scale, which corrupted PEM v2's eval.
+        raw_std = raw.std()
+        if raw_std > 1e-6:
+            raw = raw * (self.target_std / raw_std)
+        return raw
 
 
 class PhysicsGate(nn.Module):
@@ -142,10 +166,13 @@ class PhysicsGate(nn.Module):
     For non-physics inputs, the gate should stay near 0.
     """
 
-    def __init__(self, enc_dim: int, init_bias: float = -5.0):
+    def __init__(self, enc_dim: int, init_bias: float = -2.0):
         super().__init__()
         self.linear = nn.Linear(enc_dim, 1)
-        # Initialize bias to a large negative value so sigmoid(bias) ≈ 0.
+        # Initialize bias to negative so sigmoid(bias) ≈ 0.12 (small but
+        # not so extreme that gradients vanish/explode through the gate).
+        # -5.0 was too aggressive: sigmoid(-5)=0.007, causing NaN gradients
+        # when loss backprops through 0.007 * physics_feats.
         nn.init.zeros_(self.linear.weight)
         nn.init.constant_(self.linear.bias, init_bias)
 
@@ -198,12 +225,15 @@ class PhysicsExpertModule(nn.Module):
         low_var_k: int = 64,
         llm_dim: int = 4096,
         hidden_dim: int = 512,
-        gate_init_bias: float = -5.0,
+        gate_init_bias: float = -2.0,
     ) -> "PhysicsExpertModule":
         """Create a PEM from the Week 1 feature cache.
 
         Loads the cached enc_out features, computes PCA, takes the bottom-K
         components as the physics subspace basis, and initializes the PEM.
+
+        Also reads the post_proj cache to measure target_std for the
+        PhysicsTransform output normalization (critical fix from PEM v2).
         """
         from src.optim.steering import compute_pca_basis
         from src.optim.features import FeatureCache
@@ -211,6 +241,15 @@ class PhysicsExpertModule(nn.Module):
         cache = FeatureCache(Path(cache_dir) / "features", model_name, split)
         enc_features = cache.load_site("enc_out")  # [N, enc_dim]
         enc_dim = enc_features.shape[1]
+
+        # Measure target_std from the post_proj cache (the scale PEM must match).
+        try:
+            post_proj_features = cache.load_site("post_proj")
+            target_std = float(post_proj_features.std())
+            print(f"PEM: post_proj target_std={target_std:.4f} (from cache)")
+        except Exception:
+            target_std = 0.166  # fallback from Qwen3-VL-8B Week 1 measurement
+            print(f"PEM: using fallback target_std={target_std}")
 
         components, variances, mean = compute_pca_basis(enc_features)
         n_comp = len(variances)
@@ -222,7 +261,7 @@ class PhysicsExpertModule(nn.Module):
         print(f"PEM: enc_dim={enc_dim}, llm_dim={llm_dim}, hidden={hidden_dim}")
 
         extractor = PhysicsSubspaceExtractor(low_var_basis, enc_dim)
-        transform = PhysicsTransform(k, llm_dim, hidden_dim)
+        transform = PhysicsTransform(k, llm_dim, hidden_dim, target_std=target_std)
         gate = PhysicsGate(enc_dim, init_bias=gate_init_bias)
 
         pem = cls(extractor, transform, gate, enc_dim, llm_dim)
