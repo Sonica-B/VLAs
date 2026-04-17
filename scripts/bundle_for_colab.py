@@ -28,6 +28,7 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import os
 import pathlib
 import sys
 import time
@@ -54,6 +55,10 @@ def main() -> int:
     t0 = time.time()
     wrote = 0
     bytes_written = 0
+    # The bundle should preserve the full repo-relative path
+    # (cache/week1/features/...) so it extracts cleanly under /content/VLAs/.
+    # args.cache_root is repo-relative already, so `path` from rglob
+    # is the arcname we want.
     with zipfile.ZipFile(args.output, "w", zipfile.ZIP_DEFLATED,
                          compresslevel=6) as z:
         for model in args.models:
@@ -67,7 +72,8 @@ def main() -> int:
                     continue
                 for path in src_dir.rglob("*"):
                     if path.is_file():
-                        arcname = path.relative_to(args.cache_root.parent.parent)
+                        # arcname preserves the full cache/week1/features/... prefix
+                        arcname = str(path).replace(os.sep, "/")
                         z.write(path, arcname)
                         wrote += 1
                         bytes_written += path.stat().st_size
