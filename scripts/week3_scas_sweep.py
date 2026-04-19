@@ -138,8 +138,13 @@ def evaluate_with_steering(
     model, processor, model_key: str, data_dir: Path,
     steering_info: Optional[Dict], alpha: float,
     logger, max_samples: Optional[int] = None,
+    split: str = "val",
 ) -> Dict:
-    """Evaluate PhysBench val with optional SCAS steering.
+    """Evaluate PhysBench val or test with optional SCAS steering.
+
+    Args:
+        split: "val" (200 samples, default) or "test" (9802 samples).
+               For test split, loads test.json and merges with test_answer.json.
 
     Returns:
         Dict with acc_all, acc_quant, acc_qual, n_total, n_quant, n_qual,
@@ -147,9 +152,27 @@ def evaluate_with_steering(
     """
     from qwen_vl_utils import process_vision_info
 
-    samples = load_physbench_data(str(data_dir), split="val", max_samples=max_samples)
+    samples = load_physbench_data(str(data_dir), split=split, max_samples=max_samples)
     for s in samples:
-        s.setdefault("sample_id", f"val_{s.get('idx', '?')}")
+        s.setdefault("sample_id", f"{split}_{s.get('idx', '?')}")
+
+    # For test split: merge with test_answer.json if answers are missing.
+    if split == "test":
+        answer_path = data_dir / "test_answer.json"
+        if answer_path.exists():
+            import json as _json
+            with open(answer_path) as _f:
+                answers = _json.load(_f)
+            # answers could be a list or a dict keyed by idx.
+            if isinstance(answers, list):
+                ans_map = {a.get("idx", i): a.get("answer", "") for i, a in enumerate(answers)}
+            elif isinstance(answers, dict):
+                ans_map = answers
+            else:
+                ans_map = {}
+            for s in samples:
+                if not s.get("answer"):
+                    s["answer"] = ans_map.get(s.get("idx", -1), "")
 
     # Register steering hook if provided.
     handle = None
@@ -244,13 +267,19 @@ def main():
     ap.add_argument("--all", action="store_true", help="Run all models sequentially")
     ap.add_argument("--alphas", nargs="+", type=float, default=[0.0, 1.0, 3.0, 5.0, 10.0],
                     help="Alpha values to sweep")
-    ap.add_argument("--method", default="contrast", choices=["contrast", "amplify"])
+    ap.add_argument("--method", default="amplify", choices=["contrast", "amplify"])
     ap.add_argument("--low-var-k", type=int, default=64)
     ap.add_argument("--data-dir", default="data/physbench", type=Path)
     ap.add_argument("--cache-dir", default="cache/week1", type=Path)
     ap.add_argument("--output-dir", default="results/week3", type=Path)
     ap.add_argument("--log-dir", default="logs", type=Path)
     ap.add_argument("--max-samples", type=int, default=None)
+    ap.add_argument("--pca-split", default="train",
+                    help="Split to compute PCA from. 'train' = leakage-free (default). "
+                         "'val' = old behavior (leaky, for comparison only).")
+    ap.add_argument("--eval-split", default="val",
+                    help="Split to evaluate on. 'val' (200 samples, default) or "
+                         "'test' (9802 samples, for final paper numbers).")
     args = ap.parse_args()
 
     args.output_dir.mkdir(parents=True, exist_ok=True)
@@ -261,20 +290,24 @@ def main():
         logger.info("=" * 70)
         logger.info(f"SCAS alpha-sweep: model={model_key}, alphas={args.alphas}")
         logger.info(f"  method={args.method}, low_var_k={args.low_var_k}")
+        logger.info(f"  pca_split={args.pca_split}, eval_split={args.eval_split}")
         logger.info("=" * 70)
 
-        # Check if cache exists for this model.
-        cache = FeatureCache(args.cache_dir / "features", model_key, "val")
-        if not cache.completed_ids():
-            logger.warning(f"No cached features for {model_key}; skipping")
+        # Check if PCA cache exists for the chosen split.
+        pca_cache = FeatureCache(args.cache_dir / "features", model_key, args.pca_split)
+        if not pca_cache.completed_ids():
+            logger.warning(f"No cached features for {model_key} split={args.pca_split}; skipping")
+            logger.warning(f"  Run: python scripts/extract_training_features.py --model {model_key}")
             continue
+        logger.info(f"PCA source: {len(pca_cache.completed_ids())} samples from '{args.pca_split}' split")
 
-        # Compute steering vector (offline, from cache).
-        logger.info("Computing steering vector from cached features...")
+        # Compute steering vector from PCA split (leakage-free when pca_split != eval_split).
+        logger.info("Computing steering vector from PCA-split features...")
         t0 = time.time()
         sv_info = compute_steering_vector(
             cache_dir=str(args.cache_dir),
             model_name=model_key,
+            split=args.pca_split,
             method=args.method,
             low_var_k=args.low_var_k,
             site="post_proj",
@@ -301,6 +334,7 @@ def main():
                 steering_info=sv_info if alpha != 0 else None,
                 alpha=alpha, logger=logger,
                 max_samples=args.max_samples,
+                split=args.eval_split,
             )
             result["elapsed_s"] = time.time() - t_eval
             sweep_results.append(result)

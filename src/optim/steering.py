@@ -134,10 +134,29 @@ def compute_steering_vector(
     # Get quant/qual mask.
     if quant_ids is None:
         from src.optim.physbench_split import classify_quantitative
-        from scripts.run_physbench_eval import load_physbench_data
-        samples = load_physbench_data("data/physbench", split="val")
-        for s in samples:
-            s.setdefault("sample_id", f"val_{s.get('idx', '?')}")
+
+        if split == "train":
+            # Load training samples from the cleaned JSONL (disjoint from val).
+            import json as _json
+            train_path = Path(cache_dir).parent / "week2" / "training_data" / "lora_train_clean.jsonl"
+            if not train_path.exists():
+                # Fallback: try the non-clean version.
+                train_path = Path(cache_dir).parent / "week2" / "training_data" / "lora_train.jsonl"
+            if train_path.exists():
+                with open(train_path) as _f:
+                    samples = [_json.loads(l) for l in _f if l.strip()]
+            else:
+                # Last resort: load from PhysBench test split.
+                from scripts.run_physbench_eval import load_physbench_data
+                samples = load_physbench_data("data/physbench", split="test")
+                for s in samples:
+                    s.setdefault("sample_id", f"test_{s.get('idx', '?')}")
+        else:
+            from scripts.run_physbench_eval import load_physbench_data
+            samples = load_physbench_data("data/physbench", split=split)
+            for s in samples:
+                s.setdefault("sample_id", f"{split}_{s.get('idx', '?')}")
+
         quant_ids = {s["sample_id"] for s in samples
                      if classify_quantitative(s) == "quantitative"}
 

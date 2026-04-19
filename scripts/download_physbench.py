@@ -10,22 +10,28 @@ Answers are stored separately in the PhysBench GitHub repo:
   https://github.com/USC-GVL/PhysBench/tree/main/eval/physbench
 
 This script:
-  1. Downloads questions via the `datasets` library
-  2. Downloads answer files from the GitHub repo
-  3. Merges answers into the question data and saves per-split JSON files
+  1. Downloads raw JSONs + image.zip + video.zip via huggingface_hub
+     (NOT via `datasets.load_dataset` — that fails with an Arrow conversion
+      error because PhysBench's test.json has mixed list/scalar columns).
+  2. Extracts image.zip and video.zip.
+  3. Downloads answer files from the GitHub repo.
+  4. Merges answers into the per-split JSON files.
 
 Usage:
     python scripts/download_physbench.py [--data-dir data/physbench]
+    python scripts/download_physbench.py --skip-media  # JSONs only (no image/video)
 
 Requirements:
-    pip install datasets
+    pip install huggingface_hub
 """
 
 import argparse
 import json
 import os
+import shutil
 import sys
 import urllib.request
+import zipfile
 
 
 ANSWER_URLS = {
@@ -53,20 +59,64 @@ def download_answer_files(data_dir: str) -> dict:
     return answers_by_idx
 
 
-def download_questions(data_dir: str) -> list:
-    """Download questions via the datasets library."""
+def download_questions(data_dir: str, skip_media: bool = False) -> list:
+    """Download raw PhysBench files via huggingface_hub (bypasses broken Arrow conversion).
+
+    Pulls only what we need:
+      - val.json, test.json, all.json
+      - image.zip, video.zip (unless --skip-media)
+
+    Returns the merged list of all questions (from all.json if present, else
+    test.json + val.json concatenated).
+    """
     try:
-        from datasets import load_dataset
+        from huggingface_hub import snapshot_download
     except ImportError:
-        print("ERROR: datasets library not installed.")
-        print("Install with: pip install datasets")
+        print("ERROR: huggingface_hub not installed.")
+        print("Install with: pip install huggingface_hub")
         sys.exit(1)
 
-    print("Loading questions from HuggingFace (USC-GVL/PhysBench)...")
-    ds = load_dataset("USC-GVL/PhysBench", split="test")
-    data = [dict(row) for row in ds]
-    print(f"  Loaded {len(data)} questions")
-    return data
+    print("Pulling raw PhysBench files from HF Hub (USC-GVL/PhysBench)...")
+    patterns = ["*.json"]
+    if not skip_media:
+        patterns += ["image.zip", "video.zip"]
+
+    snap = snapshot_download(
+        repo_id="USC-GVL/PhysBench",
+        repo_type="dataset",
+        allow_patterns=patterns,
+    )
+    print(f"  Snapshot: {snap}")
+
+    # Copy JSONs into data_dir.
+    for name in ["val.json", "test.json", "all.json"]:
+        src = os.path.join(snap, name)
+        dst = os.path.join(data_dir, name)
+        if os.path.exists(src) and not os.path.exists(dst):
+            shutil.copy(src, dst)
+            print(f"  copied {name}")
+
+    # Extract image.zip + video.zip if present.
+    if not skip_media:
+        for zipname in ["image.zip", "video.zip"]:
+            zpath = os.path.join(snap, zipname)
+            target_dir_name = zipname.replace(".zip", "")
+            extracted_marker = os.path.join(data_dir, target_dir_name)
+            if os.path.exists(zpath) and not os.path.exists(extracted_marker):
+                print(f"  extracting {zipname}...")
+                with zipfile.ZipFile(zpath) as z:
+                    z.extractall(data_dir)
+
+    # Load whichever top-level questions file exists.
+    for name in ["all.json", "test.json", "val.json"]:
+        p = os.path.join(data_dir, name)
+        if os.path.exists(p):
+            with open(p, "r", encoding="utf-8") as f:
+                data = json.load(f)
+            print(f"  loaded {name}: {len(data)} questions")
+            return data
+    print("ERROR: no questions JSON found after HF snapshot.")
+    sys.exit(1)
 
 
 def merge_and_save(data: list, answers_by_idx: dict, data_dir: str):
@@ -101,7 +151,7 @@ def merge_and_save(data: list, answers_by_idx: dict, data_dir: str):
     print(f"  Saved all.json: {len(data)} total questions")
 
 
-def main(data_dir: str):
+def main(data_dir: str, skip_media: bool = False):
     os.makedirs(data_dir, exist_ok=True)
 
     print("=" * 60)
@@ -113,9 +163,9 @@ def main(data_dir: str):
     print("\n--- Step 1: Download answer files ---")
     answers_by_idx = download_answer_files(data_dir)
 
-    # Step 2: Download questions from HuggingFace
+    # Step 2: Download questions from HuggingFace (raw files, not via datasets lib)
     print("\n--- Step 2: Download questions ---")
-    data = download_questions(data_dir)
+    data = download_questions(data_dir, skip_media=skip_media)
 
     # Step 3: Merge and save
     print("\n--- Step 3: Merge answers into questions and save ---")
@@ -147,6 +197,11 @@ if __name__ == "__main__":
         default=os.path.join(os.path.dirname(__file__), "..", "data", "physbench"),
         help="Directory to download PhysBench data into",
     )
+    parser.add_argument(
+        "--skip-media",
+        action="store_true",
+        help="Skip image.zip/video.zip download (JSONs only — useful for a quick sanity check)",
+    )
     args = parser.parse_args()
     data_dir = os.path.abspath(args.data_dir)
-    main(data_dir)
+    main(data_dir, skip_media=args.skip_media)

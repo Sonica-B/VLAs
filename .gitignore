@@ -60,6 +60,7 @@ Thumbs.db
 # Testing
 .pytest_cache/
 .coverage
+.md
 htmlcov/
 
 # Hydra outputs
@@ -81,3 +82,6 @@ logs/
 # Week 1 raw audit log (regenerable; keep aggregate JSON instead)
 results/week1/feature_extraction.jsonl
 Miniconda3-latest-Linux-x86_64.sh
+
+# Claude Code session state (local only — never commit)
+.claude/
