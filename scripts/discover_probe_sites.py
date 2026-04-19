@@ -45,10 +45,11 @@ from scripts.extract_training_features import MODEL_REGISTRY, load_model
 # Heuristic patterns — ordered most-specific to least-specific.
 # Each entry: (regex on module name, bucket).
 DISCOVERY_RULES: List[Tuple[str, str]] = [
-    # Vision encoder last block
-    (r"(visual|vision_tower|vision|vpm)\.(blocks|encoder\.layers|encoder\.layer|vision_model\.encoder\.layers|trunk\.blocks)\.(\d+)$", "enc_block"),
-    # Projector / merger / resampler
-    (r"(multi_modal_projector|merger|resampler|linear_proj|projector|mlp_connector)$", "projector"),
+    # Vision encoder last block. Added `transformer.layers` for Pixtral and
+    # `vision_backbone.image_vit.transformer.resblocks` for Molmo-style backbones.
+    (r"(visual|vision_tower|vision|vpm)\.(blocks|encoder\.layers|encoder\.layer|vision_model\.encoder\.layers|trunk\.blocks|transformer\.layers|transformer\.resblocks|image_vit\.transformer\.resblocks)\.(\d+)$", "enc_block"),
+    # Projector / merger / resampler. Added `image_projector` for Molmo.
+    (r"(multi_modal_projector|merger|resampler|linear_proj|projector|image_projector|mlp_connector)$", "projector"),
     # LLM decoder layers
     (r"(language_model|llm|transformer|language)(?:\.model)?\.(layers|blocks)\.(\d+)$", "llm_layer"),
 ]

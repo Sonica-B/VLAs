@@ -1,45 +1,51 @@
 #!/bin/bash
 # ============================================================================
-# JOB 8/N: Week B — Feature Extraction for 4 New VLM Families (PhysLens-Predict n=8)
+# JOB 8/N: Week B — VAL Probing for New VLM Families (PhysLens-Predict n>=6)
 # ============================================================================
-# Extends the compression-ratio predictor from n=4 to n=8 model families
-# to pass pre-registered Gate 5 (LOO median |error| < 0.20).
+# Runs val-split probing on new model families to extend the compression-ratio
+# predictor from n=4 to n=6 (or n=7 if Phi-3.5-Vision works).
 #
-# Target models (safe picks — standard HF processor API):
-#   - llava-onevision-7b    (SigLIP + MLP proj + Qwen2-7B)
-#   - phi3.5-vision         (CLIP ViT-L + img_proj + Phi-3.5-mini)
-#   - pixtral-12b           (CLIP ViT + MLP proj + Mistral-Nemo-12B)
-#   - molmo-7b              (custom OpenCLIP + projector + Qwen2-7B)
+# Target models (Rev 2 — post-RCA 2026-04-19):
+#   - llava-onevision-7b    (SigLIP + MLP proj + Qwen2-7B)     GUARANTEED
+#   - pixtral-12b           (CLIP ViT + proj + Mistral-Nemo)   GUARANTEED (after regex fix)
+#   - phi3.5-vision         (CLIP ViT-L + img_proj + Phi)      STRETCH (FA2-check issue fix)
 #
-# Dropped from Week B plan (custom-processor complications):
-#   - MiniCPM-V-2.6, GLM-4.5V, DeepSeek-VL2 — these use `.chat()` or custom msgs=
-#     formats not compatible with our standard processor() call path.
+# Dropped from Week B (investigated and dropped with reason):
+#   - molmo-7b — transformers 5.x API drift: its remote code uses
+#     _tied_weights_keys but the bnb-4bit quantizer expects
+#     all_tied_weights_keys. Not worth 2-week engineering; re-add later.
+#   - MiniCPM-V-2.6, GLM-4.5V, DeepSeek-VL2 — custom .chat()/msgs= APIs.
+#
+# Design changes in Rev 2 (vs Rev 1 which failed all 4 models):
+#   - DROP extract_training_features.py step entirely. Training features are
+#     only needed for SCAS (dead per Gate 2). The predictor only needs val
+#     probing output. Removing this step unblocks all models from the
+#     "lora_train_clean.jsonl not found on Turing" failure.
+#   - Drop TF auto-install (Molmo is dropped).
+#   - Trust PROBE_CANDIDATES paths from scripts/week1_quant_qual_probe.py
+#     (not discover_probe_sites.py guesses) — week1 is battle-tested.
+#     discover_probe_sites is now advisory only (still run for logging).
 #
 # IMPORTANT — before submitting:
 #   1. Pull latest physics-steering on Turing: git pull origin physics-steering
-#   2. Verify HF_TOKEN is set for any gated models (Phi-3.5 is public)
-#   3. Confirm transformers >= 4.48 (needed for LlavaOnevision class)
+#   2. Verify HF_TOKEN is set for any gated models (all 3 above are public)
 #
-# This script is DEFENSIVE: per-model failures do NOT kill the whole job.
-# Each model is attempted independently; failures are logged and the next
-# model is tried.
-#
+# Per-model failures do NOT kill the whole job.
 # Submit: sbatch turing/08_weekb_extract_new_models.sh
 # ============================================================================
 
-#SBATCH -J weekb-extract
+#SBATCH -J weekb-probe
 #SBATCH -p short
 #SBATCH -N 1
 #SBATCH -n 8
 #SBATCH --mem=96G
-#SBATCH -t 8:00:00
+#SBATCH -t 6:00:00
 #SBATCH --account=cngan
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
 #SBATCH -D /home/ssboyane/VLAs
 #SBATCH -o jobs/%x.%j.out
 
-# Fail-fast for setup, then switch to continue-on-error for the per-model loop.
 set -e
 mkdir -p jobs results/week1_turing cache/week1_turing/features logs/turing
 
@@ -50,24 +56,18 @@ export FULL_RESOLUTION=1
 export HF_TOKEN="${HF_TOKEN}"
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
-echo "=== JOB 8/N: Week B Feature Extraction ($(date)) ==="
+echo "=== JOB 8/N: Week B Val Probing (Rev 2) ($(date)) ==="
 echo "GPU: $(nvidia-smi --query-gpu=name,memory.total --format=csv,noheader)"
 echo "FULL_RESOLUTION=${FULL_RESOLUTION}"
 echo "Branch: $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 echo "transformers: $(python -c 'import transformers; print(transformers.__version__)')"
 
-# Molmo-7B-D's processor requires tensorflow; install if not present so its
-# per-model attempt can succeed. No-op if already installed.
-if ! python -c 'import tensorflow' 2>/dev/null; then
-    echo "Installing tensorflow (Molmo processor dependency)..."
-    pip install --quiet 'tensorflow-cpu>=2.15' || echo "WARN: TF install failed; Molmo will fail gracefully"
-fi
+# Models to probe. Per-model failure does NOT abort the job.
+# Molmo dropped due to transformers 5.x API drift (_tied_weights_keys vs
+# all_tied_weights_keys mismatch in bnb-4bit quantizer).
+NEW_MODELS=(llava-onevision-7b pixtral-12b phi3.5-vision)
 
-# Models to extract. Per-model failure does NOT abort the job.
-NEW_MODELS=(llava-onevision-7b phi3.5-vision pixtral-12b molmo-7b)
-
-# Switch off fail-fast for the main loop so one model failing does NOT kill the job.
-set +e
+set +e  # allow per-model failures
 SUCCESS_MODELS=()
 FAILED_MODELS=()
 
@@ -78,44 +78,32 @@ for MODEL in "${NEW_MODELS[@]}"; do
     echo "################################################################"
     MODEL_OK=1
 
-    # ----- Step 1: discover probe sites + measure compression ratio -----
+    # ----- Step 1 (advisory): discover probe sites + measure compression ratio -----
+    # This is advisory only. The ACTUAL probe paths used by week1_quant_qual_probe.py
+    # come from its MODEL_REGISTRY. Discovery here just confirms the paths resolve
+    # on the real module tree and measures compression ratio for phys_lens_predict.
     echo ""
-    echo "--- [${MODEL}] probe-site discovery ---"
+    echo "--- [${MODEL}] probe-site discovery (advisory) ---"
     python -u scripts/discover_probe_sites.py --model ${MODEL} \
         2>&1 | tee logs/turing/discover_${MODEL}.log
     if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        echo "WARN [${MODEL}] probe-site discovery had issues — check log, continuing"
+        echo "NOTE [${MODEL}] discovery advisory failed — week1 probing uses its own"
+        echo "     MODEL_REGISTRY paths, so this is not a hard blocker. Continuing."
     fi
 
-    # ----- Step 2: TRAIN-split feature extraction (for consistency with n=4) -----
+    # ----- Step 2: VAL-split probing (THIS is what produces predictor inputs) -----
     echo ""
-    echo "--- [${MODEL}] TRAIN-split feature extraction ---"
-    python -u scripts/extract_training_features.py \
+    echo "--- [${MODEL}] VAL-split probing ---"
+    python -u scripts/week1_quant_qual_probe.py \
         --model ${MODEL} \
         --cache-dir cache/week1_turing \
+        --output-dir results/week1_turing \
         --log-dir logs/turing \
-        2>&1 | tee logs/turing/extract_train_${MODEL}.log
+        2>&1 | tee logs/turing/probe_val_${MODEL}.log
     if [ ${PIPESTATUS[0]} -ne 0 ]; then
-        echo "FAIL [${MODEL}] train extraction failed — logging and continuing"
-        FAILED_MODELS+=("${MODEL} (train_extract)")
+        echo "FAIL [${MODEL}] val probing failed — logging and continuing"
+        FAILED_MODELS+=("${MODEL}")
         MODEL_OK=0
-    fi
-
-    # ----- Step 3: VAL-split probing (for PhysLens-Predict gaps) -----
-    if [ ${MODEL_OK} -eq 1 ]; then
-        echo ""
-        echo "--- [${MODEL}] VAL-split probing ---"
-        python -u scripts/week1_quant_qual_probe.py \
-            --model ${MODEL} \
-            --cache-dir cache/week1_turing \
-            --output-dir results/week1_turing \
-            --log-dir logs/turing \
-            2>&1 | tee logs/turing/probe_val_${MODEL}.log
-        if [ ${PIPESTATUS[0]} -ne 0 ]; then
-            echo "FAIL [${MODEL}] val probing failed — logging and continuing"
-            FAILED_MODELS+=("${MODEL} (val_probe)")
-            MODEL_OK=0
-        fi
     fi
 
     if [ ${MODEL_OK} -eq 1 ]; then
@@ -124,7 +112,6 @@ for MODEL in "${NEW_MODELS[@]}"; do
     fi
 done
 
-# Re-enable fail-fast for the aggregator
 set -e
 
 echo ""
@@ -136,12 +123,12 @@ echo "Failed    (${#FAILED_MODELS[@]}/${#NEW_MODELS[@]}): ${FAILED_MODELS[@]:-<n
 
 if [ ${#SUCCESS_MODELS[@]} -eq 0 ]; then
     echo ""
-    echo "ERROR: ZERO models succeeded. Check logs/turing/ for details."
-    echo "  The predictor regression cannot run without at least one new model."
+    echo "ERROR: ZERO new models succeeded. Existing n=4 data still usable but"
+    echo "       the predictor cannot expand. Check logs/turing/ for details."
     exit 1
 fi
 
-# ----- Step 4: PhysLens-Predict LOO regression on successful models + n=4 existing -----
+# ----- Step 3: PhysLens-Predict LOO regression on n=4 existing + new successes -----
 echo ""
 echo "################################################################"
 echo "# Running PhysLens-Predict LOO regression"
