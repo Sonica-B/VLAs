@@ -48,21 +48,30 @@ MODEL_COMPRESSION = {
     "gemma4-e4b":   114.0,
     "qwen2.5-vl-7b": 270.0,
     "qwen3-vl-8b":  784.0,
-    # Week B additions (placeholders until extracted):
-    "minicpm-v-2.6":    None,
-    "glm-4.5v":         None,
-    "llava-onevision-7b": None,
-    "cogvlm2":          None,
+    # --- Week B additions (2026-04-19) ---
+    # Placeholders are ROUGH estimates. Real values come from
+    # scripts/discover_probe_sites.py --model <name> (runs a dummy forward pass
+    # and measures enc_seq / post_proj_seq). Update these after discovery.
+    "llava-onevision-7b":  None,  # SigLIP 729 patches + MLP (usually 1.0x); discover to verify
+    "phi3.5-vision":       None,  # CLIP ViT-L 576 patches + img_projection; discover to verify
+    "pixtral-12b":         None,  # Variable resolution (PixtralVisionConfig); discover to verify
+    "molmo-7b":            None,  # Custom projector; discover to verify
 }
 
 
 # Empirical H3 hit-rate per model (from Week 1 permutation tests).
 # Values from logs: hit = stage probe_acc_quant - baseline > threshold with p<0.05.
+# Week B entries will be filled in after Week B probing completes (D3/D4).
 MODEL_H3_HITS = {
     "internvl3-8b":   0.0,   # 0/3
     "gemma4-e4b":     1.0,   # 3/3
     "qwen2.5-vl-7b":  1.0,   # 3/3
     "qwen3-vl-8b":    2 / 3,  # 2/3
+    # Week B additions (None = not yet measured — skipped in LOO until filled)
+    "llava-onevision-7b":  None,
+    "phi3.5-vision":       None,
+    "pixtral-12b":         None,
+    "molmo-7b":            None,
 }
 
 

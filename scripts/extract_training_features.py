@@ -57,15 +57,31 @@ from src.optim.physbench_split import classify_quantitative
 from scripts.run_physbench_eval import resolve_media_paths, format_question_for_vlm
 
 
-# Reuse model loaders from week1.
+# Reuse model loaders from week1. Week B additions (2026-04-19): only models
+# whose processors follow the standard HF API (processor(images=..., text=...,
+# return_tensors="pt")) — avoids custom-processor integration work.
+#
+# Dropped from initial Week B plan (custom-processor complications):
+#   - MiniCPM-V-2.6 (uses model.chat() with custom msgs= format)
+#   - GLM-4.5V (MoE + custom processor)
+#   - DeepSeek-VL2 (custom tokenization)
+#
+# Included (safe, standard HF API):
 MODEL_REGISTRY = {
     "qwen3-vl-8b": ("Qwen/Qwen3-VL-8B-Instruct", "qwen3"),
     "qwen2.5-vl-7b": ("Qwen/Qwen2.5-VL-7B-Instruct", "qwen25"),
     "internvl3-8b": ("OpenGVLab/InternVL3-8B-hf", "internvl3"),
     "gemma4-e4b": ("google/gemma-3-4b-it", "gemma"),
+    # --- Week B additions (2026-04-19) ---
+    "llava-onevision-7b": ("llava-hf/llava-onevision-qwen2-7b-ov-hf", "llava_ov"),
+    "phi3.5-vision":      ("microsoft/Phi-3.5-vision-instruct",         "phi35v"),
+    "pixtral-12b":        ("mistral-community/pixtral-12b",              "pixtral"),
+    "molmo-7b":           ("allenai/Molmo-7B-D-0924",                    "molmo"),
 }
 
-# Probe site candidates (same as week1, verified on each model).
+# Probe site candidates. Multiple per model so discover_sites() can fall back
+# when transformers-version module-tree shapes vary. Paths ending with a numeric
+# index (e.g., ".26") are resolved via __getitem__ on ModuleList.
 PROBE_CANDIDATES = {
     "qwen3-vl-8b": [
         {"enc_out": "model.visual.blocks.26", "post_proj": "model.visual.merger",
@@ -83,6 +99,52 @@ PROBE_CANDIDATES = {
         {"enc_out": "model.vision_tower.vision_model.encoder.layers.26",
          "post_proj": "model.multi_modal_projector",
          "llm_8": "model.language_model.layers.8", "llm_16": "model.language_model.layers.16"},
+    ],
+    # --- Week B additions (2026-04-19) ---
+    # LLaVA-OneVision-7B (llava-hf/llava-onevision-qwen2-7b-ov-hf):
+    # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers)
+    # (Verified by cpu_verify_weekb.py — config reports vision 26, text 28)
+    "llava-onevision-7b": [
+        # Native transformers>=4.45
+        {"enc_out": "vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "multi_modal_projector",
+         "llm_8": "language_model.model.layers.8", "llm_16": "language_model.model.layers.16"},
+        # Outer model. wrapper (some versions)
+        {"enc_out": "model.vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "model.multi_modal_projector",
+         "llm_8": "model.language_model.model.layers.8",
+         "llm_16": "model.language_model.model.layers.16"},
+    ],
+    # Phi-3.5-Vision: CLIP ViT-L (23 layers) + img_projection + Phi-3.5-mini (32 layers)
+    # NOTE: identical paths to scripts/week1_quant_qual_probe.py for consistency.
+    "phi3.5-vision": [
+        {"enc_out":   "model.vision_embed_tokens.img_processor.vision_model.encoder.layers.23",
+         "post_proj": "model.vision_embed_tokens.img_projection",
+         "llm_8":     "model.layers.8",
+         "llm_16":    "model.layers.16"},
+        {"enc_out":   "vision_embed_tokens.img_processor.vision_model.encoder.layers.23",
+         "post_proj": "vision_embed_tokens.img_projection",
+         "llm_8":     "model.layers.8",
+         "llm_16":    "model.layers.16"},
+    ],
+    # Pixtral-12B: CLIP-ViT (24 layers) + pixtral-style image_proj + Mistral-12B-Nemo (40 layers)
+    "pixtral-12b": [
+        {"enc_out":   "vision_tower.transformer.layers.23",
+         "post_proj": "multi_modal_projector",
+         "llm_8":     "language_model.model.layers.8",
+         "llm_16":    "language_model.model.layers.16"},
+        {"enc_out":   "model.vision_tower.transformer.layers.23",
+         "post_proj": "model.multi_modal_projector",
+         "llm_8":     "model.language_model.model.layers.8",
+         "llm_16":    "model.language_model.model.layers.16"},
+    ],
+    # Molmo-7B-D: custom vision adapter + Qwen2-7B. Paths are best-guess; run
+    # scripts/discover_probe_sites.py first to verify or auto-detect.
+    "molmo-7b": [
+        {"enc_out":   "model.vision_backbone.image_vit.transformer.resblocks.22",
+         "post_proj": "model.vision_backbone.image_projector",
+         "llm_8":     "model.transformer.blocks.8",
+         "llm_16":    "model.transformer.blocks.16"},
     ],
 }
 
@@ -106,9 +168,31 @@ def load_model(model_key: str):
             from transformers import Gemma3ForConditionalGeneration as Cls
         except ImportError:
             from transformers import AutoModelForImageTextToText as Cls
+    # --- Week B families (2026-04-19) ---
+    elif family == "llava_ov":
+        try:
+            from transformers import LlavaOnevisionForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForImageTextToText as Cls
+    elif family == "phi35v":
+        # Phi-3.5-Vision: trust_remote_code + eager attn (model's custom
+        # modeling file hardcodes flash-attn as default; forcing eager avoids
+        # flash-attn dependency issues).
+        from transformers import AutoModelForCausalLM as Cls
+    elif family == "pixtral":
+        try:
+            from transformers import LlavaForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForImageTextToText as Cls
+    elif family == "molmo":
+        # Molmo uses custom modeling code in its HF repo
+        from transformers import AutoModelForCausalLM as Cls
     else:
         from transformers import AutoModelForVision2Seq as Cls
 
+    # Attention implementation: eager for families with custom attention
+    # (Gemma/Phi/Molmo); sdpa otherwise.
+    eager_families = {"gemma", "phi35v", "molmo"}
     attn = pick_attn_impl(allow_sdpa=True)
     print(f"Loading {hf_id} ({attn}, bnb-nf4, bf16)")
     t0 = time.time()
@@ -116,10 +200,16 @@ def load_model(model_key: str):
         hf_id,
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto", torch_dtype=torch.bfloat16,
-        attn_implementation=attn if family != "gemma" else "eager",
+        attn_implementation=attn if family not in eager_families else "eager",
         trust_remote_code=True, low_cpu_mem_usage=True,
     )
-    processor = AutoProcessor.from_pretrained(hf_id, trust_remote_code=True)
+    # Per-family processor kwargs
+    if family == "phi35v":
+        processor = AutoProcessor.from_pretrained(
+            hf_id, trust_remote_code=True, num_crops=4,
+        )
+    else:
+        processor = AutoProcessor.from_pretrained(hf_id, trust_remote_code=True)
     model.eval()
     print(f"  loaded in {time.time()-t0:.1f}s")
     return model, processor, family

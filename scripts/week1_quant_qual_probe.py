@@ -203,6 +203,64 @@ MODEL_REGISTRY: Dict[str, Dict] = {
             },
         ],
     },
+    # --- Week B additions (2026-04-19): for PhysLens-Predict n=8 validation ---
+    # LLaVA-OneVision-7B (llava-hf/llava-onevision-qwen2-7b-ov-hf):
+    # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers).
+    # Verified by cpu_verify_weekb.py: config reports vision_config.num_hidden_layers=26.
+    "llava-onevision-7b": {
+        "hf_id": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+        "loader": "llava_ov",
+        "input_kind": "gemma",  # standard HF PIL path works
+        "probe_candidates": [
+            {
+                "enc_out":   "vision_tower.vision_model.encoder.layers.25",
+                "post_proj": "multi_modal_projector",
+                "llm_8":     "language_model.model.layers.8",
+                "llm_16":    "language_model.model.layers.16",
+            },
+            {
+                "enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.model.layers.8",
+                "llm_16":    "model.language_model.model.layers.16",
+            },
+        ],
+    },
+    # Pixtral-12B: Mistral vision + projector + Mistral-Nemo-12B
+    "pixtral-12b": {
+        "hf_id": "mistral-community/pixtral-12b",
+        "loader": "pixtral",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            {
+                "enc_out":   "vision_tower.transformer.layers.23",
+                "post_proj": "multi_modal_projector",
+                "llm_8":     "language_model.model.layers.8",
+                "llm_16":    "language_model.model.layers.16",
+            },
+            {
+                "enc_out":   "model.vision_tower.transformer.layers.23",
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.model.layers.8",
+                "llm_16":    "model.language_model.model.layers.16",
+            },
+        ],
+    },
+    # Molmo-7B-D: custom vision backbone + Qwen2-7B. PATHS BEST-GUESS — run
+    # scripts/discover_probe_sites.py first to verify.
+    "molmo-7b": {
+        "hf_id": "allenai/Molmo-7B-D-0924",
+        "loader": "molmo",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            {
+                "enc_out":   "model.vision_backbone.image_vit.transformer.resblocks.22",
+                "post_proj": "model.vision_backbone.image_projector",
+                "llm_8":     "model.transformer.blocks.8",
+                "llm_16":    "model.transformer.blocks.16",
+            },
+        ],
+    },
 }
 
 
@@ -346,6 +404,86 @@ def load_phi35_vision(model_id: str):
     return model, processor
 
 
+# --- Week B loaders (2026-04-19) ---
+
+def load_llava_ov(model_id: str):
+    """LLaVA-OneVision-7B via LlavaOnevisionForConditionalGeneration."""
+    from transformers import AutoProcessor
+    try:
+        from transformers import LlavaOnevisionForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForImageTextToText as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_pixtral(model_id: str):
+    """Pixtral-12B via LlavaForConditionalGeneration (Mistral community port)."""
+    from transformers import AutoProcessor
+    try:
+        from transformers import LlavaForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForImageTextToText as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_molmo(model_id: str):
+    """Molmo-7B-D via AutoModelForCausalLM + trust_remote_code.
+
+    Molmo uses custom modeling. Force eager attention because its custom
+    modeling file doesn't always support sdpa cleanly under 4-bit.
+    """
+    from transformers import AutoProcessor, AutoModelForCausalLM
+
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation=eager (Molmo), quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = AutoModelForCausalLM.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation="eager",
+        trust_remote_code=True,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
 # Dispatch by loader name.
 _LOADERS = {
     "qwen3_vl":     load_qwen3_vl,
@@ -353,6 +491,10 @@ _LOADERS = {
     "internvl3":    load_internvl3,
     "gemma4":       load_gemma4,
     "phi35_vision": load_phi35_vision,
+    # --- Week B additions (2026-04-19) ---
+    "llava_ov":     load_llava_ov,
+    "pixtral":      load_pixtral,
+    "molmo":        load_molmo,
 }
 
 
