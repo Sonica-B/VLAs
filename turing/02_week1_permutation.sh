@@ -29,8 +29,7 @@ set -e
 mkdir -p jobs
 
 # Load environment (modules + pip packages).
-source /home/ssboyane/VLAs/.turing_env
-
+source activate /home/ssboyane/VLAs/vla_physics || conda activate vla_physics || source activate vla_physics
 
 echo "=== JOB 2/7: Permutation Baseline ($(date)) ==="
 

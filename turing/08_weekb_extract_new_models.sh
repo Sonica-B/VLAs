@@ -32,7 +32,7 @@
 #SBATCH -N 1
 #SBATCH -n 8
 #SBATCH --mem=96G
-#SBATCH -t 8:00:00
+#SBATCH -t 24:00:00
 #SBATCH --account=cngan
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
@@ -44,7 +44,7 @@ set -e
 mkdir -p jobs results/week1_turing cache/week1_turing/features logs/turing
 
 # Load environment (modules + pip packages).
-source /home/ssboyane/VLAs/.turing_env
+source activate /home/ssboyane/VLAs/vla_physics || conda activate vla_physics || source activate vla_physics
 
 export FULL_RESOLUTION=1
 export HF_TOKEN="${HF_TOKEN}"
