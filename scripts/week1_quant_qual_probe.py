@@ -379,16 +379,31 @@ def load_gemma4(model_id: str):
 def load_phi35_vision(model_id: str):
     """Phi-3.5-vision-instruct: CLIP ViT-L + Phi-3.5-mini LLM.
 
-    Phi3V's custom modeling file hardcodes flash_attention_2 as the default
-    and does not support it on this box. Force `eager` to bypass.
+    Phi3V's custom modeling file doesn't forward `attn_implementation` to its
+    super().__init__(config) call, so on transformers >= 5.0 the parent's
+    `_check_and_adjust_attn_implementation` defaults to FA2 and raises
+    `Phi3VForCausalLM does not support Flash Attention 2`.
+
+    Fix: pre-patch the AutoConfig with `_attn_implementation='eager'` and
+    `_attn_implementation_internal='eager'` BEFORE passing to from_pretrained,
+    so the parent's check reads eager from config instead of defaulting to FA2.
     """
-    from transformers import AutoProcessor, AutoModelForCausalLM
+    from transformers import AutoProcessor, AutoModelForCausalLM, AutoConfig
 
     print(f"Loading {model_id}")
     print(f"  attn_implementation=eager (Phi3V requirement), quant=bnb-nf4, dtype=bf16")
     t0 = time.time()
+
+    # Pre-patch config to force eager BEFORE super().__init__ reads it.
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+    # Cover both transformers 4.x and 5.x attribute names.
+    setattr(config, "_attn_implementation", "eager")
+    setattr(config, "_attn_implementation_internal", "eager")
+    setattr(config, "attn_implementation", "eager")
+
     model = AutoModelForCausalLM.from_pretrained(
         model_id,
+        config=config,
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto",
         torch_dtype=torch.bfloat16,

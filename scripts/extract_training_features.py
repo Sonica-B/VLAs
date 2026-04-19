@@ -196,13 +196,26 @@ def load_model(model_key: str):
     attn = pick_attn_impl(allow_sdpa=True)
     print(f"Loading {hf_id} ({attn}, bnb-nf4, bf16)")
     t0 = time.time()
-    model = Cls.from_pretrained(
-        hf_id,
+    # Pre-patch config for Phi-3.5-Vision: its custom modeling file doesn't
+    # forward attn_implementation to super().__init__, so the parent's FA2
+    # dispatch check fires before our kwarg takes effect. Pre-setting on
+    # config makes the parent's _check_and_adjust_attn_implementation read
+    # "eager" rather than defaulting to FA2.
+    pretrain_kwargs = dict(
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto", torch_dtype=torch.bfloat16,
         attn_implementation=attn if family not in eager_families else "eager",
         trust_remote_code=True, low_cpu_mem_usage=True,
     )
+    if family == "phi35v":
+        from transformers import AutoConfig
+        config = AutoConfig.from_pretrained(hf_id, trust_remote_code=True)
+        for attr in ("_attn_implementation", "_attn_implementation_internal",
+                     "attn_implementation"):
+            setattr(config, attr, "eager")
+        pretrain_kwargs["config"] = config
+
+    model = Cls.from_pretrained(hf_id, **pretrain_kwargs)
     # Per-family processor kwargs
     if family == "phi35v":
         processor = AutoProcessor.from_pretrained(
