@@ -102,14 +102,19 @@ PROBE_CANDIDATES = {
     ],
     # --- Week B additions (2026-04-19) ---
     # LLaVA-OneVision-7B (llava-hf/llava-onevision-qwen2-7b-ov-hf):
-    # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers)
-    # (Verified by cpu_verify_weekb.py — config reports vision 26, text 28)
+    # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers).
+    # Verified by Turing discovery: model.language_model.layers.N (no inner .model.)
     "llava-onevision-7b": [
-        # Native transformers>=4.45
+        {"enc_out": "model.vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "model.multi_modal_projector",
+         "llm_8": "model.language_model.layers.8",
+         "llm_16": "model.language_model.layers.16"},
+        # Fallback: flat
         {"enc_out": "vision_tower.vision_model.encoder.layers.25",
          "post_proj": "multi_modal_projector",
-         "llm_8": "language_model.model.layers.8", "llm_16": "language_model.model.layers.16"},
-        # Outer model. wrapper (some versions)
+         "llm_8": "language_model.layers.8",
+         "llm_16": "language_model.layers.16"},
+        # Older fallback with inner .model.
         {"enc_out": "model.vision_tower.vision_model.encoder.layers.25",
          "post_proj": "model.multi_modal_projector",
          "llm_8": "model.language_model.model.layers.8",
@@ -128,11 +133,18 @@ PROBE_CANDIDATES = {
          "llm_16":    "model.layers.16"},
     ],
     # Pixtral-12B: CLIP-ViT (24 layers) + pixtral-style image_proj + Mistral-12B-Nemo (40 layers)
+    # Verified by Turing discovery: model.language_model.layers.N (no inner .model.)
     "pixtral-12b": [
+        {"enc_out":   "model.vision_tower.transformer.layers.23",
+         "post_proj": "model.multi_modal_projector",
+         "llm_8":     "model.language_model.layers.8",
+         "llm_16":    "model.language_model.layers.16"},
+        # Fallback: flat
         {"enc_out":   "vision_tower.transformer.layers.23",
          "post_proj": "multi_modal_projector",
-         "llm_8":     "language_model.model.layers.8",
-         "llm_16":    "language_model.model.layers.16"},
+         "llm_8":     "language_model.layers.8",
+         "llm_16":    "language_model.layers.16"},
+        # Older fallback with inner .model.
         {"enc_out":   "model.vision_tower.transformer.layers.23",
          "post_proj": "model.multi_modal_projector",
          "llm_8":     "model.language_model.model.layers.8",
@@ -223,6 +235,14 @@ def load_model(model_key: str):
         )
     else:
         processor = AutoProcessor.from_pretrained(hf_id, trust_remote_code=True)
+    # Pixtral / Llava family: tokenizer often ships without pad_token; set so
+    # processor(..., padding=True) doesn't raise.
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+    except Exception:
+        pass
     model.eval()
     print(f"  loaded in {time.time()-t0:.1f}s")
     return model, processor, family

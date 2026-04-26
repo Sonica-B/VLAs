@@ -206,18 +206,27 @@ MODEL_REGISTRY: Dict[str, Dict] = {
     # --- Week B additions (2026-04-19): for PhysLens-Predict n=8 validation ---
     # LLaVA-OneVision-7B (llava-hf/llava-onevision-qwen2-7b-ov-hf):
     # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers).
-    # Verified by cpu_verify_weekb.py: config reports vision_config.num_hidden_layers=26.
+    # Verified by Turing discovery: paths are flat after `model.` (no inner `.model.`).
     "llava-onevision-7b": {
         "hf_id": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
         "loader": "llava_ov",
         "input_kind": "gemma",  # standard HF PIL path works
         "probe_candidates": [
+            # Discovered on Turing: model.language_model.layers.N (NO inner .model.)
+            {
+                "enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+            # Fallback: flat (no model. prefix) for other transformers versions
             {
                 "enc_out":   "vision_tower.vision_model.encoder.layers.25",
                 "post_proj": "multi_modal_projector",
-                "llm_8":     "language_model.model.layers.8",
-                "llm_16":    "language_model.model.layers.16",
+                "llm_8":     "language_model.layers.8",
+                "llm_16":    "language_model.layers.16",
             },
+            # Older fallback with inner .model.
             {
                 "enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
                 "post_proj": "model.multi_modal_projector",
@@ -227,17 +236,27 @@ MODEL_REGISTRY: Dict[str, Dict] = {
         ],
     },
     # Pixtral-12B: Mistral vision + projector + Mistral-Nemo-12B
+    # Verified by Turing discovery: paths are flat after `model.`.
     "pixtral-12b": {
         "hf_id": "mistral-community/pixtral-12b",
         "loader": "pixtral",
         "input_kind": "gemma",
         "probe_candidates": [
+            # Discovered on Turing: model.language_model.layers.N (NO inner .model.)
+            {
+                "enc_out":   "model.vision_tower.transformer.layers.23",
+                "post_proj": "model.multi_modal_projector",
+                "llm_8":     "model.language_model.layers.8",
+                "llm_16":    "model.language_model.layers.16",
+            },
+            # Fallback: flat
             {
                 "enc_out":   "vision_tower.transformer.layers.23",
                 "post_proj": "multi_modal_projector",
-                "llm_8":     "language_model.model.layers.8",
-                "llm_16":    "language_model.model.layers.16",
+                "llm_8":     "language_model.layers.8",
+                "llm_16":    "language_model.layers.16",
             },
+            # Older fallback with inner .model.
             {
                 "enc_out":   "model.vision_tower.transformer.layers.23",
                 "post_proj": "model.multi_modal_projector",
@@ -448,7 +467,11 @@ def load_llava_ov(model_id: str):
 
 
 def load_pixtral(model_id: str):
-    """Pixtral-12B via LlavaForConditionalGeneration (Mistral community port)."""
+    """Pixtral-12B via LlavaForConditionalGeneration (Mistral community port).
+
+    Pixtral's tokenizer ships WITHOUT pad_token. Set it to eos_token after
+    loading so processor(..., padding=True) doesn't raise.
+    """
     from transformers import AutoProcessor
     try:
         from transformers import LlavaForConditionalGeneration as ModelCls
@@ -468,6 +491,14 @@ def load_pixtral(model_id: str):
         low_cpu_mem_usage=True,
     )
     processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    # Pixtral fix: tokenizer has no pad_token by default → padding=True raises.
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+            print(f"  (set tokenizer.pad_token = eos_token)")
+    except Exception:
+        pass
     model.eval()
     print(f"  loaded in {time.time()-t0:.1f}s")
     return model, processor
@@ -673,6 +704,35 @@ def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
         # Cap at 5 images max (PhysBench maximum) as a safety net.
         pil_images = pil_images[:5]
     prompt_text = "\n".join(p for p in text_parts if p.strip())
+
+    # ----- Per-processor special handling -----
+    proc_class = type(processor).__name__
+
+    # Phi-3.5-Vision: requires explicit <|image_N|> tags in text (it does NOT
+    # auto-insert them via apply_chat_template). Without tags, processor raises
+    # AssertionError("total images must be the same as the number of image tags,
+    # got 0 image tags and N images"). Skip apply_chat_template entirely.
+    if proc_class.startswith("Phi3V"):
+        image_tags = "\n".join(f"<|image_{i+1}|>" for i in range(len(pil_images)))
+        full_prompt = f"<|user|>\n{image_tags}\n{prompt_text}<|end|>\n<|assistant|>\n"
+        inputs = processor(
+            images=pil_images,
+            text=full_prompt,
+            return_tensors="pt",
+            padding=True,
+        )
+        return inputs
+
+    # Pixtral / Mistral-community Pixtral: tokenizer ships without pad_token by
+    # default. processor(..., padding=True) raises ValueError unless we set one.
+    # eos_token is the standard fallback per HF guidance.
+    if proc_class.startswith("Pixtral") or proc_class.startswith("Llava"):
+        try:
+            tok = getattr(processor, "tokenizer", None)
+            if tok is not None and getattr(tok, "pad_token", None) is None:
+                tok.pad_token = tok.eos_token
+        except Exception:
+            pass
 
     # Build a chat template the target processor can consume.
     chat = [

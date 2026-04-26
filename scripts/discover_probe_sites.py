@@ -153,6 +153,15 @@ def measure_compression(model, processor, enc_path: str, post_path: str,
     h1 = enc_mod.register_forward_hook(_capture(enc_out_shape, "shape"))
     h2 = post_mod.register_forward_hook(_capture(post_proj_shape, "shape"))
 
+    # Pixtral/Llava-style processors often ship without a pad_token; set one
+    # before calling processor(..., padding=True) to avoid ValueError.
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+    except Exception:
+        pass
+
     try:
         from PIL import Image
         import numpy as np
