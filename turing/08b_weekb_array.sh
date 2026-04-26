@@ -44,6 +44,32 @@ export FULL_RESOLUTION=1
 export HF_TOKEN="${HF_TOKEN}"
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
+# Fail-fast GPU sanity check. The previous Week B run silently fell back to
+# CPU (driver mismatch) and produced ~14-day ETAs. We catch that here.
+python -u - <<'PYCHECK'
+import sys, time, torch
+if not torch.cuda.is_available():
+    print("FATAL: torch.cuda.is_available() = False. "
+          "Driver/torch CUDA mismatch. Job aborted.", file=sys.stderr)
+    sys.exit(1)
+print(f"GPU OK: {torch.cuda.get_device_name(0)} / torch {torch.__version__} / "
+      f"cuda {torch.version.cuda}")
+# Speed sanity check: matmul should be <100ms on A100
+x = torch.randn(2000, 2000, device='cuda')
+torch.cuda.synchronize(); t0 = time.time()
+_ = x @ x.T
+torch.cuda.synchronize(); dt = (time.time() - t0) * 1000
+print(f"GPU matmul 2kx2k: {dt:.1f}ms")
+if dt > 500:
+    print(f"FATAL: GPU op took {dt:.0f}ms (expected <100ms on A100). "
+          f"Likely silent CPU fallback. Job aborted.", file=sys.stderr)
+    sys.exit(2)
+PYCHECK
+if [ $? -ne 0 ]; then
+    echo "GPU SANITY CHECK FAILED — see error above. Aborting before wasting compute."
+    exit 1
+fi
+
 # Per-task model selection. Add models to this array AND bump --array=0-N above.
 MODELS=(llava-onevision-7b pixtral-12b phi3.5-vision)
 MODEL=${MODELS[$SLURM_ARRAY_TASK_ID]}
