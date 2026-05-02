@@ -1,0 +1,135 @@
+{
+  "model": "phi3.5-vision",
+  "model_hf_id": "microsoft/Phi-3.5-vision-instruct",
+  "split": "val",
+  "n_samples": 200,
+  "n_quant": 55,
+  "n_qual": 145,
+  "targets": [
+    "answer",
+    "task_type",
+    "sub_type"
+  ],
+  "probe_results": {
+    "answer": {
+      "enc_out": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "post_proj": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "llm_8": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "llm_16": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      }
+    },
+    "task_type": {
+      "enc_out": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "post_proj": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "llm_8": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "llm_16": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      }
+    },
+    "sub_type": {
+      "enc_out": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "post_proj": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "llm_8": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      },
+      "llm_16": {
+        "all": null,
+        "quantitative": null,
+        "qualitative": null,
+        "n_total": 0,
+        "n_quant": 0,
+        "n_qual": 0,
+        "feature_dim": null
+      }
+    }
+  },
+  "extraction_stats": {
+    "processed": 0,
+    "skipped": 0,
+    "errors": 200,
+    "probe_only": false
+  }
+}

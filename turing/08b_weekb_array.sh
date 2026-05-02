@@ -20,11 +20,11 @@
 # ============================================================================
 
 #SBATCH -J weekb-array
-#SBATCH -p short
+#SBATCH -p quick
 #SBATCH -N 1
 #SBATCH -n 8
 #SBATCH --mem=64G
-#SBATCH -t 3:00:00
+#SBATCH -t 12:00:00
 #SBATCH --account=cngan
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1

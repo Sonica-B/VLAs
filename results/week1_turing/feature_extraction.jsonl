@@ -31,3 +31,1088 @@
 {"sample_id": "val_211", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1280, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
 {"sample_id": "val_212", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1280, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
 {"sample_id": "val_243", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1280, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_0", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_2", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_14", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_20", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_23", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_25", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_26", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_56", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_57", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_97", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_103", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_105", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_130", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_133", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_134", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_203", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_204", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_205", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_206", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_207", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_209", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_210", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_211", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_212", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_243", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_244", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_245", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_246", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_253", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_254", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_263", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_272", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_347", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_348", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_353", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_354", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_355", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_381", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_382", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_383", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_384", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_385", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_386", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_767", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_768", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_770", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_771", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_990", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_991", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_992", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_993", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_994", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_995", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1011", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1054", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1176", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1183", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1193", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1207", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1208", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1209", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1210", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1211", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1455", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1456", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1457", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1458", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1459", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1460", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1469", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1470", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1471", "status": "no_media"}
+{"sample_id": "val_1472", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1473", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1474", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1475", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1565", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1580", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1582", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1583", "status": "no_media"}
+{"sample_id": "val_1584", "status": "no_media"}
+{"sample_id": "val_1585", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1735", "status": "no_media"}
+{"sample_id": "val_1796", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1874", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 4 images"}
+{"sample_id": "val_1875", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_1947", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_1948", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_3253", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3254", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3422", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3423", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3424", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3425", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3426", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3427", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3437", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3909", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 3 images"}
+{"sample_id": "val_3910", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_4315", "status": "no_media"}
+{"sample_id": "val_4331", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_4907", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_4972", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6242", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6940", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7114", "status": "no_media"}
+{"sample_id": "val_7115", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7338", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7358", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7359", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7368", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7410", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7414", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7454", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7455", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7491", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7493", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7494", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7503", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7512", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7513", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7522", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7523", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7524", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7530", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7534", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7535", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7536", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7545", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7555", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7596", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7597", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7641", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7665", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7666", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7682", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7688", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7689", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7698", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7699", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7711", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7712", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7754", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7755", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7772", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7773", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7787", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7788", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7798", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7799", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8047", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8048", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8069", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8072", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8085", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8086", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8506", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8551", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8552", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8553", "status": "no_media"}
+{"sample_id": "val_8555", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8556", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8557", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8558", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8559", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8560", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8615", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8653", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8662", "status": "no_media"}
+{"sample_id": "val_8675", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8679", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8701", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8707", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8712", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8788", "status": "no_media"}
+{"sample_id": "val_9123", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9124", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9125", "status": "no_media"}
+{"sample_id": "val_9126", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9141", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9168", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_9600", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9601", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9672", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9673", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9679", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9709", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9714", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9715", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9729", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9730", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9757", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_0", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_2", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_14", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_20", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_23", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_25", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_26", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_56", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_57", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_97", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_103", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_105", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_130", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_133", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_134", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_203", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_204", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_205", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_206", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_207", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_209", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_210", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_211", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_212", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_243", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_244", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_245", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_246", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_253", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_254", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_263", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_272", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_347", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_348", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_353", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_354", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_355", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_381", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_382", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_383", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_384", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_385", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_386", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_767", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_768", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_770", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_771", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_990", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_991", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_992", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_993", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_994", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_995", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1011", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1054", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1176", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1183", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1193", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1207", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1208", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1209", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1210", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1211", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1455", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1456", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1457", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1458", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1459", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1460", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1469", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1470", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1471", "status": "no_media"}
+{"sample_id": "val_1472", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1473", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1474", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1475", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1565", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1580", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1582", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1583", "status": "no_media"}
+{"sample_id": "val_1584", "status": "no_media"}
+{"sample_id": "val_1585", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1735", "status": "no_media"}
+{"sample_id": "val_1796", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1874", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 4 images"}
+{"sample_id": "val_1875", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_1947", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_1948", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_3253", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3254", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3422", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3423", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3424", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3425", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3426", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3427", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3437", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3909", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 3 images"}
+{"sample_id": "val_3910", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_4315", "status": "no_media"}
+{"sample_id": "val_4331", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_4907", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_4972", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6242", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6940", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7114", "status": "no_media"}
+{"sample_id": "val_7115", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7338", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7358", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7359", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7368", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7410", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7414", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7454", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7455", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7491", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7493", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7494", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7503", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7512", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7513", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7522", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7523", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7524", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7530", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7534", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7535", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7536", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7545", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7555", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7596", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7597", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7641", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7665", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7666", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7682", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7688", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7689", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7698", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7699", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7711", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7712", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7754", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7755", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7772", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7773", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7787", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7788", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7798", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7799", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8047", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8048", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8069", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8072", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8085", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8086", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8506", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8551", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8552", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8553", "status": "no_media"}
+{"sample_id": "val_8555", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8556", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8557", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8558", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8559", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8560", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8615", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8653", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8662", "status": "no_media"}
+{"sample_id": "val_8675", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8679", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8701", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8707", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8712", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8788", "status": "no_media"}
+{"sample_id": "val_9123", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9124", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9125", "status": "no_media"}
+{"sample_id": "val_9126", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9141", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9168", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_9600", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9601", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9672", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9673", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9679", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9709", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9714", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9715", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9729", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9730", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9757", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_0", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_2", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_14", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_20", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_23", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_25", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_26", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_56", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_57", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_97", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_103", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_105", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_130", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_133", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_134", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_203", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_204", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_205", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_206", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_207", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_209", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_210", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_211", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_212", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_243", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_244", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_245", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_246", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_253", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_254", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_263", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_272", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_347", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_348", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_353", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_354", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_355", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_381", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_382", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_383", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_384", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_385", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_386", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_767", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_768", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_770", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_771", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_990", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_991", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_992", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_993", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_994", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_995", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1011", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1054", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1176", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1183", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1193", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1207", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1208", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1209", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1210", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1211", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1455", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1456", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1457", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1458", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1459", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1460", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1469", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1470", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1471", "status": "no_media"}
+{"sample_id": "val_1472", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1473", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1474", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_1475", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1565", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1580", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1582", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1583", "status": "no_media"}
+{"sample_id": "val_1584", "status": "no_media"}
+{"sample_id": "val_1585", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1735", "status": "no_media"}
+{"sample_id": "val_1796", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_1874", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 4 images"}
+{"sample_id": "val_1875", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_1947", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_1948", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 5 images"}
+{"sample_id": "val_3253", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3254", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3422", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3423", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3424", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3425", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3426", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3427", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3437", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_3909", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 3 images"}
+{"sample_id": "val_3910", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_4315", "status": "no_media"}
+{"sample_id": "val_4331", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_4907", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_4972", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6242", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_6940", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7114", "status": "no_media"}
+{"sample_id": "val_7115", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7338", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7358", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7359", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7368", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7410", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7414", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7454", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7455", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7491", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7493", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7494", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7503", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7512", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7513", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7522", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7523", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7524", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7530", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7534", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7535", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7536", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7545", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7555", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7596", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7597", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7641", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7665", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7666", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7682", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7688", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7689", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7698", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7699", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7711", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7712", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7754", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7755", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7772", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7773", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7787", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7788", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7798", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_7799", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8047", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8048", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8069", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8072", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8085", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8086", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8506", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8551", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8552", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8553", "status": "no_media"}
+{"sample_id": "val_8555", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8556", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8557", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8558", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8559", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8560", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8615", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8653", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8662", "status": "no_media"}
+{"sample_id": "val_8675", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8679", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8701", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8707", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8712", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_8788", "status": "no_media"}
+{"sample_id": "val_9123", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9124", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9125", "status": "no_media"}
+{"sample_id": "val_9126", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9141", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9168", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 2 images"}
+{"sample_id": "val_9600", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9601", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9672", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9673", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9679", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9709", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9714", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9715", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9729", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9730", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_9757", "status": "error", "error": "AssertionError: total images must be the same as the number of image tags, got 0 image tags and 1 images"}
+{"sample_id": "val_0", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "others", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_2", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_6", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_7", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_2", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_2", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_6", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_6", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_7", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_7", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_8", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "motion", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_8", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "motion", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_8", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "motion", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_14", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_14", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_14", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_20", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_20", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_20", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_23", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_23", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_23", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_25", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_25", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_25", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_26", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_26", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_26", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_56", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_56", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_56", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_57", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_57", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_57", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_97", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "chemistry", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_97", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "chemistry", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_103", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_97", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "chemistry", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_103", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_105", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_103", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_130", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_105", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_130", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_105", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_130", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_133", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_133", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_134", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_133", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_134", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_203", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_134", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_203", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_204", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_203", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_204", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_205", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_205", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_204", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_206", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_206", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_205", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_207", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_207", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_206", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_209", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_209", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_207", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_210", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_210", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_209", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_211", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_211", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_210", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_212", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_212", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_211", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_243", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_243", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_244", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_212", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_244", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_245", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_243", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_245", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_246", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_244", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_246", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_253", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_253", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_245", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_254", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_254", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_263", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "scene", "sub_type": "temperature", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_263", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "scene", "sub_type": "temperature", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_272", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_272", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_272", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_347", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_347", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_347", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_348", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_348", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_348", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_353", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_353", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_353", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_354", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_354", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_354", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_355", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_355", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_355", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_381", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_381", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_381", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_382", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_382", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_382", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_383", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "property", "sub_type": "attribute", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_383", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "property", "sub_type": "attribute", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_383", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "property", "sub_type": "attribute", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_384", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_384", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_384", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_385", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_385", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_385", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_386", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_386", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_386", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_767", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_767", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_767", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_768", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_768", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_768", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_770", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_770", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_770", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_771", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_771", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_771", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_990", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_990", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_991", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_990", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_991", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_992", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_991", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_992", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_993", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_992", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_993", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_994", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_993", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_994", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_995", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_994", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_995", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1011", "status": "ok", "slice": "quantitative", "answer": "", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_995", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1011", "status": "ok", "slice": "quantitative", "answer": "", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1054", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1176", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "property", "sub_type": "color", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1011", "status": "ok", "slice": "quantitative", "answer": "", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1054", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1183", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1193", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1176", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "property", "sub_type": "color", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1183", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1193", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1054", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1176", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "property", "sub_type": "color", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1207", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1183", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1193", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1207", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1208", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1207", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1208", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1209", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1208", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1209", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1210", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1209", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1210", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1211", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1210", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1211", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1455", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1211", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1455", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1456", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1456", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1457", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1457", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1458", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1458", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_0", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_1459", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_1", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "others", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_1459", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_2", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_6", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_1460", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_7", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_8", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "motion", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_1460", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_14", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "location", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_1469", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_20", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "viewpoint", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_1469", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_23", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_25", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_26", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "relationships", "sub_type": "size", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_56", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_57", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "scene", "sub_type": "light", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_97", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "chemistry", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_103", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_105", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_130", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "dynamics", "sub_type": "manipulation", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_133", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_134", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_203", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_204", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_205", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_206", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_207", "status": "ok", "slice": "quantitative", "answer": "A", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_209", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_210", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_211", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_212", "status": "ok", "slice": "quantitative", "answer": "D", "task_type": "property", "sub_type": "mass", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_243", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_244", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_245", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_246", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_253", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_254", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "scene", "sub_type": "air", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_263", "status": "ok", "slice": "quantitative", "answer": "B", "task_type": "scene", "sub_type": "temperature", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_272", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_347", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_348", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_353", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_354", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_355", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_381", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_382", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_383", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "property", "sub_type": "attribute", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_384", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_385", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_386", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "dynamics", "sub_type": "throwing", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_767", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_768", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_770", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_771", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "collision", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_990", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_991", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_992", "status": "ok", "slice": "quantitative", "answer": "C", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_993", "status": "ok", "slice": "qualitative", "answer": "C", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_994", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_995", "status": "ok", "slice": "qualitative", "answer": "A", "task_type": "relationships", "sub_type": "depth", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_1011", "status": "ok", "slice": "quantitative", "answer": "", "task_type": "relationships", "sub_type": "distance", "dims": {"enc_out": 1024, "post_proj": 5120, "llm_8": 5120, "llm_16": 5120}}
+{"sample_id": "val_0", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_2", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_6", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_14", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_20", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_23", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_25", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_26", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_56", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_57", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_97", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_103", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_105", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_130", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_133", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_134", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_203", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_204", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_205", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_206", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_207", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_209", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_210", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_211", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_212", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_243", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_244", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_245", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_246", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_253", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_254", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_263", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_272", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_347", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_348", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_353", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_354", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_355", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_381", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_382", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_383", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_384", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_385", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_386", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_767", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_768", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_770", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_771", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_990", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_991", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_992", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_993", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_994", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_995", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1011", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1054", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1176", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1183", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1193", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1207", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1208", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1209", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1210", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1211", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1455", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1456", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1457", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1458", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1459", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1460", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1469", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1470", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1471", "status": "no_media"}
+{"sample_id": "val_1472", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1473", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1474", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1475", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1565", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1580", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1582", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1583", "status": "no_media"}
+{"sample_id": "val_1584", "status": "no_media"}
+{"sample_id": "val_1585", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1735", "status": "no_media"}
+{"sample_id": "val_1796", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1874", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1875", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1947", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_1948", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3253", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3254", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3422", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3423", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3424", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3425", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3426", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3427", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3437", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3909", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_3910", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_4315", "status": "no_media"}
+{"sample_id": "val_4331", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_4907", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_4972", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_6242", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_6940", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7114", "status": "no_media"}
+{"sample_id": "val_7115", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7338", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7358", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7359", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7368", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7410", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7414", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7454", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7455", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7491", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7493", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7494", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7503", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7512", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7513", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7522", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7523", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7524", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7530", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7534", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7535", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7536", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7545", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7555", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7596", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7597", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7641", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7665", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7666", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7682", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7688", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7689", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7698", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7699", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7711", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7712", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7754", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7755", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7772", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7773", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7787", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7788", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7798", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_7799", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8047", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8048", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8069", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8072", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8085", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8086", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8506", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8551", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8552", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8553", "status": "no_media"}
+{"sample_id": "val_8555", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8556", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8557", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8558", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8559", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8560", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8615", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8653", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8662", "status": "no_media"}
+{"sample_id": "val_8675", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8679", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8701", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8707", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8712", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_8788", "status": "no_media"}
+{"sample_id": "val_9123", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9124", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9125", "status": "no_media"}
+{"sample_id": "val_9126", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9141", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9168", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9600", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9601", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9672", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9673", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9679", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9709", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9714", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9715", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9729", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9730", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}
+{"sample_id": "val_9757", "status": "error", "error": "AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'"}

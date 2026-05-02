@@ -16,11 +16,11 @@
 # ============================================================================
 
 #SBATCH -J weekb-agg
-#SBATCH -p short
+#SBATCH -p quick
 #SBATCH -N 1
 #SBATCH -n 4
 #SBATCH --mem=16G
-#SBATCH -t 0:30:00
+#SBATCH -t 12:00:00
 #SBATCH --account=cngan
 #SBATCH --export=ALL
 #SBATCH -D /home/ssboyane/VLAs

@@ -1,0 +1,62 @@
+{
+  "per_model_scores": {
+    "internvl3-8b": {
+      "model": "internvl3-8b",
+      "compression": 2.4,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": 0.0
+    },
+    "gemma4-e4b": {
+      "model": "gemma4-e4b",
+      "compression": 114.0,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": 1.0
+    },
+    "qwen2.5-vl-7b": {
+      "model": "qwen2.5-vl-7b",
+      "compression": 270.0,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": 1.0
+    },
+    "qwen3-vl-8b": {
+      "model": "qwen3-vl-8b",
+      "compression": 784.0,
+      "enc_minus_postproj_gap": 0.019999999999999962,
+      "phys_lens_score": 0.05788632125368866,
+      "empirical_h3": 0.6666666666666666
+    },
+    "llava-onevision-7b": {
+      "model": "llava-onevision-7b",
+      "compression": null,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": null
+    },
+    "phi3.5-vision": {
+      "model": "phi3.5-vision",
+      "compression": null,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": null
+    },
+    "pixtral-12b": {
+      "model": "pixtral-12b",
+      "compression": null,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": null
+    },
+    "molmo-7b": {
+      "model": "molmo-7b",
+      "compression": null,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": null
+    }
+  },
+  "n_models_with_data": 1,
+  "loo_regression": null
+}

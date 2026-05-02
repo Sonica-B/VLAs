@@ -1,0 +1,338 @@
+================================================================
+[Mon 27 Apr 2026 07:33:30 PM EDT] WEEK B ARRAY TASK 2/2
+  array job:   1981727
+  task id:     2
+  model:       phi3.5-vision
+  GPU:         NVIDIA A100-SXM4-80GB, 81920 MiB
+  branch:      physics-steering @ e61ec17
+  transformers: 5.5.0
+================================================================
+
+--- [phi3.5-vision] probe-site discovery (advisory) ---
+Loading phi3.5-vision to discover probe sites...
+Loading microsoft/Phi-3.5-vision-instruct (sdpa, bnb-nf4, bf16)
+Missing validation function in 'RotaryEmbeddingConfigMixin' for 'rope_type'='su'
+/home/ssboyane/miniconda3/envs/vla_physics/lib/python3.11/site-packages/torch/cuda/__init__.py:180: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12080). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+Loading weights:   0%|          | 0/592 [00:00<?, ?it/s]/home/ssboyane/miniconda3/envs/vla_physics/lib/python3.11/site-packages/bitsandbytes/backends/default/ops.py:223: FutureWarning: _check_is_size will be removed in a future PyTorch release along with guard_size_oblivious.     Use _check(i >= 0) instead.
+  torch._check_is_size(blocksize)
+/home/ssboyane/miniconda3/envs/vla_physics/lib/python3.11/site-packages/bitsandbytes/backends/cpu/ops.py:36: FutureWarning: _check_is_size will be removed in a future PyTorch release along with guard_size_oblivious.     Use _check(i >= 0) instead.
+  torch._check_is_size(blocksize)
+Loading weights:   1%|          | 4/592 [00:00<01:48,  5.40it/s]Loading weights:   1%|          | 5/592 [00:02<04:46,  2.05it/s]Loading weights:   1%|          | 7/592 [00:02<03:15,  2.99it/s]Loading weights:   1%|▏         | 8/592 [00:03<04:09,  2.34it/s]Loading weights:   2%|▏         | 10/592 [00:03<03:44,  2.59it/s]Loading weights:   2%|▏         | 11/592 [00:05<05:51,  1.65it/s]Loading weights:   2%|▏         | 13/592 [00:05<04:01,  2.39it/s]Loading weights:   2%|▏         | 14/592 [00:06<04:38,  2.07it/s]Loading weights:   3%|▎         | 16/592 [00:06<04:09,  2.31it/s]Loading weights:   3%|▎         | 17/592 [00:08<06:10,  1.55it/s]Loading weights:   3%|▎         | 19/592 [00:08<04:15,  2.24it/s]Loading weights:   3%|▎         | 20/592 [00:09<04:48,  1.98it/s]Loading weights:   4%|▎         | 22/592 [00:09<04:08,  2.29it/s]Loading weights:   4%|▍         | 23/592 [00:11<05:46,  1.64it/s]Loading weights:   4%|▍         | 25/592 [00:11<04:01,  2.35it/s]Loading weights:   4%|▍         | 26/592 [00:11<04:36,  2.05it/s]Loading weights:   5%|▍         | 28/592 [00:12<04:15,  2.21it/s]Loading weights:   5%|▍         | 29/592 [00:14<06:01,  1.56it/s]Loading weights:   5%|▌         | 31/592 [00:14<04:10,  2.24it/s]Loading weights:   5%|▌         | 32/592 [00:15<04:44,  1.97it/s]Loading weights:   6%|▌         | 34/592 [00:15<04:15,  2.18it/s]Loading weights:   6%|▌         | 35/592 [00:17<05:52,  1.58it/s]Loading weights:   6%|▋         | 37/592 [00:17<04:04,  2.27it/s]Loading weights:   6%|▋         | 38/592 [00:18<04:36,  2.00it/s]Loading weights:   7%|▋         | 40/592 [00:18<03:59,  2.31it/s]Loading weights:   7%|▋         | 41/592 [00:20<05:38,  1.63it/s]Loading weights:   7%|▋         | 43/592 [00:20<03:55,  2.33it/s]Loading weights:   7%|▋         | 44/592 [00:21<04:29,  2.03it/s]Loading weights:   8%|▊         | 46/592 [00:21<04:00,  2.27it/s]Loading weights:   8%|▊         | 47/592 [00:22<05:34,  1.63it/s]Loading weights:   8%|▊         | 49/592 [00:23<03:55,  2.31it/s]Loading weights:   8%|▊         | 50/592 [00:23<04:29,  2.01it/s]Loading weights:   9%|▉         | 52/592 [00:24<04:01,  2.23it/s]Loading weights:   9%|▉         | 53/592 [00:26<05:37,  1.60it/s]Loading weights:   9%|▉         | 55/592 [00:26<03:54,  2.29it/s]Loading weights:   9%|▉         | 56/592 [00:27<04:33,  1.96it/s]Loading weights:  10%|▉         | 58/592 [00:27<03:54,  2.28it/s]Loading weights:  10%|▉         | 59/592 [00:28<05:26,  1.63it/s]Loading weights:  10%|█         | 61/592 [00:29<03:47,  2.34it/s]Loading weights:  10%|█         | 62/592 [00:29<04:19,  2.04it/s]Loading weights:  11%|█         | 64/592 [00:30<03:48,  2.31it/s]Loading weights:  11%|█         | 65/592 [00:31<05:25,  1.62it/s]Loading weights:  11%|█▏        | 67/592 [00:32<03:46,  2.32it/s]Loading weights:  11%|█▏        | 68/592 [00:32<04:17,  2.04it/s]Loading weights:  12%|█▏        | 70/592 [00:33<03:40,  2.37it/s]Loading weights:  12%|█▏        | 71/592 [00:34<05:10,  1.68it/s]Loading weights:  12%|█▏        | 73/592 [00:34<03:36,  2.40it/s]Loading weights:  12%|█▎        | 74/592 [00:35<04:10,  2.07it/s]Loading weights:  13%|█▎        | 76/592 [00:36<03:40,  2.34it/s]Loading weights:  13%|█▎        | 77/592 [00:37<05:11,  1.65it/s]Loading weights:  13%|█▎        | 79/592 [00:37<03:36,  2.37it/s]Loading weights:  14%|█▎        | 80/592 [00:38<04:07,  2.07it/s]Loading weights:  14%|█▍        | 82/592 [00:39<03:39,  2.32it/s]Loading weights:  14%|█▍        | 83/592 [00:40<05:09,  1.65it/s]Loading weights:  14%|█▍        | 85/592 [00:40<03:34,  2.36it/s]Loading weights:  15%|█▍        | 86/592 [00:41<04:04,  2.07it/s]Loading weights:  15%|█▍        | 88/592 [00:42<03:32,  2.37it/s]Loading weights:  15%|█▌        | 89/592 [00:43<05:02,  1.66it/s]Loading weights:  15%|█▌        | 91/592 [00:43<03:31,  2.37it/s]Loading weights:  16%|█▌        | 92/592 [00:44<04:01,  2.07it/s]Loading weights:  16%|█▌        | 94/592 [00:44<03:28,  2.39it/s]Loading weights:  16%|█▌        | 95/592 [00:46<04:55,  1.68it/s]Loading weights:  16%|█▋        | 97/592 [00:46<03:28,  2.38it/s]Loading weights:  17%|█▋        | 98/592 [00:47<03:58,  2.07it/s]Loading weights:  17%|█▋        | 100/592 [00:47<03:26,  2.38it/s]Loading weights:  17%|█▋        | 101/592 [00:49<04:55,  1.66it/s]Loading weights:  17%|█▋        | 103/592 [00:49<03:25,  2.37it/s]Loading weights:  18%|█▊        | 104/592 [00:50<03:55,  2.07it/s]Loading weights:  18%|█▊        | 106/592 [00:50<03:25,  2.37it/s]Loading weights:  18%|█▊        | 107/592 [00:51<04:49,  1.67it/s]Loading weights:  18%|█▊        | 109/592 [00:52<03:22,  2.39it/s]Loading weights:  19%|█▊        | 110/592 [00:52<03:50,  2.09it/s]Loading weights:  19%|█▉        | 112/592 [00:53<03:33,  2.25it/s]Loading weights:  19%|█▉        | 113/592 [00:54<04:53,  1.63it/s]Loading weights:  19%|█▉        | 115/592 [00:55<03:23,  2.35it/s]Loading weights:  20%|█▉        | 116/592 [00:55<03:50,  2.07it/s]Loading weights:  20%|█▉        | 118/592 [00:56<03:26,  2.29it/s]Loading weights:  20%|██        | 119/592 [00:57<04:49,  1.63it/s]Loading weights:  20%|██        | 121/592 [00:58<03:21,  2.34it/s]Loading weights:  21%|██        | 122/592 [00:58<03:49,  2.05it/s]Loading weights:  21%|██        | 124/592 [00:59<03:18,  2.36it/s]Loading weights:  21%|██        | 125/592 [01:00<04:44,  1.64it/s]Loading weights:  21%|██▏       | 127/592 [01:01<03:21,  2.30it/s]Loading weights:  22%|██▏       | 128/592 [01:01<03:50,  2.02it/s]Loading weights:  22%|██▏       | 130/592 [01:02<03:21,  2.30it/s]Loading weights:  22%|██▏       | 131/592 [01:03<04:47,  1.60it/s]Loading weights:  22%|██▏       | 133/592 [01:03<03:19,  2.30it/s]Loading weights:  23%|██▎       | 134/592 [01:04<03:50,  1.98it/s]Loading weights:  23%|██▎       | 136/592 [01:05<03:18,  2.29it/s]Loading weights:  23%|██▎       | 137/592 [01:06<04:36,  1.65it/s]Loading weights:  23%|██▎       | 139/592 [01:06<03:11,  2.36it/s]Loading weights:  24%|██▎       | 140/592 [01:07<03:39,  2.06it/s]Loading weights:  24%|██▍       | 142/592 [01:08<03:09,  2.37it/s]Loading weights:  24%|██▍       | 143/592 [01:09<04:57,  1.51it/s]Loading weights:  24%|██▍       | 145/592 [01:10<03:25,  2.18it/s]Loading weights:  25%|██▍       | 146/592 [01:10<03:49,  1.94it/s]Loading weights:  25%|██▌       | 148/592 [01:11<03:19,  2.22it/s]Loading weights:  25%|██▌       | 149/592 [01:12<04:39,  1.59it/s]Loading weights:  26%|██▌       | 151/592 [01:12<03:13,  2.28it/s]Loading weights:  26%|██▌       | 152/592 [01:13<03:40,  1.99it/s]Loading weights:  26%|██▌       | 154/592 [01:14<03:07,  2.33it/s]Loading weights:  26%|██▌       | 155/592 [01:15<04:39,  1.56it/s]Loading weights:  27%|██▋       | 157/592 [01:15<03:13,  2.25it/s]Loading weights:  27%|██▋       | 158/592 [01:16<03:36,  2.01it/s]Loading weights:  27%|██▋       | 160/592 [01:17<03:07,  2.30it/s]Loading weights:  27%|██▋       | 161/592 [01:18<04:30,  1.59it/s]Loading weights:  28%|██▊       | 163/592 [01:18<03:08,  2.27it/s]Loading weights:  28%|██▊       | 164/592 [01:19<03:35,  1.98it/s]Loading weights:  28%|██▊       | 166/592 [01:20<03:06,  2.29it/s]Loading weights:  28%|██▊       | 167/592 [01:21<04:22,  1.62it/s]Loading weights:  29%|██▊       | 169/592 [01:21<03:02,  2.32it/s]Loading weights:  29%|██▊       | 170/592 [01:22<03:26,  2.04it/s]Loading weights:  29%|██▉       | 172/592 [01:23<03:02,  2.30it/s]Loading weights:  29%|██▉       | 173/592 [01:24<04:17,  1.63it/s]Loading weights:  30%|██▉       | 175/592 [01:24<02:59,  2.33it/s]Loading weights:  30%|██▉       | 176/592 [01:25<03:24,  2.03it/s]Loading weights:  30%|███       | 178/592 [01:26<02:58,  2.32it/s]Loading weights:  30%|███       | 179/592 [01:27<04:28,  1.54it/s]Loading weights:  31%|███       | 181/592 [01:27<03:06,  2.21it/s]Loading weights:  31%|███       | 182/592 [01:28<03:30,  1.95it/s]Loading weights:  31%|███       | 184/592 [01:29<03:00,  2.26it/s]Loading weights:  31%|███▏      | 185/592 [01:30<04:26,  1.52it/s]Loading weights:  32%|███▏      | 187/592 [01:31<03:10,  2.13it/s]Loading weights:  32%|███▏      | 188/592 [01:31<03:33,  1.89it/s]Loading weights:  32%|███▏      | 190/592 [01:32<03:00,  2.23it/s]Loading weights:  32%|███▏      | 191/592 [01:33<04:08,  1.62it/s]Loading weights:  33%|███▎      | 193/592 [01:33<02:52,  2.31it/s]Loading weights:  33%|███▎      | 194/592 [01:34<03:17,  2.01it/s]Loading weights:  35%|███▍      | 205/592 [01:34<00:47,  8.18it/s]Loading weights:  35%|███▌      | 209/592 [01:34<00:37, 10.23it/s]Loading weights:  37%|███▋      | 221/592 [01:35<00:19, 18.83it/s]Loading weights:  38%|███▊      | 225/592 [01:35<00:18, 20.17it/s]Loading weights:  39%|███▉      | 232/592 [01:35<00:13, 26.34it/s]Loading weights:  40%|████      | 237/592 [01:35<00:12, 29.47it/s]Loading weights:  41%|████      | 242/592 [01:35<00:11, 29.93it/s]Loading weights:  42%|████▏     | 249/592 [01:35<00:09, 37.44it/s]Loading weights:  43%|████▎     | 254/592 [01:35<00:08, 39.18it/s]Loading weights:  44%|████▍     | 259/592 [01:36<00:09, 36.24it/s]Loading weights:  45%|████▌     | 269/592 [01:36<00:07, 43.35it/s]Loading weights:  46%|████▋     | 274/592 [01:36<00:07, 41.09it/s]Loading weights:  48%|████▊     | 285/592 [01:36<00:06, 46.74it/s]Loading weights:  49%|████▉     | 290/592 [01:36<00:06, 44.13it/s]Loading weights:  51%|█████     | 301/592 [01:36<00:06, 47.83it/s]Loading weights:  52%|█████▏    | 306/592 [01:37<00:06, 44.88it/s]Loading weights:  54%|█████▎    | 317/592 [01:37<00:05, 48.15it/s]Loading weights:  54%|█████▍    | 322/592 [01:37<00:06, 44.11it/s]Loading weights:  56%|█████▋    | 333/592 [01:37<00:05, 47.81it/s]Loading weights:  57%|█████▋    | 338/592 [01:37<00:05, 45.57it/s]Loading weights:  59%|█████▉    | 349/592 [01:37<00:04, 49.55it/s]Loading weights:  60%|█████▉    | 354/592 [01:38<00:05, 46.04it/s]Loading weights:  62%|██████▏   | 365/592 [01:38<00:04, 49.45it/s]Loading weights:  62%|██████▎   | 370/592 [01:38<00:05, 43.13it/s]Loading weights:  64%|██████▍   | 381/592 [01:38<00:04, 47.46it/s]Loading weights:  65%|██████▌   | 386/592 [01:38<00:04, 43.56it/s]Loading weights:  67%|██████▋   | 397/592 [01:38<00:04, 48.02it/s]Loading weights:  68%|██████▊   | 402/592 [01:39<00:04, 44.51it/s]Loading weights:  70%|██████▉   | 413/592 [01:39<00:03, 48.33it/s]Loading weights:  71%|███████   | 418/592 [01:39<00:03, 44.87it/s]Loading weights:  72%|███████▏  | 429/592 [01:39<00:03, 49.42it/s]Loading weights:  73%|███████▎  | 434/592 [01:39<00:03, 46.57it/s]Loading weights:  75%|███████▌  | 445/592 [01:39<00:02, 50.15it/s]Loading weights:  76%|███████▌  | 450/592 [01:40<00:03, 45.90it/s]Loading weights:  78%|███████▊  | 461/592 [01:40<00:02, 49.64it/s]Loading weights:  79%|███████▊  | 466/592 [01:40<00:02, 43.06it/s]Loading weights:  81%|████████  | 477/592 [01:40<00:02, 47.55it/s]Loading weights:  81%|████████▏ | 482/592 [01:40<00:02, 43.58it/s]Loading weights:  83%|████████▎ | 493/592 [01:41<00:02, 48.30it/s]Loading weights:  84%|████████▍ | 498/592 [01:41<00:02, 45.88it/s]Loading weights:  86%|████████▌ | 509/592 [01:41<00:01, 50.43it/s]Loading weights:  87%|████████▋ | 514/592 [01:41<00:01, 47.65it/s]Loading weights:  89%|████████▊ | 525/592 [01:41<00:01, 51.08it/s]Loading weights:  90%|████████▉ | 530/592 [01:41<00:01, 45.27it/s]Loading weights:  90%|█████████ | 535/592 [01:41<00:01, 46.01it/s]Loading weights:  91%|█████████▏| 541/592 [01:42<00:01, 47.95it/s]Loading weights:  92%|█████████▏| 546/592 [01:42<00:01, 41.80it/s]Loading weights:  94%|█████████▍| 557/592 [01:42<00:00, 47.41it/s]Loading weights:  95%|█████████▍| 562/592 [01:42<00:00, 44.54it/s]Loading weights:  97%|█████████▋| 573/592 [01:42<00:00, 49.43it/s]Loading weights:  98%|█████████▊| 578/592 [01:42<00:00, 46.93it/s]Loading weights:  99%|█████████▉| 589/592 [01:43<00:00, 36.51it/s]Loading weights: 100%|██████████| 592/592 [01:43<00:00,  5.72it/s]
+`Phi3VProcessor` defines `image_processor_class = 'Phi3VImageProcessor'`, which is deprecated. Register the correct mapping in `AutoImageProcessor` instead.
+Image processor Phi3VImageProcessor: kwargs ['num_crops'] were applied for backward compatibility. To avoid this warning, add them to valid_kwargs: create a custom TypedDict extending ImagesKwargs with these keys and set it as the `valid_kwargs` class attribute.
+Missing validation function in 'RotaryEmbeddingConfigMixin' for 'rope_type'='su'
+  loaded in 111.6s
+  loaded in 123.3s
+
+Discovered modules:
+  encoder blocks: 0 found
+  projector/merger candidates: []
+  LLM layers: 0 found
+
+Suggested PROBE_CANDIDATES entry for phi3.5-vision:
+    "phi3.5-vision": [
+        {"enc_out": "None",
+         "post_proj": "None",
+         "llm_8": "None",
+         "llm_16": "None"},
+    ],
+
+WARNING: One or more sites not discovered. You may need custom paths.
+
+Top-level modules (for manual inspection):
+  lm_head
+  model
+NOTE [phi3.5-vision] discovery rc=1 — advisory only, continuing
+
+--- [phi3.5-vision] VAL-split probing ---
+2026-04-27 19:35:52 [INFO] week1_phi3.5-vision: Logging to logs/turing/week1_phi3.5-vision_20260427_193552.log
+2026-04-27 19:35:52 [INFO] week1_phi3.5-vision: ======================================================================
+2026-04-27 19:35:52 [INFO] week1_phi3.5-vision: Week 1 experiment: quant vs qual physics localization [model=phi3.5-vision]
+2026-04-27 19:35:52 [INFO] week1_phi3.5-vision: ======================================================================
+Loaded 200 questions from data/physbench/val.json
+2026-04-27 19:35:52 [INFO] week1_phi3.5-vision: PhysBench val: 200 total, 55 quantitative, 145 qualitative
+2026-04-27 19:35:52 [INFO] week1_phi3.5-vision: JSONL state: 918 entries (74 ok, 625 non-ok)
+2026-04-27 19:35:52 [WARNING] week1_phi3.5-vision: JSONL has 625 non-ok entries from a previous run. These will be RETRIED (resume now filters by status=ok). Pass --fresh to wipe the log entirely.
+2026-04-27 19:35:52 [WARNING] week1_phi3.5-vision: JSONL ok count (74) does not match FeatureCache cached count (0). Will trust the FeatureCache.
+/home/ssboyane/miniconda3/envs/vla_physics/lib/python3.11/site-packages/torch/cuda/__init__.py:180: UserWarning: CUDA initialization: The NVIDIA driver on your system is too old (found version 12080). Please update your GPU driver by downloading and installing a new version from the URL: http://www.nvidia.com/Download/index.aspx Alternatively, go to: https://pytorch.org to install a PyTorch version that has been compiled with your version of the CUDA driver. (Triggered internally at /pytorch/c10/cuda/CUDAFunctions.cpp:119.)
+  return torch._C._cuda_getDeviceCount() > 0
+Loading microsoft/Phi-3.5-vision-instruct
+  attn_implementation=eager (Phi3V requirement), quant=bnb-nf4, dtype=bf16
+Missing validation function in 'RotaryEmbeddingConfigMixin' for 'rope_type'='su'
+Loading weights:   0%|          | 0/592 [00:00<?, ?it/s]/home/ssboyane/miniconda3/envs/vla_physics/lib/python3.11/site-packages/bitsandbytes/backends/default/ops.py:223: FutureWarning: _check_is_size will be removed in a future PyTorch release along with guard_size_oblivious.     Use _check(i >= 0) instead.
+  torch._check_is_size(blocksize)
+/home/ssboyane/miniconda3/envs/vla_physics/lib/python3.11/site-packages/bitsandbytes/backends/cpu/ops.py:36: FutureWarning: _check_is_size will be removed in a future PyTorch release along with guard_size_oblivious.     Use _check(i >= 0) instead.
+  torch._check_is_size(blocksize)
+Loading weights:   1%|          | 4/592 [00:00<01:38,  5.97it/s]Loading weights:   1%|          | 5/592 [00:01<04:24,  2.22it/s]Loading weights:   1%|          | 7/592 [00:02<03:01,  3.22it/s]Loading weights:   1%|▏         | 8/592 [00:02<03:58,  2.45it/s]Loading weights:   2%|▏         | 10/592 [00:03<03:33,  2.73it/s]Loading weights:   2%|▏         | 11/592 [00:04<05:52,  1.65it/s]Loading weights:   2%|▏         | 13/592 [00:05<04:01,  2.40it/s]Loading weights:   2%|▏         | 14/592 [00:05<04:35,  2.10it/s]Loading weights:   3%|▎         | 16/592 [00:06<03:57,  2.43it/s]Loading weights:   3%|▎         | 17/592 [00:07<05:42,  1.68it/s]Loading weights:   3%|▎         | 19/592 [00:08<03:58,  2.40it/s]Loading weights:   3%|▎         | 20/592 [00:08<04:34,  2.09it/s]Loading weights:   4%|▎         | 22/592 [00:09<03:56,  2.41it/s]Loading weights:   4%|▍         | 23/592 [00:10<05:37,  1.69it/s]Loading weights:   4%|▍         | 25/592 [00:10<03:55,  2.41it/s]Loading weights:   4%|▍         | 26/592 [00:11<04:28,  2.11it/s]Loading weights:   5%|▍         | 28/592 [00:12<03:52,  2.43it/s]Loading weights:   5%|▍         | 29/592 [00:13<05:34,  1.68it/s]Loading weights:   5%|▌         | 31/592 [00:13<03:52,  2.41it/s]Loading weights:   5%|▌         | 32/592 [00:14<04:25,  2.11it/s]Loading weights:   6%|▌         | 34/592 [00:14<03:49,  2.44it/s]Loading weights:   6%|▌         | 35/592 [00:16<05:32,  1.67it/s]Loading weights:   6%|▋         | 37/592 [00:16<03:51,  2.40it/s]Loading weights:   6%|▋         | 38/592 [00:17<04:24,  2.10it/s]Loading weights:   7%|▋         | 40/592 [00:17<03:47,  2.42it/s]Loading weights:   7%|▋         | 41/592 [00:19<05:40,  1.62it/s]Loading weights:   7%|▋         | 43/592 [00:19<03:57,  2.31it/s]Loading weights:   7%|▋         | 44/592 [00:20<04:27,  2.05it/s]Loading weights:   8%|▊         | 46/592 [00:20<03:50,  2.36it/s]Loading weights:   8%|▊         | 47/592 [00:22<05:59,  1.51it/s]Loading weights:   8%|▊         | 49/592 [00:22<04:08,  2.19it/s]Loading weights:   8%|▊         | 50/592 [00:23<04:35,  1.97it/s]Loading weights:   9%|▉         | 52/592 [00:23<03:53,  2.31it/s]Loading weights:   9%|▉         | 53/592 [00:25<05:31,  1.63it/s]Loading weights:   9%|▉         | 55/592 [00:25<03:49,  2.33it/s]Loading weights:   9%|▉         | 56/592 [00:26<04:21,  2.05it/s]Loading weights:  10%|▉         | 58/592 [00:26<03:53,  2.29it/s]Loading weights:  10%|▉         | 59/592 [00:28<05:31,  1.61it/s]Loading weights:  10%|█         | 61/592 [00:28<03:49,  2.31it/s]Loading weights:  10%|█         | 62/592 [00:29<04:19,  2.04it/s]Loading weights:  11%|█         | 64/592 [00:29<03:42,  2.38it/s]Loading weights:  11%|█         | 65/592 [00:31<05:53,  1.49it/s]Loading weights:  11%|█▏        | 67/592 [00:31<04:02,  2.16it/s]Loading weights:  11%|█▏        | 68/592 [00:32<04:31,  1.93it/s]Loading weights:  12%|█▏        | 70/592 [00:32<03:48,  2.28it/s]Loading weights:  12%|█▏        | 71/592 [00:34<05:21,  1.62it/s]Loading weights:  12%|█▏        | 73/592 [00:34<03:42,  2.33it/s]Loading weights:  12%|█▎        | 74/592 [00:35<04:10,  2.07it/s]Loading weights:  13%|█▎        | 76/592 [00:35<03:36,  2.38it/s]Loading weights:  13%|█▎        | 77/592 [00:36<05:13,  1.64it/s]Loading weights:  13%|█▎        | 79/592 [00:37<03:37,  2.36it/s]Loading weights:  14%|█▎        | 80/592 [00:37<04:06,  2.07it/s]Loading weights:  14%|█▍        | 82/592 [00:38<03:32,  2.40it/s]Loading weights:  14%|█▍        | 83/592 [00:40<05:43,  1.48it/s]Loading weights:  14%|█▍        | 85/592 [00:40<03:56,  2.14it/s]Loading weights:  15%|█▍        | 86/592 [00:41<04:22,  1.93it/s]Loading weights:  15%|█▍        | 88/592 [00:41<03:41,  2.28it/s]Loading weights:  15%|█▌        | 89/592 [00:43<05:09,  1.62it/s]Loading weights:  15%|█▌        | 91/592 [00:43<03:34,  2.33it/s]Loading weights:  16%|█▌        | 92/592 [00:43<04:02,  2.06it/s]Loading weights:  16%|█▌        | 94/592 [00:44<03:29,  2.38it/s]Loading weights:  16%|█▌        | 95/592 [00:46<05:18,  1.56it/s]Loading weights:  16%|█▋        | 97/592 [00:46<03:41,  2.23it/s]Loading weights:  17%|█▋        | 98/592 [00:47<04:10,  1.97it/s]Loading weights:  17%|█▋        | 100/592 [00:47<03:34,  2.29it/s]Loading weights:  17%|█▋        | 101/592 [00:49<05:26,  1.51it/s]Loading weights:  17%|█▋        | 103/592 [00:49<03:47,  2.15it/s]Loading weights:  18%|█▊        | 104/592 [00:50<04:14,  1.92it/s]Loading weights:  18%|█▊        | 106/592 [00:50<03:40,  2.20it/s]Loading weights:  18%|█▊        | 107/592 [00:52<05:10,  1.56it/s]Loading weights:  18%|█▊        | 109/592 [00:52<03:37,  2.22it/s]Loading weights:  19%|█▊        | 110/592 [00:53<04:02,  1.99it/s]Loading weights:  19%|█▉        | 112/592 [00:53<03:26,  2.33it/s]Loading weights:  19%|█▉        | 113/592 [00:55<04:55,  1.62it/s]Loading weights:  19%|█▉        | 115/592 [00:55<03:25,  2.33it/s]Loading weights:  20%|█▉        | 116/592 [00:56<03:52,  2.05it/s]Loading weights:  20%|█▉        | 118/592 [00:56<03:21,  2.35it/s]Loading weights:  20%|██        | 119/592 [00:58<04:51,  1.62it/s]Loading weights:  20%|██        | 121/592 [00:58<03:22,  2.33it/s]Loading weights:  21%|██        | 122/592 [00:58<03:47,  2.06it/s]Loading weights:  21%|██        | 124/592 [00:59<03:15,  2.39it/s]Loading weights:  21%|██        | 125/592 [01:00<04:38,  1.68it/s]Loading weights:  21%|██▏       | 127/592 [01:01<03:15,  2.38it/s]Loading weights:  22%|██▏       | 128/592 [01:01<03:47,  2.04it/s]Loading weights:  22%|██▏       | 130/592 [01:02<03:15,  2.37it/s]Loading weights:  22%|██▏       | 131/592 [01:03<04:37,  1.66it/s]Loading weights:  22%|██▏       | 133/592 [01:03<03:13,  2.37it/s]Loading weights:  23%|██▎       | 134/592 [01:04<03:39,  2.08it/s]Loading weights:  23%|██▎       | 136/592 [01:05<03:17,  2.31it/s]Loading weights:  23%|██▎       | 137/592 [01:06<04:44,  1.60it/s]Loading weights:  23%|██▎       | 139/592 [01:06<03:16,  2.30it/s]Loading weights:  24%|██▎       | 140/592 [01:07<03:41,  2.04it/s]Loading weights:  24%|██▍       | 142/592 [01:08<03:14,  2.31it/s]Loading weights:  24%|██▍       | 143/592 [01:09<04:37,  1.62it/s]Loading weights:  24%|██▍       | 145/592 [01:09<03:11,  2.33it/s]Loading weights:  25%|██▍       | 146/592 [01:10<03:36,  2.06it/s]Loading weights:  25%|██▌       | 148/592 [01:11<03:05,  2.39it/s]Loading weights:  25%|██▌       | 149/592 [01:12<04:24,  1.67it/s]Loading weights:  26%|██▌       | 151/592 [01:12<03:05,  2.38it/s]Loading weights:  26%|██▌       | 152/592 [01:13<03:31,  2.08it/s]Loading weights:  26%|██▌       | 154/592 [01:14<03:01,  2.41it/s]Loading weights:  26%|██▌       | 155/592 [01:15<04:21,  1.67it/s]Loading weights:  27%|██▋       | 157/592 [01:15<03:02,  2.39it/s]Loading weights:  27%|██▋       | 158/592 [01:16<03:27,  2.09it/s]Loading weights:  27%|██▋       | 160/592 [01:16<03:01,  2.38it/s]Loading weights:  27%|██▋       | 161/592 [01:18<04:18,  1.67it/s]Loading weights:  28%|██▊       | 163/592 [01:18<02:59,  2.39it/s]Loading weights:  28%|██▊       | 164/592 [01:19<03:23,  2.10it/s]Loading weights:  28%|██▊       | 166/592 [01:19<03:01,  2.35it/s]Loading weights:  28%|██▊       | 167/592 [01:21<04:16,  1.66it/s]Loading weights:  29%|██▊       | 169/592 [01:21<02:58,  2.37it/s]Loading weights:  29%|██▊       | 170/592 [01:21<03:22,  2.08it/s]Loading weights:  29%|██▉       | 172/592 [01:22<02:55,  2.39it/s]Loading weights:  29%|██▉       | 173/592 [01:23<04:10,  1.68it/s]Loading weights:  30%|██▉       | 175/592 [01:24<02:55,  2.38it/s]Loading weights:  30%|██▉       | 176/592 [01:24<03:22,  2.05it/s]Loading weights:  30%|███       | 178/592 [01:25<02:53,  2.38it/s]Loading weights:  30%|███       | 179/592 [01:26<04:13,  1.63it/s]Loading weights:  31%|███       | 181/592 [01:27<02:57,  2.31it/s]Loading weights:  31%|███       | 182/592 [01:27<03:20,  2.04it/s]Loading weights:  31%|███       | 184/592 [01:28<02:55,  2.33it/s]Loading weights:  31%|███▏      | 185/592 [01:29<04:07,  1.65it/s]Loading weights:  32%|███▏      | 187/592 [01:29<02:51,  2.36it/s]Loading weights:  32%|███▏      | 188/592 [01:30<03:15,  2.07it/s]Loading weights:  32%|███▏      | 190/592 [01:31<02:48,  2.39it/s]Loading weights:  32%|███▏      | 191/592 [01:32<04:02,  1.66it/s]Loading weights:  33%|███▎      | 193/592 [01:32<02:51,  2.33it/s]Loading weights:  33%|███▎      | 194/592 [01:33<03:14,  2.05it/s]Loading weights:  35%|███▍      | 205/592 [01:33<00:46,  8.27it/s]Loading weights:  35%|███▌      | 208/592 [01:33<00:38,  9.89it/s]Loading weights:  36%|███▋      | 215/592 [01:33<00:24, 15.39it/s]Loading weights:  37%|███▋      | 221/592 [01:34<00:18, 20.55it/s]Loading weights:  38%|███▊      | 226/592 [01:34<00:15, 23.69it/s]Loading weights:  40%|████      | 237/592 [01:34<00:10, 32.93it/s]Loading weights:  41%|████      | 242/592 [01:34<00:10, 33.60it/s]Loading weights:  43%|████▎     | 253/592 [01:34<00:08, 40.94it/s]Loading weights:  44%|████▎     | 258/592 [01:34<00:08, 40.12it/s]Loading weights:  45%|████▌     | 269/592 [01:34<00:07, 45.76it/s]Loading weights:  46%|████▋     | 274/592 [01:35<00:07, 43.79it/s]Loading weights:  48%|████▊     | 285/592 [01:35<00:06, 48.09it/s]Loading weights:  49%|████▉     | 290/592 [01:35<00:07, 38.62it/s]Loading weights:  51%|█████     | 301/592 [01:35<00:06, 44.03it/s]Loading weights:  52%|█████▏    | 306/592 [01:35<00:06, 41.67it/s]Loading weights:  54%|█████▎    | 317/592 [01:36<00:06, 45.56it/s]Loading weights:  54%|█████▍    | 322/592 [01:36<00:06, 42.86it/s]Loading weights:  56%|█████▋    | 333/592 [01:36<00:05, 46.44it/s]Loading weights:  57%|█████▋    | 338/592 [01:36<00:05, 43.70it/s]Loading weights:  59%|█████▉    | 349/592 [01:36<00:05, 47.97it/s]Loading weights:  60%|█████▉    | 354/592 [01:36<00:05, 45.40it/s]Loading weights:  62%|██████▏   | 365/592 [01:37<00:04, 49.32it/s]Loading weights:  62%|██████▎   | 370/592 [01:37<00:04, 46.14it/s]Loading weights:  64%|██████▍   | 381/592 [01:37<00:04, 49.68it/s]Loading weights:  65%|██████▌   | 386/592 [01:37<00:04, 46.61it/s]Loading weights:  67%|██████▋   | 397/592 [01:37<00:03, 50.18it/s]Loading weights:  68%|██████▊   | 402/592 [01:37<00:04, 46.94it/s]Loading weights:  70%|██████▉   | 413/592 [01:38<00:03, 49.32it/s]Loading weights:  71%|███████   | 418/592 [01:38<00:03, 45.94it/s]Loading weights:  72%|███████▏  | 429/592 [01:38<00:03, 48.96it/s]Loading weights:  73%|███████▎  | 434/592 [01:38<00:03, 43.90it/s]Loading weights:  75%|███████▌  | 445/592 [01:38<00:03, 47.40it/s]Loading weights:  76%|███████▌  | 450/592 [01:38<00:03, 41.29it/s]Loading weights:  78%|███████▊  | 461/592 [01:39<00:02, 46.35it/s]Loading weights:  79%|███████▊  | 466/592 [01:39<00:02, 43.39it/s]Loading weights:  81%|████████  | 477/592 [01:39<00:02, 47.99it/s]Loading weights:  81%|████████▏ | 482/592 [01:39<00:02, 45.37it/s]Loading weights:  83%|████████▎ | 493/592 [01:39<00:02, 49.16it/s]Loading weights:  84%|████████▍ | 498/592 [01:39<00:02, 45.84it/s]Loading weights:  86%|████████▌ | 509/592 [01:40<00:01, 49.83it/s]Loading weights:  87%|████████▋ | 514/592 [01:40<00:01, 46.84it/s]Loading weights:  89%|████████▊ | 525/592 [01:40<00:01, 50.43it/s]Loading weights:  90%|████████▉ | 530/592 [01:40<00:01, 44.32it/s]Loading weights:  91%|█████████▏| 541/592 [01:40<00:01, 48.71it/s]Loading weights:  92%|█████████▏| 546/592 [01:40<00:00, 46.07it/s]Loading weights:  94%|█████████▍| 557/592 [01:41<00:00, 49.63it/s]Loading weights:  95%|█████████▍| 562/592 [01:41<00:00, 43.53it/s]Loading weights:  97%|█████████▋| 573/592 [01:41<00:00, 48.00it/s]Loading weights:  98%|█████████▊| 578/592 [01:41<00:00, 45.26it/s]Loading weights:  99%|█████████▉| 589/592 [01:42<00:00, 36.20it/s]Loading weights: 100%|██████████| 592/592 [01:42<00:00,  5.79it/s]
+`Phi3VProcessor` defines `image_processor_class = 'Phi3VImageProcessor'`, which is deprecated. Register the correct mapping in `AutoImageProcessor` instead.
+Image processor Phi3VImageProcessor: kwargs ['num_crops'] were applied for backward compatibility. To avoid this warning, add them to valid_kwargs: create a custom TypedDict extending ImagesKwargs with these keys and set it as the `valid_kwargs` class attribute.
+Missing validation function in 'RotaryEmbeddingConfigMixin' for 'rope_type'='su'
+  loaded in 105.7s
+2026-04-27 19:37:40 [INFO] week1_phi3.5-vision: VRAM delta: alloc +0.00GB peak +0.00GB (now 0.00GB allocated)
+  probe sites resolved: {'enc_out': 'model.vision_embed_tokens.img_processor.vision_model.encoder.layers.23', 'post_proj': 'model.vision_embed_tokens.img_projection', 'llm_8': 'model.layers.8', 'llm_16': 'model.layers.16'}
+2026-04-27 19:37:40 [INFO] week1_phi3.5-vision: Resume: FeatureCache has 0 cached samples
+`use_return_dict` is deprecated! Use `return_dict` instead!
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_0: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_1: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_2: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_6: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_7: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_8: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [WARNING] week1_phi3.5-vision: val_13: no media files resolved, skipping
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_14: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_20: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [WARNING] week1_phi3.5-vision: val_22: no media files resolved, skipping
+2026-04-27 19:37:41 [ERROR] week1_phi3.5-vision: val_23: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:41 [WARNING] week1_phi3.5-vision: val_24: no media files resolved, skipping
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_25: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_26: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:42 [WARNING] week1_phi3.5-vision: val_40: no media files resolved, skipping
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_56: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_57: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_97: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_103: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:42 [ERROR] week1_phi3.5-vision: val_105: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_130: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_133: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_134: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_203: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_204: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_205: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:43 [ERROR] week1_phi3.5-vision: val_206: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_207: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_209: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_210: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_211: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_212: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_243: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_244: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_245: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:44 [ERROR] week1_phi3.5-vision: val_246: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_253: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_254: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_263: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_272: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_347: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_348: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:45 [ERROR] week1_phi3.5-vision: val_353: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_354: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_355: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_381: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_382: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_383: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_384: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:46 [ERROR] week1_phi3.5-vision: val_385: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_386: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_767: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_768: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_770: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_771: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_990: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_991: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_992: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_993: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:47 [ERROR] week1_phi3.5-vision: val_994: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_995: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1011: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1054: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1176: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1183: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1193: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1207: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1208: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1209: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1210: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:48 [ERROR] week1_phi3.5-vision: val_1211: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1455: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1456: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1457: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1458: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1459: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1460: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1469: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1470: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [WARNING] week1_phi3.5-vision: val_1471: no media files resolved, skipping
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1472: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1473: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1474: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:49 [ERROR] week1_phi3.5-vision: val_1475: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1565: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1580: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1582: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [WARNING] week1_phi3.5-vision: val_1583: no media files resolved, skipping
+2026-04-27 19:37:50 [WARNING] week1_phi3.5-vision: val_1584: no media files resolved, skipping
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1585: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [WARNING] week1_phi3.5-vision: val_1735: no media files resolved, skipping
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1796: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1874: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1875: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1947: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_1948: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_3253: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_3254: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_3422: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_3423: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_3424: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:50 [ERROR] week1_phi3.5-vision: val_3425: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_3426: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_3427: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_3437: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_3909: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_3910: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [WARNING] week1_phi3.5-vision: val_4315: no media files resolved, skipping
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_4331: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_4907: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_4972: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_6242: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [ERROR] week1_phi3.5-vision: val_6940: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:51 [WARNING] week1_phi3.5-vision: val_7114: no media files resolved, skipping
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7115: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7338: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7358: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7359: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7368: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7410: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:52 [ERROR] week1_phi3.5-vision: val_7414: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7454: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7455: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7491: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7493: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7494: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7503: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:53 [ERROR] week1_phi3.5-vision: val_7512: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7513: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7522: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7523: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7524: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7530: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7534: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7535: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:54 [ERROR] week1_phi3.5-vision: val_7536: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7545: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7555: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7596: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7597: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7641: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7665: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7666: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:55 [ERROR] week1_phi3.5-vision: val_7682: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:56 [ERROR] week1_phi3.5-vision: val_7688: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:56 [ERROR] week1_phi3.5-vision: val_7689: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:56 [ERROR] week1_phi3.5-vision: val_7698: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:56 [ERROR] week1_phi3.5-vision: val_7699: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:56 [ERROR] week1_phi3.5-vision: val_7711: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:56 [ERROR] week1_phi3.5-vision: val_7712: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7754: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7755: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7772: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7773: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7787: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7788: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:57 [ERROR] week1_phi3.5-vision: val_7798: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_7799: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_8047: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_8048: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_8069: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_8072: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_8085: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:58 [ERROR] week1_phi3.5-vision: val_8086: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8506: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8551: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8552: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [WARNING] week1_phi3.5-vision: val_8553: no media files resolved, skipping
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8555: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8556: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8557: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8558: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8559: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8560: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:37:59 [ERROR] week1_phi3.5-vision: val_8615: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_8653: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [WARNING] week1_phi3.5-vision: val_8662: no media files resolved, skipping
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_8675: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_8679: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_8701: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_8707: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_8712: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [WARNING] week1_phi3.5-vision: val_8788: no media files resolved, skipping
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9123: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9124: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [WARNING] week1_phi3.5-vision: val_9125: no media files resolved, skipping
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9126: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9141: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9168: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9600: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9601: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9672: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:00 [ERROR] week1_phi3.5-vision: val_9673: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9679: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9709: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9714: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9715: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9729: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9730: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [ERROR] week1_phi3.5-vision: val_9757: AttributeError: type object 'DynamicCache' has no attribute 'from_legacy_cache'
+2026-04-27 19:38:01 [INFO] week1_phi3.5-vision: Extraction complete: processed=0 skipped=0 errors=200 in 0.4 min
+2026-04-27 19:38:01 [INFO] week1_phi3.5-vision: Pre-cleanup VRAM[cpu] alloc=0.00GB reserved=0.00GB peak=0.00GB
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: VRAM delta: alloc +0.00GB peak +0.00GB (now 0.00GB allocated)
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: 
+======================================================================
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: Cache sanity check
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: ======================================================================
+2026-04-27 19:38:02 [ERROR] week1_phi3.5-vision: Cache sanity check FAILED:
+2026-04-27 19:38:02 [ERROR] week1_phi3.5-vision:   enc_out: empty
+2026-04-27 19:38:02 [ERROR] week1_phi3.5-vision:   post_proj: empty
+2026-04-27 19:38:02 [ERROR] week1_phi3.5-vision:   llm_8: empty
+2026-04-27 19:38:02 [ERROR] week1_phi3.5-vision:   llm_16: empty
+2026-04-27 19:38:02 [ERROR] week1_phi3.5-vision: Proceeding with probing anyway — results may be meaningless.
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: 
+======================================================================
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: Probing: fit LogReg for each target x site x {all, quant, qual}
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: ======================================================================
+2026-04-27 19:38:02 [INFO] week1_phi3.5-vision: Results written to results/week1_turing/phi3.5-vision_quant_qual_probe.json
+
+====================================================================================================
+ WEEK 1 RESULTS - target='answer'
+ predicts the correct A/B/C/D letter. Weak signal expected (letter position is near-random by PhysBench construction).
+====================================================================================================
+site          n_tot   n_q  n_ql  all_acc              quant_acc              qual_acc                d(qual-quant)
+----------------------------------------------------------------------------------------------------
+enc_out           0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+post_proj         0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+llm_8             0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+llm_16            0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+====================================================================================================
+
+====================================================================================================
+ WEEK 1 RESULTS - target='task_type'
+ predicts dynamics/property/relationships/scene. STRONG signal expected if features encode physics category at all.
+====================================================================================================
+site          n_tot   n_q  n_ql  all_acc              quant_acc              qual_acc                d(qual-quant)
+----------------------------------------------------------------------------------------------------
+enc_out           0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+post_proj         0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+llm_8             0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+llm_16            0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+====================================================================================================
+
+====================================================================================================
+ WEEK 1 RESULTS - target='sub_type'
+ predicts fine-grained sub_type (19 classes). Stress test for high-granularity physics concept encoding.
+====================================================================================================
+site          n_tot   n_q  n_ql  all_acc              quant_acc              qual_acc                d(qual-quant)
+----------------------------------------------------------------------------------------------------
+enc_out           0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+post_proj         0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+llm_8             0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+llm_16            0     0     0  skip (no data)       skip (no data)         skip (no data)                    n/a
+====================================================================================================
+
+KEY:
+  all_acc = probe accuracy on the full slice (ignoring quant/qual split)
+  d(qual-quant) = qual_acc - quant_acc.
+  H3 (domain-conditional bottleneck): on target='task_type' or 'sub_type',
+  quant_acc should drop MORE than qual_acc across enc_out -> post_proj,
+  making d(qual-quant) grow POSITIVE from enc_out to post_proj.
+
+FAIL [phi3.5-vision] probe extracted only 0/200 samples — likely processor bug
