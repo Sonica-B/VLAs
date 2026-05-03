@@ -71,6 +71,14 @@ MODEL_COMPRESSION = {
     "phi3.5-vision":       1.0,
     "pixtral-12b":         1.0,
     "molmo-7b":            None,  # dropped from Week B (transformers 5.x API drift)
+    # --- Pixtral replacement (2026-05-03) ---
+    # Idefics3-8B-Llama3: SigLIP-SO400M-patch14 @ 364x364 → 676 tokens →
+    # pixel-shuffle (r=2) → 169 tokens. Compression = 676 / 169 = 4.0x.
+    # MID-COMPRESSION data point that fills the 2.4x → 114x gap in our LOO
+    # regression — strengthens predictor's interpolation power.
+    # Source: Laurençon et al., 2024, arxiv:2408.12637 (Idefics3 paper),
+    #         Section 3 (Vision encoder + pixel-shuffle r=2).
+    "idefics3-8b":         4.0,
 }
 
 

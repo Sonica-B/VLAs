@@ -77,6 +77,8 @@ MODEL_REGISTRY = {
     "phi3.5-vision":      ("microsoft/Phi-3.5-vision-instruct",         "phi35v"),
     "pixtral-12b":        ("mistral-community/pixtral-12b",              "pixtral"),
     "molmo-7b":           ("allenai/Molmo-7B-D-0924",                    "molmo"),
+    # --- Pixtral replacement (2026-05-03) ---
+    "idefics3-8b":        ("HuggingFaceM4/Idefics3-8B-Llama3",           "idefics3"),
 }
 
 # Probe site candidates. Multiple per model so discover_sites() can fall back
@@ -155,6 +157,27 @@ PROBE_CANDIDATES = {
          "llm_8":     "model.language_model.model.layers.8",
          "llm_16":    "model.language_model.model.layers.16"},
     ],
+    # Idefics3-8B-Llama3 (Pixtral replacement, 2026-05-03):
+    # SigLIP-SO400M (26 enc layers) + pixel-shuffle r=2 connector + Llama 3.1 8B (32 layers).
+    # Pixel-shuffle r=2 → 4x token compression (676 → 169 per tile).
+    # Mid-compression data point fills 2.4x → 114x gap in LOO regression.
+    "idefics3-8b": [
+        # PRIMARY: HF Idefics3ForConditionalGeneration layout
+        {"enc_out":   "model.vision_model.encoder.layers.25",
+         "post_proj": "model.connector",
+         "llm_8":     "model.text_model.layers.8",
+         "llm_16":    "model.text_model.layers.16"},
+        # Fallback: top-level (no `model.` wrapper)
+        {"enc_out":   "vision_model.encoder.layers.25",
+         "post_proj": "connector",
+         "llm_8":     "text_model.layers.8",
+         "llm_16":    "text_model.layers.16"},
+        # Fallback: nested connector path
+        {"enc_out":   "model.vision_model.encoder.layers.25",
+         "post_proj": "model.connector.modality_projection",
+         "llm_8":     "model.text_model.layers.8",
+         "llm_16":    "model.text_model.layers.16"},
+    ],
     # Molmo-7B-D: custom vision adapter + Qwen2-7B. Paths are best-guess; run
     # scripts/discover_probe_sites.py first to verify or auto-detect.
     "molmo-7b": [
@@ -204,6 +227,12 @@ def load_model(model_key: str):
     elif family == "molmo":
         # Molmo uses custom modeling code in its HF repo
         from transformers import AutoModelForCausalLM as Cls
+    elif family == "idefics3":
+        # Idefics3-8B-Llama3 (Pixtral replacement, 2026-05-03)
+        try:
+            from transformers import Idefics3ForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForVision2Seq as Cls
     else:
         from transformers import AutoModelForVision2Seq as Cls
 
