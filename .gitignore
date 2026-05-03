@@ -85,3 +85,6 @@ Miniconda3-latest-Linux-x86_64.sh
 
 # Claude Code session state (local only — never commit)
 .claude/
+
+
+jobs/*.out
