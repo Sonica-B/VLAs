@@ -24,7 +24,7 @@ set -e
 mkdir -p jobs
 
 # Load environment (modules + pip packages).
-source activate /home/ssboyane/VLAs/vla_physics_v2 || conda activate vla_physics_v2 || source activate vla_physics_v2
+source activate /home/ssboyane/VLAs/vla_physics || conda activate vla_physics || source activate vla_physics
 
 echo "=== JOB 3/7: Week 1 Aggregation ($(date)) ==="
 

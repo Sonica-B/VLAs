@@ -3,7 +3,7 @@
 # Run as SLURM job: sbatch --wrap="bash ~/VLAs/turing/download_data.sh" --partition=cpu --mem=16G --time=2:00:00
 
 set -e
-conda activate vla_physics_v2 || echo "Activate the vla_physics_v2 environment first with 'conda activate vla_physics_v2'"
+conda activate vla_physics || echo "Activate the vla_physics environment first with 'conda activate vla_physics'"
 cd ~/VLAs
 
 echo "=== Downloading Physion++ readout data ==="

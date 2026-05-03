@@ -30,9 +30,9 @@
 set -e
 mkdir -p jobs results/week1_turing logs/turing
 
-source activate /home/ssboyane/VLAs/vla_physics_v2 2>/dev/null \
-    || conda activate vla_physics_v2 2>/dev/null \
-    || source activate vla_physics_v2
+source activate /home/ssboyane/VLAs/vla_physics 2>/dev/null \
+    || conda activate vla_physics 2>/dev/null \
+    || source activate vla_physics
 
 echo "================================================================"
 echo "[$(date)] WEEK B AGGREGATOR"

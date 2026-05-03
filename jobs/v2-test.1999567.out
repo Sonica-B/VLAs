@@ -1,0 +1,35 @@
+================================================================
+v2 ENV GPU VERIFICATION
+  date:     Sat 02 May 2026 11:01:16 PM EDT
+  job:      1999567
+  node:     gpu-4-11.int.turing.wpi.edu
+  GPU:      NVIDIA A100-SXM4-80GB, 81920 MiB
+  driver:   570.133.20
+================================================================
+python: /home/ssboyane/miniconda3/envs/vla_physics_v2/bin/python
+
+[1/7] T1 torch CUDA available...
+        PASS — torch 2.4.1+cu124 on NVIDIA A100-SXM4-80GB
+[2/7] T2 GPU matmul speed...
+        PASS — matmul 1.1ms (good)
+[3/7] T3 bnb 4-bit Linear...
+        PASS — bnb 0.44.1 4-bit Linear OK, output (4, 64)
+[4/7] T4 transformers imports...
+        PASS — transformers 4.46.3
+[5/7] T5 4-bit gpt2 model load...
+        PASS — 4-bit opt-125m loaded (72 4-bit params), generated (1, 5)
+[6/7] T6 HuggingFace Hub access...
+        PASS — skipped (HF_TOKEN not set — set it to access gated models)
+[7/7] T7 project script imports...
+        PASS — all 4 scripts import OK
+
+================================================================
+=== ALL GPU TESTS PASSED (7/7) ===
+
+================================================================
+GPU VERIFICATION: PASS
+  marker written: /home/ssboyane/.vla_setup_state/gpu_test.done
+
+Next steps:
+  1. bash turing/migrate_to_v2.sh        # update SLURM scripts
+  2. bash turing/submit_weekb_parallel.sh

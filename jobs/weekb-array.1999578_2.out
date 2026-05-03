@@ -1,0 +1,112 @@
+GPU OK: NVIDIA A100-SXM4-80GB / torch 2.4.1+cu124 / cuda 12.4
+GPU matmul 2kx2k: 59.9ms
+================================================================
+[Sat 02 May 2026 11:26:19 PM EDT] WEEK B ARRAY TASK 2/2
+  array job:   1999578
+  task id:     2
+  model:       phi3.5-vision
+  GPU:         NVIDIA A100-SXM4-80GB, 81920 MiB
+  branch:      physics-steering @ 3540253
+  transformers: 4.46.3
+================================================================
+
+--- [phi3.5-vision] probe-site discovery (advisory) ---
+Loading phi3.5-vision to discover probe sites...
+Loading microsoft/Phi-3.5-vision-instruct (sdpa, bnb-nf4, bf16)
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:06<00:06,  6.25s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:10<00:00,  4.96s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:10<00:00,  5.15s/it]
+/home/ssboyane/miniconda3/envs/vla_physics_v2/lib/python3.11/site-packages/transformers/models/auto/image_processing_auto.py:520: FutureWarning: The image_processor_class argument is deprecated and will be removed in v4.42. Please use `slow_image_processor_class`, or `fast_image_processor_class` instead
+  warnings.warn(
+  loaded in 13.1s
+  loaded in 14.1s
+
+Discovered modules:
+  encoder blocks: 0 found
+  projector/merger candidates: []
+  LLM layers: 0 found
+
+Suggested PROBE_CANDIDATES entry for phi3.5-vision:
+    "phi3.5-vision": [
+        {"enc_out": "None",
+         "post_proj": "None",
+         "llm_8": "None",
+         "llm_16": "None"},
+    ],
+
+WARNING: One or more sites not discovered. You may need custom paths.
+
+Top-level modules (for manual inspection):
+  lm_head
+  model
+NOTE [phi3.5-vision] discovery rc=1 — advisory only, continuing
+
+--- [phi3.5-vision] VAL-split probing ---
+2026-05-02 23:26:38 [INFO] week1_phi3.5-vision: Logging to logs/turing/week1_phi3.5-vision_20260502_232638.log
+2026-05-02 23:26:38 [INFO] week1_phi3.5-vision: ======================================================================
+2026-05-02 23:26:38 [INFO] week1_phi3.5-vision: Week 1 experiment: quant vs qual physics localization [model=phi3.5-vision]
+2026-05-02 23:26:38 [INFO] week1_phi3.5-vision: ======================================================================
+Loaded 200 questions from data/physbench/val.json
+2026-05-02 23:26:38 [INFO] week1_phi3.5-vision: PhysBench val: 200 total, 55 quantitative, 145 qualitative
+2026-05-02 23:26:38 [INFO] week1_phi3.5-vision: JSONL state: 1118 entries (74 ok, 825 non-ok)
+2026-05-02 23:26:38 [WARNING] week1_phi3.5-vision: JSONL has 825 non-ok entries from a previous run. These will be RETRIED (resume now filters by status=ok). Pass --fresh to wipe the log entirely.
+2026-05-02 23:26:38 [WARNING] week1_phi3.5-vision: JSONL ok count (74) does not match FeatureCache cached count (0). Will trust the FeatureCache.
+Loading microsoft/Phi-3.5-vision-instruct
+  attn_implementation=eager (Phi3V requirement), quant=bnb-nf4, dtype=bf16
+Loading checkpoint shards:   0%|          | 0/2 [00:00<?, ?it/s]Loading checkpoint shards:  50%|█████     | 1/2 [00:03<00:03,  3.01s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.36s/it]Loading checkpoint shards: 100%|██████████| 2/2 [00:04<00:00,  2.45s/it]
+/home/ssboyane/miniconda3/envs/vla_physics_v2/lib/python3.11/site-packages/transformers/models/auto/image_processing_auto.py:520: FutureWarning: The image_processor_class argument is deprecated and will be removed in v4.42. Please use `slow_image_processor_class`, or `fast_image_processor_class` instead
+  warnings.warn(
+  loaded in 7.2s
+2026-05-02 23:26:46 [INFO] week1_phi3.5-vision: VRAM delta: alloc +2.43GB peak +2.52GB (now 2.43GB allocated)
+  probe sites resolved: {'enc_out': 'model.vision_embed_tokens.img_processor.vision_model.encoder.layers.23', 'post_proj': 'model.vision_embed_tokens.img_projection', 'llm_8': 'model.layers.8', 'llm_16': 'model.layers.16'}
+2026-05-02 23:26:46 [INFO] week1_phi3.5-vision: Resume: FeatureCache has 0 cached samples
+You are not running the flash-attention implementation, expect numerical differences.
+2026-05-02 23:26:49 [INFO] week1_phi3.5-vision:   [1/200] ok=1 skip=0 err=0 | 0.38 q/s | ETA 8.7min | VRAM 2.4GB
+2026-05-02 23:26:50 [WARNING] week1_phi3.5-vision: val_13: no media files resolved, skipping
+2026-05-02 23:26:51 [WARNING] week1_phi3.5-vision: val_22: no media files resolved, skipping
+2026-05-02 23:26:51 [WARNING] week1_phi3.5-vision: val_24: no media files resolved, skipping
+2026-05-02 23:26:52 [INFO] week1_phi3.5-vision:   [13/200] ok=10 skip=0 err=3 | 1.85 q/s | ETA 1.7min | VRAM 2.4GB
+2026-05-02 23:26:52 [WARNING] week1_phi3.5-vision: val_40: no media files resolved, skipping
+2026-05-02 23:26:54 [INFO] week1_phi3.5-vision:   [24/200] ok=20 skip=0 err=4 | 2.45 q/s | ETA 1.2min | VRAM 2.4GB
+2026-05-02 23:26:57 [INFO] week1_phi3.5-vision:   [34/200] ok=30 skip=0 err=4 | 2.78 q/s | ETA 1.0min | VRAM 2.4GB
+2026-05-02 23:27:00 [INFO] week1_phi3.5-vision:   [44/200] ok=40 skip=0 err=4 | 2.98 q/s | ETA 0.9min | VRAM 2.4GB
+2026-05-02 23:27:03 [INFO] week1_phi3.5-vision:   [54/200] ok=50 skip=0 err=4 | 3.00 q/s | ETA 0.8min | VRAM 2.4GB
+2026-05-02 23:27:05 [INFO] week1_phi3.5-vision:   [64/200] ok=60 skip=0 err=4 | 3.19 q/s | ETA 0.7min | VRAM 2.4GB
+2026-05-02 23:27:07 [INFO] week1_phi3.5-vision:   [74/200] ok=70 skip=0 err=4 | 3.36 q/s | ETA 0.6min | VRAM 2.4GB
+2026-05-02 23:27:09 [WARNING] week1_phi3.5-vision: val_1471: no media files resolved, skipping
+2026-05-02 23:27:11 [INFO] week1_phi3.5-vision:   [85/200] ok=80 skip=0 err=5 | 3.28 q/s | ETA 0.6min | VRAM 2.4GB
+2026-05-02 23:27:11 [WARNING] week1_phi3.5-vision: val_1583: no media files resolved, skipping
+2026-05-02 23:27:11 [WARNING] week1_phi3.5-vision: val_1584: no media files resolved, skipping
+2026-05-02 23:27:11 [WARNING] week1_phi3.5-vision: val_1735: no media files resolved, skipping
+2026-05-02 23:27:14 [INFO] week1_phi3.5-vision:   [98/200] ok=90 skip=0 err=8 | 3.20 q/s | ETA 0.5min | VRAM 2.4GB
+2026-05-02 23:27:16 [WARNING] week1_phi3.5-vision: val_4315: no media files resolved, skipping
+2026-05-02 23:27:16 [INFO] week1_phi3.5-vision:   [109/200] ok=100 skip=0 err=9 | 3.30 q/s | ETA 0.5min | VRAM 2.4GB
+2026-05-02 23:27:17 [WARNING] week1_phi3.5-vision: val_7114: no media files resolved, skipping
+2026-05-02 23:27:19 [INFO] week1_phi3.5-vision:   [120/200] ok=110 skip=0 err=10 | 3.35 q/s | ETA 0.4min | VRAM 2.4GB
+2026-05-02 23:27:22 [INFO] week1_phi3.5-vision:   [130/200] ok=120 skip=0 err=10 | 3.36 q/s | ETA 0.3min | VRAM 2.4GB
+2026-05-02 23:27:25 [INFO] week1_phi3.5-vision:   [140/200] ok=130 skip=0 err=10 | 3.37 q/s | ETA 0.3min | VRAM 2.4GB
+2026-05-02 23:27:28 [INFO] week1_phi3.5-vision:   [150/200] ok=140 skip=0 err=10 | 3.37 q/s | ETA 0.2min | VRAM 2.4GB
+2026-05-02 23:27:30 [INFO] week1_phi3.5-vision:   [160/200] ok=150 skip=0 err=10 | 3.39 q/s | ETA 0.2min | VRAM 2.4GB
+2026-05-02 23:27:32 [WARNING] week1_phi3.5-vision: val_8553: no media files resolved, skipping
+2026-05-02 23:27:33 [INFO] week1_phi3.5-vision:   [171/200] ok=160 skip=0 err=11 | 3.43 q/s | ETA 0.1min | VRAM 2.4GB
+2026-05-02 23:27:34 [WARNING] week1_phi3.5-vision: val_8662: no media files resolved, skipping
+2026-05-02 23:27:35 [INFO] week1_phi3.5-vision:   [182/200] ok=170 skip=0 err=12 | 3.47 q/s | ETA 0.1min | VRAM 2.4GB
+2026-05-02 23:27:35 [WARNING] week1_phi3.5-vision: val_8788: no media files resolved, skipping
+2026-05-02 23:27:35 [WARNING] week1_phi3.5-vision: val_9125: no media files resolved, skipping
+2026-05-02 23:27:37 [INFO] week1_phi3.5-vision:   [194/200] ok=180 skip=0 err=14 | 3.51 q/s | ETA 0.0min | VRAM 2.4GB
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: Extraction complete: processed=186 skipped=0 errors=14 in 0.9 min
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: Pre-cleanup VRAM[NVIDIA A100-SXM4-80GB] alloc=2.44GB reserved=10.86GB peak=10.45GB
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: VRAM delta: alloc +0.00GB peak +-8.01GB (now 2.44GB allocated)
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: 
+======================================================================
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: Cache sanity check
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: ======================================================================
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision:   enc_out: n=186 dim=1024 mean=0.0446 std=0.8388 nan=0 inf=0 zero_rows=0
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision:   post_proj: n=186 dim=3072 mean=0.0013 std=0.7473 nan=0 inf=0 zero_rows=0
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision:   llm_8: n=186 dim=3072 mean=-0.0003 std=0.8880 nan=0 inf=0 zero_rows=0
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision:   llm_16: n=186 dim=3072 mean=-0.0151 std=2.5879 nan=0 inf=0 zero_rows=0
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: 
+======================================================================
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: Probing: fit LogReg for each target x site x {all, quant, qual}
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision: ======================================================================
+2026-05-02 23:27:39 [INFO] week1_phi3.5-vision:   enc_out: n_total=186 n_quant=48 n_qual=138 feat_dim=1024
+2026-05-02 23:29:50 [INFO] week1_phi3.5-vision:   post_proj: n_total=186 n_quant=48 n_qual=138 feat_dim=3072
+2026-05-02 23:51:19 [INFO] week1_phi3.5-vision:   llm_8: n_total=186 n_quant=48 n_qual=138 feat_dim=3072

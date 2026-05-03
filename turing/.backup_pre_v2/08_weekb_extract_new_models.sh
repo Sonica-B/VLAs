@@ -50,7 +50,7 @@ set -e
 mkdir -p jobs results/week1_turing cache/week1_turing/features logs/turing
 
 # Load environment (modules + pip packages).
-source activate /home/ssboyane/VLAs/vla_physics_v2 || conda activate vla_physics_v2 || source activate vla_physics_v2
+source activate /home/ssboyane/VLAs/vla_physics || conda activate vla_physics || source activate vla_physics
 
 export FULL_RESOLUTION=1
 export HF_TOKEN="${HF_TOKEN}"

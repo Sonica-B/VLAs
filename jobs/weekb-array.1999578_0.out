@@ -1,0 +1,88 @@
+GPU OK: NVIDIA A100-SXM4-80GB / torch 2.4.1+cu124 / cuda 12.4
+GPU matmul 2kx2k: 60.7ms
+================================================================
+[Sat 02 May 2026 11:25:23 PM EDT] WEEK B ARRAY TASK 0/2
+  array job:   1999578
+  task id:     0
+  model:       llava-onevision-7b
+  GPU:         NVIDIA A100-SXM4-80GB, 81920 MiB
+  branch:      physics-steering @ 3540253
+  transformers: 4.46.3
+================================================================
+
+--- [llava-onevision-7b] probe-site discovery (advisory) ---
+Loading llava-onevision-7b to discover probe sites...
+Loading llava-hf/llava-onevision-qwen2-7b-ov-hf (sdpa, bnb-nf4, bf16)
+The argument `trust_remote_code` is to be used with Auto classes. It has no effect here and is ignored.
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:04<00:14,  4.87s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:09<00:10,  5.01s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:15<00:05,  5.08s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:15<00:00,  3.40s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:15<00:00,  3.99s/it]
+  loaded in 19.3s
+  loaded in 23.2s
+
+Discovered modules:
+  encoder blocks: 26 found
+  projector/merger candidates: ['multi_modal_projector']
+  LLM layers: 28 found
+
+Suggested PROBE_CANDIDATES entry for llava-onevision-7b:
+    "llava-onevision-7b": [
+        {"enc_out": "vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "multi_modal_projector",
+         "llm_8": "language_model.model.layers.8",
+         "llm_16": "language_model.model.layers.16"},
+    ],
+
+Measuring compression ratio (dummy 448x448 image)...
+  compression-measure forward failed: RuntimeError: Input type (torch.cuda.FloatTensor) and weight type (CUDABFloat16Type) should be the same
+  compression-ratio measurement failed; compute manually from architecture.
+
+--- [llava-onevision-7b] VAL-split probing ---
+2026-05-02 23:25:52 [INFO] week1_llava-onevision-7b: Logging to logs/turing/week1_llava-onevision-7b_20260502_232552.log
+2026-05-02 23:25:52 [INFO] week1_llava-onevision-7b: ======================================================================
+2026-05-02 23:25:52 [INFO] week1_llava-onevision-7b: Week 1 experiment: quant vs qual physics localization [model=llava-onevision-7b]
+2026-05-02 23:25:52 [INFO] week1_llava-onevision-7b: ======================================================================
+Loaded 200 questions from data/physbench/val.json
+2026-05-02 23:25:52 [INFO] week1_llava-onevision-7b: PhysBench val: 200 total, 55 quantitative, 145 qualitative
+2026-05-02 23:25:52 [INFO] week1_llava-onevision-7b: JSONL state: 1118 entries (74 ok, 825 non-ok)
+2026-05-02 23:25:52 [WARNING] week1_llava-onevision-7b: JSONL has 825 non-ok entries from a previous run. These will be RETRIED (resume now filters by status=ok). Pass --fresh to wipe the log entirely.
+Loading llava-hf/llava-onevision-qwen2-7b-ov-hf
+  attn_implementation=sdpa, quant=bnb-nf4, dtype=bf16
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  25%|██▌       | 1/4 [00:02<00:08,  2.71s/it]Loading checkpoint shards:  50%|█████     | 2/4 [00:05<00:05,  2.59s/it]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:07<00:02,  2.53s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  1.79s/it]Loading checkpoint shards: 100%|██████████| 4/4 [00:08<00:00,  2.08s/it]
+  loaded in 10.6s
+2026-05-02 23:26:04 [INFO] week1_llava-onevision-7b: VRAM delta: alloc +5.77GB peak +5.91GB (now 5.77GB allocated)
+  candidate failed: "Module path 'model.vision_tower.vision_model.encoder.layers.25' not found on LlavaOnevisionForConditionalGeneration: missing attribute 'model'"
+  candidate failed: "Module path 'language_model.layers.8' not found on LlavaOnevisionForConditionalGeneration: missing attribute 'layers'"
+  candidate failed: "Module path 'model.vision_tower.vision_model.encoder.layers.25' not found on LlavaOnevisionForConditionalGeneration: missing attribute 'model'"
+
+ERROR: could not resolve probe site paths. Model top-level children:
+  - vision_tower
+      .vision_model: SiglipVisionTransformer
+  - multi_modal_projector
+      .linear_1: Linear4bit
+      .act: GELUActivation
+      .linear_2: Linear4bit
+  - language_model
+      .model: Qwen2Model
+      .lm_head: Linear
+2026-05-02 23:26:04 [CRITICAL] week1_llava-onevision-7b: Unhandled exception:
+Traceback (most recent call last):
+  File "/home/ssboyane/VLAs/scripts/week1_quant_qual_probe.py", line 1371, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ssboyane/VLAs/scripts/week1_quant_qual_probe.py", line 1028, in main
+    sites = discover_probe_sites(model, model_key)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ssboyane/VLAs/scripts/week1_quant_qual_probe.py", line 589, in discover_probe_sites
+    raise RuntimeError(f"probe site discovery failed for {model_key}")
+RuntimeError: probe site discovery failed for llava-onevision-7b
+
+Traceback (most recent call last):
+  File "/home/ssboyane/VLAs/scripts/week1_quant_qual_probe.py", line 1371, in <module>
+    sys.exit(main())
+             ^^^^^^
+  File "/home/ssboyane/VLAs/scripts/week1_quant_qual_probe.py", line 1028, in main
+    sites = discover_probe_sites(model, model_key)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ssboyane/VLAs/scripts/week1_quant_qual_probe.py", line 589, in discover_probe_sites
+    raise RuntimeError(f"probe site discovery failed for {model_key}")
+RuntimeError: probe site discovery failed for llava-onevision-7b
+FAIL [llava-onevision-7b] val probing rc=1
