@@ -99,14 +99,21 @@ MODEL_H3_HITS = {
     "gemma4-e4b":     1.0,   # 3/3
     "qwen2.5-vl-7b":  1.0,   # 3/3
     "qwen3-vl-8b":    2 / 3,  # 2/3
-    # Week B additions (None = not yet measured — skipped in LOO until filled)
-    "llava-onevision-7b":   None,
-    "phi3.5-vision":        None,
-    "pixtral-12b":          None,
-    "molmo-7b":             None,
-    # --- Pixtral replacement options (2026-05-03) ---
-    "idefics3-8b":          None,  # backup option
-    "granite-vision-3.2-2b":None,  # primary 2025 entry
+    # Week B additions — measured 2026-05-03 via scripts/compute_h3_hits.py
+    # Definition: for each target T in {answer, task_type, sub_type}, hit =
+    #   (enc_out quantitative significant, p<0.05) AND (enc_out_acc > post_proj_acc).
+    # H3 hit-rate = hits / 3.
+    # NB: this is a CONSERVATIVE operational definition that auto-extracts from
+    # permutation_check.json. The 4 hardcoded baseline values above were derived
+    # by manual tally with a different (richer) criterion -- the predictor
+    # therefore mixes definitions across rows. Documented in paper limitations.
+    "llava-onevision-7b":      1 / 3,  # 1/3 (sub_type only)
+    "phi3.5-vision":           1 / 3,  # 1/3
+    "pixtral-12b":             None,   # dropped (transformers 4.46.x bugs)
+    "molmo-7b":                None,   # dropped (transformers 5.x API drift)
+    # --- Pixtral replacement (2026-05-03) ---
+    "idefics3-8b":             None,   # backup option, not run
+    "granite-vision-3.2-2b":   0.0,    # 0/3 (true negative control: no H3 anywhere)
 }
 
 
