@@ -103,18 +103,21 @@ PROBE_CANDIDATES = {
     # --- Week B additions (2026-04-19) ---
     # LLaVA-OneVision-7B (llava-hf/llava-onevision-qwen2-7b-ov-hf):
     # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers).
-    # Verified by Turing discovery: model.language_model.layers.N (no inner .model.)
+    # CONFIRMED by Turing discovery 2026-05-02 on transformers 4.46.3:
+    # vision_tower / multi_modal_projector / language_model are TOP-LEVEL.
+    # language_model wraps Qwen2 → decoder layers at language_model.model.layers.N
     "llava-onevision-7b": [
-        {"enc_out": "model.vision_tower.vision_model.encoder.layers.25",
-         "post_proj": "model.multi_modal_projector",
-         "llm_8": "model.language_model.layers.8",
-         "llm_16": "model.language_model.layers.16"},
-        # Fallback: flat
+        # PRIMARY (Turing-verified): top-level + inner .model.
+        {"enc_out": "vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "multi_modal_projector",
+         "llm_8": "language_model.model.layers.8",
+         "llm_16": "language_model.model.layers.16"},
+        # Fallback: flat (no inner .model.)
         {"enc_out": "vision_tower.vision_model.encoder.layers.25",
          "post_proj": "multi_modal_projector",
          "llm_8": "language_model.layers.8",
          "llm_16": "language_model.layers.16"},
-        # Older fallback with inner .model.
+        # Fallback: with `model.` prefix (very-old transformers)
         {"enc_out": "model.vision_tower.vision_model.encoder.layers.25",
          "post_proj": "model.multi_modal_projector",
          "llm_8": "model.language_model.model.layers.8",
@@ -133,18 +136,20 @@ PROBE_CANDIDATES = {
          "llm_16":    "model.layers.16"},
     ],
     # Pixtral-12B: CLIP-ViT (24 layers) + pixtral-style image_proj + Mistral-12B-Nemo (40 layers)
-    # Verified by Turing discovery: model.language_model.layers.N (no inner .model.)
+    # Same top-level layout as LLaVA-OV (LlavaForConditionalGeneration base).
+    # PixtralVisionModel does NOT support SDPA — eager required (see eager_families below).
     "pixtral-12b": [
-        {"enc_out":   "model.vision_tower.transformer.layers.23",
-         "post_proj": "model.multi_modal_projector",
-         "llm_8":     "model.language_model.layers.8",
-         "llm_16":    "model.language_model.layers.16"},
-        # Fallback: flat
+        # PRIMARY: top-level + inner .model. (analogous to LLaVA-OV verified)
+        {"enc_out":   "vision_tower.transformer.layers.23",
+         "post_proj": "multi_modal_projector",
+         "llm_8":     "language_model.model.layers.8",
+         "llm_16":    "language_model.model.layers.16"},
+        # Fallback: flat (no inner .model.)
         {"enc_out":   "vision_tower.transformer.layers.23",
          "post_proj": "multi_modal_projector",
          "llm_8":     "language_model.layers.8",
          "llm_16":    "language_model.layers.16"},
-        # Older fallback with inner .model.
+        # Fallback: with `model.` prefix
         {"enc_out":   "model.vision_tower.transformer.layers.23",
          "post_proj": "model.multi_modal_projector",
          "llm_8":     "model.language_model.model.layers.8",
@@ -202,9 +207,11 @@ def load_model(model_key: str):
     else:
         from transformers import AutoModelForVision2Seq as Cls
 
-    # Attention implementation: eager for families with custom attention
-    # (Gemma/Phi/Molmo); sdpa otherwise.
-    eager_families = {"gemma", "phi35v", "molmo"}
+    # Attention implementation: eager for families with custom attention OR
+    # families whose vision tower lacks SDPA support.
+    # - gemma/phi35v/molmo: custom attention modules
+    # - pixtral: PixtralVisionModel doesn't implement SDPA in transformers 4.46.x
+    eager_families = {"gemma", "phi35v", "molmo", "pixtral"}
     attn = pick_attn_impl(allow_sdpa=True)
     print(f"Loading {hf_id} ({attn}, bnb-nf4, bf16)")
     t0 = time.time()

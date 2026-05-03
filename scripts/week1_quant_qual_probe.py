@@ -206,27 +206,32 @@ MODEL_REGISTRY: Dict[str, Dict] = {
     # --- Week B additions (2026-04-19): for PhysLens-Predict n=8 validation ---
     # LLaVA-OneVision-7B (llava-hf/llava-onevision-qwen2-7b-ov-hf):
     # SigLIP (26 layers, indexed 0-25) + MLP projector + Qwen2-7B (28 layers).
-    # Verified by Turing discovery: paths are flat after `model.` (no inner `.model.`).
+    # CONFIRMED by Turing discovery 2026-05-02 on transformers 4.46.3:
+    #   - vision_tower / multi_modal_projector / language_model are TOP-LEVEL
+    #     children of LlavaOnevisionForConditionalGeneration (no `model.` prefix).
+    #   - language_model is itself a CausalLM wrapper containing
+    #     `.model` (Qwen2Model with .layers) and `.lm_head`.
+    #   - Therefore decoder layers live at `language_model.model.layers.N`.
     "llava-onevision-7b": {
         "hf_id": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
         "loader": "llava_ov",
         "input_kind": "gemma",  # standard HF PIL path works
         "probe_candidates": [
-            # Discovered on Turing: model.language_model.layers.N (NO inner .model.)
+            # PRIMARY (Turing-verified 2026-05-02): top-level + inner .model.
             {
-                "enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
-                "post_proj": "model.multi_modal_projector",
-                "llm_8":     "model.language_model.layers.8",
-                "llm_16":    "model.language_model.layers.16",
+                "enc_out":   "vision_tower.vision_model.encoder.layers.25",
+                "post_proj": "multi_modal_projector",
+                "llm_8":     "language_model.model.layers.8",
+                "llm_16":    "language_model.model.layers.16",
             },
-            # Fallback: flat (no model. prefix) for other transformers versions
+            # Fallback: flat (no inner .model.) — older transformers
             {
                 "enc_out":   "vision_tower.vision_model.encoder.layers.25",
                 "post_proj": "multi_modal_projector",
                 "llm_8":     "language_model.layers.8",
                 "llm_16":    "language_model.layers.16",
             },
-            # Older fallback with inner .model.
+            # Fallback: with `model.` prefix (very-old transformers)
             {
                 "enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
                 "post_proj": "model.multi_modal_projector",
@@ -235,28 +240,30 @@ MODEL_REGISTRY: Dict[str, Dict] = {
             },
         ],
     },
-    # Pixtral-12B: Mistral vision + projector + Mistral-Nemo-12B
-    # Verified by Turing discovery: paths are flat after `model.`.
+    # Pixtral-12B: Mistral vision + projector + Mistral-Nemo-12B via
+    # LlavaForConditionalGeneration (community port). Same top-level layout as
+    # LLaVA-OneVision: vision_tower / multi_modal_projector / language_model.
+    # PixtralVisionModel does NOT support SDPA — load_pixtral hardcodes eager.
     "pixtral-12b": {
         "hf_id": "mistral-community/pixtral-12b",
         "loader": "pixtral",
         "input_kind": "gemma",
         "probe_candidates": [
-            # Discovered on Turing: model.language_model.layers.N (NO inner .model.)
+            # PRIMARY (analogous to LLaVA-OV verified layout)
             {
-                "enc_out":   "model.vision_tower.transformer.layers.23",
-                "post_proj": "model.multi_modal_projector",
-                "llm_8":     "model.language_model.layers.8",
-                "llm_16":    "model.language_model.layers.16",
+                "enc_out":   "vision_tower.transformer.layers.23",
+                "post_proj": "multi_modal_projector",
+                "llm_8":     "language_model.model.layers.8",
+                "llm_16":    "language_model.model.layers.16",
             },
-            # Fallback: flat
+            # Fallback: flat (no inner .model.)
             {
                 "enc_out":   "vision_tower.transformer.layers.23",
                 "post_proj": "multi_modal_projector",
                 "llm_8":     "language_model.layers.8",
                 "llm_16":    "language_model.layers.16",
             },
-            # Older fallback with inner .model.
+            # Fallback: with `model.` prefix
             {
                 "enc_out":   "model.vision_tower.transformer.layers.23",
                 "post_proj": "model.multi_modal_projector",
@@ -469,8 +476,13 @@ def load_llava_ov(model_id: str):
 def load_pixtral(model_id: str):
     """Pixtral-12B via LlavaForConditionalGeneration (Mistral community port).
 
-    Pixtral's tokenizer ships WITHOUT pad_token. Set it to eos_token after
-    loading so processor(..., padding=True) doesn't raise.
+    Two pixtral-specific quirks:
+      1. PixtralVisionModel does NOT support SDPA in transformers 4.46.x — it
+         raises "PixtralVisionModel does not support an attention implementation
+         through torch.nn.functional.scaled_dot_product_attention yet."
+         Fix: hardcode `attn_implementation="eager"`.
+      2. Tokenizer ships WITHOUT pad_token. Set it to eos_token after loading
+         so processor(..., padding=True) doesn't raise.
     """
     from transformers import AutoProcessor
     try:
@@ -478,9 +490,10 @@ def load_pixtral(model_id: str):
     except ImportError:
         from transformers import AutoModelForImageTextToText as ModelCls
 
-    attn_impl = pick_attn_impl(allow_sdpa=True)
+    # Pixtral fix #1: PixtralVisionModel doesn't support SDPA. Force eager.
+    attn_impl = "eager"
     print(f"Loading {model_id}")
-    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    print(f"  attn_implementation={attn_impl} (Pixtral requirement), quant=bnb-nf4, dtype=bf16")
     t0 = time.time()
     model = ModelCls.from_pretrained(
         model_id,
