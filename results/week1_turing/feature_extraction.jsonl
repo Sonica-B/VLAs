@@ -1442,3 +1442,17 @@
 {"sample_id": "val_9729", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "dynamics", "sub_type": "fluid", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
 {"sample_id": "val_9730", "status": "ok", "slice": "qualitative", "answer": "B", "task_type": "property", "sub_type": "attribute", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
 {"sample_id": "val_9757", "status": "ok", "slice": "qualitative", "answer": "D", "task_type": "relationships", "sub_type": "motion", "dims": {"enc_out": 1152, "post_proj": 3584, "llm_8": 3584, "llm_16": 3584}}
+{"sample_id": "val_13", "status": "no_media"}
+{"sample_id": "val_22", "status": "no_media"}
+{"sample_id": "val_24", "status": "no_media"}
+{"sample_id": "val_40", "status": "no_media"}
+{"sample_id": "val_1471", "status": "no_media"}
+{"sample_id": "val_1583", "status": "no_media"}
+{"sample_id": "val_1584", "status": "no_media"}
+{"sample_id": "val_1735", "status": "no_media"}
+{"sample_id": "val_4315", "status": "no_media"}
+{"sample_id": "val_7114", "status": "no_media"}
+{"sample_id": "val_8553", "status": "no_media"}
+{"sample_id": "val_8662", "status": "no_media"}
+{"sample_id": "val_8788", "status": "no_media"}
+{"sample_id": "val_9125", "status": "no_media"}
