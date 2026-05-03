@@ -657,12 +657,24 @@ def load_granite_vision(model_id: str):
 
     IBM Granite-Vision (Feb 2025): SigLIP vision encoder + 2-layer MLP
     projector + Granite-3.2 2B LM. Apache-2.0 license. Maps to the
-    well-established LlavaNextForConditionalGeneration class — no
+    well-established LlavaNextForConditionalGeneration class -- no
     trust_remote_code. Compression ~1.0x (no token reduction per tile).
 
     REQUIRES transformers >= 4.49.0. Earlier versions raise
     ValueError("Unrecognized configuration class") because
     GraniteVisionConfig isn't registered.
+
+    QUANTIZATION NOTE: bnb-NF4 triggers a dtype mismatch
+        `RuntimeError: self and mat2 must have the same dtype, but got
+         BFloat16 and Byte`
+    in some Granite-Vision Linear layers under transformers 4.49 + bnb 0.44.
+    Cause: a Linear-equivalent in the multi_modal_projector or vision_tower
+    is not being properly wrapped by Linear4bit, so the raw uint8 (Byte)
+    quantized weight reaches matmul without dequantization. Fix: load in
+    bf16 without bnb. The 2B param footprint (~4GB in bf16) fits easily on
+    A100-80GB so this costs no usable VRAM. Document as protocol asymmetry
+    in the paper — does not affect the architectural compression ratio
+    (which is the operative variable in PhysLens-Predict).
 
     Reference: arxiv 2502.09927 (IBM Granite Vision team, Feb 2025).
     """
@@ -674,11 +686,11 @@ def load_granite_vision(model_id: str):
 
     attn_impl = pick_attn_impl(allow_sdpa=True)
     print(f"Loading {model_id}")
-    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    print(f"  attn_implementation={attn_impl}, NO QUANT (bnb dtype bug), dtype=bf16")
     t0 = time.time()
     model = ModelCls.from_pretrained(
         model_id,
-        quantization_config=build_bnb_config(load_in_4bit=True),
+        # bnb-NF4 OMITTED -- see docstring. 2B model loads cleanly in bf16.
         device_map="auto",
         torch_dtype=torch.bfloat16,
         attn_implementation=attn_impl,

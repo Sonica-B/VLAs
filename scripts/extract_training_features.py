@@ -262,20 +262,23 @@ def load_model(model_key: str):
     # - gemma/phi35v/molmo: custom attention modules
     # - pixtral: PixtralVisionModel doesn't implement SDPA in transformers 4.46.x
     eager_families = {"gemma", "phi35v", "molmo", "pixtral"}
+    # Families where bnb-NF4 4-bit quantization triggers dtype mismatches
+    # (Linears not properly wrapped by Linear4bit -> raw uint8 reaches matmul).
+    # These models load in bf16 only. Acceptable VRAM cost: only Granite
+    # is currently here (2B -> ~4GB in bf16, fits trivially on A100-80GB).
+    no_quant_families = {"granite_vision"}
     attn = pick_attn_impl(allow_sdpa=True)
-    print(f"Loading {hf_id} ({attn}, bnb-nf4, bf16)")
+    use_quant = family not in no_quant_families
+    quant_label = "bnb-nf4" if use_quant else "NO QUANT"
+    print(f"Loading {hf_id} ({attn}, {quant_label}, bf16)")
     t0 = time.time()
-    # Pre-patch config for Phi-3.5-Vision: its custom modeling file doesn't
-    # forward attn_implementation to super().__init__, so the parent's FA2
-    # dispatch check fires before our kwarg takes effect. Pre-setting on
-    # config makes the parent's _check_and_adjust_attn_implementation read
-    # "eager" rather than defaulting to FA2.
     pretrain_kwargs = dict(
-        quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto", torch_dtype=torch.bfloat16,
         attn_implementation=attn if family not in eager_families else "eager",
         trust_remote_code=True, low_cpu_mem_usage=True,
     )
+    if use_quant:
+        pretrain_kwargs["quantization_config"] = build_bnb_config(load_in_4bit=True)
     if family == "phi35v":
         from transformers import AutoConfig
         config = AutoConfig.from_pretrained(hf_id, trust_remote_code=True)
