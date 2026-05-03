@@ -721,7 +721,23 @@ def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
     # On Turing (40-80GB): keep ALL images at full resolution for clean results.
     # Controlled by FULL_RESOLUTION env var (set in Turing sbatch scripts).
     import os
-    if os.environ.get("FULL_RESOLUTION", "0") != "1":
+    proc_class = type(processor).__name__
+
+    # Pixtral exception: even at FULL_RESOLUTION=1, Pixtral's
+    # multi_modal_projector emits a list[Tensor] when batch contains
+    # variable-resolution images, which propagates into model.forward()
+    # internals that ultimately call .unsqueeze on a list — observed as:
+    # `AttributeError: 'list' object has no attribute 'unsqueeze'`.
+    # The reliable fix in transformers 4.46.x is to constrain Pixtral to a
+    # single image per sample with a fixed resolution. Sacrifices multi-image
+    # samples (~70% of PhysBench val) for processor stability — acceptable
+    # given Pixtral's role as a NEGATIVE-CONTROL (compression=1.0x) data
+    # point in the predictor regression.
+    is_pixtral = proc_class.startswith("Pixtral")
+    if is_pixtral:
+        pil_images = pil_images[:1]
+        pil_images = [img.resize((448, 448)) for img in pil_images]
+    elif os.environ.get("FULL_RESOLUTION", "0") != "1":
         # Laptop mode: cap images to avoid OOM on 12.8GB GPU.
         pil_images = pil_images[:1]
         pil_images = [img.resize((448, 448)) for img in pil_images]
@@ -732,7 +748,6 @@ def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
     prompt_text = "\n".join(p for p in text_parts if p.strip())
 
     # ----- Per-processor special handling -----
-    proc_class = type(processor).__name__
 
     # Phi-3.5-Vision: requires explicit <|image_N|> tags in text (it does NOT
     # auto-insert them via apply_chat_template). Without tags, processor raises
