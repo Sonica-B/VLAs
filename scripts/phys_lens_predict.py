@@ -119,11 +119,21 @@ MODEL_H3_HITS = {
     "pixtral-12b":             None,   # dropped (transformers 4.46.x bugs)
     "molmo-7b":                None,   # dropped (transformers 5.x API drift)
     # --- Pixtral replacement (2026-05-03) ---
-    "idefics3-8b":             None,   # backup option, not run
     "granite-vision-3.2-2b":   0.0,    # 0/3 (true negative control: no H3 anywhere)
-    # --- n=10 expansion (2026-05-03): values filled after permutation tests ---
-    "idefics2-8b":             None,   # mid-compression (~11.4x)
-    "blip2-opt-2.7b":          None,   # mid-compression (~8x)
+    # --- n=10 expansion (2026-05-03): MEASURED via permutation_check + compute_h3_hits.py ---
+    # ALL THREE mid-compression models surprise: empirical H3 = 0/3 despite
+    # compression in [4, 11] range. See perm-active.2000258.out for full per-target
+    # breakdown. This is the predictor's stress test:
+    #   Idefics3 (4x):     enc_quant=0.667 -> post=0.733 (NEGATIVE delta -- info GREW)
+    #   Idefics2 (11.4x):  enc_quant=0.600 -> post=0.867 (negative delta -- info GREW)
+    #   BLIP-2  (8x):      enc_quant=0.533 -> post=0.733 (negative delta -- info GREW)
+    # Possible interpretations: (a) Q-Former / perceiver / pixel-shuffle compression
+    # is QUALITATIVELY DIFFERENT from spatial-merge compression (Qwen-style); these
+    # learned-token mechanisms preserve task-relevant info. (b) Sample size n=186
+    # could yield noisy permutation null. Document in paper Section 4.3 (Discussion).
+    "idefics3-8b":             0.0,    # 0/3 hits (perm-active.2000258.out)
+    "idefics2-8b":             0.0,    # 0/3 hits
+    "blip2-opt-2.7b":          0.0,    # 0/3 hits
 }
 
 
