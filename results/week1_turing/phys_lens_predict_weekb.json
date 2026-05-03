@@ -3,22 +3,22 @@
     "internvl3-8b": {
       "model": "internvl3-8b",
       "compression": 2.4,
-      "enc_minus_postproj_gap": null,
-      "phys_lens_score": null,
+      "enc_minus_postproj_gap": -0.018181818181818188,
+      "phys_lens_score": 0.0,
       "empirical_h3": 0.0
     },
     "gemma4-e4b": {
       "model": "gemma4-e4b",
       "compression": 114.0,
-      "enc_minus_postproj_gap": null,
-      "phys_lens_score": null,
+      "enc_minus_postproj_gap": 0.05454545454545451,
+      "phys_lens_score": 0.11219481007289843,
       "empirical_h3": 1.0
     },
     "qwen2.5-vl-7b": {
       "model": "qwen2.5-vl-7b",
       "compression": 270.0,
-      "enc_minus_postproj_gap": null,
-      "phys_lens_score": null,
+      "enc_minus_postproj_gap": 0.11090909090909096,
+      "phys_lens_score": 0.2696603447521787,
       "empirical_h3": 1.0
     },
     "qwen3-vl-8b": {
@@ -30,23 +30,23 @@
     },
     "llava-onevision-7b": {
       "model": "llava-onevision-7b",
-      "compression": null,
+      "compression": 1.0,
       "enc_minus_postproj_gap": 0.044444444444444425,
-      "phys_lens_score": null,
+      "phys_lens_score": 0.0,
       "empirical_h3": null
     },
     "phi3.5-vision": {
       "model": "phi3.5-vision",
-      "compression": null,
+      "compression": 1.0,
       "enc_minus_postproj_gap": 0.10444444444444442,
-      "phys_lens_score": null,
+      "phys_lens_score": 0.0,
       "empirical_h3": null
     },
     "pixtral-12b": {
       "model": "pixtral-12b",
-      "compression": null,
+      "compression": 1.0,
       "enc_minus_postproj_gap": 1.1102230246251565e-16,
-      "phys_lens_score": null,
+      "phys_lens_score": 0.0,
       "empirical_h3": null
     },
     "molmo-7b": {
@@ -57,6 +57,51 @@
       "empirical_h3": null
     }
   },
-  "n_models_with_data": 1,
-  "loo_regression": null
+  "n_models_with_data": 4,
+  "loo_regression": {
+    "per_model_loo": {
+      "internvl3-8b": {
+        "predicted": 0.709796863713206,
+        "predicted_raw": 0.709796863713206,
+        "empirical": 0.0,
+        "abs_error": 0.709796863713206,
+        "train_a": 1.2217998636790226,
+        "train_b": 0.709796863713206
+      },
+      "gemma4-e4b": {
+        "predicted": 0.564994329728129,
+        "predicted_raw": 0.564994329728129,
+        "empirical": 1.0,
+        "abs_error": 0.435005670271871,
+        "train_a": 3.1331114477991835,
+        "train_b": 0.21347548590507587
+      },
+      "qwen2.5-vl-7b": {
+        "predicted": 1.0,
+        "predicted_raw": 2.4598219895369655,
+        "empirical": 1.0,
+        "abs_error": 0.0,
+        "train_a": 8.941618672574126,
+        "train_b": 0.04862201564810793
+      },
+      "qwen3-vl-8b": {
+        "predicted": 0.4259734976352153,
+        "predicted_raw": 0.4259734976352153,
+        "empirical": 0.6666666666666666,
+        "abs_error": 0.24069316903145133,
+        "train_a": 3.468264733394409,
+        "train_b": 0.22520841108510772
+      }
+    },
+    "median_abs_error": 0.33784941965166115,
+    "spearman_rho": 0.21081851067789195,
+    "spearman_p": 0.7891814893221081,
+    "spearman_bootstrap_ci95": [
+      -1.0,
+      1.0
+    ],
+    "n_models": 4,
+    "kill_gate_fired": true,
+    "verdict": "Predictor is ANECDOTAL (LOO median |error| > 0.20) \u2014 demote RQ-B to 'observation' per PRE_REGISTRATION.md gate 3"
+  }
 }
