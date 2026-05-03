@@ -31,21 +31,21 @@
     "llava-onevision-7b": {
       "model": "llava-onevision-7b",
       "compression": null,
-      "enc_minus_postproj_gap": null,
+      "enc_minus_postproj_gap": 0.044444444444444425,
       "phys_lens_score": null,
       "empirical_h3": null
     },
     "phi3.5-vision": {
       "model": "phi3.5-vision",
       "compression": null,
-      "enc_minus_postproj_gap": null,
+      "enc_minus_postproj_gap": 0.10444444444444442,
       "phys_lens_score": null,
       "empirical_h3": null
     },
     "pixtral-12b": {
       "model": "pixtral-12b",
       "compression": null,
-      "enc_minus_postproj_gap": null,
+      "enc_minus_postproj_gap": 1.1102230246251565e-16,
       "phys_lens_score": null,
       "empirical_h3": null
     },
