@@ -287,40 +287,57 @@ MODEL_REGISTRY: Dict[str, Dict] = {
             },
         ],
     },
-    # Idefics3-8B-Llama3: SigLIP-SO400M (26 blocks) + pixel-shuffle (r=2) +
-    # Llama 3.1 8B. The pixel-shuffle is what makes this model architecturally
-    # interesting for our predictor: 676 tokens (26x26 patches @ 364x364 with
-    # patch 14) → 169 tokens (13x13) post-shuffle → ~4x compression.
-    # This MID-COMPRESSION value (4x) FILLS THE GAP between InternVL3 (2.4x)
-    # and Gemma4 (114x) in our 7-model regression — strong scientific value.
-    # Replaces Pixtral-12B which had unfixable transformers 4.46.x bugs.
-    # arxiv 2408.12637 (Laurençon et al., Aug 2024).
+    # Idefics3-8B-Llama3 (KEPT AS BACKUP): SigLIP-SO400M (26 blocks) +
+    # pixel-shuffle (r=2) + Llama 3.1 8B. Mid-compression (4x). Apache-2.0.
+    # arxiv 2408.12637 (Laurençon et al., Aug 2024). Use only if Granite
+    # below proves unfeasible.
     "idefics3-8b": {
         "hf_id": "HuggingFaceM4/Idefics3-8B-Llama3",
         "loader": "idefics3",
         "input_kind": "gemma",
         "probe_candidates": [
-            # PRIMARY: HF-native Idefics3 layout (model attribute is the wrapper)
-            {
-                "enc_out":   "model.vision_model.encoder.layers.25",
-                "post_proj": "model.connector",
-                "llm_8":     "model.text_model.layers.8",
-                "llm_16":    "model.text_model.layers.16",
-            },
-            # Fallback: top-level (no `model.` wrapper)
-            {
-                "enc_out":   "vision_model.encoder.layers.25",
-                "post_proj": "connector",
-                "llm_8":     "text_model.layers.8",
-                "llm_16":    "text_model.layers.16",
-            },
-            # Fallback: nested connector module path
-            {
-                "enc_out":   "model.vision_model.encoder.layers.25",
-                "post_proj": "model.connector.modality_projection",
-                "llm_8":     "model.text_model.layers.8",
-                "llm_16":    "model.text_model.layers.16",
-            },
+            {"enc_out":   "model.vision_model.encoder.layers.25",
+             "post_proj": "model.connector",
+             "llm_8":     "model.text_model.layers.8",
+             "llm_16":    "model.text_model.layers.16"},
+            {"enc_out":   "vision_model.encoder.layers.25",
+             "post_proj": "connector",
+             "llm_8":     "text_model.layers.8",
+             "llm_16":    "text_model.layers.16"},
+            {"enc_out":   "model.vision_model.encoder.layers.25",
+             "post_proj": "model.connector.modality_projection",
+             "llm_8":     "model.text_model.layers.8",
+             "llm_16":    "model.text_model.layers.16"},
+        ],
+    },
+    # Granite-Vision-3.2-2B (PRIMARY 2025 ENTRY): IBM, released Feb 2025.
+    # SigLIP vision encoder + 2-layer MLP projector + Granite-3.2 2B LM.
+    # Maps to LlavaNextForConditionalGeneration. NO trust_remote_code.
+    # Apache-2.0 license. Smallest size of 2025 candidates → fastest to probe.
+    # Compression ~1.0x (negative control, like LLaVA-OV and Phi-3.5).
+    # Requires transformers >= 4.49.0 — see turing/upgrade_env_for_2025.sh.
+    # arxiv 2502.09927 (IBM Granite-Vision team, Feb 2025).
+    "granite-vision-3.2-2b": {
+        "hf_id": "ibm-granite/granite-vision-3.2-2b",
+        "loader": "granite_vision",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            # PRIMARY: LlavaNextForConditionalGeneration top-level layout.
+            # Granite uses Granite LM which has its own .model wrapper (like Qwen2).
+            {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
+             "post_proj": "multi_modal_projector",
+             "llm_8":     "language_model.model.layers.8",
+             "llm_16":    "language_model.model.layers.16"},
+            # Fallback: language_model has no inner .model. wrapper
+            {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
+             "post_proj": "multi_modal_projector",
+             "llm_8":     "language_model.layers.8",
+             "llm_16":    "language_model.layers.16"},
+            # Fallback: with `model.` outer wrapper (older transformers)
+            {"enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
+             "post_proj": "model.multi_modal_projector",
+             "llm_8":     "model.language_model.model.layers.8",
+             "llm_16":    "model.language_model.model.layers.16"},
         ],
     },
 }
@@ -635,19 +652,66 @@ def load_idefics3(model_id: str):
     return model, processor
 
 
+def load_granite_vision(model_id: str):
+    """Granite-Vision-3.2-2B via LlavaNextForConditionalGeneration.
+
+    IBM Granite-Vision (Feb 2025): SigLIP vision encoder + 2-layer MLP
+    projector + Granite-3.2 2B LM. Apache-2.0 license. Maps to the
+    well-established LlavaNextForConditionalGeneration class — no
+    trust_remote_code. Compression ~1.0x (no token reduction per tile).
+
+    REQUIRES transformers >= 4.49.0. Earlier versions raise
+    ValueError("Unrecognized configuration class") because
+    GraniteVisionConfig isn't registered.
+
+    Reference: arxiv 2502.09927 (IBM Granite Vision team, Feb 2025).
+    """
+    from transformers import AutoProcessor
+    try:
+        from transformers import LlavaNextForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForVision2Seq as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    # Defensive: pad_token (Granite LM sometimes ships without it).
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+            print(f"  (set tokenizer.pad_token = eos_token)")
+    except Exception:
+        pass
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
 # Dispatch by loader name.
 _LOADERS = {
-    "qwen3_vl":     load_qwen3_vl,
-    "qwen25_vl":    load_qwen25_vl,
-    "internvl3":    load_internvl3,
-    "gemma4":       load_gemma4,
-    "phi35_vision": load_phi35_vision,
+    "qwen3_vl":        load_qwen3_vl,
+    "qwen25_vl":       load_qwen25_vl,
+    "internvl3":       load_internvl3,
+    "gemma4":          load_gemma4,
+    "phi35_vision":    load_phi35_vision,
     # --- Week B additions (2026-04-19) ---
-    "llava_ov":     load_llava_ov,
-    "pixtral":      load_pixtral,
-    "molmo":        load_molmo,
-    # --- Pixtral replacement (2026-05-03) ---
-    "idefics3":     load_idefics3,
+    "llava_ov":        load_llava_ov,
+    "pixtral":         load_pixtral,
+    "molmo":           load_molmo,
+    # --- Pixtral replacement options (2026-05-03) ---
+    "idefics3":        load_idefics3,        # Aug 2024 backup
+    "granite_vision":  load_granite_vision,  # Feb 2025 PRIMARY
 }
 
 
