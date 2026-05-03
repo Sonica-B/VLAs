@@ -670,26 +670,39 @@ def load_molmo(model_id: str):
 def load_idefics3(model_id: str):
     """Idefics3-8B-Llama3 via Idefics3ForConditionalGeneration.
 
-    Pixtral replacement (2026-05-03). Idefics3 uses pixel-shuffle (r=2) to
-    compress vision tokens by ~4x — a mid-compression data point that fills
-    the 2.4x→114x gap in our LOO regression. SigLIP-SO400M-patch14 encoder
-    + pixel-shuffle connector + Llama 3.1 8B decoder. Apache-2.0, ships in
-    transformers >=4.46 (no upgrade needed).
+    Idefics3 uses pixel-shuffle (r=2) for ~4x compression. SigLIP-SO400M
+    encoder + pixel-shuffle connector + Llama 3.1 8B decoder. Apache-2.0.
+
+    SDPA NOTE: Idefics3VisionTransformer does NOT support SDPA in
+    transformers 4.49.0 (HF issue #28005, same family of bug as Pixtral).
+    Inner `Idefics3VisionTransformer._from_config(config.vision_config)`
+    re-runs SDPA enablement check and ignores outer attn_implementation
+    kwarg. Fix: pre-patch BOTH config + nested vision_config with
+    _attn_implementation='eager'.
 
     Reference: arxiv 2408.12637 (Laurençon et al., Aug 2024).
     """
-    from transformers import AutoProcessor
+    from transformers import AutoProcessor, AutoConfig
     try:
         from transformers import Idefics3ForConditionalGeneration as ModelCls
     except ImportError:
         from transformers import AutoModelForVision2Seq as ModelCls
 
-    attn_impl = pick_attn_impl(allow_sdpa=True)
+    attn_impl = "eager"
     print(f"Loading {model_id}")
-    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    print(f"  attn_implementation={attn_impl} (Idefics3 vision SDPA bug), quant=bnb-nf4, dtype=bf16")
     t0 = time.time()
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+    for cfg in (config, getattr(config, "vision_config", None),
+                getattr(config, "text_config", None)):
+        if cfg is None:
+            continue
+        for attr in ("_attn_implementation", "_attn_implementation_internal",
+                     "attn_implementation"):
+            setattr(cfg, attr, "eager")
     model = ModelCls.from_pretrained(
         model_id,
+        config=config,
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto",
         torch_dtype=torch.bfloat16,
@@ -697,12 +710,10 @@ def load_idefics3(model_id: str):
         low_cpu_mem_usage=True,
     )
     processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
-    # Defensive: set pad_token if missing (common pattern for Llama-based models).
     try:
         tok = getattr(processor, "tokenizer", None)
         if tok is not None and getattr(tok, "pad_token", None) is None:
             tok.pad_token = tok.eos_token
-            print(f"  (set tokenizer.pad_token = eos_token)")
     except Exception:
         pass
     model.eval()
@@ -716,21 +727,34 @@ def load_idefics2(model_id: str):
     SigLIP-SO400M + perceiver resampler (64 query tokens) + Mistral 7B.
     Apache-2.0. Compression ~11.4x (729 patches → 64 tokens).
 
-    Reference: arxiv 2405.02246 (Laurençon et al., 2024, "What matters when
-    building vision-language models?").
+    SDPA NOTE: Idefics2VisionTransformer does NOT support SDPA in
+    transformers 4.49.0 (HF issue #28005). Same fix as Idefics3/Pixtral:
+    pre-patch BOTH config + nested vision_config with _attn_implementation='eager'.
+
+    Reference: arxiv 2405.02246 (Laurençon et al., 2024).
     """
-    from transformers import AutoProcessor
+    from transformers import AutoProcessor, AutoConfig
     try:
         from transformers import Idefics2ForConditionalGeneration as ModelCls
     except ImportError:
         from transformers import AutoModelForVision2Seq as ModelCls
 
-    attn_impl = pick_attn_impl(allow_sdpa=True)
+    attn_impl = "eager"
     print(f"Loading {model_id}")
-    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    print(f"  attn_implementation={attn_impl} (Idefics2 vision SDPA bug), quant=bnb-nf4, dtype=bf16")
     t0 = time.time()
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+    for cfg in (config, getattr(config, "vision_config", None),
+                getattr(config, "text_config", None),
+                getattr(config, "perceiver_config", None)):
+        if cfg is None:
+            continue
+        for attr in ("_attn_implementation", "_attn_implementation_internal",
+                     "attn_implementation"):
+            setattr(cfg, attr, "eager")
     model = ModelCls.from_pretrained(
         model_id,
+        config=config,
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto",
         torch_dtype=torch.bfloat16,
@@ -756,22 +780,34 @@ def load_blip2(model_id: str):
     pooling from 257 ViT tokens) + OPT-2.7B decoder. MIT license. Compression
     ~8x.
 
-    Reference: arxiv 2301.12597 (Li et al., 2023, "BLIP-2: Bootstrapping
-    Language-Image Pre-training with Frozen Image Encoders and LLMs").
+    SDPA NOTE: Defensive — same pre-patching pattern applied since BLIP-2's
+    Blip2VisionModel may exhibit the same SDPA-via-vision_config bug at
+    transformers 4.49.0. Cheap insurance.
+
+    Reference: arxiv 2301.12597 (Li et al., 2023).
     """
-    from transformers import AutoProcessor
+    from transformers import AutoProcessor, AutoConfig
     try:
         from transformers import Blip2ForConditionalGeneration as ModelCls
     except ImportError:
         from transformers import AutoModelForVision2Seq as ModelCls
 
-    # BLIP-2 vision (EVA-CLIP-g) supports SDPA in transformers 4.46+.
-    attn_impl = pick_attn_impl(allow_sdpa=True)
+    attn_impl = "eager"
     print(f"Loading {model_id}")
-    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    print(f"  attn_implementation={attn_impl} (BLIP-2 defensive eager), quant=bnb-nf4, dtype=bf16")
     t0 = time.time()
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+    for cfg in (config, getattr(config, "vision_config", None),
+                getattr(config, "qformer_config", None),
+                getattr(config, "text_config", None)):
+        if cfg is None:
+            continue
+        for attr in ("_attn_implementation", "_attn_implementation_internal",
+                     "attn_implementation"):
+            setattr(cfg, attr, "eager")
     model = ModelCls.from_pretrained(
         model_id,
+        config=config,
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto",
         torch_dtype=torch.bfloat16,
@@ -779,8 +815,6 @@ def load_blip2(model_id: str):
         low_cpu_mem_usage=True,
     )
     processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
-    # BLIP-2's processor is Blip2Processor; tokenizer wraps OPT's GPT2 tokenizer.
-    # OPT tokenizer ships with pad_token=<pad>. Defensive set if missing.
     try:
         tok = getattr(processor, "tokenizer", None)
         if tok is not None and getattr(tok, "pad_token", None) is None:

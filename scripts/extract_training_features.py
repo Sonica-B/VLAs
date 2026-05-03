@@ -306,7 +306,8 @@ def load_model(model_key: str):
     # families whose vision tower lacks SDPA support.
     # - gemma/phi35v/molmo: custom attention modules
     # - pixtral: PixtralVisionModel doesn't implement SDPA in transformers 4.46.x
-    eager_families = {"gemma", "phi35v", "molmo", "pixtral"}
+    eager_families = {"gemma", "phi35v", "molmo", "pixtral",
+                      "idefics3", "idefics2", "blip2"}
     # Families where bnb-NF4 4-bit quantization triggers dtype mismatches
     # (Linears not properly wrapped by Linear4bit -> raw uint8 reaches matmul).
     # These models load in bf16 only. Acceptable VRAM cost: only Granite
@@ -331,14 +332,19 @@ def load_model(model_key: str):
                      "attn_implementation"):
             setattr(config, attr, "eager")
         pretrain_kwargs["config"] = config
-    elif family == "pixtral":
-        # Pixtral: LlavaModel.__init__'s inner AutoModel.from_config(vision_config)
-        # call doesn't receive our outer attn_implementation kwarg, so we must
-        # pre-patch the nested vision_config too. PixtralVisionModel raises
-        # ValueError on SDPA in transformers 4.46.x (HF issue #28005).
+    elif family in ("pixtral", "idefics3", "idefics2", "blip2"):
+        # Same SDPA-via-vision_config bug across these families: inner
+        # AutoModel.from_config(config.vision_config) ignores outer
+        # attn_implementation kwarg, so we pre-patch the nested config.
+        # HF issue #28005. Pixtral exhibited this first; Idefics3 + Idefics2
+        # confirmed at transformers 4.49.0; BLIP-2 defensive.
         from transformers import AutoConfig
         config = AutoConfig.from_pretrained(hf_id, trust_remote_code=True)
-        for cfg in (config, getattr(config, "vision_config", None)):
+        nested = [config, getattr(config, "vision_config", None),
+                  getattr(config, "text_config", None),
+                  getattr(config, "qformer_config", None),
+                  getattr(config, "perceiver_config", None)]
+        for cfg in nested:
             if cfg is None:
                 continue
             for attr in ("_attn_implementation", "_attn_implementation_internal",
