@@ -61,7 +61,7 @@
       "compression": 4.0,
       "enc_minus_postproj_gap": 0.044444444444444425,
       "phys_lens_score": 0.026758221836798317,
-      "empirical_h3": null
+      "empirical_h3": 0.0
     },
     "granite-vision-3.2-2b": {
       "model": "granite-vision-3.2-2b",
@@ -75,84 +75,108 @@
       "compression": 11.4,
       "enc_minus_postproj_gap": 0.1088888888888889,
       "phys_lens_score": 0.11508519492330481,
-      "empirical_h3": null
+      "empirical_h3": 0.0
     },
     "blip2-opt-2.7b": {
       "model": "blip2-opt-2.7b",
       "compression": 8.0,
       "enc_minus_postproj_gap": -5.551115123125783e-17,
       "phys_lens_score": 0.0,
-      "empirical_h3": null
+      "empirical_h3": 0.0
     }
   },
-  "n_models_with_data": 7,
+  "n_models_with_data": 10,
   "loo_regression": {
     "per_model_loo": {
       "internvl3-8b": {
-        "predicted": 0.32676696475238226,
-        "predicted_raw": 0.32676696475238226,
+        "predicted": 0.16662808146853716,
+        "predicted_raw": 0.16662808146853716,
         "empirical": 0.0,
-        "abs_error": 0.32676696475238226,
-        "train_a": 3.1216785759211807,
-        "train_b": 0.32676696475238226
+        "abs_error": 0.16662808146853716,
+        "train_a": 3.152902736461776,
+        "train_b": 0.16662808146853716
       },
       "gemma4-e4b": {
-        "predicted": 0.5679495609413515,
-        "predicted_raw": 0.5679495609413515,
+        "predicted": 0.4301430402604307,
+        "predicted_raw": 0.4301430402604307,
         "empirical": 1.0,
-        "abs_error": 0.4320504390586485,
-        "train_a": 3.1084925957428227,
-        "train_b": 0.2191928245489745
+        "abs_error": 0.5698569597395693,
+        "train_a": 2.8461486765828994,
+        "train_b": 0.11081993005198108
       },
       "qwen2.5-vl-7b": {
         "predicted": 1.0,
-        "predicted_raw": 2.226171457127793,
+        "predicted_raw": 1.1200199293612099,
         "empirical": 1.0,
         "abs_error": 0.0,
-        "train_a": 7.613675355692308,
-        "train_b": 0.17306513588063827
+        "train_a": 3.6627792289410697,
+        "train_b": 0.13231361973384162
       },
       "qwen3-vl-8b": {
-        "predicted": 0.4244266038564119,
-        "predicted_raw": 0.4244266038564119,
+        "predicted": 0.295299785052284,
+        "predicted_raw": 0.295299785052284,
         "empirical": 0.6666666666666666,
-        "abs_error": 0.24224006281025473,
-        "train_a": 3.477611056460034,
-        "train_b": 0.22312049304678677
+        "abs_error": 0.37136688161438264,
+        "train_a": 3.2952441877831173,
+        "train_b": 0.10455022138892012
       },
       "llava-onevision-7b": {
-        "predicted": 0.23948006744334588,
-        "predicted_raw": 0.23948006744334588,
+        "predicted": 0.10818763325763792,
+        "predicted_raw": 0.10818763325763792,
         "empirical": 0.3333333333333333,
-        "abs_error": 0.09385326588998744,
-        "train_a": 3.55463307504781,
-        "train_b": 0.23948006744334588
+        "abs_error": 0.2251457000756954,
+        "train_a": 3.4841195595544097,
+        "train_b": 0.10818763325763792
       },
       "phi3.5-vision": {
-        "predicted": 0.23948006744334588,
-        "predicted_raw": 0.23948006744334588,
+        "predicted": 0.10818763325763792,
+        "predicted_raw": 0.10818763325763792,
         "empirical": 0.3333333333333333,
-        "abs_error": 0.09385326588998744,
-        "train_a": 3.55463307504781,
-        "train_b": 0.23948006744334588
+        "abs_error": 0.2251457000756954,
+        "train_a": 3.4841195595544097,
+        "train_b": 0.10818763325763792
+      },
+      "idefics3-8b": {
+        "predicted": 0.25958725407037125,
+        "predicted_raw": 0.25958725407037125,
+        "empirical": 0.0,
+        "abs_error": 0.25958725407037125,
+        "train_a": 3.1752852053890304,
+        "train_b": 0.17462226814946788
       },
       "granite-vision-3.2-2b": {
-        "predicted": 0.32676696475238226,
-        "predicted_raw": 0.32676696475238226,
+        "predicted": 0.16662808146853708,
+        "predicted_raw": 0.16662808146853708,
         "empirical": 0.0,
-        "abs_error": 0.32676696475238226,
-        "train_a": 3.121678575921184,
-        "train_b": 0.32676696475238226
+        "abs_error": 0.16662808146853708,
+        "train_a": 3.1529027364617774,
+        "train_b": 0.16662808146853708
+      },
+      "idefics2-8b": {
+        "predicted": 0.6106718983503576,
+        "predicted_raw": 0.6106718983503576,
+        "empirical": 0.0,
+        "abs_error": 0.6106718983503576,
+        "train_a": 3.7991198112162516,
+        "train_b": 0.17344945433954628
+      },
+      "blip2-opt-2.7b": {
+        "predicted": 0.166628081468537,
+        "predicted_raw": 0.166628081468537,
+        "empirical": 0.0,
+        "abs_error": 0.166628081468537,
+        "train_a": 3.1529027364617783,
+        "train_b": 0.166628081468537
       }
     },
-    "median_abs_error": 0.24224006281025473,
-    "spearman_rho": 0.6916189900468547,
-    "spearman_p": 0.08518812502292628,
+    "median_abs_error": 0.2251457000756954,
+    "spearman_rho": 0.32649765138024184,
+    "spearman_p": 0.3571759970463232,
     "spearman_bootstrap_ci95": [
-      -0.125,
-      1.0
+      -0.6430020829776838,
+      0.886533257504216
     ],
-    "n_models": 7,
+    "n_models": 10,
     "kill_gate_fired": true,
     "verdict": "Predictor is ANECDOTAL (LOO median |error| > 0.20) \u2014 demote RQ-B to 'observation' per PRE_REGISTRATION.md gate 3"
   }
