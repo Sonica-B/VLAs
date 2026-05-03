@@ -59,8 +59,8 @@
     "idefics3-8b": {
       "model": "idefics3-8b",
       "compression": 4.0,
-      "enc_minus_postproj_gap": null,
-      "phys_lens_score": null,
+      "enc_minus_postproj_gap": 0.044444444444444425,
+      "phys_lens_score": 0.026758221836798317,
       "empirical_h3": null
     },
     "granite-vision-3.2-2b": {
@@ -69,6 +69,20 @@
       "enc_minus_postproj_gap": 0.044444444444444425,
       "phys_lens_score": 0.0,
       "empirical_h3": 0.0
+    },
+    "idefics2-8b": {
+      "model": "idefics2-8b",
+      "compression": 11.4,
+      "enc_minus_postproj_gap": 0.1088888888888889,
+      "phys_lens_score": 0.11508519492330481,
+      "empirical_h3": null
+    },
+    "blip2-opt-2.7b": {
+      "model": "blip2-opt-2.7b",
+      "compression": 8.0,
+      "enc_minus_postproj_gap": -5.551115123125783e-17,
+      "phys_lens_score": 0.0,
+      "empirical_h3": null
     }
   },
   "n_models_with_data": 7,
