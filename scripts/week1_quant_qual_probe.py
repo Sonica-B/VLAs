@@ -287,6 +287,59 @@ MODEL_REGISTRY: Dict[str, Dict] = {
             },
         ],
     },
+    # Idefics3-8B-Llama3 (KEPT AS BACKUP): SigLIP-SO400M (26 blocks) +
+    # pixel-shuffle (r=2) + Llama 3.1 8B. Mid-compression (4x). Apache-2.0.
+    # arxiv 2408.12637 (Laurençon et al., Aug 2024). Use only if Granite
+    # below proves unfeasible.
+    "idefics3-8b": {
+        "hf_id": "HuggingFaceM4/Idefics3-8B-Llama3",
+        "loader": "idefics3",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            {"enc_out":   "model.vision_model.encoder.layers.25",
+             "post_proj": "model.connector",
+             "llm_8":     "model.text_model.layers.8",
+             "llm_16":    "model.text_model.layers.16"},
+            {"enc_out":   "vision_model.encoder.layers.25",
+             "post_proj": "connector",
+             "llm_8":     "text_model.layers.8",
+             "llm_16":    "text_model.layers.16"},
+            {"enc_out":   "model.vision_model.encoder.layers.25",
+             "post_proj": "model.connector.modality_projection",
+             "llm_8":     "model.text_model.layers.8",
+             "llm_16":    "model.text_model.layers.16"},
+        ],
+    },
+    # Granite-Vision-3.2-2B (PRIMARY 2025 ENTRY): IBM, released Feb 2025.
+    # SigLIP vision encoder + 2-layer MLP projector + Granite-3.2 2B LM.
+    # Maps to LlavaNextForConditionalGeneration. NO trust_remote_code.
+    # Apache-2.0 license. Smallest size of 2025 candidates → fastest to probe.
+    # Compression ~1.0x (negative control, like LLaVA-OV and Phi-3.5).
+    # Requires transformers >= 4.49.0 — see turing/upgrade_env_for_2025.sh.
+    # arxiv 2502.09927 (IBM Granite-Vision team, Feb 2025).
+    "granite-vision-3.2-2b": {
+        "hf_id": "ibm-granite/granite-vision-3.2-2b",
+        "loader": "granite_vision",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            # PRIMARY: LlavaNextForConditionalGeneration top-level layout.
+            # Granite uses Granite LM which has its own .model wrapper (like Qwen2).
+            {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
+             "post_proj": "multi_modal_projector",
+             "llm_8":     "language_model.model.layers.8",
+             "llm_16":    "language_model.model.layers.16"},
+            # Fallback: language_model has no inner .model. wrapper
+            {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
+             "post_proj": "multi_modal_projector",
+             "llm_8":     "language_model.layers.8",
+             "llm_16":    "language_model.layers.16"},
+            # Fallback: with `model.` outer wrapper (older transformers)
+            {"enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
+             "post_proj": "model.multi_modal_projector",
+             "llm_8":     "model.language_model.model.layers.8",
+             "llm_16":    "model.language_model.model.layers.16"},
+        ],
+    },
 }
 
 
@@ -556,17 +609,109 @@ def load_molmo(model_id: str):
     return model, processor
 
 
+def load_idefics3(model_id: str):
+    """Idefics3-8B-Llama3 via Idefics3ForConditionalGeneration.
+
+    Pixtral replacement (2026-05-03). Idefics3 uses pixel-shuffle (r=2) to
+    compress vision tokens by ~4x — a mid-compression data point that fills
+    the 2.4x→114x gap in our LOO regression. SigLIP-SO400M-patch14 encoder
+    + pixel-shuffle connector + Llama 3.1 8B decoder. Apache-2.0, ships in
+    transformers >=4.46 (no upgrade needed).
+
+    Reference: arxiv 2408.12637 (Laurençon et al., Aug 2024).
+    """
+    from transformers import AutoProcessor
+    try:
+        from transformers import Idefics3ForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForVision2Seq as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    # Defensive: set pad_token if missing (common pattern for Llama-based models).
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+            print(f"  (set tokenizer.pad_token = eos_token)")
+    except Exception:
+        pass
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_granite_vision(model_id: str):
+    """Granite-Vision-3.2-2B via LlavaNextForConditionalGeneration.
+
+    IBM Granite-Vision (Feb 2025): SigLIP vision encoder + 2-layer MLP
+    projector + Granite-3.2 2B LM. Apache-2.0 license. Maps to the
+    well-established LlavaNextForConditionalGeneration class — no
+    trust_remote_code. Compression ~1.0x (no token reduction per tile).
+
+    REQUIRES transformers >= 4.49.0. Earlier versions raise
+    ValueError("Unrecognized configuration class") because
+    GraniteVisionConfig isn't registered.
+
+    Reference: arxiv 2502.09927 (IBM Granite Vision team, Feb 2025).
+    """
+    from transformers import AutoProcessor
+    try:
+        from transformers import LlavaNextForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForVision2Seq as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    # Defensive: pad_token (Granite LM sometimes ships without it).
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+            print(f"  (set tokenizer.pad_token = eos_token)")
+    except Exception:
+        pass
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
 # Dispatch by loader name.
 _LOADERS = {
-    "qwen3_vl":     load_qwen3_vl,
-    "qwen25_vl":    load_qwen25_vl,
-    "internvl3":    load_internvl3,
-    "gemma4":       load_gemma4,
-    "phi35_vision": load_phi35_vision,
+    "qwen3_vl":        load_qwen3_vl,
+    "qwen25_vl":       load_qwen25_vl,
+    "internvl3":       load_internvl3,
+    "gemma4":          load_gemma4,
+    "phi35_vision":    load_phi35_vision,
     # --- Week B additions (2026-04-19) ---
-    "llava_ov":     load_llava_ov,
-    "pixtral":      load_pixtral,
-    "molmo":        load_molmo,
+    "llava_ov":        load_llava_ov,
+    "pixtral":         load_pixtral,
+    "molmo":           load_molmo,
+    # --- Pixtral replacement options (2026-05-03) ---
+    "idefics3":        load_idefics3,        # Aug 2024 backup
+    "granite_vision":  load_granite_vision,  # Feb 2025 PRIMARY
 }
 
 
@@ -635,13 +780,19 @@ def print_module_structure(model: nn.Module, max_depth: int = 4) -> None:
 # Per-sample forward pass + feature capture.
 # ---------------------------------------------------------------------------
 
-def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils") -> dict:
+def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils",
+                 model_key: str = "") -> dict:
     """Apply chat template + vision preprocessing; return model-ready inputs.
 
     Dispatches by `input_kind`:
       - "qwen_vl_utils": Qwen2.5-VL, Qwen3-VL — uses qwen_vl_utils.process_vision_info
       - "internvl":     InternVL3 HF variant — uses AutoProcessor with PIL images
       - "gemma":        Gemma 3/4 multimodal — uses AutoProcessor with PIL images
+
+    `model_key` (the MODEL_REGISTRY key, e.g. "pixtral-12b") is threaded through
+    so per-model quirks can be detected at input-build time without relying on
+    processor class-name string matching (which fails for Pixtral when the
+    community port loads as LlavaProcessor instead of PixtralProcessor).
 
     For InternVL and Gemma, video entries are collapsed to their first frame
     (we load the video, take frame 0 as a PIL image). This is a simplification
@@ -661,12 +812,13 @@ def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils") -
         )
 
     if input_kind in ("internvl", "gemma"):
-        return _build_inputs_pil(processor, messages, input_kind)
+        return _build_inputs_pil(processor, messages, input_kind, model_key=model_key)
 
     raise ValueError(f"Unknown input_kind: {input_kind}")
 
 
-def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
+def _build_inputs_pil(processor, messages: list, input_kind: str,
+                      model_key: str = "") -> dict:
     """Build inputs for models that take raw PIL images via AutoProcessor.
 
     Extracts images from the Qwen-style message content list, loads video
@@ -723,18 +875,24 @@ def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
     import os
     proc_class = type(processor).__name__
 
-    # Pixtral exception: even at FULL_RESOLUTION=1, Pixtral's
-    # multi_modal_projector emits a list[Tensor] when batch contains
-    # variable-resolution images, which propagates into model.forward()
-    # internals that ultimately call .unsqueeze on a list — observed as:
+    # Pixtral exception: even at FULL_RESOLUTION=1, Pixtral's image processor
+    # emits pixel_values as a list[Tensor] (one per image with variable shape)
+    # when multi-image batches are passed. The downstream LlavaForConditional-
+    # Generation forward then trips on `.unsqueeze` against this list:
     # `AttributeError: 'list' object has no attribute 'unsqueeze'`.
-    # The reliable fix in transformers 4.46.x is to constrain Pixtral to a
-    # single image per sample with a fixed resolution. Sacrifices multi-image
-    # samples (~70% of PhysBench val) for processor stability — acceptable
-    # given Pixtral's role as a NEGATIVE-CONTROL (compression=1.0x) data
-    # point in the predictor regression.
-    is_pixtral = proc_class.startswith("Pixtral")
+    # Detect by model_key (canonical) AND processor class name (fallback) —
+    # `mistral-community/pixtral-12b` may register a LlavaProcessor instead
+    # of PixtralProcessor depending on transformers version.
+    # Cap to single image at 448x448 to keep pixel_values as a stacked Tensor.
+    # Sacrifices multi-image samples (~70% of PhysBench val) for processor
+    # stability — acceptable given Pixtral's role as a NEGATIVE-CONTROL
+    # (compression=1.0x) data point in the predictor regression.
+    is_pixtral = (
+        model_key == "pixtral-12b"
+        or proc_class.startswith("Pixtral")
+    )
     if is_pixtral:
+        print(f"  [pixtral input cap] proc_class={proc_class} → 1 image @ 448x448")
         pil_images = pil_images[:1]
         pil_images = [img.resize((448, 448)) for img in pil_images]
     elif os.environ.get("FULL_RESOLUTION", "0") != "1":
@@ -1153,7 +1311,9 @@ def main():
                             errors += 1
                             continue
 
-                        inputs = build_inputs(processor, messages, input_kind=input_kind)
+                        inputs = build_inputs(processor, messages,
+                                              input_kind=input_kind,
+                                              model_key=model_key)
                         forward_and_capture(model, inputs, captured)
 
                         # Pull per-site features. Qwen3-VL vision blocks output

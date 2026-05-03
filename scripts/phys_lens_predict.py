@@ -71,6 +71,23 @@ MODEL_COMPRESSION = {
     "phi3.5-vision":       1.0,
     "pixtral-12b":         1.0,
     "molmo-7b":            None,  # dropped from Week B (transformers 5.x API drift)
+    # --- Pixtral replacement (2026-05-03) ---
+    # Idefics3-8B-Llama3: SigLIP-SO400M-patch14 @ 364x364 → 676 tokens →
+    # pixel-shuffle (r=2) → 169 tokens. Compression = 676 / 169 = 4.0x.
+    # MID-COMPRESSION data point that fills the 2.4x → 114x gap in our LOO
+    # regression — strengthens predictor's interpolation power.
+    # Source: Laurençon et al., 2024, arxiv:2408.12637 (Idefics3 paper),
+    #         Section 3 (Vision encoder + pixel-shuffle r=2).
+    "idefics3-8b":         4.0,
+    # Granite-Vision-3.2-2B (IBM, Feb 2025) — Pixtral replacement, true 2025 entry.
+    # Architecture: SigLIP vision encoder + 2-layer MLP projector + Granite-3.2 2B LM
+    # via LlavaNextForConditionalGeneration. Per-tile token count is preserved
+    # (no merger / pooling / pixel-shuffle), so compression = 1.0x.
+    # Adds a 3rd negative-control data point (alongside LLaVA-OV and Phi-3.5),
+    # strengthening the "no compression bottleneck → no H3 effect" claim.
+    # Requires transformers >= 4.49 (see turing/upgrade_env_for_2025.sh).
+    # Source: IBM Granite Vision team, 2025, arxiv:2502.09927.
+    "granite-vision-3.2-2b": 1.0,
 }
 
 
@@ -83,10 +100,13 @@ MODEL_H3_HITS = {
     "qwen2.5-vl-7b":  1.0,   # 3/3
     "qwen3-vl-8b":    2 / 3,  # 2/3
     # Week B additions (None = not yet measured — skipped in LOO until filled)
-    "llava-onevision-7b":  None,
-    "phi3.5-vision":       None,
-    "pixtral-12b":         None,
-    "molmo-7b":            None,
+    "llava-onevision-7b":   None,
+    "phi3.5-vision":        None,
+    "pixtral-12b":          None,
+    "molmo-7b":             None,
+    # --- Pixtral replacement options (2026-05-03) ---
+    "idefics3-8b":          None,  # backup option
+    "granite-vision-3.2-2b":None,  # primary 2025 entry
 }
 
 

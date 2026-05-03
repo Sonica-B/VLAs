@@ -77,6 +77,9 @@ MODEL_REGISTRY = {
     "phi3.5-vision":      ("microsoft/Phi-3.5-vision-instruct",         "phi35v"),
     "pixtral-12b":        ("mistral-community/pixtral-12b",              "pixtral"),
     "molmo-7b":           ("allenai/Molmo-7B-D-0924",                    "molmo"),
+    # --- Pixtral replacement (2026-05-03) ---
+    "idefics3-8b":          ("HuggingFaceM4/Idefics3-8B-Llama3",         "idefics3"),
+    "granite-vision-3.2-2b":("ibm-granite/granite-vision-3.2-2b",        "granite_vision"),
 }
 
 # Probe site candidates. Multiple per model so discover_sites() can fall back
@@ -155,6 +158,41 @@ PROBE_CANDIDATES = {
          "llm_8":     "model.language_model.model.layers.8",
          "llm_16":    "model.language_model.model.layers.16"},
     ],
+    # Idefics3-8B-Llama3 (BACKUP, Aug 2024): pixel-shuffle r=2 → ~4x compression.
+    "idefics3-8b": [
+        {"enc_out":   "model.vision_model.encoder.layers.25",
+         "post_proj": "model.connector",
+         "llm_8":     "model.text_model.layers.8",
+         "llm_16":    "model.text_model.layers.16"},
+        {"enc_out":   "vision_model.encoder.layers.25",
+         "post_proj": "connector",
+         "llm_8":     "text_model.layers.8",
+         "llm_16":    "text_model.layers.16"},
+        {"enc_out":   "model.vision_model.encoder.layers.25",
+         "post_proj": "model.connector.modality_projection",
+         "llm_8":     "model.text_model.layers.8",
+         "llm_16":    "model.text_model.layers.16"},
+    ],
+    # Granite-Vision-3.2-2B (PRIMARY 2025 ENTRY, Feb 2025):
+    # SigLIP vision encoder + 2-layer MLP + Granite-3.2 2B LM.
+    # Compression ~1.0x (negative control). Requires transformers >= 4.49.
+    "granite-vision-3.2-2b": [
+        # PRIMARY: LlavaNextForConditionalGeneration top-level layout
+        {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "multi_modal_projector",
+         "llm_8":     "language_model.model.layers.8",
+         "llm_16":    "language_model.model.layers.16"},
+        # Fallback: no inner .model. on language_model
+        {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "multi_modal_projector",
+         "llm_8":     "language_model.layers.8",
+         "llm_16":    "language_model.layers.16"},
+        # Fallback: outer `model.` wrapper
+        {"enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
+         "post_proj": "model.multi_modal_projector",
+         "llm_8":     "model.language_model.model.layers.8",
+         "llm_16":    "model.language_model.model.layers.16"},
+    ],
     # Molmo-7B-D: custom vision adapter + Qwen2-7B. Paths are best-guess; run
     # scripts/discover_probe_sites.py first to verify or auto-detect.
     "molmo-7b": [
@@ -204,6 +242,18 @@ def load_model(model_key: str):
     elif family == "molmo":
         # Molmo uses custom modeling code in its HF repo
         from transformers import AutoModelForCausalLM as Cls
+    elif family == "idefics3":
+        # Idefics3-8B-Llama3 (Pixtral replacement, 2026-05-03)
+        try:
+            from transformers import Idefics3ForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForVision2Seq as Cls
+    elif family == "granite_vision":
+        # Granite-Vision-3.2-2B (IBM, Feb 2025) — requires transformers >= 4.49
+        try:
+            from transformers import LlavaNextForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForVision2Seq as Cls
     else:
         from transformers import AutoModelForVision2Seq as Cls
 
