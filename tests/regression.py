@@ -54,7 +54,10 @@ ACTIVE_MODELS = {
     "llava-onevision-7b",
     "phi3.5-vision",
     "granite-vision-3.2-2b",  # primary 2025+ entry
-    "idefics3-8b",  # backup if Granite fails
+    "idefics3-8b",            # mid-compression (~4x) gap-filler
+    # n=10 expansion (2026-05-03):
+    "idefics2-8b",            # mid-compression (~11.4x)
+    "blip2-opt-2.7b",         # mid-compression (~8x)
 }
 
 # Models in registry but not in either set (deprecated / dropped).
@@ -383,6 +386,8 @@ def test_structural(suite: TestSuite) -> None:
         "phi3.5-vision":           "12_probe_phi35v.sh",
         "idefics3-8b":             "13_probe_idefics3.sh",
         "granite-vision-3.2-2b":   "14_probe_granite_vision.sh",
+        "idefics2-8b":             "16_probe_idefics2.sh",
+        "blip2-opt-2.7b":          "17_probe_blip2.sh",
     }
     for mkey, script in slurm_map.items():
         sp = TURING / script

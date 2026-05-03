@@ -310,6 +310,64 @@ MODEL_REGISTRY: Dict[str, Dict] = {
              "llm_16":    "model.text_model.layers.16"},
         ],
     },
+    # Idefics2-8B (HuggingFace, Aug 2024): SigLIP-SO400M-patch14 + perceiver
+    # resampler (64 query tokens) + Mistral 7B. Apache-2.0.
+    # Compression = 729 patches → 64 tokens = ~11.4x via cross-attention pool.
+    # Mid-compression data point for the LOO regression — fills the 4× → 22×
+    # gap together with Idefics3 (4×) and BLIP-2 (~8×).
+    # arxiv 2405.02246 (Laurençon et al., 2024).
+    "idefics2-8b": {
+        "hf_id": "HuggingFaceM4/idefics2-8b",
+        "loader": "idefics2",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            # PRIMARY: HF Idefics2ForConditionalGeneration layout.
+            # Connector contains the perceiver resampler.
+            {"enc_out":   "model.vision_model.encoder.layers.25",
+             "post_proj": "model.connector",
+             "llm_8":     "model.text_model.layers.8",
+             "llm_16":    "model.text_model.layers.16"},
+            # Fallback: flat (no `model.` wrapper)
+            {"enc_out":   "vision_model.encoder.layers.25",
+             "post_proj": "connector",
+             "llm_8":     "text_model.layers.8",
+             "llm_16":    "text_model.layers.16"},
+            # Fallback: nested perceiver path
+            {"enc_out":   "model.vision_model.encoder.layers.25",
+             "post_proj": "model.connector.perceiver_resampler",
+             "llm_8":     "model.text_model.layers.8",
+             "llm_16":    "model.text_model.layers.16"},
+        ],
+    },
+    # BLIP-2 OPT-2.7B (Salesforce, 2023): EVA-CLIP-g (ViT) + Q-Former (32
+    # query tokens) + OPT-2.7B. MIT license.
+    # Compression = 257 patches → 32 query tokens = ~8x via Q-Former cross-attn.
+    # Smallest model in the panel (2.7B) — fast to probe. Different team from
+    # the Idefics/LLaVA/Phi/Granite/Qwen families.
+    # arxiv 2301.12597 (Li et al., 2023).
+    "blip2-opt-2.7b": {
+        "hf_id": "Salesforce/blip2-opt-2.7b",
+        "loader": "blip2",
+        "input_kind": "gemma",
+        "probe_candidates": [
+            # PRIMARY: HF Blip2ForConditionalGeneration layout
+            # OPT decoder uses model.decoder.layers (not model.layers)
+            {"enc_out":   "vision_model.encoder.layers.38",
+             "post_proj": "qformer",
+             "llm_8":     "language_model.model.decoder.layers.8",
+             "llm_16":    "language_model.model.decoder.layers.16"},
+            # Fallback: nested qformer encoder path
+            {"enc_out":   "vision_model.encoder.layers.38",
+             "post_proj": "qformer.encoder",
+             "llm_8":     "language_model.model.decoder.layers.8",
+             "llm_16":    "language_model.model.decoder.layers.16"},
+            # Fallback: model. wrapper variant
+            {"enc_out":   "model.vision_model.encoder.layers.38",
+             "post_proj": "model.qformer",
+             "llm_8":     "model.language_model.model.decoder.layers.8",
+             "llm_16":    "model.language_model.model.decoder.layers.16"},
+        ],
+    },
     # Granite-Vision-3.2-2B (PRIMARY 2025 ENTRY): IBM, released Feb 2025.
     # SigLIP vision encoder + 2-layer MLP projector + Granite-3.2 2B LM.
     # Maps to LlavaNextForConditionalGeneration. NO trust_remote_code.
@@ -652,6 +710,88 @@ def load_idefics3(model_id: str):
     return model, processor
 
 
+def load_idefics2(model_id: str):
+    """Idefics2-8B via Idefics2ForConditionalGeneration.
+
+    SigLIP-SO400M + perceiver resampler (64 query tokens) + Mistral 7B.
+    Apache-2.0. Compression ~11.4x (729 patches → 64 tokens).
+
+    Reference: arxiv 2405.02246 (Laurençon et al., 2024, "What matters when
+    building vision-language models?").
+    """
+    from transformers import AutoProcessor
+    try:
+        from transformers import Idefics2ForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForVision2Seq as ModelCls
+
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+    except Exception:
+        pass
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
+def load_blip2(model_id: str):
+    """BLIP-2 OPT-2.7B via Blip2ForConditionalGeneration.
+
+    EVA-CLIP-g vision encoder + Q-Former (32 query tokens, cross-attention
+    pooling from 257 ViT tokens) + OPT-2.7B decoder. MIT license. Compression
+    ~8x.
+
+    Reference: arxiv 2301.12597 (Li et al., 2023, "BLIP-2: Bootstrapping
+    Language-Image Pre-training with Frozen Image Encoders and LLMs").
+    """
+    from transformers import AutoProcessor
+    try:
+        from transformers import Blip2ForConditionalGeneration as ModelCls
+    except ImportError:
+        from transformers import AutoModelForVision2Seq as ModelCls
+
+    # BLIP-2 vision (EVA-CLIP-g) supports SDPA in transformers 4.46+.
+    attn_impl = pick_attn_impl(allow_sdpa=True)
+    print(f"Loading {model_id}")
+    print(f"  attn_implementation={attn_impl}, quant=bnb-nf4, dtype=bf16")
+    t0 = time.time()
+    model = ModelCls.from_pretrained(
+        model_id,
+        quantization_config=build_bnb_config(load_in_4bit=True),
+        device_map="auto",
+        torch_dtype=torch.bfloat16,
+        attn_implementation=attn_impl,
+        low_cpu_mem_usage=True,
+    )
+    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
+    # BLIP-2's processor is Blip2Processor; tokenizer wraps OPT's GPT2 tokenizer.
+    # OPT tokenizer ships with pad_token=<pad>. Defensive set if missing.
+    try:
+        tok = getattr(processor, "tokenizer", None)
+        if tok is not None and getattr(tok, "pad_token", None) is None:
+            tok.pad_token = tok.eos_token
+    except Exception:
+        pass
+    model.eval()
+    print(f"  loaded in {time.time()-t0:.1f}s")
+    return model, processor
+
+
 def load_granite_vision(model_id: str):
     """Granite-Vision-3.2-2B via LlavaNextForConditionalGeneration.
 
@@ -722,8 +862,11 @@ _LOADERS = {
     "pixtral":         load_pixtral,
     "molmo":           load_molmo,
     # --- Pixtral replacement options (2026-05-03) ---
-    "idefics3":        load_idefics3,        # Aug 2024 backup
-    "granite_vision":  load_granite_vision,  # Feb 2025 PRIMARY
+    "idefics3":        load_idefics3,        # Aug 2024 backup, ~4x compression
+    "granite_vision":  load_granite_vision,  # Feb 2025 PRIMARY, ~1x compression
+    # --- n=10 expansion (2026-05-03): mid-compression panel-fillers ---
+    "idefics2":        load_idefics2,        # Aug 2024, ~11.4x (perceiver)
+    "blip2":           load_blip2,           # 2023, ~8x (Q-Former)
 }
 
 

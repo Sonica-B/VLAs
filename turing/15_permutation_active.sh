@@ -59,8 +59,9 @@ echo "  node:         $(hostname)"
 echo "  transformers: $(python -c 'import transformers; print(transformers.__version__)')"
 echo "================================================================"
 
-# Run permutation for the 3 ACTIVE models that have features in cache/week1_turing
-ACTIVE_MODELS="llava-onevision-7b phi3.5-vision granite-vision-3.2-2b"
+# Run permutation for the 5 ACTIVE+EXPANSION models that have features in cache/week1_turing.
+# (idefics3-8b, idefics2-8b, blip2-opt-2.7b added 2026-05-03 for n=10 expansion)
+ACTIVE_MODELS="llava-onevision-7b phi3.5-vision granite-vision-3.2-2b idefics3-8b idefics2-8b blip2-opt-2.7b"
 echo ""
 echo "Running permutation check for: ${ACTIVE_MODELS}"
 echo ""

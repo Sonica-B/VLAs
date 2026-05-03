@@ -80,6 +80,9 @@ MODEL_REGISTRY = {
     # --- Pixtral replacement (2026-05-03) ---
     "idefics3-8b":          ("HuggingFaceM4/Idefics3-8B-Llama3",         "idefics3"),
     "granite-vision-3.2-2b":("ibm-granite/granite-vision-3.2-2b",        "granite_vision"),
+    # --- n=10 expansion (2026-05-03) ---
+    "idefics2-8b":          ("HuggingFaceM4/idefics2-8b",                "idefics2"),
+    "blip2-opt-2.7b":       ("Salesforce/blip2-opt-2.7b",                "blip2"),
 }
 
 # Probe site candidates. Multiple per model so discover_sites() can fall back
@@ -177,21 +180,51 @@ PROBE_CANDIDATES = {
     # SigLIP vision encoder + 2-layer MLP + Granite-3.2 2B LM.
     # Compression ~1.0x (negative control). Requires transformers >= 4.49.
     "granite-vision-3.2-2b": [
-        # PRIMARY: LlavaNextForConditionalGeneration top-level layout
         {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
          "post_proj": "multi_modal_projector",
          "llm_8":     "language_model.model.layers.8",
          "llm_16":    "language_model.model.layers.16"},
-        # Fallback: no inner .model. on language_model
         {"enc_out":   "vision_tower.vision_model.encoder.layers.25",
          "post_proj": "multi_modal_projector",
          "llm_8":     "language_model.layers.8",
          "llm_16":    "language_model.layers.16"},
-        # Fallback: outer `model.` wrapper
         {"enc_out":   "model.vision_tower.vision_model.encoder.layers.25",
          "post_proj": "model.multi_modal_projector",
          "llm_8":     "model.language_model.model.layers.8",
          "llm_16":    "model.language_model.model.layers.16"},
+    ],
+    # --- n=10 expansion (2026-05-03): mid-compression fillers ---
+    # Idefics2-8B (Aug 2024): SigLIP-SO400M + perceiver resampler (64 q tokens)
+    # + Mistral 7B. Compression ~11.4x (729 -> 64).
+    "idefics2-8b": [
+        {"enc_out":   "model.vision_model.encoder.layers.25",
+         "post_proj": "model.connector",
+         "llm_8":     "model.text_model.layers.8",
+         "llm_16":    "model.text_model.layers.16"},
+        {"enc_out":   "vision_model.encoder.layers.25",
+         "post_proj": "connector",
+         "llm_8":     "text_model.layers.8",
+         "llm_16":    "text_model.layers.16"},
+        {"enc_out":   "model.vision_model.encoder.layers.25",
+         "post_proj": "model.connector.perceiver_resampler",
+         "llm_8":     "model.text_model.layers.8",
+         "llm_16":    "model.text_model.layers.16"},
+    ],
+    # BLIP-2 OPT-2.7B (2023): EVA-CLIP-g + Q-Former (32 q tokens) + OPT-2.7B.
+    # Compression ~8x (257 -> 32). Note OPT decoder uses `.model.decoder.layers`.
+    "blip2-opt-2.7b": [
+        {"enc_out":   "vision_model.encoder.layers.38",
+         "post_proj": "qformer",
+         "llm_8":     "language_model.model.decoder.layers.8",
+         "llm_16":    "language_model.model.decoder.layers.16"},
+        {"enc_out":   "vision_model.encoder.layers.38",
+         "post_proj": "qformer.encoder",
+         "llm_8":     "language_model.model.decoder.layers.8",
+         "llm_16":    "language_model.model.decoder.layers.16"},
+        {"enc_out":   "model.vision_model.encoder.layers.38",
+         "post_proj": "model.qformer",
+         "llm_8":     "model.language_model.model.decoder.layers.8",
+         "llm_16":    "model.language_model.model.decoder.layers.16"},
     ],
     # Molmo-7B-D: custom vision adapter + Qwen2-7B. Paths are best-guess; run
     # scripts/discover_probe_sites.py first to verify or auto-detect.
@@ -252,6 +285,18 @@ def load_model(model_key: str):
         # Granite-Vision-3.2-2B (IBM, Feb 2025) — requires transformers >= 4.49
         try:
             from transformers import LlavaNextForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForVision2Seq as Cls
+    elif family == "idefics2":
+        # Idefics2-8B (HuggingFace, Aug 2024) — perceiver resampler
+        try:
+            from transformers import Idefics2ForConditionalGeneration as Cls
+        except ImportError:
+            from transformers import AutoModelForVision2Seq as Cls
+    elif family == "blip2":
+        # BLIP-2 OPT-2.7B (Salesforce, 2023) — Q-Former
+        try:
+            from transformers import Blip2ForConditionalGeneration as Cls
         except ImportError:
             from transformers import AutoModelForVision2Seq as Cls
     else:

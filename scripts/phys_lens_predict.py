@@ -88,6 +88,13 @@ MODEL_COMPRESSION = {
     # Requires transformers >= 4.49 (see turing/upgrade_env_for_2025.sh).
     # Source: IBM Granite Vision team, 2025, arxiv:2502.09927.
     "granite-vision-3.2-2b": 1.0,
+    # --- n=10 expansion (2026-05-03): mid-compression panel-fillers ---
+    # Idefics2-8B: SigLIP 729 patches → perceiver resampler 64 query tokens
+    # = 11.4x compression. arxiv 2405.02246 (Laurençon et al., 2024).
+    "idefics2-8b":           11.4,
+    # BLIP-2 OPT-2.7B: EVA-CLIP-g 257 patches → Q-Former 32 query tokens
+    # = 8.03x compression. arxiv 2301.12597 (Li et al., 2023).
+    "blip2-opt-2.7b":        8.0,
 }
 
 
@@ -114,6 +121,9 @@ MODEL_H3_HITS = {
     # --- Pixtral replacement (2026-05-03) ---
     "idefics3-8b":             None,   # backup option, not run
     "granite-vision-3.2-2b":   0.0,    # 0/3 (true negative control: no H3 anywhere)
+    # --- n=10 expansion (2026-05-03): values filled after permutation tests ---
+    "idefics2-8b":             None,   # mid-compression (~11.4x)
+    "blip2-opt-2.7b":          None,   # mid-compression (~8x)
 }
 
 
