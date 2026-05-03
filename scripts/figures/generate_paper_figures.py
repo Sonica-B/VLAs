@@ -37,7 +37,7 @@ RESULTS_BASELINE = ROOT / "results" / "week1"
 FIGURES = ROOT / "figures"
 FIGURES.mkdir(exist_ok=True)
 
-# Models in the n=7 panel (verified from phys_lens_predict_weekb.json)
+# Models in the n=10 panel (verified from phys_lens_predict_weekb.json)
 PANEL = [
     "internvl3-8b",
     "gemma4-e4b",
@@ -46,6 +46,10 @@ PANEL = [
     "llava-onevision-7b",
     "phi3.5-vision",
     "granite-vision-3.2-2b",
+    # n=10 expansion (2026-05-03):
+    "idefics3-8b",
+    "idefics2-8b",
+    "blip2-opt-2.7b",
 ]
 
 # Short labels for compact plots
@@ -57,6 +61,41 @@ SHORT = {
     "llava-onevision-7b":     "LLaVA-OV-7B",
     "phi3.5-vision":          "Phi-3.5-V",
     "granite-vision-3.2-2b":  "Granite-V-2B",
+    "idefics3-8b":            "Idefics3-8B",
+    "idefics2-8b":            "Idefics2-8B",
+    "blip2-opt-2.7b":         "BLIP-2-OPT",
+}
+
+# Compression-mechanism taxonomy (the n=10 "refined hypothesis" finding).
+# Determined by reading each model's source paper / HF model card:
+#   spatial_merge:  deterministic block pooling / spatial merger (lossy)
+#   learned_resampler: learned cross-attention or pixel-shuffle (task-aware)
+#   no_compression: per-token MLP / linear projection (1x)
+MECHANISM = {
+    # Spatial-merge / pooling (deterministic, lossy)
+    "qwen3-vl-8b":            "spatial_merge",
+    "qwen2.5-vl-7b":          "spatial_merge",
+    "gemma4-e4b":             "spatial_merge",
+    "internvl3-8b":           "spatial_merge",   # 2.4x light pooling
+    # Learned-resampler / pixel-shuffle (task-aware reduction)
+    "idefics3-8b":            "learned_resampler",   # pixel-shuffle r=2
+    "idefics2-8b":            "learned_resampler",   # perceiver resampler 64q
+    "blip2-opt-2.7b":         "learned_resampler",   # Q-Former 32q
+    # No compression (per-token MLP/Linear, 1x)
+    "llava-onevision-7b":     "no_compression",
+    "phi3.5-vision":          "no_compression",
+    "granite-vision-3.2-2b":  "no_compression",
+}
+
+MECH_COLOR = {
+    "spatial_merge":      "#d62728",  # red
+    "learned_resampler":  "#9467bd",  # purple
+    "no_compression":     "#1f77b4",  # blue
+}
+MECH_LABEL = {
+    "spatial_merge":      "Spatial-merge (lossy)",
+    "learned_resampler":  "Learned resampler",
+    "no_compression":     "No compression (1×)",
 }
 
 
@@ -406,6 +445,98 @@ def fig5_dataset_composition() -> None:
 # Main
 # =============================================================================
 
+# =============================================================================
+# Figure 6 (NEW HEADLINE): H3 stratified by compression mechanism
+# =============================================================================
+
+def fig6_mechanism_stratified() -> None:
+    """The n=10 finding: H3 hit-rate clusters by compression MECHANISM,
+    not by compression ratio. This is the paper's revised primary claim.
+    """
+    pred = load_predictor_json()
+
+    # Group models by mechanism
+    groups: Dict[str, List[Tuple[str, float, float]]] = {
+        "spatial_merge": [], "learned_resampler": [], "no_compression": [],
+    }
+    for m in PANEL:
+        s = pred["per_model_scores"].get(m, {})
+        c = s.get("compression"); h = s.get("empirical_h3")
+        if c is None or h is None:
+            continue
+        mech = MECHANISM.get(m)
+        if mech is None:
+            continue
+        groups[mech].append((m, c, h))
+
+    fig, (ax_left, ax_right) = plt.subplots(1, 2, figsize=(13, 5),
+                                             gridspec_kw={"width_ratios": [1.4, 1]})
+
+    # ---- LEFT: scatter colored by mechanism ----
+    for mech, items in groups.items():
+        if not items:
+            continue
+        xs = [np.log10(max(c, 1.0)) for _, c, _ in items]
+        ys = [h for _, _, h in items]
+        ax_left.scatter(xs, ys, s=180, c=MECH_COLOR[mech],
+                        edgecolors="black", linewidth=1.0,
+                        label=f"{MECH_LABEL[mech]} (n={len(items)})", zorder=3)
+        for (m, c, h), x in zip(items, xs):
+            ax_left.annotate(SHORT.get(m, m), (x, h), xytext=(8, 4),
+                             textcoords="offset points", fontsize=8.5, alpha=0.85)
+
+    ax_left.set_xlabel("log₁₀(vision-token compression ratio)", fontsize=11)
+    ax_left.set_ylabel("Empirical H3 hit-rate", fontsize=11)
+    ax_left.set_title("Compression vs. H3 — colored by reduction mechanism (n=10)",
+                      fontsize=11, pad=10)
+    ax_left.set_ylim(-0.05, 1.1)
+    ax_left.grid(True, alpha=0.25)
+    ax_left.legend(loc="upper left", fontsize=9, framealpha=0.95)
+
+    # ---- RIGHT: per-mechanism mean H3 with individual points overlaid ----
+    mech_order = ["no_compression", "learned_resampler", "spatial_merge"]
+    means = []
+    points_by_mech = []
+    for mech in mech_order:
+        h_values = [h for _, _, h in groups[mech]]
+        means.append(np.mean(h_values) if h_values else 0)
+        points_by_mech.append(h_values)
+
+    x_pos = np.arange(len(mech_order))
+    bars = ax_right.bar(x_pos, means, width=0.55,
+                         color=[MECH_COLOR[m] for m in mech_order],
+                         edgecolor="black", linewidth=0.8, alpha=0.7)
+
+    # Overlay individual points (jittered)
+    rng = np.random.RandomState(0)
+    for i, h_values in enumerate(points_by_mech):
+        if not h_values:
+            continue
+        jitter = rng.uniform(-0.12, 0.12, size=len(h_values))
+        ax_right.scatter(x_pos[i] + jitter, h_values, s=70, c="black",
+                         alpha=0.85, zorder=3, edgecolors="white", linewidth=0.5)
+
+    # Annotate means
+    for i, m in enumerate(means):
+        ax_right.text(i, m + 0.04, f"{m:.2f}", ha="center", fontsize=10,
+                      fontweight="bold")
+
+    ax_right.set_xticks(x_pos)
+    ax_right.set_xticklabels([MECH_LABEL[m].split(" ")[0] for m in mech_order],
+                              fontsize=10)
+    ax_right.set_ylabel("Mean empirical H3 hit-rate", fontsize=11)
+    ax_right.set_title("H3 by mechanism (mean ± per-model points)",
+                       fontsize=11, pad=10)
+    ax_right.set_ylim(-0.05, 1.15)
+    ax_right.grid(True, alpha=0.25, axis="y")
+
+    plt.tight_layout()
+    out = FIGURES / "fig6_mechanism_stratified.pdf"
+    plt.savefig(out, dpi=150, bbox_inches="tight")
+    plt.close()
+    print(f"  wrote {out}")
+
+
 def main() -> int:
     print(f"Reading from {RESULTS_TURING}")
     print(f"Writing figures to {FIGURES}")
@@ -415,8 +546,9 @@ def main() -> int:
     fig3_probing_heatmap()
     fig4_delta_probe_bars()
     fig5_dataset_composition()
+    fig6_mechanism_stratified()
     print()
-    print("Done. PDFs at figures/fig{1..5}_*.pdf")
+    print("Done. PDFs at figures/fig{1..6}_*.pdf")
     print("To regenerate after data updates, just re-run this script.")
     return 0
 
