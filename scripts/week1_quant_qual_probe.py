@@ -491,12 +491,25 @@ def load_pixtral(model_id: str):
         from transformers import AutoModelForImageTextToText as ModelCls
 
     # Pixtral fix #1: PixtralVisionModel doesn't support SDPA. Force eager.
+    # The OUTER kwarg `attn_implementation="eager"` is NOT forwarded by
+    # LlavaModel.__init__'s inner `AutoModel.from_config(config.vision_config)`
+    # call (transformers 4.46.x), so we must also pre-patch the nested
+    # vision_config — same idiom used for Phi-3.5-Vision below.
+    from transformers import AutoConfig
     attn_impl = "eager"
     print(f"Loading {model_id}")
     print(f"  attn_implementation={attn_impl} (Pixtral requirement), quant=bnb-nf4, dtype=bf16")
     t0 = time.time()
+    config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
+    for cfg in (config, getattr(config, "vision_config", None)):
+        if cfg is None:
+            continue
+        for attr in ("_attn_implementation", "_attn_implementation_internal",
+                     "attn_implementation"):
+            setattr(cfg, attr, "eager")
     model = ModelCls.from_pretrained(
         model_id,
+        config=config,
         quantization_config=build_bnb_config(load_in_4bit=True),
         device_map="auto",
         torch_dtype=torch.bfloat16,
@@ -1138,9 +1151,21 @@ def main():
                             if site not in captured:
                                 raise RuntimeError(f"hook site {site} did not fire")
                             t = captured[site]
-                            if t.ndim == 0:
+                            # Pixtral / variable-resolution models: the projector
+                            # may emit a list[Tensor] when batch contains images
+                            # of differing sizes (one tensor per image, packed by
+                            # `image_sizes`). Coerce to a single pooled vector.
+                            if isinstance(t, list):
+                                if len(t) == 0:
+                                    raise RuntimeError(f"site {site}: empty list captured")
+                                pooled_per_img = [
+                                    x.mean(dim=tuple(range(x.ndim - 1))) if x.ndim >= 2 else x
+                                    for x in t
+                                ]
+                                pooled = torch.stack(pooled_per_img, dim=0).mean(dim=0)
+                            elif t.ndim == 0:
                                 raise RuntimeError(f"site {site}: scalar tensor")
-                            if t.ndim == 1:
+                            elif t.ndim == 1:
                                 pooled = t
                             else:
                                 reduce_dims = tuple(range(t.ndim - 1))

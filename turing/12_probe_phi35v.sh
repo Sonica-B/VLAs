@@ -96,15 +96,18 @@ if [ ! -f "${PROBE_JSON}" ]; then
     echo "FAIL [${MODEL}] expected probe JSON not written: ${PROBE_JSON}"
     exit 3
 fi
-PROCESSED=$(python -c "
+# Count NEW + CACHED — resume from cache is valid, don't false-FAIL on it.
+read TOTAL PROCESSED SKIPPED ERRORS <<<"$(python -c "
 import json
 d = json.load(open('${PROBE_JSON}'))
-print(d.get('extraction_stats', {}).get('processed', 0))
-")
-if [ "${PROCESSED}" -lt 50 ]; then
-    echo "FAIL [${MODEL}] probe extracted only ${PROCESSED}/200 samples — likely processor bug"
+s = d.get('extraction_stats', {})
+p = s.get('processed', 0); k = s.get('skipped', 0); e = s.get('errors', 0)
+print(p + k, p, k, e)
+")"
+if [ "${TOTAL:-0}" -lt 50 ]; then
+    echo "FAIL [${MODEL}] only ${TOTAL}/200 usable samples (new=${PROCESSED} cached=${SKIPPED} err=${ERRORS})"
     exit 4
 fi
 
 echo ""
-echo "[$(date)] OK [${MODEL}] processed=${PROCESSED}/200"
+echo "[$(date)] OK [${MODEL}] usable=${TOTAL}/200 (new=${PROCESSED} cached=${SKIPPED} err=${ERRORS})"

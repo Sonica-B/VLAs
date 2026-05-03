@@ -39,6 +39,25 @@ echo "[$(date)] WEEK B AGGREGATOR"
 echo "  branch: $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"
 echo "================================================================"
 
+# ----- Pull baseline probing JSONs into the Week B results dir -----
+# The 4 baseline models (qwen3, qwen2.5, internvl3, gemma4) live in
+# results/week1/ from the original Week 1 run. The predictor reads from
+# a single --week1-dir. Symlink them in so LOO sees ALL 7 models, not
+# just the 3 Week B ones.
+echo ""
+echo "--- Symlinking baseline JSONs into results/week1_turing/ ---"
+for src in results/week1/*_quant_qual_probe.json; do
+    [ -f "${src}" ] || continue
+    fname=$(basename "${src}")
+    dst="results/week1_turing/${fname}"
+    if [ ! -e "${dst}" ]; then
+        ln -sf "${PWD}/${src}" "${dst}"
+        echo "  symlinked ${fname}"
+    else
+        echo "  already present: ${fname}"
+    fi
+done
+
 # ----- Inventory: which models actually have probe results? -----
 echo ""
 echo "--- Per-model probe JSONs present in results/week1_turing/ ---"

@@ -48,14 +48,29 @@ MODEL_COMPRESSION = {
     "gemma4-e4b":   114.0,
     "qwen2.5-vl-7b": 270.0,
     "qwen3-vl-8b":  784.0,
-    # --- Week B additions (2026-04-19) ---
-    # Placeholders are ROUGH estimates. Real values come from
-    # scripts/discover_probe_sites.py --model <name> (runs a dummy forward pass
-    # and measures enc_seq / post_proj_seq). Update these after discovery.
-    "llava-onevision-7b":  None,  # SigLIP 729 patches + MLP (usually 1.0x); discover to verify
-    "phi3.5-vision":       None,  # CLIP ViT-L 576 patches + img_projection; discover to verify
-    "pixtral-12b":         None,  # Variable resolution (PixtralVisionConfig); discover to verify
-    "molmo-7b":            None,  # Custom projector; discover to verify
+    # --- Week B additions (2026-04-19, verified 2026-05-03) ---
+    # All three Week B models use plain per-token projections (MLP / Linear)
+    # with NO token-count reduction. Verified by scripts/discover_probe_sites.py
+    # on a 448x448 dummy: enc_seq / post_seq = 1.0x for both LLaVA-OV and
+    # Pixtral. Phi-3.5 uses CLIP-L → img_projection per token, also 1.0x by
+    # architecture (HD-transform GROWS tokens via crops, doesn't compress).
+    #
+    # These three are PERFECT NEGATIVE CONTROLS for PhysLens-Predict: if the
+    # log10(compression) × Δprobe formula is real, they should all land near
+    # H3 hit-rate = 0 while the high-compression baselines (qwen3 784x,
+    # qwen2.5 270x, gemma4 114x) land high.
+    #
+    # Sources:
+    #   LLaVA-OneVision (Li et al., 2024, arxiv:2408.03326) — SigLIP-SO400M
+    #     384x384 → 729 tokens → 2-MLP → 729 tokens (1.0x).
+    #   Pixtral 12B (Mistral AI, 2024, arxiv:2410.07073) — Pixtral-ViT
+    #     variable res → MLP per token (1.0x). Discovery confirmed.
+    #   Phi-3.5-Vision (Microsoft, 2024, arxiv:2404.14219) — CLIP ViT-L/14
+    #     336x336 → 576 tokens per crop → img_projection per token (1.0x).
+    "llava-onevision-7b":  1.0,
+    "phi3.5-vision":       1.0,
+    "pixtral-12b":         1.0,
+    "molmo-7b":            None,  # dropped from Week B (transformers 5.x API drift)
 }
 
 

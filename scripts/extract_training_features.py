@@ -233,6 +233,20 @@ def load_model(model_key: str):
                      "attn_implementation"):
             setattr(config, attr, "eager")
         pretrain_kwargs["config"] = config
+    elif family == "pixtral":
+        # Pixtral: LlavaModel.__init__'s inner AutoModel.from_config(vision_config)
+        # call doesn't receive our outer attn_implementation kwarg, so we must
+        # pre-patch the nested vision_config too. PixtralVisionModel raises
+        # ValueError on SDPA in transformers 4.46.x (HF issue #28005).
+        from transformers import AutoConfig
+        config = AutoConfig.from_pretrained(hf_id, trust_remote_code=True)
+        for cfg in (config, getattr(config, "vision_config", None)):
+            if cfg is None:
+                continue
+            for attr in ("_attn_implementation", "_attn_implementation_internal",
+                         "attn_implementation"):
+                setattr(cfg, attr, "eager")
+        pretrain_kwargs["config"] = config
 
     model = Cls.from_pretrained(hf_id, **pretrain_kwargs)
     # Per-family processor kwargs
@@ -404,9 +418,20 @@ def main():
                 if site not in captured:
                     raise RuntimeError(f"hook {site} did not fire")
                 t = captured[site]
-                if t.ndim == 0:
+                # Pixtral / variable-resolution models: projector may emit
+                # list[Tensor] (one per image) when image_sizes vary. Coerce
+                # to a single pooled vector.
+                if isinstance(t, list):
+                    if len(t) == 0:
+                        raise RuntimeError(f"{site}: empty list captured")
+                    pooled_per_img = [
+                        x.mean(dim=tuple(range(x.ndim - 1))) if x.ndim >= 2 else x
+                        for x in t
+                    ]
+                    t = torch.stack(pooled_per_img, dim=0).mean(dim=0)
+                elif t.ndim == 0:
                     raise RuntimeError(f"{site}: scalar")
-                if t.ndim >= 2:
+                elif t.ndim >= 2:
                     reduce_dims = tuple(range(t.ndim - 1))
                     t = t.mean(dim=reduce_dims)
                 np_feats[site] = t.unsqueeze(0).numpy().astype(np.float32)
