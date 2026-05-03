@@ -635,13 +635,19 @@ def print_module_structure(model: nn.Module, max_depth: int = 4) -> None:
 # Per-sample forward pass + feature capture.
 # ---------------------------------------------------------------------------
 
-def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils") -> dict:
+def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils",
+                 model_key: str = "") -> dict:
     """Apply chat template + vision preprocessing; return model-ready inputs.
 
     Dispatches by `input_kind`:
       - "qwen_vl_utils": Qwen2.5-VL, Qwen3-VL — uses qwen_vl_utils.process_vision_info
       - "internvl":     InternVL3 HF variant — uses AutoProcessor with PIL images
       - "gemma":        Gemma 3/4 multimodal — uses AutoProcessor with PIL images
+
+    `model_key` (the MODEL_REGISTRY key, e.g. "pixtral-12b") is threaded through
+    so per-model quirks can be detected at input-build time without relying on
+    processor class-name string matching (which fails for Pixtral when the
+    community port loads as LlavaProcessor instead of PixtralProcessor).
 
     For InternVL and Gemma, video entries are collapsed to their first frame
     (we load the video, take frame 0 as a PIL image). This is a simplification
@@ -661,12 +667,13 @@ def build_inputs(processor, messages: list, input_kind: str = "qwen_vl_utils") -
         )
 
     if input_kind in ("internvl", "gemma"):
-        return _build_inputs_pil(processor, messages, input_kind)
+        return _build_inputs_pil(processor, messages, input_kind, model_key=model_key)
 
     raise ValueError(f"Unknown input_kind: {input_kind}")
 
 
-def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
+def _build_inputs_pil(processor, messages: list, input_kind: str,
+                      model_key: str = "") -> dict:
     """Build inputs for models that take raw PIL images via AutoProcessor.
 
     Extracts images from the Qwen-style message content list, loads video
@@ -723,18 +730,24 @@ def _build_inputs_pil(processor, messages: list, input_kind: str) -> dict:
     import os
     proc_class = type(processor).__name__
 
-    # Pixtral exception: even at FULL_RESOLUTION=1, Pixtral's
-    # multi_modal_projector emits a list[Tensor] when batch contains
-    # variable-resolution images, which propagates into model.forward()
-    # internals that ultimately call .unsqueeze on a list — observed as:
+    # Pixtral exception: even at FULL_RESOLUTION=1, Pixtral's image processor
+    # emits pixel_values as a list[Tensor] (one per image with variable shape)
+    # when multi-image batches are passed. The downstream LlavaForConditional-
+    # Generation forward then trips on `.unsqueeze` against this list:
     # `AttributeError: 'list' object has no attribute 'unsqueeze'`.
-    # The reliable fix in transformers 4.46.x is to constrain Pixtral to a
-    # single image per sample with a fixed resolution. Sacrifices multi-image
-    # samples (~70% of PhysBench val) for processor stability — acceptable
-    # given Pixtral's role as a NEGATIVE-CONTROL (compression=1.0x) data
-    # point in the predictor regression.
-    is_pixtral = proc_class.startswith("Pixtral")
+    # Detect by model_key (canonical) AND processor class name (fallback) —
+    # `mistral-community/pixtral-12b` may register a LlavaProcessor instead
+    # of PixtralProcessor depending on transformers version.
+    # Cap to single image at 448x448 to keep pixel_values as a stacked Tensor.
+    # Sacrifices multi-image samples (~70% of PhysBench val) for processor
+    # stability — acceptable given Pixtral's role as a NEGATIVE-CONTROL
+    # (compression=1.0x) data point in the predictor regression.
+    is_pixtral = (
+        model_key == "pixtral-12b"
+        or proc_class.startswith("Pixtral")
+    )
     if is_pixtral:
+        print(f"  [pixtral input cap] proc_class={proc_class} → 1 image @ 448x448")
         pil_images = pil_images[:1]
         pil_images = [img.resize((448, 448)) for img in pil_images]
     elif os.environ.get("FULL_RESOLUTION", "0") != "1":
@@ -1153,7 +1166,9 @@ def main():
                             errors += 1
                             continue
 
-                        inputs = build_inputs(processor, messages, input_kind=input_kind)
+                        inputs = build_inputs(processor, messages,
+                                              input_kind=input_kind,
+                                              model_key=model_key)
                         forward_and_capture(model, inputs, captured)
 
                         # Pull per-site features. Qwen3-VL vision blocks output
