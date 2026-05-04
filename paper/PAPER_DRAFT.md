@@ -1,8 +1,15 @@
-# Compression Mechanism, Not Ratio, Predicts Quantitative-Physics Failures in Vision-Language Models: A Pre-Registered Probing Study with PhysBench-Diag
+# Compression Mechanism, Not Ratio, Predicts Quantitative-Physics Failures in Vision-Language Models: A Pre-Registered Stress-Test of an Architectural Evaluation Hypothesis
 
-**Submission target:** NeurIPS 2026 Datasets & Benchmarks Track
-**Author:** Shreyaa Boyane (Worcester Polytechnic Institute)
-**Code + data:** github.com/Sonica-B/VLAs (branch `paper-submission-clean`, commit TBD)
+**Submission target:** NeurIPS 2026 **Evaluations & Datasets (E&D) Track**
+**Author (anonymized for double-blind):** Anonymous
+**Code + data (anonymized):** `github.com/anonymous-NeurIPS2026/physbench-diag`
+**Original repository (post-acceptance):** github.com/Sonica-B/VLAs (branch `paper-submission-clean`)
+**Hugging Face dataset:** `huggingface.co/datasets/anonymous-NeurIPS2026/PhysBench-Diag`
+**Pre-registration:** `docs/PRE_REGISTRATION.md` in the repository (locked before data collection)
+
+> ### Evaluative role (per E&D Track scope)
+>
+> This submission contributes a **derivative diagnostic benchmark + a pre-registered stress-test of an evaluation hypothesis**. Its evaluative role is to support the claim "*architectural compression ratio predicts quantitative-physics degradation in VLMs*" — and, having stress-tested that claim across a 10-VLM panel, to **refute its simple form** while surfacing a **refined mechanism-based hypothesis** that survives the data. We make this evaluative role explicit in §1.4 and articulate the assumptions under which our claims hold (§1.5), the limitations that constrain them (§7), and the negative result we report per pre-registration (§5.2). Per the NeurIPS 2026 E&D Track call (March 2026 blog), "*Negative results, critical analyses, and use-case-inspired evaluations are welcome*" and "*A submission need not 'beat a baseline'; its primary contribution should be to deepen and refine our understanding of evaluation practices.*"
 
 ---
 
@@ -91,13 +98,45 @@ projector compression strips the former first.
    mechanism-vs-ratio distinction as the operative architectural variable for
    future predictors.
 
+### 1.4 Evaluative role of this contribution (E&D-specific)
+
+PhysBench-Diag and the accompanying probing pipeline play three distinct
+evaluative roles, in the framing of the NeurIPS 2026 E&D Track:
+
+1. **As a diagnostic benchmark**: PhysBench-Diag enables claims of the form
+   "*VLM X loses Y% quantitative-physics accuracy at architectural site S*"
+   where existing benchmarks support only end-to-end "*VLM X scores Z% on
+   physics*" claims. The deterministic quant/qual partition is the
+   operational substrate.
+
+2. **As a pre-registered evaluation methodology**: PhysLens-Predict is a
+   *predictor of evaluation outcomes* — it estimates a model's H3 hit-rate
+   from its architecture alone. The pre-registered kill-gate
+   (median |error| < 0.20) makes this a falsifiable methodological claim,
+   not a curve-fit observation.
+
+3. **As a stress-test artifact**: by releasing per-model probing JSONs
+   (n=10) and permutation tests (n=6), we enable independent reproduction,
+   audit, and critique of both the predictor and the underlying H3
+   hypothesis at a panel size larger than any prior open-source compression
+   analysis we are aware of.
+
+### 1.5 What our claims support — and under what assumptions
+
+| Claim | Holds under | Does not hold if |
+|---|---|---|
+| Pre-registered `log₁₀(C) × Δprobe` predictor fails Gate 5 at n=10 | The pre-registered kill-gate threshold (0.20) and the LOO regression protocol; H3 hit-rate computed via permutation_check at p<0.05 | Different kill-gate threshold (e.g. 0.30); different empirical-target definition (e.g. continuous Δprobe instead of binary hit) |
+| Spatial-merge models average H3 = 0.667; learned-resampler models average 0.000 | The 3-way mechanism taxonomy in Table 1; n=4 + n=3 group sizes | Finer-grained mechanism taxonomy; mechanism boundaries differ from our coarse classification |
+| Granite-Vision-3.2-2B (1× compression, Feb 2025) shows 0/3 H3 hits as predicted | Our specific bf16 (no-quantization) loading protocol (§4.5); the n=186 PhysBench val items resolved on local disk | Different quantization protocol; missing-media items handled differently |
+
 ### Roadmap
 
 §2 reviews related work. §3 describes PhysBench-Diag. §4 details the probing
-protocol and predictor formulation. §5 presents per-model results and the
-mechanism-stratified finding. §6 discusses implications. §7 lists
-limitations and future work. Code, data, and figures at
-github.com/Sonica-B/VLAs.
+protocol and the pre-registered predictor. §5 presents per-model results,
+the predictor's pre-registered failure, and the mechanism-stratified
+secondary finding. §6 discusses implications. §7 lists limitations. §8
+provides reproducibility info. Code, data, figures, datasheet, Croissant
+metadata, and pre-registration: see anonymized repo above.
 
 ---
 
@@ -180,11 +219,27 @@ n=186 items for per-model probing.
 
 ### Release
 
-The PhysBench-Diag *partition*, the per-model probing JSONs, the permutation
-test JSONs, and the predictor implementation are released at
-`github.com/Sonica-B/VLAs` under the same license as the repository (TBD;
-recommended MIT for code, CC-BY-4.0 for data labels). A complete Datasheet
-[Gebru et al., 2018] is provided as `docs/DATASHEET_PHYSBENCH_DIAG.md`.
+The PhysBench-Diag *partition*, all 10 per-model probing JSONs, all 6
+permutation_check JSONs, the predictor output JSON, and the predictor
+implementation are released openly under MIT license (code) and CC-BY-4.0
+(labels). Hosting:
+
+- **Code + scripts**: `github.com/anonymous-NeurIPS2026/physbench-diag`
+  (anonymized fork for double-blind review)
+- **Dataset + probing JSONs**: `huggingface.co/datasets/anonymous-NeurIPS2026/PhysBench-Diag`
+  (one of the 4 hosts blessed by the NeurIPS 2026 E&D Track call)
+- **Croissant ML metadata**: `croissant.json` at the HF dataset root, with
+  both core and Responsible AI (RAI) fields per the NeurIPS 2026 E&D
+  requirement; templated in `paper/CROISSANT_METADATA.md`
+- **Datasheet** [Gebru et al., 2018]: `docs/DATASHEET_PHYSBENCH_DIAG.md`,
+  7 sections + 3 appendices
+- **Pre-registration**: `docs/PRE_REGISTRATION.md`, locked before data
+  collection (Apr 2026)
+
+All artifacts are accessible to reviewers without personal request to
+the author. The underlying PhysBench v2 images/videos are obtained from
+the original PhysBench release (CC-BY-4.0); we do not redistribute the
+media.
 
 ---
 
@@ -460,8 +515,10 @@ exist on a continuum (deterministic ↔ learned, local ↔ global, single-step
 
 All code, data labels, probing JSONs, permutation test JSONs, and
 figure-generation scripts are released at
-github.com/Sonica-B/VLAs (branch: `paper-submission-clean`, commit hash to
-be added at submission). Key reproduction steps:
+`github.com/anonymous-NeurIPS2026/physbench-diag` (commit hash to be
+added at submission; double-blind anonymized fork of the working
+repository). Croissant ML metadata at the HuggingFace dataset
+`anonymous-NeurIPS2026/PhysBench-Diag`. Key reproduction steps:
 
 1. **Environment**: Python 3.11, torch 2.4.1+cu124, transformers 4.49.0,
    bitsandbytes 0.44.1. Full pin in `turing/requirements_v2.txt`. Setup

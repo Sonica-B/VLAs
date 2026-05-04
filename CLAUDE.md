@@ -5,7 +5,7 @@
 | Track | Abstract | Full paper | Notification |
 |---|---|---|---|
 | **Main Conference** | **May 4 '26** | **May 6 '26** | Sep 24 '26 |
-| **Datasets & Benchmarks (D&B)** | **May 4 '26** | **May 6 '26** | Sep 24 '26 |
+| **Evaluations & Datasets (E&D, formerly D&B)** | **May 4 '26** | **May 6 '26** | Sep 24 '26 |
 | **Position Papers** | May 4 '26 | May 6 '26 | Sep 24 '26 |
 | Competitions | — | May 15 '26 | Jun 15 '26 |
 
@@ -17,9 +17,18 @@
 - Mandatory accept/reject notif: Sep 29 '26
 
 ### What we're targeting
-- **Primary**: Datasets & Benchmarks (PhysBench-Diag) — Outstanding D&B award (~20-25%)
-- **Stretch**: Main Conference (PhysLens-Predict) — Outstanding Main award (~10-15%)
-- Both tracks have IDENTICAL deadlines. The May 6 full-paper deadline is THE hard cliff.
+- **Primary**: NeurIPS 2026 **Evaluations & Datasets (E&D)** Track — formerly D&B,
+  renamed in 2026 with EXPANDED scope to welcome:
+    - Negative results, critical analyses, evaluation-methodology audits
+    - Pre-registered studies and stress-tests of evaluation practices
+    - Reproduction and auditing of prior evaluations
+  Per blog.neurips.cc 2026-03-23: "A submission need not 'beat a baseline'; its primary
+  contribution should be to deepen and refine our understanding of evaluation practices."
+- **Page limit**: 9 pages MAX including figures (refs + checklist + appendix uncounted).
+- **Mandatory artifacts**: Croissant ML metadata, dataset hosted on
+  HF/Kaggle/Dataverse/OpenML, code accessible to reviewers without PI request,
+  16-question NeurIPS Paper Checklist (DESK REJECT if missing).
+- **Deadlines**: Abstract May 4 AOE, full paper May 6 AOE, notification Sep 24.
 
 ## Environment
 - **Production env**: `vla_physics_v2` (created May 2-3 '26)
