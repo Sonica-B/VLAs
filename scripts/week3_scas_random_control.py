@@ -8,7 +8,7 @@ and use it as the steering direction at alpha=5. If the distribution of
 random-direction Δ_quant includes the observed SCAS Δ_quant, SCAS is
 indistinguishable from stochastic perturbation in V_low.
 
-Design choices (frozen by docs/PRE_REGISTRATION.md):
+Design choices (frozen by PRE_REGISTRATION.md):
   - 20 seeds (0..19) by default
   - alpha=5.0 (matching current SCAS headline)
   - low_var_k=64 (matching current SCAS config)

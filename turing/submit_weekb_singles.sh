@@ -20,7 +20,7 @@
 
 set -e
 
-cd /home/ssboyane/VLAs
+cd ${HOME}/VLAs
 
 echo "================================================================"
 echo "Submit Week B singles ($(date))"

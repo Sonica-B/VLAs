@@ -86,5 +86,28 @@ Miniconda3-latest-Linux-x86_64.sh
 # Claude Code session state (local only — never commit)
 .claude/
 
+# Local-only archive of pre-submission planning/scratch markdowns
+.archive/
 
 jobs/*.out
+
+# === Reviewer-anonymity hygiene: keep these files LOCAL ONLY ===
+# Project memory / agent state
+CLAUDE.md
+.turing_cuda_module
+
+# Paper drafts (the PDF goes to OpenReview; markdown drafts stay local)
+paper/
+docs/
+
+# Proposal / formatting / template assets — not part of the code release
+Neurips/
+PhysicalAI_Proposal.docx
+*.docx
+Proposal Template.pdf
+Where Does Physics Live in Vision Encoders.pdf
+upload_phys_lens_bundle.zip
+
+# Stale SLURM backups + ad-hoc test logs
+turing/.backup_pre_v2/
+physbench_test_output.log

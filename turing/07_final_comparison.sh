@@ -21,16 +21,16 @@
 #SBATCH -n 4
 #SBATCH --mem=16G
 #SBATCH -t 0:30:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 
 set -e
 mkdir -p jobs results/final_comparison
 
 # Load environment (modules + pip packages).
-source /home/ssboyane/VLAs/.turing_env
+source ${HOME}/VLAs/.turing_env
 
 
 echo "=== JOB 7/7: Final Cross-Method Comparison ($(date)) ==="

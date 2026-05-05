@@ -2,7 +2,7 @@
   "experiment": "h3_h4_physics_preserving_adapter",
   "timestamp": "2026-04-03 20:16:28",
   "total_time_seconds": 68.63699865341187,
-  "activations_file": "D:\\WPI Assignments\\AlgoVerse\\VLAs\\results\\week2_physion\\activations\\realistic_qwen_activations.h5",
+  "activations_file": "results/week2_physion/activations/realistic_qwen_activations.h5",
   "n_scenes": 300,
   "baseline_probing": {
     "stage_1_enc_out": {

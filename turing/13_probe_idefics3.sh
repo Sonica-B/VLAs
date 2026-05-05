@@ -22,10 +22,10 @@
 #SBATCH -n 4
 #SBATCH --mem=48G
 #SBATCH -t 12:00:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 
 set -uo pipefail

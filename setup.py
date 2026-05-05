@@ -7,7 +7,7 @@ setup(
         "Where Does Physics Live in Vision Encoders? — "
         "Spatially Probing and Amplifying Physical Reasoning in VLM Representations"
     ),
-    author="AlgoVerse Research",
+    author="Anonymous",
     python_requires=">=3.10",
     packages=find_packages(where="src"),
     package_dir={"": "src"},

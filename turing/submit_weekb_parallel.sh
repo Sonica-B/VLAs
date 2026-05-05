@@ -24,7 +24,7 @@
 
 set -e
 
-cd /home/ssboyane/VLAs
+cd ${HOME}/VLAs
 
 # Sanity check: branch is up to date
 echo "Branch: $(git rev-parse --abbrev-ref HEAD) @ $(git rev-parse --short HEAD)"

@@ -2,7 +2,7 @@
 """
 Compute the empirical H3 hit-rate from per-model permutation_check.json files.
 
-H3 hypothesis (per docs/PRE_REGISTRATION.md):
+H3 hypothesis (per PRE_REGISTRATION.md):
   Vision-token compression at the multimodal projector causes
   *quantitative-physics features* to be lost, while *qualitative-physics
   features* survive. Operationally, for each prediction target T in

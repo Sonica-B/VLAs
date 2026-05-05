@@ -20,17 +20,17 @@
 #SBATCH -n 8
 #SBATCH --mem=64G
 #SBATCH -t 8:00:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 
 set -e
 mkdir -p jobs results/week3_turing logs/turing
 
 # Load environment (modules + pip packages).
-source /home/ssboyane/VLAs/.turing_env
+source ${HOME}/VLAs/.turing_env
 
 
 export FULL_RESOLUTION=1

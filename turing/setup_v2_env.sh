@@ -31,7 +31,7 @@ readonly PYTHON_VERSION="3.11"
 readonly TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 readonly LOG_FILE="${HOME}/vla_setup_v2_${TIMESTAMP}.log"
 readonly STATE_DIR="${HOME}/.vla_setup_state"
-readonly PROJECT_ROOT="/home/ssboyane/VLAs"
+readonly PROJECT_ROOT="${HOME}/VLAs"
 readonly REQ_FILE="${PROJECT_ROOT}/turing/requirements_v2.txt"
 
 # Pinned torch stack — DO NOT change without testing

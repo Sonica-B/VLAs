@@ -33,7 +33,7 @@ quant/qual labeling described in §1.3.
 ### 1.3 Who funded the creation of the dataset?
 
 No external funding for PhysBench-Diag itself. Compute resources were
-provided by Worcester Polytechnic Institute Turing cluster (account `cngan`,
+provided by an academic HPC cluster (
 A100-80GB nodes). The underlying PhysBench dataset was funded per its
 original release (cite Chow et al., 2024).
 
@@ -256,7 +256,7 @@ In this paper, PhysBench-Diag was used to:
 The pre-registered predictor *did not pass* the kill-gate at n=7
 (median absolute error 0.24 > 0.20 threshold), so we report the predictor
 as a **descriptive observation** rather than a validated predictor, per
-our pre-registration (see `docs/PRE_REGISTRATION.md`, gate 3).
+our pre-registration (see `PRE_REGISTRATION.md`, gate 3).
 
 ### 5.2 Is there a repository linking to papers using the dataset?
 
@@ -298,7 +298,7 @@ alongside this paper.
 
 ### 6.2 How will the dataset be distributed?
 
-Via the public GitHub repository `Sonica-B/VLAs` on the
+Via the public GitHub repository `anonymous-NeurIPS2026/physbench-diag` on the
 `physics-steering` branch. Specifically:
 - Quant/qual labels: derived deterministically from PhysBench items via
   `src/optim/physbench_split.py`
@@ -306,7 +306,7 @@ Via the public GitHub repository `Sonica-B/VLAs` on the
   and `results/week1/*_quant_qual_probe.json`
 - Permutation test JSONs: `results/week1_turing/*_permutation_check.json`
 - Predictor output: `results/week1_turing/phys_lens_predict_weekb.json`
-- Pre-registration: `docs/PRE_REGISTRATION.md`
+- Pre-registration: `PRE_REGISTRATION.md`
 - Reproduction recipe: `turing/setup_v2_env.sh` + `turing/requirements_v2.txt`
 
 ### 6.3 When will the dataset be distributed?
@@ -337,7 +337,7 @@ No.
 
 ### 7.1 Who is supporting/hosting/maintaining the dataset?
 
-The paper author. Maintained on GitHub `Sonica-B/VLAs`.
+The paper author. Maintained on GitHub `anonymous-NeurIPS2026/physbench-diag`.
 
 ### 7.2 How can the owner/curator be contacted?
 
@@ -413,10 +413,10 @@ PhysBench:
 ```bibtex
 @inproceedings{boyane2026physbench_diag,
   title={PhysBench-Diag: A Diagnostic Benchmark for VLM Physics Reasoning},
-  author={Boyane, Shreyaa},
+  author={Anonymous},
   booktitle={NeurIPS 2026 Datasets and Benchmarks Track},
   year={2026},
-  url={https://github.com/Sonica-B/VLAs}
+  url={https://github.com/anonymous-NeurIPS2026/physbench-diag}
 }
 
 @article{chow2024physbench,

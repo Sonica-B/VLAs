@@ -1,0 +1,60 @@
+{
+  "schema_version": "1.0.0",
+  "generator": "scripts/power_analysis.py",
+  "panel_sizes": [
+    10,
+    15,
+    20,
+    25,
+    30,
+    40,
+    50
+  ],
+  "alpha": 0.05,
+  "target_power": 0.8,
+  "target_rho": 0.5,
+  "method_analytical": "Fisher z (Bonett-Wright Spearman correction, sigma_z = sqrt(1.06/(n-3)))",
+  "method_simulation": "bivariate-normal resample, 5000 sims/cell, empirical Spearman vs simulated null",
+  "simulation_status": "ok",
+  "mde_one_sided_analytical": [
+    0.7476,
+    0.6285,
+    0.5517,
+    0.4974,
+    0.4563,
+    0.3977,
+    0.357
+  ],
+  "mde_two_sided_analytical": [
+    0.797,
+    0.6819,
+    0.6041,
+    0.5476,
+    0.5043,
+    0.4416,
+    0.3975
+  ],
+  "mde_one_sided_simulation": [
+    0.75,
+    0.65,
+    0.55,
+    0.525,
+    0.475,
+    0.425,
+    0.375
+  ],
+  "mde_two_sided_simulation": [
+    0.825,
+    0.7,
+    0.625,
+    0.575,
+    0.525,
+    0.475,
+    0.425
+  ],
+  "n_required_for_rho_0.5_80pct_power_one_sided": 25,
+  "n_required_for_rho_0.5_80pct_power_two_sided": 31,
+  "weekb_n": 10,
+  "weekb_observed_rho": 0.327,
+  "narrative": "At n=10, a one-sided Spearman test at \u03b1=0.05 has 80% power to detect \u03c1 \u2265 0.748 (Fisher-z analytical). The pre-registered Gate-3 threshold is \u03c1 > 0.5. To reliably detect \u03c1 = 0.5 at 80% power one-sided, the panel needs n \u2265 25 models. The Week-B observation of \u03c1 = 0.327 is therefore not statistically distinguishable from the null at the panel size used; per pre-registration the predictor is demoted to an observation regardless, but reviewers should not interpret 'fail Gate 3' as evidence against \u03c1 \u2265 0.5 in the population \u2014 only as failure to reject H0 at this n."
+}

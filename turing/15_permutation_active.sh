@@ -33,9 +33,9 @@
 #SBATCH -n 8
 #SBATCH --mem=32G
 #SBATCH -t 1:00:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 # (no --gres=gpu -- permutation tests are CPU-only)
 

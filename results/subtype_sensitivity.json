@@ -1,0 +1,877 @@
+{
+  "schema_version": "1.0.0",
+  "generator": "scripts/subtype_sensitivity.py",
+  "method": "linear_mixture_proxy",
+  "method_caveat": "Per-(model \u00d7 site \u00d7 slice) probe accuracies are aggregated from sklearn LogisticRegression fits on per-sample features that are not on local disk. We bound the expanded-slice \u0394probe by linearly mixing the original quant-slice mean_acc and qual-slice mean_acc according to slice composition, without re-fitting the probes. The true expanded-slice \u0394probe requires re-running scripts/week1_quant_qual_probe.py with the modified PHYSBENCH_QUANT_SUBTYPES whitelist on a GPU with the panel's quantization protocol (~30 min/model \u00d7 10 models).",
+  "original_whitelist": [
+    "distance",
+    "mass",
+    "number",
+    "size",
+    "temperature"
+  ],
+  "expanded_whitelist": [
+    "acceleration",
+    "collision",
+    "depth",
+    "distance",
+    "force",
+    "friction",
+    "mass",
+    "number",
+    "size",
+    "temperature",
+    "throwing",
+    "velocity"
+  ],
+  "expansion_added": [
+    "acceleration",
+    "collision",
+    "depth",
+    "force",
+    "friction",
+    "throwing",
+    "velocity"
+  ],
+  "expansion_present_in_data": [
+    "collision",
+    "depth",
+    "throwing"
+  ],
+  "splits_loaded": [
+    "val",
+    "test"
+  ],
+  "splits_missing": [],
+  "partition_delta": {
+    "val": {
+      "n_total": 200,
+      "n_quant_orig": 55,
+      "n_quant_expanded": 84,
+      "n_qual_orig": 145,
+      "n_qual_expanded": 116,
+      "n_reclassified": 29,
+      "subtype_movements": [
+        {
+          "sub_type": "collision",
+          "n_items": 13,
+          "from": "qualitative",
+          "to": "quantitative"
+        },
+        {
+          "sub_type": "throwing",
+          "n_items": 11,
+          "from": "qualitative",
+          "to": "quantitative"
+        },
+        {
+          "sub_type": "depth",
+          "n_items": 5,
+          "from": "qualitative",
+          "to": "quantitative"
+        }
+      ],
+      "subtype_counts": {
+        "others": 22,
+        "size": 20,
+        "mass": 14,
+        "collision": 13,
+        "motion": 13,
+        "light": 13,
+        "viewpoint": 12,
+        "attribute": 12,
+        "manipulation": 11,
+        "throwing": 11,
+        "temperature": 10,
+        "air": 8,
+        "fluid": 7,
+        "chemistry": 7,
+        "location": 6,
+        "distance": 6,
+        "depth": 5,
+        "color": 5,
+        "number": 5
+      }
+    },
+    "test": {
+      "n_total": 9802,
+      "n_quant_orig": 999,
+      "n_quant_expanded": 2339,
+      "n_qual_orig": 8803,
+      "n_qual_expanded": 7463,
+      "n_reclassified": 1340,
+      "subtype_movements": [
+        {
+          "sub_type": "collision",
+          "n_items": 650,
+          "from": "qualitative",
+          "to": "quantitative"
+        },
+        {
+          "sub_type": "throwing",
+          "n_items": 410,
+          "from": "qualitative",
+          "to": "quantitative"
+        },
+        {
+          "sub_type": "depth",
+          "n_items": 280,
+          "from": "qualitative",
+          "to": "quantitative"
+        }
+      ],
+      "subtype_counts": {
+        "motion": 1433,
+        "attribute": 1397,
+        "light": 1086,
+        "viewpoint": 1049,
+        "manipulation": 818,
+        "collision": 650,
+        "fluid": 642,
+        "number": 572,
+        "throwing": 410,
+        "others": 345,
+        "color": 294,
+        "location": 285,
+        "depth": 280,
+        "mass": 279,
+        "chemistry": 67,
+        "temperature": 58,
+        "distance": 54,
+        "air": 47,
+        "size": 36
+      }
+    }
+  },
+  "per_model_results": {
+    "internvl3-8b": {
+      "model": "internvl3-8b",
+      "status": "missing_probe_json",
+      "h3_orig": 0.0,
+      "h3_orig_breakdown": {
+        "reason": "probe_json_stub_redirect; h3_orig copied from phys_lens_predict_weekb.json"
+      },
+      "h3_expanded_estimate": 0.0,
+      "h3_expanded_breakdown": {
+        "reason": "probe_json_stub_redirect; expanded estimate falls back to original h3 (no per-slice data on local disk)"
+      }
+    },
+    "gemma4-e4b": {
+      "model": "gemma4-e4b",
+      "status": "missing_probe_json",
+      "h3_orig": 1.0,
+      "h3_orig_breakdown": {
+        "reason": "probe_json_stub_redirect; h3_orig copied from phys_lens_predict_weekb.json"
+      },
+      "h3_expanded_estimate": 1.0,
+      "h3_expanded_breakdown": {
+        "reason": "probe_json_stub_redirect; expanded estimate falls back to original h3 (no per-slice data on local disk)"
+      }
+    },
+    "qwen2.5-vl-7b": {
+      "model": "qwen2.5-vl-7b",
+      "status": "missing_probe_json",
+      "h3_orig": 1.0,
+      "h3_orig_breakdown": {
+        "reason": "probe_json_stub_redirect; h3_orig copied from phys_lens_predict_weekb.json"
+      },
+      "h3_expanded_estimate": 1.0,
+      "h3_expanded_breakdown": {
+        "reason": "probe_json_stub_redirect; expanded estimate falls back to original h3 (no per-slice data on local disk)"
+      }
+    },
+    "qwen3-vl-8b": {
+      "model": "qwen3-vl-8b",
+      "h3_orig": 0.6666666666666666,
+      "h3_orig_breakdown": {
+        "reason": "no_permutation_json; h3_orig from predictor JSON"
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.2863,
+            "post_acc_estimate": 0.2884,
+            "delta_estimate": -0.0021,
+            "enc_acc_orig_quant": 0.3,
+            "post_acc_orig_quant": 0.28,
+            "delta_orig": 0.02,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.7185,
+            "post_acc_estimate": 0.6511,
+            "delta_estimate": 0.0674,
+            "enc_acc_orig_quant": 0.7111,
+            "post_acc_orig_quant": 0.6044,
+            "delta_orig": 0.1067,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.5722,
+            "post_acc_estimate": 0.5412,
+            "delta_estimate": 0.0311,
+            "enc_acc_orig_quant": 0.5417,
+            "post_acc_orig_quant": 0.4792,
+            "delta_orig": 0.0625,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.6666666666666666,
+      "h3_expanded_breakdown": {
+        "reason": "unchanged"
+      }
+    },
+    "idefics3-8b": {
+      "model": "idefics3-8b",
+      "h3_orig": 0.0,
+      "h3_orig_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_acc": 0.4,
+          "post_acc": 0.4,
+          "delta": 0.0,
+          "significant": false,
+          "p_value": 0.32338308457711445
+        },
+        "task_type": {
+          "hit": false,
+          "enc_acc": 0.6666666666666666,
+          "post_acc": 0.7333333333333333,
+          "delta": -0.06666666666666665,
+          "significant": true,
+          "p_value": 0.014925373134328358
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_acc": 0.8666666666666667,
+          "post_acc": 0.8666666666666667,
+          "delta": 0.0,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        }
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.2547,
+            "post_acc_estimate": 0.2132,
+            "delta_estimate": 0.0414,
+            "enc_acc_orig_quant": 0.2133,
+            "post_acc_orig_quant": 0.1689,
+            "delta_orig": 0.0444,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.6295,
+            "post_acc_estimate": 0.6556,
+            "delta_estimate": -0.0261,
+            "enc_acc_orig_quant": 0.5867,
+            "post_acc_orig_quant": 0.6267,
+            "delta_orig": -0.04,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.5462,
+            "post_acc_estimate": 0.54,
+            "delta_estimate": 0.0062,
+            "enc_acc_orig_quant": 0.5208,
+            "post_acc_orig_quant": 0.5,
+            "delta_orig": 0.0208,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.3333,
+      "h3_expanded_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": 0.0414
+        },
+        "task_type": {
+          "hit": false,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": -0.0261
+        },
+        "sub_type": {
+          "hit": true,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": 0.0062
+        }
+      }
+    },
+    "idefics2-8b": {
+      "model": "idefics2-8b",
+      "h3_orig": 0.0,
+      "h3_orig_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_acc": 0.3333333333333333,
+          "post_acc": 0.4,
+          "delta": -0.06666666666666671,
+          "significant": false,
+          "p_value": 0.5771144278606966
+        },
+        "task_type": {
+          "hit": false,
+          "enc_acc": 0.6,
+          "post_acc": 0.8666666666666667,
+          "delta": -0.2666666666666667,
+          "significant": false,
+          "p_value": 0.07462686567164178
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_acc": 0.8,
+          "post_acc": 0.8666666666666667,
+          "delta": -0.06666666666666665,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        }
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.307,
+            "post_acc_estimate": 0.2408,
+            "delta_estimate": 0.0662,
+            "enc_acc_orig_quant": 0.32,
+            "post_acc_orig_quant": 0.2111,
+            "delta_orig": 0.1089,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.6782,
+            "post_acc_estimate": 0.71,
+            "delta_estimate": -0.0317,
+            "enc_acc_orig_quant": 0.6422,
+            "post_acc_orig_quant": 0.6867,
+            "delta_orig": -0.0444,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.5807,
+            "post_acc_estimate": 0.5686,
+            "delta_estimate": 0.0121,
+            "enc_acc_orig_quant": 0.5625,
+            "post_acc_orig_quant": 0.5208,
+            "delta_orig": 0.0417,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.3333,
+      "h3_expanded_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": 0.0662
+        },
+        "task_type": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": -0.0317
+        },
+        "sub_type": {
+          "hit": true,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": 0.0121
+        }
+      }
+    },
+    "blip2-opt-2.7b": {
+      "model": "blip2-opt-2.7b",
+      "h3_orig": 0.0,
+      "h3_orig_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_acc": 0.3333333333333333,
+          "post_acc": 0.4,
+          "delta": -0.06666666666666671,
+          "significant": false,
+          "p_value": 0.6666666666666666
+        },
+        "task_type": {
+          "hit": false,
+          "enc_acc": 0.5333333333333333,
+          "post_acc": 0.7333333333333333,
+          "delta": -0.19999999999999996,
+          "significant": false,
+          "p_value": 0.20398009950248755
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_acc": 0.7333333333333333,
+          "post_acc": 0.8,
+          "delta": -0.06666666666666676,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        }
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.2894,
+            "post_acc_estimate": 0.3042,
+            "delta_estimate": -0.0148,
+            "enc_acc_orig_quant": 0.32,
+            "post_acc_orig_quant": 0.32,
+            "delta_orig": -0.0,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.6752,
+            "post_acc_estimate": 0.6532,
+            "delta_estimate": 0.022,
+            "enc_acc_orig_quant": 0.6489,
+            "post_acc_orig_quant": 0.6267,
+            "delta_orig": 0.0222,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.613,
+            "post_acc_estimate": 0.587,
+            "delta_estimate": 0.026,
+            "enc_acc_orig_quant": 0.6042,
+            "post_acc_orig_quant": 0.5417,
+            "delta_orig": 0.0625,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.3333,
+      "h3_expanded_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": -0.0148
+        },
+        "task_type": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": 0.022
+        },
+        "sub_type": {
+          "hit": true,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": 0.026
+        }
+      }
+    },
+    "llava-onevision-7b": {
+      "model": "llava-onevision-7b",
+      "h3_orig": 0.3333,
+      "h3_orig_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_acc": 0.4,
+          "post_acc": 0.4,
+          "delta": 0.0,
+          "significant": false,
+          "p_value": 0.3681592039800995
+        },
+        "task_type": {
+          "hit": false,
+          "enc_acc": 0.6,
+          "post_acc": 0.6,
+          "delta": 0.0,
+          "significant": true,
+          "p_value": 0.04975124378109453
+        },
+        "sub_type": {
+          "hit": true,
+          "enc_acc": 0.8,
+          "post_acc": 0.7333333333333333,
+          "delta": 0.06666666666666676,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        }
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.2553,
+            "post_acc_estimate": 0.2362,
+            "delta_estimate": 0.0191,
+            "enc_acc_orig_quant": 0.2333,
+            "post_acc_orig_quant": 0.1889,
+            "delta_orig": 0.0444,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.627,
+            "post_acc_estimate": 0.6288,
+            "delta_estimate": -0.0019,
+            "enc_acc_orig_quant": 0.5867,
+            "post_acc_orig_quant": 0.6089,
+            "delta_orig": -0.0222,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.535,
+            "post_acc_estimate": 0.5213,
+            "delta_estimate": 0.0136,
+            "enc_acc_orig_quant": 0.5,
+            "post_acc_orig_quant": 0.4792,
+            "delta_orig": 0.0208,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.3333,
+      "h3_expanded_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": 0.0191
+        },
+        "task_type": {
+          "hit": false,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": -0.0019
+        },
+        "sub_type": {
+          "hit": true,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": 0.0136
+        }
+      }
+    },
+    "phi3.5-vision": {
+      "model": "phi3.5-vision",
+      "h3_orig": 0.3333,
+      "h3_orig_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_acc": 0.4666666666666667,
+          "post_acc": 0.4,
+          "delta": 0.06666666666666665,
+          "significant": false,
+          "p_value": 0.19402985074626866
+        },
+        "task_type": {
+          "hit": true,
+          "enc_acc": 0.8,
+          "post_acc": 0.7333333333333333,
+          "delta": 0.06666666666666676,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_acc": 0.7333333333333333,
+          "post_acc": 0.7333333333333333,
+          "delta": 0.0,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        }
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.2911,
+            "post_acc_estimate": 0.2105,
+            "delta_estimate": 0.0806,
+            "enc_acc_orig_quant": 0.2733,
+            "post_acc_orig_quant": 0.1689,
+            "delta_orig": 0.1044,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.6873,
+            "post_acc_estimate": 0.6676,
+            "delta_estimate": 0.0197,
+            "enc_acc_orig_quant": 0.6711,
+            "post_acc_orig_quant": 0.6489,
+            "delta_orig": 0.0222,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.519,
+            "post_acc_estimate": 0.5375,
+            "delta_estimate": -0.0186,
+            "enc_acc_orig_quant": 0.4792,
+            "post_acc_orig_quant": 0.5,
+            "delta_orig": -0.0208,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.3333,
+      "h3_expanded_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": 0.0806
+        },
+        "task_type": {
+          "hit": true,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": 0.0197
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": -0.0186
+        }
+      }
+    },
+    "granite-vision-3.2-2b": {
+      "model": "granite-vision-3.2-2b",
+      "h3_orig": 0.0,
+      "h3_orig_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_acc": 0.4666666666666667,
+          "post_acc": 0.4,
+          "delta": 0.06666666666666665,
+          "significant": false,
+          "p_value": 0.13930348258706468
+        },
+        "task_type": {
+          "hit": false,
+          "enc_acc": 0.6666666666666666,
+          "post_acc": 0.6666666666666666,
+          "delta": 0.0,
+          "significant": true,
+          "p_value": 0.03482587064676617
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_acc": 0.8,
+          "post_acc": 0.8,
+          "delta": 0.0,
+          "significant": true,
+          "p_value": 0.004975124378109453
+        }
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.2602,
+            "post_acc_estimate": 0.231,
+            "delta_estimate": 0.0292,
+            "enc_acc_orig_quant": 0.2333,
+            "post_acc_orig_quant": 0.1889,
+            "delta_orig": 0.0444,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.6256,
+            "post_acc_estimate": 0.6506,
+            "delta_estimate": -0.025,
+            "enc_acc_orig_quant": 0.5844,
+            "post_acc_orig_quant": 0.6267,
+            "delta_orig": -0.0422,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.551,
+            "post_acc_estimate": 0.5733,
+            "delta_estimate": -0.0223,
+            "enc_acc_orig_quant": 0.5208,
+            "post_acc_orig_quant": 0.5625,
+            "delta_orig": -0.0417,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
+      },
+      "h3_expanded_estimate": 0.0,
+      "h3_expanded_breakdown": {
+        "answer": {
+          "hit": false,
+          "enc_significant_orig_slice": false,
+          "delta_estimate": 0.0292
+        },
+        "task_type": {
+          "hit": false,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": -0.025
+        },
+        "sub_type": {
+          "hit": false,
+          "enc_significant_orig_slice": true,
+          "delta_estimate": -0.0223
+        }
+      }
+    }
+  },
+  "stratified_finding": {
+    "spatial_merge_mean_H3": {
+      "orig": 0.6667,
+      "expanded": 0.6667
+    },
+    "learned_resampler_mean_H3": {
+      "orig": 0.0,
+      "expanded": 0.3333
+    },
+    "no_compression_mean_H3": {
+      "orig": 0.2222,
+      "expanded": 0.2222
+    },
+    "direction_preserved": true,
+    "mechanism_finding_survives_with_0.10_gap": true
+  },
+  "stratified_full": {
+    "orig": {
+      "spatial_merge": {
+        "members": [
+          "internvl3-8b",
+          "gemma4-e4b",
+          "qwen2.5-vl-7b",
+          "qwen3-vl-8b"
+        ],
+        "n_with_data": 4,
+        "mean_h3": 0.6667,
+        "values": [
+          0.0,
+          1.0,
+          1.0,
+          0.6666666666666666
+        ]
+      },
+      "learned_resampler": {
+        "members": [
+          "idefics3-8b",
+          "idefics2-8b",
+          "blip2-opt-2.7b"
+        ],
+        "n_with_data": 3,
+        "mean_h3": 0.0,
+        "values": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      },
+      "no_compression": {
+        "members": [
+          "llava-onevision-7b",
+          "phi3.5-vision",
+          "granite-vision-3.2-2b"
+        ],
+        "n_with_data": 3,
+        "mean_h3": 0.2222,
+        "values": [
+          0.3333,
+          0.3333,
+          0.0
+        ]
+      }
+    },
+    "expanded": {
+      "spatial_merge": {
+        "members": [
+          "internvl3-8b",
+          "gemma4-e4b",
+          "qwen2.5-vl-7b",
+          "qwen3-vl-8b"
+        ],
+        "n_with_data": 4,
+        "mean_h3": 0.6667,
+        "values": [
+          0.0,
+          1.0,
+          1.0,
+          0.6666666666666666
+        ]
+      },
+      "learned_resampler": {
+        "members": [
+          "idefics3-8b",
+          "idefics2-8b",
+          "blip2-opt-2.7b"
+        ],
+        "n_with_data": 3,
+        "mean_h3": 0.3333,
+        "values": [
+          0.3333,
+          0.3333,
+          0.3333
+        ]
+      },
+      "no_compression": {
+        "members": [
+          "llava-onevision-7b",
+          "phi3.5-vision",
+          "granite-vision-3.2-2b"
+        ],
+        "n_with_data": 3,
+        "mean_h3": 0.2222,
+        "values": [
+          0.3333,
+          0.3333,
+          0.0
+        ]
+      }
+    }
+  },
+  "kill_gate": {
+    "orig_median_err": 0.2251457000756954,
+    "expanded_median_err": 0.17850849351166326,
+    "orig_kill_gate_fired": true,
+    "expanded_kill_gate_fired": false,
+    "kill_gate_flips": true,
+    "orig_spearman_rho": 0.32649765138024184,
+    "expanded_spearman_rho": 0.568552326749041
+  },
+  "kill_gate_flips": true,
+  "mechanism_finding_survives": true,
+  "narrative": "With the original 5-subtype whitelist ['distance', 'mass', 'number', 'size', 'temperature'], the val partition contains 55 quantitative + 145 qualitative items. Adding ['acceleration', 'collision', 'depth', 'force', 'friction', 'throwing', 'velocity'] reclassifies 29 val items (55 \u2192 84 quant). Under the linear-mixture proxy, LOO median |error| moves 0.2251 \u2192 0.1785; kill-gate flips. Mechanism stratification \u2014 spatial-merge mean H3 = 0.6667 \u2192 0.6667; learned-resampler = 0.0 \u2192 0.3333. Direction preserved: True; survives 0.10 gap: True. NB: this is an estimate from the linear-mixture proxy (no re-fit of the linear probes); a true re-aggregation requires re-running scripts/week1_quant_qual_probe.py with the modified PHYSBENCH_QUANT_SUBTYPES on Turing GPU.",
+  "expansion_absent_from_data": [
+    "acceleration",
+    "force",
+    "friction",
+    "velocity"
+  ]
+}

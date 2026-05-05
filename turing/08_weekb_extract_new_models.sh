@@ -40,17 +40,17 @@
 #SBATCH -n 8
 #SBATCH --mem=96G
 #SBATCH -t 12:00:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 
 set -e
 mkdir -p jobs results/week1_turing cache/week1_turing/features logs/turing
 
 # Load environment (modules + pip packages).
-source activate /home/ssboyane/VLAs/vla_physics_v2 || conda activate vla_physics_v2 || source activate vla_physics_v2
+source activate ${HOME}/VLAs/vla_physics_v2 || conda activate vla_physics_v2 || source activate vla_physics_v2
 
 export FULL_RESOLUTION=1
 export HF_TOKEN="${HF_TOKEN}"

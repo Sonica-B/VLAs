@@ -24,10 +24,10 @@
 #SBATCH -n 4
 #SBATCH --mem=32G
 #SBATCH -t 0:30:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 
 set -uo pipefail
@@ -184,7 +184,7 @@ def t6_hf_hub_access():
 
 def t7_project_imports():
     """Project's own scripts import without GPU complaints"""
-    sys.path.insert(0, "/home/ssboyane/VLAs")
+    sys.path.insert(0, "${HOME}/VLAs")
     failed = []
     for modpath in [
         "scripts.week1_quant_qual_probe",

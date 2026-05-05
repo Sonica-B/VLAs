@@ -1,17 +1,17 @@
-# Running VLAs Experiments on WPI Turing Cluster
+# Running VLAs Experiments on the cluster
 
 ## Quick Start (5 steps)
 
 ### 1. Copy repo to Turing
 From your laptop:
 ```bash
-scp -r "D:/WPI Assignments/AlgoVerse/VLAs" username@turing.wpi.edu:~/VLAs
+scp -r "./VLAs" username@<cluster>.example.edu:~/VLAs
 ```
 Or push to GitHub and clone on Turing.
 
 ### 2. Setup environment
 ```bash
-ssh username@turing.wpi.edu
+ssh username@<cluster>.example.edu
 bash ~/VLAs/turing/setup_turing.sh
 ```
 
@@ -55,7 +55,7 @@ sbatch ~/VLAs/turing/slurm_probing.sh
 
 ## Pull results back to laptop
 ```bash
-bash turing/transfer_results.sh username@turing.wpi.edu
+bash turing/transfer_results.sh username@<cluster>.example.edu
 ```
 
 ## Storage budget (~50GB)

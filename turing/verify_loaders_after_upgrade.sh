@@ -25,10 +25,10 @@
 #SBATCH -n 4
 #SBATCH --mem=64G
 #SBATCH -t 0:30:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
 #SBATCH --gres=gpu:A100:1
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 
 set -uo pipefail
@@ -59,7 +59,7 @@ echo "================================================================"
 python -u - <<'PY'
 import sys, traceback, gc, json, torch
 from pathlib import Path
-sys.path.insert(0, '/home/ssboyane/VLAs')
+sys.path.insert(0, '${HOME}/VLAs')
 from scripts.week1_quant_qual_probe import load_model
 
 # ACTIVE: must load successfully in current env (we re-extract features here).
@@ -77,7 +77,7 @@ CACHED_MODELS = [
     "gemma4-e4b",
 ]
 
-ROOT = Path("/home/ssboyane/VLAs")
+ROOT = Path("${HOME}/VLAs")
 
 print("=== CACHED MODELS (informational) ===")
 print("These have probing JSONs from a prior env. Loader is non-blocking.")

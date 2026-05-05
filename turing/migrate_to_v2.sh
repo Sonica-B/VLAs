@@ -18,7 +18,7 @@
 
 set -uo pipefail
 
-readonly PROJECT_ROOT="/home/ssboyane/VLAs"
+readonly PROJECT_ROOT="${HOME}/VLAs"
 readonly BACKUP_DIR="${PROJECT_ROOT}/turing/.backup_pre_v2"
 readonly STATE_DIR="${HOME}/.vla_setup_state"
 readonly OLD_NAME="vla_physics"

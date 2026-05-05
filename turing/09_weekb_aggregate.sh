@@ -21,16 +21,16 @@
 #SBATCH -n 4
 #SBATCH --mem=16G
 #SBATCH -t 12:00:00
-#SBATCH --account=cngan
+#SBATCH --account=${SLURM_ACCOUNT:-default}
 #SBATCH --export=ALL
-#SBATCH -D /home/ssboyane/VLAs
+#SBATCH -D ${HOME}/VLAs
 #SBATCH -o jobs/%x.%j.out
 # (no --gres=gpu — predictor regression is CPU-only)
 
 set -e
 mkdir -p jobs results/week1_turing logs/turing
 
-source activate /home/ssboyane/VLAs/vla_physics_v2 2>/dev/null \
+source activate ${HOME}/VLAs/vla_physics_v2 2>/dev/null \
     || conda activate vla_physics_v2 2>/dev/null \
     || source activate vla_physics_v2
 

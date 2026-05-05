@@ -1,8 +1,8 @@
 #!/bin/bash
 # Run FROM your laptop to pull results from Turing
-# Usage: bash turing/transfer_results.sh username@turing.wpi.edu
+# Usage: bash turing/transfer_results.sh username@<cluster>.example.edu
 
-REMOTE=${1:?"Usage: bash turing/transfer_results.sh username@turing.wpi.edu"}
+REMOTE=${1:?"Usage: bash turing/transfer_results.sh username@<cluster>.example.edu"}
 
 echo "=== Pulling results from Turing ==="
 mkdir -p results_turing

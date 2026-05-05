@@ -9,7 +9,7 @@
 # ============================================================================
 
 set -e
-cd /home/ssboyane/VLAs
+cd ${HOME}/VLAs
 
 echo "=== Turing Environment Setup ($(date)) ==="
 
@@ -23,7 +23,7 @@ module avail nvidia 2>&1 | head -20 || true
 for CUDA_MOD in cuda/12.2.2 cuda/12.1.1 cuda/12.0 cuda/11.8 cuda cuda/12 CUDA/12.2 nvidia/cuda/12.2; do
     if module load ${CUDA_MOD} 2>/dev/null; then
         echo "Loaded CUDA module: ${CUDA_MOD}"
-        echo "export CUDA_MODULE=${CUDA_MOD}" > /home/ssboyane/VLAs/.turing_cuda_module
+        echo "export CUDA_MODULE=${CUDA_MOD}" > ${HOME}/VLAs/.turing_cuda_module
         break
     fi
 done
@@ -96,13 +96,13 @@ else:
 # 5. Save the working module/env config for use by all sbatch scripts.
 echo ""
 echo "Saving environment config to .turing_env..."
-cat > /home/ssboyane/VLAs/.turing_env << 'INNER'
+cat > ${HOME}/VLAs/.turing_env << 'INNER'
 # Source this at the top of every sbatch script.
 module load python 2>/dev/null || module load Python 2>/dev/null || true
 
 # Load CUDA if a working module was found during setup.
-if [ -f /home/ssboyane/VLAs/.turing_cuda_module ]; then
-    source /home/ssboyane/VLAs/.turing_cuda_module
+if [ -f ${HOME}/VLAs/.turing_cuda_module ]; then
+    source ${HOME}/VLAs/.turing_cuda_module
     module load ${CUDA_MODULE} 2>/dev/null || true
 fi
 

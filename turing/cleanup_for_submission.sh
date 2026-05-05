@@ -129,7 +129,7 @@ TO_KEEP=(
     "tests/run_local.sh"
     "tests/run_local.bat"
     # Docs
-    "docs/PRE_REGISTRATION.md"
+    "PRE_REGISTRATION.md"
     "docs/IB_THEORY.md"
     "CLAUDE.md"
     "README.md"
