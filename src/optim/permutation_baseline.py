@@ -116,10 +116,9 @@ def permutation_probe(
         valid relative to a PCA-128-reference probe, not the raw-feature
         probe reported in Week 1 tables.
 
-        This is explicitly documented in WEEK2_README.md so reviewers
-        understand the two probe-accuracy numbers in the paper have
-        different meanings: the raw-feature number is the headline
-        effect size, the PCA-128 number is the significance test.
+        Note: the two probe-accuracy numbers in the paper have different
+        meanings -- the raw-feature number is the headline effect size,
+        the PCA-128 number is the significance test.
 
     Args:
         features: [n, d] raw feature matrix (pre-PCA).

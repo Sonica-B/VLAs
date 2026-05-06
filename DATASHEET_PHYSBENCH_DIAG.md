@@ -411,12 +411,12 @@ If you use PhysBench-Diag, please cite both this paper and the original
 PhysBench:
 
 ```bibtex
-@inproceedings{boyane2026physbench_diag,
-  title={PhysBench-Diag: A Diagnostic Benchmark for VLM Physics Reasoning},
+@inproceedings{anonymous2026physbench_diag,
+  title={PhysBench-Diag: A Diagnostic Partition Over PhysBench v2 for VLM Probing},
   author={Anonymous},
-  booktitle={NeurIPS 2026 Datasets and Benchmarks Track},
+  booktitle={NeurIPS 2026 Evaluations and Datasets Track},
   year={2026},
-  url={https://github.com/anonymous-NeurIPS2026/physbench-diag}
+  url={https://anonymous.4open.science/r/qlens-/}
 }
 
 @article{chow2024physbench,

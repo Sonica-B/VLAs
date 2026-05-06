@@ -146,38 +146,149 @@
   "per_model_results": {
     "internvl3-8b": {
       "model": "internvl3-8b",
-      "status": "missing_probe_json",
       "h3_orig": 0.0,
       "h3_orig_breakdown": {
-        "reason": "probe_json_stub_redirect; h3_orig copied from phys_lens_predict_weekb.json"
+        "reason": "no_permutation_json; h3_orig from predictor JSON"
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.281,
+            "post_acc_estimate": 0.2881,
+            "delta_estimate": -0.0071,
+            "enc_acc_orig_quant": 0.3127,
+            "post_acc_orig_quant": 0.3309,
+            "delta_orig": -0.0182,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.7571,
+            "post_acc_estimate": 0.7524,
+            "delta_estimate": 0.0048,
+            "enc_acc_orig_quant": 0.8,
+            "post_acc_orig_quant": 0.8,
+            "delta_orig": 0.0,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.5857,
+            "post_acc_estimate": 0.6024,
+            "delta_estimate": -0.0167,
+            "enc_acc_orig_quant": 0.5636,
+            "post_acc_orig_quant": 0.6,
+            "delta_orig": -0.0364,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
       },
       "h3_expanded_estimate": 0.0,
       "h3_expanded_breakdown": {
-        "reason": "probe_json_stub_redirect; expanded estimate falls back to original h3 (no per-slice data on local disk)"
+        "reason": "unchanged"
       }
     },
     "gemma4-e4b": {
       "model": "gemma4-e4b",
-      "status": "missing_probe_json",
       "h3_orig": 1.0,
       "h3_orig_breakdown": {
-        "reason": "probe_json_stub_redirect; h3_orig copied from phys_lens_predict_weekb.json"
+        "reason": "no_permutation_json; h3_orig from predictor JSON"
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.3179,
+            "post_acc_estimate": 0.2893,
+            "delta_estimate": 0.0286,
+            "enc_acc_orig_quant": 0.3691,
+            "post_acc_orig_quant": 0.3145,
+            "delta_orig": 0.0545,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.6905,
+            "post_acc_estimate": 0.7048,
+            "delta_estimate": -0.0143,
+            "enc_acc_orig_quant": 0.6909,
+            "post_acc_orig_quant": 0.6909,
+            "delta_orig": 0.0,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.5833,
+            "post_acc_estimate": 0.5762,
+            "delta_estimate": 0.0071,
+            "enc_acc_orig_quant": 0.5636,
+            "post_acc_orig_quant": 0.5455,
+            "delta_orig": 0.0182,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
       },
       "h3_expanded_estimate": 1.0,
       "h3_expanded_breakdown": {
-        "reason": "probe_json_stub_redirect; expanded estimate falls back to original h3 (no per-slice data on local disk)"
+        "reason": "unchanged"
       }
     },
     "qwen2.5-vl-7b": {
       "model": "qwen2.5-vl-7b",
-      "status": "missing_probe_json",
       "h3_orig": 1.0,
       "h3_orig_breakdown": {
-        "reason": "probe_json_stub_redirect; h3_orig copied from phys_lens_predict_weekb.json"
+        "reason": "no_permutation_json; h3_orig from predictor JSON"
+      },
+      "expanded_estimate": {
+        "mode": "linear_mixture_estimate",
+        "targets": {
+          "answer": {
+            "enc_acc_estimate": 0.4015,
+            "post_acc_estimate": 0.3438,
+            "delta_estimate": 0.0577,
+            "enc_acc_orig_quant": 0.5,
+            "post_acc_orig_quant": 0.3891,
+            "delta_orig": 0.1109,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "task_type": {
+            "enc_acc_estimate": 0.739,
+            "post_acc_estimate": 0.7296,
+            "delta_estimate": 0.0093,
+            "enc_acc_orig_quant": 0.7455,
+            "post_acc_orig_quant": 0.7273,
+            "delta_orig": 0.0182,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          },
+          "sub_type": {
+            "enc_acc_estimate": 0.6338,
+            "post_acc_estimate": 0.5956,
+            "delta_estimate": 0.0382,
+            "enc_acc_orig_quant": 0.6,
+            "post_acc_orig_quant": 0.5455,
+            "delta_orig": 0.0545,
+            "method": "linear_mixture_proxy_no_refit",
+            "n_quant_orig": 55,
+            "n_quant_expanded": 84
+          }
+        }
       },
       "h3_expanded_estimate": 1.0,
       "h3_expanded_breakdown": {
-        "reason": "probe_json_stub_redirect; expanded estimate falls back to original h3 (no per-slice data on local disk)"
+        "reason": "unchanged"
       }
     },
     "qwen3-vl-8b": {

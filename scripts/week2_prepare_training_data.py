@@ -30,7 +30,7 @@ PhysBench test was chosen because:
 
 The one caveat is that anyone comparing our numbers to the PhysBench
 leaderboard would need to understand that we trained on the leaderboard
-test set. We flag this in WEEK2_README.md.
+test set. This is explicit in the paper's method section.
 
 ## Balance procedure
 

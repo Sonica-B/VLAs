@@ -11,7 +11,7 @@ NeurIPS 2026 E&D Track requires the Croissant machine-readable metadata format w
 | Croissant metadata | Same HF dataset (root `croissant.json`) | discoverable via HF schema |
 | Underlying PhysBench v2 images/videos | NOT redistributed | Users obtain from PhysBench's official release |
 
-## File: `paper/croissant_metadata.json` (template — fill before submission)
+## File: `CROISSANT_METADATA.json` (canonical, validated — at repo root)
 
 ```json
 {
@@ -106,16 +106,15 @@ NeurIPS 2026 E&D Track requires the Croissant machine-readable metadata format w
 # 1. Install Croissant validator
 pip install mlcroissant
 
-# 2. Validate the JSON-LD
-python -c "from mlcroissant import Dataset; d = Dataset(jsonld='paper/croissant_metadata.json'); print('valid' if d.metadata else 'invalid')"
+# 2. Validate the JSON-LD (file lives at the repo root)
+python -c "from mlcroissant import Dataset; d = Dataset(jsonld='CROISSANT_METADATA.json'); print('valid' if d.metadata else 'invalid')"
 
-# 3. Compute file SHA-256s and substitute into the "sha256" fields
-shasum -a 256 results/week1_turing/*.json > paper/sha256_inventory.txt
+# 3. Compute file SHA-256s for the released artifacts
+shasum -a 256 results/week1_turing/*.json results/*_sensitivity*.json results/power_analysis.json results/physbench_diag_partition.json > sha256_inventory.txt
 
-# 4. Upload to Hugging Face Datasets:
-#    - Create dataset repo `anonymous-NeurIPS2026/PhysBench-Diag`
-#    - Upload croissant_metadata.json as the dataset-card root file
-#    - Upload zipped probing JSONs
+# 4. (Post-acceptance) Upload to a Hugging Face Datasets repo
+#    - Upload CROISSANT_METADATA.json as the dataset-card root file
+#    - Upload the partition + sensitivity outputs + probing JSONs
 #    - Verify https://huggingface.co/datasets/<id>/croissant.jsonld resolves
 ```
 

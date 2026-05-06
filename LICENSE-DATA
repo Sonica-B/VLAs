@@ -1,0 +1,46 @@
+Creative Commons Attribution 4.0 International (CC BY 4.0)
+
+================================================================================
+
+This CC BY 4.0 license applies to all DATA and METADATA artifacts in this
+repository:
+
+  - results/*.json                 (probing measurements, sensitivity outputs,
+                                    predictor LOO output, partition labels)
+  - results/week1_turing/          (per-model probing JSONs + permutation tests)
+  - CROISSANT_METADATA.md          (Croissant ML metadata template)
+  - DATASHEET_PHYSBENCH_DIAG.md    (Gebru et al. datasheet for the partition)
+  - PRE_REGISTRATION.md            (locked pre-registration document)
+  - figures/*.pdf                  (final paper figures)
+
+You are free to:
+
+  Share — copy and redistribute the material in any medium or format
+  Adapt — remix, transform, and build upon the material for any purpose,
+          even commercially.
+
+Under the following terms:
+
+  Attribution — You must give appropriate credit, provide a link to the
+  license, and indicate if changes were made. You may do so in any reasonable
+  manner, but not in any way that suggests the licensor endorses you or your
+  use.
+
+No additional restrictions — You may not apply legal terms or technological
+measures that legally restrict others from doing anything the license
+permits.
+
+================================================================================
+
+Full legal text:
+https://creativecommons.org/licenses/by/4.0/legalcode
+
+================================================================================
+
+NOTE: The underlying PhysBench v2 dataset (images, videos, prompts, answer
+keys) is governed by the original PhysBench license (Chow et al., 2024;
+CC-BY-4.0). This repository does not redistribute PhysBench media. Users
+must obtain those from the official PhysBench release.
+
+For CODE artifacts (src/, scripts/, turing/, tests/, configs/), see LICENSE
+(MIT).

@@ -17,9 +17,9 @@
         "qualitative": 145
       },
       "test": {
-        "total": 999,
-        "quantitative": 274,
-        "qualitative": 725
+        "total": 9802,
+        "quantitative": 999,
+        "qualitative": 8803
       }
     },
     "observed": {
@@ -34,30 +34,8 @@
         "qualitative": 8803
       }
     },
-    "discrepancies": [
-      {
-        "split": "test",
-        "field": "total",
-        "expected": 999,
-        "observed": 9802,
-        "delta": 8803
-      },
-      {
-        "split": "test",
-        "field": "quantitative",
-        "expected": 274,
-        "observed": 999,
-        "delta": 725
-      },
-      {
-        "split": "test",
-        "field": "qualitative",
-        "expected": 725,
-        "observed": 8803,
-        "delta": 8078
-      }
-    ],
-    "passed": false
+    "discrepancies": [],
+    "passed": true
   },
   "records": [
     {

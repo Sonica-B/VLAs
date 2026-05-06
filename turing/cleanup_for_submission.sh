@@ -16,8 +16,9 @@
 #        data/physbench/ (val.json + image refs)
 #        results/week1/ + results/week1_turing/ (per-model JSONs only)
 #        tests/          (regression suite)
-#        docs/           (PRE_REGISTRATION.md, IB_THEORY.md)
-#        CLAUDE.md, requirements_v2.txt, README.md
+#        Root artifacts: PRE_REGISTRATION.md, DATASHEET_PHYSBENCH_DIAG.md,
+#                        CROISSANT_METADATA.md, CROISSANT_METADATA.json,
+#                        README.md, LICENSE, LICENSE-DATA, requirements.txt
 #   4. Runs `python tests/regression.py` to confirm structural tests pass
 #   5. Prints a manifest of what was kept and what was removed
 #
@@ -130,9 +131,12 @@ TO_KEEP=(
     "tests/run_local.bat"
     # Docs
     "PRE_REGISTRATION.md"
-    "docs/IB_THEORY.md"
-    "CLAUDE.md"
+    "DATASHEET_PHYSBENCH_DIAG.md"
+    "CROISSANT_METADATA.md"
+    "CROISSANT_METADATA.json"
     "README.md"
+    "LICENSE"
+    "LICENSE-DATA"
     "requirements.txt"
 )
 

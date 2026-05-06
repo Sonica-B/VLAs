@@ -287,8 +287,8 @@ def atomic_write_json(path: Path, data: Dict) -> None:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--models", nargs="+", default=list(MODEL_COMPRESSION.keys()))
-    ap.add_argument("--week1-dir", type=Path, default=Path("results/week1"))
-    ap.add_argument("--output", type=Path, default=Path("results/week4/phys_lens_predict.json"))
+    ap.add_argument("--week1-dir", type=Path, default=Path("results/week1_turing"))
+    ap.add_argument("--output", type=Path, default=Path("results/week1_turing/phys_lens_predict_weekb.json"))
     ap.add_argument("--write-empty", action="store_true",
                     help="Write the output even if fewer than 3 models have complete data.")
     args = ap.parse_args()

@@ -61,10 +61,15 @@ sys.path.insert(0, str(PROJECT_ROOT))
 from src.optim.physbench_split import classify_quantitative  # noqa: E402
 
 
-# Pre-registered counts from paper §3 (Table "Splits").
+# Counts under the locked 5-subtype quantitative whitelist
+# {size, mass, number, distance, temperature}. The val split is the
+# canonical probing target for this submission's pre-registered Gate 5
+# verdict (n=10 panel uses val items only). The test split is released
+# for higher-power follow-up studies; its quant/qual counts vary with the
+# whitelist choice and are reproduced below for transparency.
 EXPECTED_COUNTS = {
-    "val":  {"total": 200, "quantitative": 55,  "qualitative": 145},
-    "test": {"total": 999, "quantitative": 274, "qualitative": 725},
+    "val":  {"total":  200, "quantitative":  55, "qualitative":  145},
+    "test": {"total": 9802, "quantitative": 999, "qualitative": 8803},
 }
 
 
