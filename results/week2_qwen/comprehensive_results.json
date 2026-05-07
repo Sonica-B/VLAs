@@ -1,0 +1,294 @@
+{
+  "experiment": "week2_day10-14_vlm_probing",
+  "timestamp": "2026-04-03 15:32:02",
+  "metadata": {
+    "n_scenes": 200,
+    "seed": 42,
+    "deconfounding": {
+      "mass_hue_r": 0.023649660724580728,
+      "mass_brightness_r": 0.017732913990622802,
+      "n_objects_total": 916.0
+    },
+    "image_size": 224,
+    "model": "Qwen/Qwen2.5-VL-7B-Instruct"
+  },
+  "probe_results": {
+    "stage_1_enc_out": {
+      "mass": {
+        "r2": -0.026091337203979492,
+        "pearson_r": 0.24097574961153673,
+        "mse": 6.323477268218994,
+        "mae": 1.9663704633712769,
+        "ci_95": [
+          -0.11349875926971435,
+          0.04902364909648895
+        ],
+        "permutation_r2_mean": -0.22055866718292236,
+        "permutation_r2_std": 0.042084809807676093,
+        "best_alpha": 100.0,
+        "n_train": 2742,
+        "n_test": 686
+      },
+      "friction": {
+        "r2": -0.0032181739807128906,
+        "pearson_r": 0.2769566783542766,
+        "mse": 0.07789867371320724,
+        "mae": 0.22893126308918,
+        "ci_95": [
+          -0.08972592055797576,
+          0.07507244199514389
+        ],
+        "permutation_r2_mean": -0.21994141340255738,
+        "permutation_r2_std": 0.05128282168541662,
+        "best_alpha": 100.0,
+        "n_train": 2742,
+        "n_test": 686
+      },
+      "elasticity": {
+        "r2": -0.030164480209350586,
+        "pearson_r": 0.22498866717601396,
+        "mse": 0.06601173430681229,
+        "mae": 0.21464607119560242,
+        "ci_95": [
+          -0.12130094170570374,
+          0.04044815897941587
+        ],
+        "permutation_r2_mean": -0.22568917274475098,
+        "permutation_r2_std": 0.03412746198274188,
+        "best_alpha": 100.0,
+        "n_train": 2742,
+        "n_test": 686
+      }
+    },
+    "stage_2_post_proj": {
+      "mass": {
+        "r2": -0.21086013317108154,
+        "pearson_r": 0.19728311760418463,
+        "mse": 9.160547256469727,
+        "mae": 2.3359663486480713,
+        "ci_95": [
+          -0.4248673379421234,
+          -0.04132424294948578
+        ],
+        "permutation_r2_mean": -0.394238269329071,
+        "permutation_r2_std": 0.07024041239660177,
+        "best_alpha": 100.0,
+        "n_train": 959,
+        "n_test": 240
+      },
+      "friction": {
+        "r2": -0.2952888011932373,
+        "pearson_r": 0.17599139879365006,
+        "mse": 0.09940282255411148,
+        "mae": 0.25581058859825134,
+        "ci_95": [
+          -0.5245207250118256,
+          -0.10496514439582828
+        ],
+        "permutation_r2_mean": -0.45228626728057864,
+        "permutation_r2_std": 0.11528392357221938,
+        "best_alpha": 100.0,
+        "n_train": 959,
+        "n_test": 240
+      },
+      "elasticity": {
+        "r2": -0.2852287292480469,
+        "pearson_r": 0.21981803199224145,
+        "mse": 0.08691778033971786,
+        "mae": 0.22873979806900024,
+        "ci_95": [
+          -0.6063458144664764,
+          -0.038127350807190014
+        ],
+        "permutation_r2_mean": -0.5448561191558838,
+        "permutation_r2_std": 0.09889862179070091,
+        "best_alpha": 100.0,
+        "n_train": 959,
+        "n_test": 240
+      }
+    },
+    "stage_3_llm_8": {
+      "mass": {
+        "r2": -0.07775211334228516,
+        "pearson_r": 0.22468441801445352,
+        "mse": 6.9298858642578125,
+        "mae": 2.0588865280151367,
+        "ci_95": [
+          -0.21861512959003448,
+          0.04368261098861692
+        ],
+        "permutation_r2_mean": -0.36732221841812135,
+        "permutation_r2_std": 0.07099559744822372,
+        "best_alpha": 100.0,
+        "n_train": 1280,
+        "n_test": 320
+      },
+      "friction": {
+        "r2": -0.2526816129684448,
+        "pearson_r": 0.06472948711500617,
+        "mse": 0.09705907851457596,
+        "mae": 0.25310778617858887,
+        "ci_95": [
+          -0.41809041798114777,
+          -0.10653426647186282
+        ],
+        "permutation_r2_mean": -0.433656120300293,
+        "permutation_r2_std": 0.04692837289762744,
+        "best_alpha": 100.0,
+        "n_train": 1280,
+        "n_test": 320
+      },
+      "elasticity": {
+        "r2": -0.10460567474365234,
+        "pearson_r": 0.19690222215442468,
+        "mse": 0.07382993400096893,
+        "mae": 0.225826233625412,
+        "ci_95": [
+          -0.24541511833667756,
+          0.019756682217121076
+        ],
+        "permutation_r2_mean": -0.32078707218170166,
+        "permutation_r2_std": 0.07062161222809346,
+        "best_alpha": 100.0,
+        "n_train": 1280,
+        "n_test": 320
+      }
+    },
+    "stage_4_llm_16": {
+      "mass": {
+        "r2": -0.18593811988830566,
+        "pearson_r": 0.17086586231489612,
+        "mse": 7.625515937805176,
+        "mae": 2.172525405883789,
+        "ci_95": [
+          -0.38240842521190643,
+          -0.03517218828201296
+        ],
+        "permutation_r2_mean": -0.42620766162872314,
+        "permutation_r2_std": 0.06930132637478108,
+        "best_alpha": 100.0,
+        "n_train": 1280,
+        "n_test": 320
+      },
+      "friction": {
+        "r2": -0.3580145835876465,
+        "pearson_r": 0.06814159877574628,
+        "mse": 0.10522039234638214,
+        "mae": 0.26702314615249634,
+        "ci_95": [
+          -0.5376875579357148,
+          -0.19127842187881472
+        ],
+        "permutation_r2_mean": -0.46509636640548707,
+        "permutation_r2_std": 0.0816386045001283,
+        "best_alpha": 100.0,
+        "n_train": 1280,
+        "n_test": 320
+      },
+      "elasticity": {
+        "r2": -0.29137158393859863,
+        "pearson_r": 0.10837896216233979,
+        "mse": 0.08631305396556854,
+        "mae": 0.2393588125705719,
+        "ci_95": [
+          -0.4903206884860992,
+          -0.12653702199459083
+        ],
+        "permutation_r2_mean": -0.4560674786567688,
+        "permutation_r2_std": 0.07951686991189642,
+        "best_alpha": 100.0,
+        "n_train": 1280,
+        "n_test": 320
+      }
+    }
+  },
+  "spatial_metrics": {
+    "stage_1_enc_out": {
+      "mass": {
+        "morans_i": 0.5656407080254436,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.9435009577789822,
+        "r2_map_std": 0.02991971763507943
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    },
+    "stage_2_post_proj": {
+      "mass": {
+        "morans_i": -0.13729215665184144,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.987859705361453,
+        "r2_map_std": 0.013661373342439788
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    },
+    "stage_3_llm_8": {
+      "mass": {
+        "morans_i": 0.18581366537660754,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.996423739939928,
+        "r2_map_std": 0.003565878104591988
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    },
+    "stage_4_llm_16": {
+      "mass": {
+        "morans_i": 0.04711467633133902,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.9980603819712996,
+        "r2_map_std": 0.0014051216699512328
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    }
+  },
+  "differential_degradation": {
+    "mass_r2_by_stage": {
+      "stage_1_enc_out": -0.026091337203979492,
+      "stage_2_post_proj": -0.21086013317108154,
+      "stage_3_llm_8": -0.07775211334228516,
+      "stage_4_llm_16": -0.18593811988830566
+    },
+    "hue_r2_by_stage": {},
+    "mass_total_degradation": 0.15984678268432617
+  },
+  "summary": {
+    "key_findings": [
+      "Mass best decoded at stage_1_enc_out (R\u00b2=-0.0261)"
+    ]
+  }
+}

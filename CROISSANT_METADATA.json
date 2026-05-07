@@ -1,0 +1,111 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "ml": "https://mlcommons.org/croissant/",
+    "rai": "https://mlcommons.org/croissant/RAI/"
+  },
+  "@type": "Dataset",
+  "name": "PhysBench-Diag",
+  "description": "A diagnostic partition over PhysBench v2 with a deterministic 5-subtype quantitative/qualitative whitelist (size, mass, number, distance, temperature). Released alongside per-model probing JSONs, permutation tests, predictor LOO output, and sensitivity-analysis outputs to enable systematic study of where vision-language model architectures lose quantitative-physics decodability.",
+  "citation": "@inproceedings{anonymous2026qlens, title={Q-LENS: A Pre-Registered Probing Stress-Test of Vision-Language Quantitative-Physics Reasoning}, author={Anonymous}, booktitle={NeurIPS 2026 Evaluations and Datasets Track}, year={2026}, url={https://anonymous.4open.science/r/qlens-/}}",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "url": "https://anonymous.4open.science/r/qlens-/",
+  "version": "1.0.0",
+  "creator": {"@type": "Person", "name": "Anonymous (NeurIPS 2026 submission)"},
+  "datePublished": "2026-05-06",
+  "keywords": [
+    "vision-language models",
+    "physics reasoning",
+    "probing",
+    "evaluation methodology",
+    "compression",
+    "pre-registered study",
+    "negative results"
+  ],
+
+  "ml:isLiveDataset": false,
+
+  "rai:dataCollection": "Inherited deterministically from PhysBench v2 (Chow et al., 2024). No new data collection by this submission.",
+  "rai:dataAnnotationProtocol": "Quant/qual annotations are deterministic functions of PhysBench v2 sub_type labels via src/optim/physbench_split.py:classify_quantitative(). No human annotators.",
+  "rai:dataAnnotationPlatform": "N/A (deterministic algorithm)",
+  "rai:dataAnnotationAnalysis": "Inter-annotator agreement: N/A (deterministic). Validation: see PRE_REGISTRATION.md and the paper's Methods section.",
+  "rai:dataPreprocessingProtocol": "PhysBench v2 items are partitioned using PhysBench's val (200 items) and test (9802 items) splits. Under the locked 5-subtype quantitative whitelist, val yields 55 quantitative + 145 qualitative items; test yields 999 quantitative + 8803 qualitative items. Per-model probing applies bnb-NF4 4-bit quantization (one model, IBM Granite-Vision-3.2-2B, in bf16 due to a documented dtype-mismatch issue), with forward hooks at four matched architectural sites (post-encoder, post-projector, decoder layer 8, decoder layer 16).",
+  "rai:dataReleaseMaintenancePlan": "Hosted via the anonymous mirror at anonymous.4open.science during double-blind review. Post-acceptance the de-anonymized GitHub repository will host the canonical version. Errata via repository ERRATA.md.",
+  "rai:dataUseCases": [
+    "Layer-wise probing of vision-language models on physics-reasoning tasks",
+    "Cross-VLM comparison stratified by quantitative vs qualitative physics tasks",
+    "Stress-testing compression-bottleneck hypotheses with locked kill-gates",
+    "Sensitivity analysis of probing definitions and partition choices",
+    "Reproduction and audit of pre-registered VLM evaluation studies"
+  ],
+  "rai:dataLimitations": [
+    "n=200 validation items is small for some statistical tests; the full n=9802 test split is also released for higher-power follow-ups.",
+    "14 of 200 validation items have unresolvable media paths in our local PhysBench mirror; flagged as no_media in probing JSONs.",
+    "Quant/qual partition is derived from PhysBench sub_type taxonomy under a 5-subtype whitelist; if PhysBench updates the taxonomy or a different whitelist is preferred, the partition must be re-derived. We document a sensitivity analysis on the whitelist choice in scripts/subtype_sensitivity.py.",
+    "Probing-feature caches are model-specific; new VLMs require new probing runs.",
+    "H3 hit-rate values for the 4 baseline models were derived under a different operational definition than the 6 active-set models; we document and analyze this asymmetry in scripts/h3_sensitivity_unified.py."
+  ],
+  "rai:dataSocialImpact": "Positive: enables more targeted improvement of VLMs on quantitative-physics tasks and provides a worked example of pre-registration plus sensitivity analysis as a discipline for VLM evaluation methodology. Negative: probing tools could theoretically be repurposed for adversarial analysis; we release only standard linear probes that do not enable novel attack capabilities beyond existing probing literature.",
+  "rai:dataBiases": "Inherited from PhysBench v2; please refer to that benchmark's original analysis. Our partition does not introduce new biases beyond the choice of which sub_types are designated quantitative.",
+  "rai:personalSensitiveInformation": "None. PhysBench items are public physics-reasoning prompts.",
+
+  "distribution": [
+    {
+      "@type": "FileObject",
+      "name": "physbench_diag_partition.json",
+      "description": "Deterministic quant/qual labels for all PhysBench v2 val and test items under the locked 5-subtype whitelist.",
+      "contentUrl": "https://anonymous.4open.science/r/qlens-/results/physbench_diag_partition.json",
+      "encodingFormat": "application/json",
+      "sha256": "TBD"
+    },
+    {
+      "@type": "FileObject",
+      "name": "h3_sensitivity_unified.json",
+      "description": "Re-computation of H3 hit-rate for all 10 panel models under a unified above-chance criterion. Demonstrates the mechanism stratification falsification.",
+      "contentUrl": "https://anonymous.4open.science/r/qlens-/results/h3_sensitivity_unified.json",
+      "encodingFormat": "application/json",
+      "sha256": "TBD"
+    },
+    {
+      "@type": "FileObject",
+      "name": "subtype_sensitivity.json",
+      "description": "Sensitivity of pre-registered kill-gate to partition whitelist expansion (5-subtype vs. 8-subtype).",
+      "contentUrl": "https://anonymous.4open.science/r/qlens-/results/subtype_sensitivity.json",
+      "encodingFormat": "application/json",
+      "sha256": "TBD"
+    },
+    {
+      "@type": "FileObject",
+      "name": "power_analysis.json",
+      "description": "Spearman-rho minimum detectable effect at panel sizes 10-50 (alpha=0.05, power=0.80).",
+      "contentUrl": "https://anonymous.4open.science/r/qlens-/results/power_analysis.json",
+      "encodingFormat": "application/json",
+      "sha256": "TBD"
+    },
+    {
+      "@type": "FileObject",
+      "name": "probing_results_n10",
+      "description": "Per-model probing JSONs (10 models x {answer, task_type, sub_type} targets x {enc_out, post_proj, llm_8, llm_16} sites x {all, quantitative, qualitative} slices), plus 6 permutation_check JSONs. Released as individual files under results/week1_turing/ in the repository.",
+      "contentUrl": "https://anonymous.4open.science/r/qlens-/results/week1_turing/",
+      "encodingFormat": "application/json"
+    }
+  ],
+
+  "recordSet": [
+    {
+      "@type": "RecordSet",
+      "@id": "physbench_diag_items",
+      "name": "PhysBench-Diag items",
+      "description": "Each record is one PhysBench v2 item with the added quant/qual label under the locked 5-subtype whitelist.",
+      "field": [
+        {"@type": "Field", "name": "sample_id", "dataType": "Text", "description": "Unique sample identifier (e.g., val_0, test_42)"},
+        {"@type": "Field", "name": "idx", "dataType": "Integer", "description": "PhysBench-native item index within the split."},
+        {"@type": "Field", "name": "split", "dataType": "Text", "description": "val or test"},
+        {"@type": "Field", "name": "task_type", "dataType": "Text", "description": "PhysBench taxonomy: dynamics / properties / relationships / scenes"},
+        {"@type": "Field", "name": "sub_type", "dataType": "Text", "description": "PhysBench fine-grained sub_type label."},
+        {"@type": "Field", "name": "quant_qual", "dataType": "Text", "description": "Derived: quantitative (sub_type in {size, mass, number, distance, temperature}) or qualitative (otherwise)."},
+        {"@type": "Field", "name": "answer", "dataType": "Text", "description": "Correct answer letter A/B/C/D."}
+      ]
+    }
+  ]
+}

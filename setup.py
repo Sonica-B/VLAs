@@ -1,16 +1,15 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="vla-physics-probing",
+    name="qlens",
     version="0.1.0",
     description=(
-        "Where Does Physics Live in Vision Encoders? — "
-        "Spatially Probing and Amplifying Physical Reasoning in VLM Representations"
+        "Q-LENS: A Pre-Registered Probing Stress-Test of "
+        "Vision-Language Quantitative-Physics Reasoning."
     ),
-    author="AlgoVerse Research",
+    author="Anonymous",
     python_requires=">=3.10",
-    packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    packages=find_packages(),
     install_requires=[
         "torch>=2.2.0",
         "transformers>=4.45.0",

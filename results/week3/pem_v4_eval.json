@@ -1,0 +1,12 @@
+{
+  "model": "qwen3-vl-8b",
+  "gate": 0.1,
+  "low_var_k": 64,
+  "feature_train_val_acc": 0.7250000238418579,
+  "acc_quant": 0,
+  "acc_qual": 0,
+  "n_quant": 0,
+  "n_qual": 0,
+  "d_quant": -0.7091,
+  "d_qual": -0.6207
+}

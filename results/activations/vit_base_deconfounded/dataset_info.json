@@ -1,0 +1,12 @@
+{
+  "model": "vit_base_patch16_224",
+  "n_scenes": 100,
+  "dataset_type": "deconfounded_synthetic",
+  "patch_labels_columns": [
+    "mass",
+    "friction",
+    "elasticity",
+    "stability",
+    "hue"
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "model": "Qwen2.5-VL-7B-Instruct (4bit)",
+  "overall_accuracy": 44.0,
+  "correct": 4311,
+  "total": 9797,
+  "skipped": 0,
+  "errors": 5,
+  "elapsed_seconds": 31406.2,
+  "questions_per_second": 0.31,
+  "by_task_type": {
+    "dynamics": {
+      "accuracy": 41.06593782029382,
+      "correct": 1202,
+      "total": 2927
+    },
+    "property": {
+      "accuracy": 51.140833988985044,
+      "correct": 1300,
+      "total": 2542
+    },
+    "relationships": {
+      "accuracy": 47.36590038314176,
+      "correct": 989,
+      "total": 2088
+    },
+    "scene": {
+      "accuracy": 36.607142857142854,
+      "correct": 820,
+      "total": 2240
+    }
+  },
+  "by_sub_type": {
+    "air": {
+      "accuracy": 78.72340425531915,
+      "correct": 37,
+      "total": 47
+    },
+    "attribute": {
+      "accuracy": 43.37866857551897,
+      "correct": 606,
+      "total": 1397
+    },
+    "chemistry": {
+      "accuracy": 71.64179104477611,
+      "correct": 48,
+      "total": 67
+    },
+    "collision": {
+      "accuracy": 35.348837209302324,
+      "correct": 228,
+      "total": 645
+    },
+    "color": {
+      "accuracy": 76.53061224489795,
+      "correct": 225,
+      "total": 294
+    },
+    "depth": {
+      "accuracy": 61.78571428571429,
+      "correct": 173,
+      "total": 280
+    },
+    "distance": {
+      "accuracy": 72.22222222222221,
+      "correct": 39,
+      "total": 54
+    },
+    "fluid": {
+      "accuracy": 47.19626168224299,
+      "correct": 303,
+      "total": 642
+    },
+    "light": {
+      "accuracy": 37.10865561694291,
+      "correct": 403,
+      "total": 1086
+    },
+    "location": {
+      "accuracy": 66.3157894736842,
+      "correct": 189,
+      "total": 285
+    },
+    "manipulation": {
+      "accuracy": 23.227383863080682,
+      "correct": 190,
+      "total": 818
+    },
+    "mass": {
+      "accuracy": 49.46236559139785,
+      "correct": 138,
+      "total": 279
+    },
+    "motion": {
+      "accuracy": 38.869504535938596,
+      "correct": 557,
+      "total": 1433
+    },
+    "number": {
+      "accuracy": 57.86713286713287,
+      "correct": 331,
+      "total": 572
+    },
+    "others": {
+      "accuracy": 73.04347826086956,
+      "correct": 252,
+      "total": 345
+    },
+    "size": {
+      "accuracy": 86.11111111111111,
+      "correct": 31,
+      "total": 36
+    },
+    "temperature": {
+      "accuracy": 81.03448275862068,
+      "correct": 47,
+      "total": 58
+    },
+    "throwing": {
+      "accuracy": 44.146341463414636,
+      "correct": 181,
+      "total": 410
+    },
+    "viewpoint": {
+      "accuracy": 31.744518589132507,
+      "correct": 333,
+      "total": 1049
+    }
+  },
+  "by_ability_type": {
+    "comparison": {
+      "accuracy": 37.596626844694306,
+      "correct": 535,
+      "total": 1423
+    },
+    "dynamic": {
+      "accuracy": 71.95767195767195,
+      "correct": 136,
+      "total": 189
+    },
+    "identify": {
+      "accuracy": 68.36461126005362,
+      "correct": 765,
+      "total": 1119
+    },
+    "judgment": {
+      "accuracy": 27.249022164276404,
+      "correct": 209,
+      "total": 767
+    },
+    "perception": {
+      "accuracy": 56.25680087051143,
+      "correct": 517,
+      "total": 919
+    },
+    "prediction": {
+      "accuracy": 42.73684210526316,
+      "correct": 609,
+      "total": 1425
+    },
+    "reasoning": {
+      "accuracy": 33.41439688715953,
+      "correct": 687,
+      "total": 2056
+    },
+    "static": {
+      "accuracy": 44.918378093733544,
+      "correct": 853,
+      "total": 1899
+    }
+  },
+  "by_mode": {
+    "general": {
+      "accuracy": 30.79381992541289,
+      "correct": 578,
+      "total": 1877
+    },
+    "image&video": {
+      "accuracy": 46.823369102367565,
+      "correct": 2749,
+      "total": 5871
+    },
+    "image-only": {
+      "accuracy": 48.02342606149341,
+      "correct": 984,
+      "total": 2049
+    }
+  }
+}

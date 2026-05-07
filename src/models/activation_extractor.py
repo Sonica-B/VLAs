@@ -253,6 +253,8 @@ class ActivationExtractor:
 
         self._hooks: List[Any] = []
         self._captured: Dict[str, Optional[torch.Tensor]] = {s: None for s in STAGE_NAMES}
+        self._visual_token_indices: Optional[torch.Tensor] = None
+        self._n_visual_tokens_in_llm: Optional[int] = None
 
     def _get_module_by_path(self, path: str) -> nn.Module:
         """Resolve a dotted module path to the actual nn.Module."""
@@ -332,6 +334,10 @@ class ActivationExtractor:
         try:
             inputs = self._prepare_inputs(image, processor, text_prompt)
             inputs = {k: v.to(self.device) if hasattr(v, "to") else v for k, v in inputs.items()}
+
+            # Detect visual token positions in the LLM input sequence
+            self._detect_visual_token_positions(inputs)
+
             _ = self.model.generate(**inputs, max_new_tokens=1, do_sample=False)
         finally:
             self.clear_hooks()
@@ -512,6 +518,87 @@ class ActivationExtractor:
         return inputs
 
     # ------------------------------------------------------------------
+    # Visual token detection
+    # ------------------------------------------------------------------
+
+    def _detect_visual_token_positions(self, inputs: Dict[str, Any]) -> None:
+        """Detect which token positions in the LLM sequence are visual tokens.
+
+        For Qwen2.5-VL: the processor inserts special <|vision_start|> and
+        <|vision_end|> tokens around the visual token block. We find these
+        markers in input_ids to identify visual positions.
+
+        For other models: falls back to heuristic (first N tokens after
+        system prompt are visual).
+        """
+        self._visual_token_indices = None
+        self._n_visual_tokens_in_llm = None
+
+        if "input_ids" not in inputs:
+            return
+
+        input_ids = inputs["input_ids"]
+        if input_ids.dim() == 2:
+            input_ids = input_ids[0]  # [seq_len]
+
+        if self.model_name == "qwen2_5_vl_7b":
+            # Qwen2.5-VL uses special image tokens. The image_grid_thw tells
+            # us the spatial layout. After the merger (2×2 pooling), the number
+            # of visual tokens = prod(grid_thw) / 4 per image.
+            if "image_grid_thw" in inputs:
+                grid_thw = inputs["image_grid_thw"]
+                if grid_thw.dim() == 2:
+                    # [n_images, 3] → t, h, w for each image
+                    n_visual = 0
+                    for i in range(grid_thw.shape[0]):
+                        t, h, w = grid_thw[i].tolist()
+                        # After merger: h/2 * w/2 patches per temporal slice
+                        n_visual += int(t * (h // 2) * (w // 2))
+                    self._n_visual_tokens_in_llm = n_visual
+
+            # Try to find image placeholder token (151655 = <|image_pad|> in Qwen2.5-VL)
+            # The placeholder tokens mark visual positions in the input sequence
+            image_pad_id = 151655
+            vision_start_id = 151652  # <|vision_start|>
+            vision_end_id = 151653    # <|vision_end|>
+
+            ids_np = input_ids.cpu().numpy()
+
+            # Method 1: find vision_start/vision_end markers
+            start_pos = np.where(ids_np == vision_start_id)[0]
+            end_pos = np.where(ids_np == vision_end_id)[0]
+
+            if len(start_pos) > 0 and len(end_pos) > 0:
+                # Visual tokens are between start and end markers (exclusive)
+                vis_indices = list(range(int(start_pos[0]) + 1, int(end_pos[0])))
+                if vis_indices:
+                    self._visual_token_indices = torch.tensor(vis_indices, dtype=torch.long)
+                    self._n_visual_tokens_in_llm = len(vis_indices)
+                    logger.debug(f"Found {len(vis_indices)} visual tokens at positions {vis_indices[0]}-{vis_indices[-1]}")
+                    return
+
+            # Method 2: find image_pad tokens
+            pad_positions = np.where(ids_np == image_pad_id)[0]
+            if len(pad_positions) > 0:
+                self._visual_token_indices = torch.tensor(pad_positions, dtype=torch.long)
+                self._n_visual_tokens_in_llm = len(pad_positions)
+                logger.debug(f"Found {len(pad_positions)} image_pad tokens")
+                return
+
+        elif self.model_name == "llava_onevision_7b":
+            # LLaVA uses <image> token (32000) as placeholder
+            image_token_id = 32000
+            ids_np = input_ids.cpu().numpy()
+            positions = np.where(ids_np == image_token_id)[0]
+            if len(positions) > 0:
+                self._visual_token_indices = torch.tensor(positions, dtype=torch.long)
+                self._n_visual_tokens_in_llm = len(positions)
+                return
+
+        # Fallback: no explicit detection, _slice_visual_tokens will use n_patches
+        logger.debug("Could not detect visual token positions; using fallback slicing")
+
+    # ------------------------------------------------------------------
     # Token slicing
     # ------------------------------------------------------------------
 
@@ -521,17 +608,31 @@ class ActivationExtractor:
         """Extract visual token positions from a mixed visual+text sequence.
 
         At encoder stages (stage_1) all tokens are visual patches.
-        At LLM stages (2-4), visual tokens precede text tokens; we use the
-        first n_patches positions as an approximation.
-
-        For production use, replace with actual visual_token_mask from processor
-        outputs (e.g., image_token_mask in Qwen, pixel_values indices in LLaVA).
+        At post-projection (stage_2), the merger may change the token count
+        (Qwen's merger does 2×2 pooling, reducing tokens by 4×).
+        At LLM stages (3-4), visual tokens are interleaved with text tokens;
+        we use the stored visual token indices if available, otherwise fall
+        back to taking the first N visual token positions.
         """
         if stage == "stage_1_enc_out":
             return tensor
 
-        if tensor.shape[0] >= self.n_patches:
-            return tensor[: self.n_patches]
+        # If we have explicit visual token indices (set during _prepare_inputs)
+        if hasattr(self, "_visual_token_indices") and self._visual_token_indices is not None:
+            if stage in ("stage_3_llm_8", "stage_4_llm_16"):
+                indices = self._visual_token_indices
+                if indices.max() < tensor.shape[0]:
+                    return tensor[indices]
+
+        # For post-projection (merger output), return all tokens —
+        # the merger output is purely visual tokens
+        if stage == "stage_2_post_proj":
+            return tensor
+
+        # Fallback: take first n_patches tokens (or fewer if merger pooled)
+        n_visual = self._n_visual_tokens_in_llm or self.n_patches
+        if tensor.shape[0] >= n_visual:
+            return tensor[:n_visual]
         return tensor
 
     # ------------------------------------------------------------------

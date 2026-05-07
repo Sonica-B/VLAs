@@ -1,0 +1,107 @@
+{
+  "experiment": "H3/H4 Physics-Preserving Adapter",
+  "model": "Qwen2.5-VL-7B",
+  "n_scenes": 200,
+  "train_size": 160,
+  "test_size": 40,
+  "adapter_config": {
+    "bottleneck": 256,
+    "residual_scale": 0.1,
+    "epochs": 300,
+    "lr": 0.001,
+    "reg_weight": 0.01
+  },
+  "baseline_probing": {
+    "Encoder": {
+      "per_property": {
+        "mass": -0.41302764415740967,
+        "friction": -1.4884231090545654,
+        "elasticity": -0.9962996244430542
+      },
+      "mean_r2": -0.9659167925516764
+    },
+    "Merger": {
+      "per_property": {
+        "mass": -0.14700663089752197,
+        "friction": -1.0309433937072754,
+        "elasticity": -0.7205827236175537
+      },
+      "mean_r2": -0.6328442494074503
+    },
+    "LLM-8": {
+      "per_property": {
+        "mass": -0.2329864501953125,
+        "friction": -0.8977853059768677,
+        "elasticity": -0.5605995655059814
+      },
+      "mean_r2": -0.5637904405593872
+    },
+    "LLM-16": {
+      "per_property": {
+        "mass": -0.26197028160095215,
+        "friction": -1.081308364868164,
+        "elasticity": -0.46640825271606445
+      },
+      "mean_r2": -0.6032289663950602
+    }
+  },
+  "h4_adapter_on_merger": {
+    "stage": "stage_2_post_proj",
+    "baseline": {
+      "mass": -0.14700663089752197,
+      "friction": -1.0309433937072754,
+      "elasticity": -0.7205827236175537
+    },
+    "adapted": {
+      "mass": -0.06567263603210449,
+      "friction": -0.7546370029449463,
+      "elasticity": -0.7279155254364014
+    },
+    "mean_baseline": -0.6328442494074503,
+    "mean_adapted": -0.516075054804484,
+    "mean_delta": 0.11676919460296631
+  },
+  "h3_component_analysis": {
+    "Encoder": {
+      "per_property": {
+        "mass": -0.18419504165649414,
+        "friction": -1.4373104572296143,
+        "elasticity": -1.037039041519165
+      },
+      "mean_r2": -0.8861815134684244,
+      "baseline_mean_r2": -0.9659167925516764,
+      "delta": 0.07973527908325195
+    },
+    "Merger": {
+      "per_property": {
+        "mass": -0.06251311302185059,
+        "friction": -0.6954692602157593,
+        "elasticity": -0.6841309070587158
+      },
+      "mean_r2": -0.4807044267654419,
+      "baseline_mean_r2": -0.6328442494074503,
+      "delta": 0.15213982264200843
+    },
+    "LLM-8": {
+      "per_property": {
+        "mass": -0.19137072563171387,
+        "friction": -0.8339565992355347,
+        "elasticity": -0.5594943761825562
+      },
+      "mean_r2": -0.5282739003499349,
+      "baseline_mean_r2": -0.5637904405593872,
+      "delta": 0.035516540209452274
+    },
+    "LLM-16": {
+      "per_property": {
+        "mass": -0.2385309934616089,
+        "friction": -0.9651553630828857,
+        "elasticity": -0.4283181428909302
+      },
+      "mean_r2": -0.5440014998118082,
+      "baseline_mean_r2": -0.6032289663950602,
+      "delta": 0.05922746658325195
+    }
+  },
+  "h3_best_stage": "Merger"
+}

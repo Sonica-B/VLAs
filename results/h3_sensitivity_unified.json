@@ -1,0 +1,1027 @@
+{
+  "metadata": {
+    "panel_n": 10,
+    "panel": [
+      "internvl3-8b",
+      "gemma4-e4b",
+      "qwen2.5-vl-7b",
+      "qwen3-vl-8b",
+      "llava-onevision-7b",
+      "phi3.5-vision",
+      "granite-vision-3.2-2b",
+      "idefics3-8b",
+      "idefics2-8b",
+      "blip2-opt-2.7b"
+    ],
+    "epsilon_strict": 0.05,
+    "definition_note": "Unified H3 uses k-fold mean_acc available in every _quant_qual_probe.json. Strict variant: hit if enc_q > chance+0.05 AND enc_q > post_q. Lax variant: hit if enc_q > chance AND enc_q > post_q. The auto reference (scripts/compute_h3_hits.py) uses real_acc_pca128_split + permutation null p<0.05 \u2014 those fields are absent from the 4-baseline probe JSONs, hence the proxy."
+  },
+  "per_model": {
+    "internvl3-8b": {
+      "probe_path": "results\\week1\\internvl3-8b_quant_qual_probe.json",
+      "compression": 2.4,
+      "mechanism": "spatial-merge",
+      "h3_original": 0.0,
+      "h3_unified_strict": 0.0,
+      "h3_unified_lax": 0.0,
+      "delta_strict": 0.0,
+      "delta_lax": 0.0,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.3127,
+          "post_acc": 0.3309,
+          "chance": 0.3704,
+          "delta_enc_post": -0.0182,
+          "delta_enc_chance": -0.0576,
+          "degraded": false,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.8,
+          "post_acc": 0.8,
+          "chance": 0.4727,
+          "delta_enc_post": 0.0,
+          "delta_enc_chance": 0.3273,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.5636,
+          "post_acc": 0.6,
+          "chance": 0.3636,
+          "delta_enc_post": -0.0364,
+          "delta_enc_chance": 0.2,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": -0.018181818181818188,
+      "phys_lens_score": 0.0
+    },
+    "gemma4-e4b": {
+      "probe_path": "results\\week1\\gemma4-e4b_quant_qual_probe.json",
+      "compression": 114.0,
+      "mechanism": "spatial-merge",
+      "h3_original": 1.0,
+      "h3_unified_strict": 0.3333333333333333,
+      "h3_unified_lax": 0.3333333333333333,
+      "delta_strict": -0.6666666666666667,
+      "delta_lax": -0.6666666666666667,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.3691,
+          "post_acc": 0.3145,
+          "chance": 0.3704,
+          "delta_enc_post": 0.0545,
+          "delta_enc_chance": -0.0013,
+          "degraded": true,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.6909,
+          "post_acc": 0.6909,
+          "chance": 0.4727,
+          "delta_enc_post": 0.0,
+          "delta_enc_chance": 0.2182,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.5636,
+          "post_acc": 0.5455,
+          "chance": 0.3636,
+          "delta_enc_post": 0.0182,
+          "delta_enc_chance": 0.2,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.05454545454545451,
+      "phys_lens_score": 0.11219481007289843
+    },
+    "qwen2.5-vl-7b": {
+      "probe_path": "results\\week1\\qwen2.5-vl-7b_quant_qual_probe.json",
+      "compression": 270.0,
+      "mechanism": "spatial-merge",
+      "h3_original": 1.0,
+      "h3_unified_strict": 1.0,
+      "h3_unified_lax": 1.0,
+      "delta_strict": 0.0,
+      "delta_lax": 0.0,
+      "per_target": {
+        "answer": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.5,
+          "post_acc": 0.3891,
+          "chance": 0.3704,
+          "delta_enc_post": 0.1109,
+          "delta_enc_chance": 0.1296,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "task_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.7455,
+          "post_acc": 0.7273,
+          "chance": 0.4727,
+          "delta_enc_post": 0.0182,
+          "delta_enc_chance": 0.2727,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.6,
+          "post_acc": 0.5455,
+          "chance": 0.3636,
+          "delta_enc_post": 0.0545,
+          "delta_enc_chance": 0.2364,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.11090909090909096,
+      "phys_lens_score": 0.2696603447521787
+    },
+    "qwen3-vl-8b": {
+      "probe_path": "results\\week1\\qwen3-vl-8b_quant_qual_probe.json",
+      "compression": 784.0,
+      "mechanism": "spatial-merge",
+      "h3_original": 0.6666666666666666,
+      "h3_unified_strict": 0.6666666666666666,
+      "h3_unified_lax": 0.6666666666666666,
+      "delta_strict": 0.0,
+      "delta_lax": 0.0,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.3309,
+          "post_acc": 0.3491,
+          "chance": 0.3704,
+          "delta_enc_post": -0.0182,
+          "delta_enc_chance": -0.0395,
+          "degraded": false,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.8182,
+          "post_acc": 0.6909,
+          "chance": 0.4727,
+          "delta_enc_post": 0.1273,
+          "delta_enc_chance": 0.3455,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.5818,
+          "post_acc": 0.5636,
+          "chance": 0.3636,
+          "delta_enc_post": 0.0182,
+          "delta_enc_chance": 0.2182,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": -0.018181818181818132,
+      "phys_lens_score": 0.0
+    },
+    "llava-onevision-7b": {
+      "probe_path": "results\\week1_turing\\llava-onevision-7b_quant_qual_probe.json",
+      "compression": 1.0,
+      "mechanism": "no-compression",
+      "h3_original": 0.3333333333333333,
+      "h3_unified_strict": 0.3333333333333333,
+      "h3_unified_lax": 0.3333333333333333,
+      "delta_strict": 0.0,
+      "delta_lax": 0.0,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.2333,
+          "post_acc": 0.1889,
+          "chance": 0.4043,
+          "delta_enc_post": 0.0444,
+          "delta_enc_chance": -0.1709,
+          "degraded": true,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.5867,
+          "post_acc": 0.6089,
+          "chance": 0.4583,
+          "delta_enc_post": -0.0222,
+          "delta_enc_chance": 0.1283,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.5,
+          "post_acc": 0.4792,
+          "chance": 0.3542,
+          "delta_enc_post": 0.0208,
+          "delta_enc_chance": 0.1458,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.044444444444444425,
+      "phys_lens_score": 0.0
+    },
+    "phi3.5-vision": {
+      "probe_path": "results\\week1_turing\\phi3.5-vision_quant_qual_probe.json",
+      "compression": 1.0,
+      "mechanism": "no-compression",
+      "h3_original": 0.3333333333333333,
+      "h3_unified_strict": 0.3333333333333333,
+      "h3_unified_lax": 0.3333333333333333,
+      "delta_strict": 0.0,
+      "delta_lax": 0.0,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.2733,
+          "post_acc": 0.1689,
+          "chance": 0.4043,
+          "delta_enc_post": 0.1044,
+          "delta_enc_chance": -0.1309,
+          "degraded": true,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.6711,
+          "post_acc": 0.6489,
+          "chance": 0.4583,
+          "delta_enc_post": 0.0222,
+          "delta_enc_chance": 0.2128,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.4792,
+          "post_acc": 0.5,
+          "chance": 0.3542,
+          "delta_enc_post": -0.0208,
+          "delta_enc_chance": 0.125,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.10444444444444442,
+      "phys_lens_score": 0.0
+    },
+    "granite-vision-3.2-2b": {
+      "probe_path": "results\\week1_turing\\granite-vision-3.2-2b_quant_qual_probe.json",
+      "compression": 1.0,
+      "mechanism": "no-compression",
+      "h3_original": 0.0,
+      "h3_unified_strict": 0.0,
+      "h3_unified_lax": 0.0,
+      "delta_strict": 0.0,
+      "delta_lax": 0.0,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.2333,
+          "post_acc": 0.1889,
+          "chance": 0.4043,
+          "delta_enc_post": 0.0444,
+          "delta_enc_chance": -0.1709,
+          "degraded": true,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.5844,
+          "post_acc": 0.6267,
+          "chance": 0.4583,
+          "delta_enc_post": -0.0422,
+          "delta_enc_chance": 0.1261,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.5208,
+          "post_acc": 0.5625,
+          "chance": 0.3542,
+          "delta_enc_post": -0.0417,
+          "delta_enc_chance": 0.1667,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.044444444444444425,
+      "phys_lens_score": 0.0
+    },
+    "idefics3-8b": {
+      "probe_path": "results\\week1_turing\\idefics3-8b_quant_qual_probe.json",
+      "compression": 4.0,
+      "mechanism": "learned-resampler",
+      "h3_original": 0.0,
+      "h3_unified_strict": 0.3333333333333333,
+      "h3_unified_lax": 0.3333333333333333,
+      "delta_strict": 0.3333333333333333,
+      "delta_lax": 0.3333333333333333,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.2133,
+          "post_acc": 0.1689,
+          "chance": 0.4043,
+          "delta_enc_post": 0.0444,
+          "delta_enc_chance": -0.1909,
+          "degraded": true,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.5867,
+          "post_acc": 0.6267,
+          "chance": 0.4583,
+          "delta_enc_post": -0.04,
+          "delta_enc_chance": 0.1283,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.5208,
+          "post_acc": 0.5,
+          "chance": 0.3542,
+          "delta_enc_post": 0.0208,
+          "delta_enc_chance": 0.1667,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.044444444444444425,
+      "phys_lens_score": 0.026758221836798317
+    },
+    "idefics2-8b": {
+      "probe_path": "results\\week1_turing\\idefics2-8b_quant_qual_probe.json",
+      "compression": 11.4,
+      "mechanism": "learned-resampler",
+      "h3_original": 0.0,
+      "h3_unified_strict": 0.3333333333333333,
+      "h3_unified_lax": 0.3333333333333333,
+      "delta_strict": 0.3333333333333333,
+      "delta_lax": 0.3333333333333333,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.32,
+          "post_acc": 0.2111,
+          "chance": 0.4043,
+          "delta_enc_post": 0.1089,
+          "delta_enc_chance": -0.0843,
+          "degraded": true,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.6422,
+          "post_acc": 0.6867,
+          "chance": 0.4583,
+          "delta_enc_post": -0.0444,
+          "delta_enc_chance": 0.1839,
+          "degraded": false,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.5625,
+          "post_acc": 0.5208,
+          "chance": 0.3542,
+          "delta_enc_post": 0.0417,
+          "delta_enc_chance": 0.2083,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": 0.1088888888888889,
+      "phys_lens_score": 0.11508519492330481
+    },
+    "blip2-opt-2.7b": {
+      "probe_path": "results\\week1_turing\\blip2-opt-2.7b_quant_qual_probe.json",
+      "compression": 8.0,
+      "mechanism": "learned-resampler",
+      "h3_original": 0.0,
+      "h3_unified_strict": 0.6666666666666666,
+      "h3_unified_lax": 0.6666666666666666,
+      "delta_strict": 0.6666666666666666,
+      "delta_lax": 0.6666666666666666,
+      "per_target": {
+        "answer": {
+          "strict_hit": false,
+          "lax_hit": false,
+          "enc_acc": 0.32,
+          "post_acc": 0.32,
+          "chance": 0.4043,
+          "delta_enc_post": -0.0,
+          "delta_enc_chance": -0.0843,
+          "degraded": false,
+          "above_chance_strict": false,
+          "above_chance_lax": false
+        },
+        "task_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.6489,
+          "post_acc": 0.6267,
+          "chance": 0.4583,
+          "delta_enc_post": 0.0222,
+          "delta_enc_chance": 0.1906,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        },
+        "sub_type": {
+          "strict_hit": true,
+          "lax_hit": true,
+          "enc_acc": 0.6042,
+          "post_acc": 0.5417,
+          "chance": 0.3542,
+          "delta_enc_post": 0.0625,
+          "delta_enc_chance": 0.25,
+          "degraded": true,
+          "above_chance_strict": true,
+          "above_chance_lax": true
+        }
+      },
+      "enc_minus_postproj_gap_answer": -5.551115123125783e-17,
+      "phys_lens_score": 0.0
+    }
+  },
+  "enc_post_gap_answer": {
+    "internvl3-8b": -0.018181818181818188,
+    "gemma4-e4b": 0.05454545454545451,
+    "qwen2.5-vl-7b": 0.11090909090909096,
+    "qwen3-vl-8b": -0.018181818181818132,
+    "llava-onevision-7b": 0.044444444444444425,
+    "phi3.5-vision": 0.10444444444444442,
+    "granite-vision-3.2-2b": 0.044444444444444425,
+    "idefics3-8b": 0.044444444444444425,
+    "idefics2-8b": 0.1088888888888889,
+    "blip2-opt-2.7b": -5.551115123125783e-17
+  },
+  "mechanism_means": {
+    "original_mixed_definition": {
+      "spatial-merge": {
+        "n": 4,
+        "mean": 0.6666666666666666,
+        "std": 0.408248290463863,
+        "values": [
+          [
+            "internvl3-8b",
+            0.0
+          ],
+          [
+            "gemma4-e4b",
+            1.0
+          ],
+          [
+            "qwen2.5-vl-7b",
+            1.0
+          ],
+          [
+            "qwen3-vl-8b",
+            0.6666666666666666
+          ]
+        ]
+      },
+      "learned-resampler": {
+        "n": 3,
+        "mean": 0.0,
+        "std": 0.0,
+        "values": [
+          [
+            "idefics3-8b",
+            0.0
+          ],
+          [
+            "idefics2-8b",
+            0.0
+          ],
+          [
+            "blip2-opt-2.7b",
+            0.0
+          ]
+        ]
+      },
+      "no-compression": {
+        "n": 3,
+        "mean": 0.2222222222222222,
+        "std": 0.15713484026367722,
+        "values": [
+          [
+            "llava-onevision-7b",
+            0.3333333333333333
+          ],
+          [
+            "phi3.5-vision",
+            0.3333333333333333
+          ],
+          [
+            "granite-vision-3.2-2b",
+            0.0
+          ]
+        ]
+      }
+    },
+    "unified_strict": {
+      "spatial-merge": {
+        "n": 4,
+        "mean": 0.5,
+        "std": 0.37267799624996495,
+        "values": [
+          [
+            "internvl3-8b",
+            0.0
+          ],
+          [
+            "gemma4-e4b",
+            0.3333333333333333
+          ],
+          [
+            "qwen2.5-vl-7b",
+            1.0
+          ],
+          [
+            "qwen3-vl-8b",
+            0.6666666666666666
+          ]
+        ]
+      },
+      "learned-resampler": {
+        "n": 3,
+        "mean": 0.4444444444444444,
+        "std": 0.15713484026367722,
+        "values": [
+          [
+            "idefics3-8b",
+            0.3333333333333333
+          ],
+          [
+            "idefics2-8b",
+            0.3333333333333333
+          ],
+          [
+            "blip2-opt-2.7b",
+            0.6666666666666666
+          ]
+        ]
+      },
+      "no-compression": {
+        "n": 3,
+        "mean": 0.2222222222222222,
+        "std": 0.15713484026367722,
+        "values": [
+          [
+            "llava-onevision-7b",
+            0.3333333333333333
+          ],
+          [
+            "phi3.5-vision",
+            0.3333333333333333
+          ],
+          [
+            "granite-vision-3.2-2b",
+            0.0
+          ]
+        ]
+      }
+    },
+    "unified_lax": {
+      "spatial-merge": {
+        "n": 4,
+        "mean": 0.5,
+        "std": 0.37267799624996495,
+        "values": [
+          [
+            "internvl3-8b",
+            0.0
+          ],
+          [
+            "gemma4-e4b",
+            0.3333333333333333
+          ],
+          [
+            "qwen2.5-vl-7b",
+            1.0
+          ],
+          [
+            "qwen3-vl-8b",
+            0.6666666666666666
+          ]
+        ]
+      },
+      "learned-resampler": {
+        "n": 3,
+        "mean": 0.4444444444444444,
+        "std": 0.15713484026367722,
+        "values": [
+          [
+            "idefics3-8b",
+            0.3333333333333333
+          ],
+          [
+            "idefics2-8b",
+            0.3333333333333333
+          ],
+          [
+            "blip2-opt-2.7b",
+            0.6666666666666666
+          ]
+        ]
+      },
+      "no-compression": {
+        "n": 3,
+        "mean": 0.2222222222222222,
+        "std": 0.15713484026367722,
+        "values": [
+          [
+            "llava-onevision-7b",
+            0.3333333333333333
+          ],
+          [
+            "phi3.5-vision",
+            0.3333333333333333
+          ],
+          [
+            "granite-vision-3.2-2b",
+            0.0
+          ]
+        ]
+      }
+    }
+  },
+  "mechanism_gap_pp": {
+    "original": 0.4444444444444444,
+    "unified_strict": 0.05555555555555558,
+    "unified_lax": 0.05555555555555558
+  },
+  "loo_regression": {
+    "original_mixed_definition": {
+      "per_model_loo": {
+        "internvl3-8b": {
+          "predicted": 0.21143767200655306,
+          "predicted_raw": 0.21143767200655306,
+          "empirical": 0.0,
+          "abs_error": 0.21143767200655306,
+          "train_a": 2.731331271240066,
+          "train_b": 0.21143767200655306
+        },
+        "gemma4-e4b": {
+          "predicted": 0.41889506350184946,
+          "predicted_raw": 0.41889506350184946,
+          "empirical": 1.0,
+          "abs_error": 0.5811049364981505,
+          "train_a": 2.401543450004054,
+          "train_b": 0.14945435224683137
+        },
+        "qwen2.5-vl-7b": {
+          "predicted": 0.8365403673942211,
+          "predicted_raw": 0.8365403673942211,
+          "empirical": 1.0,
+          "abs_error": 0.1634596326057789,
+          "train_a": 2.39105265525035,
+          "train_b": 0.19176828405879942
+        },
+        "qwen3-vl-8b": {
+          "predicted": 0.10455022138892012,
+          "predicted_raw": 0.10455022138892012,
+          "empirical": 0.6666666666666666,
+          "abs_error": 0.5621164452777465,
+          "train_a": 3.2952441877831173,
+          "train_b": 0.10455022138892012
+        },
+        "llava-onevision-7b": {
+          "predicted": 0.15799394669773653,
+          "predicted_raw": 0.15799394669773653,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.17533938663559678,
+          "train_a": 3.0132877295115916,
+          "train_b": 0.15799394669773653
+        },
+        "phi3.5-vision": {
+          "predicted": 0.15799394669773653,
+          "predicted_raw": 0.15799394669773653,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.17533938663559678,
+          "train_a": 3.0132877295115916,
+          "train_b": 0.15799394669773653
+        },
+        "granite-vision-3.2-2b": {
+          "predicted": 0.21143767200655286,
+          "predicted_raw": 0.21143767200655286,
+          "empirical": 0.0,
+          "abs_error": 0.21143767200655286,
+          "train_a": 2.7313312712400664,
+          "train_b": 0.21143767200655286
+        },
+        "idefics3-8b": {
+          "predicted": 0.29121203921430683,
+          "predicted_raw": 0.29121203921430683,
+          "empirical": 0.0,
+          "abs_error": 0.29121203921430683,
+          "train_a": 2.781645808459591,
+          "train_b": 0.21678014360014486
+        },
+        "idefics2-8b": {
+          "predicted": 0.6084550572277947,
+          "predicted_raw": 0.6084550572277947,
+          "empirical": 0.0,
+          "abs_error": 0.6084550572277947,
+          "train_a": 3.416647758086271,
+          "train_b": 0.21524948400416388
+        },
+        "blip2-opt-2.7b": {
+          "predicted": 0.21143767200655303,
+          "predicted_raw": 0.21143767200655303,
+          "empirical": 0.0,
+          "abs_error": 0.21143767200655303,
+          "train_a": 2.7313312712400664,
+          "train_b": 0.21143767200655303
+        }
+      },
+      "median_abs_error": 0.21143767200655306,
+      "spearman_rho": 0.02611981211041935,
+      "spearman_p": 0.9429018765236609,
+      "spearman_bootstrap_ci95": [
+        -0.9319388905786781,
+        0.7231228546273278
+      ],
+      "n_models": 10,
+      "kill_gate_fired": true
+    },
+    "unified_strict": {
+      "per_model_loo": {
+        "internvl3-8b": {
+          "predicted": 0.34159955777457696,
+          "predicted_raw": 0.34159955777457696,
+          "empirical": 0.0,
+          "abs_error": 0.34159955777457696,
+          "train_a": 1.7674365183527283,
+          "train_b": 0.34159955777457696
+        },
+        "gemma4-e4b": {
+          "predicted": 0.5536411016655547,
+          "predicted_raw": 0.5536411016655547,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.22030776833222138,
+          "train_a": 2.1999235840718376,
+          "train_b": 0.3068210929757249
+        },
+        "qwen2.5-vl-7b": {
+          "predicted": 0.3333333333333338,
+          "predicted_raw": 0.3333333333333338,
+          "empirical": 1.0,
+          "abs_error": 0.6666666666666662,
+          "train_a": 1.7823067135680046e-15,
+          "train_b": 0.3333333333333333
+        },
+        "qwen3-vl-8b": {
+          "predicted": 0.23471210715694416,
+          "predicted_raw": 0.23471210715694416,
+          "empirical": 0.6666666666666666,
+          "abs_error": 0.4319545595097225,
+          "train_a": 2.3313494348957775,
+          "train_b": 0.23471210715694416
+        },
+        "llava-onevision-7b": {
+          "predicted": 0.28815583246576054,
+          "predicted_raw": 0.28815583246576054,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.04517750086757277,
+          "train_a": 2.0493929766242522,
+          "train_b": 0.28815583246576054
+        },
+        "phi3.5-vision": {
+          "predicted": 0.28815583246576054,
+          "predicted_raw": 0.28815583246576054,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.04517750086757277,
+          "train_a": 2.0493929766242522,
+          "train_b": 0.28815583246576054
+        },
+        "granite-vision-3.2-2b": {
+          "predicted": 0.341599557774577,
+          "predicted_raw": 0.341599557774577,
+          "empirical": 0.0,
+          "abs_error": 0.341599557774577,
+          "train_a": 1.767436518352727,
+          "train_b": 0.341599557774577
+        },
+        "idefics3-8b": {
+          "predicted": 0.3501953540757594,
+          "predicted_raw": 0.3501953540757594,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.016862020742426098,
+          "train_a": 2.0104474919966124,
+          "train_b": 0.29639935409367923
+        },
+        "idefics2-8b": {
+          "predicted": 0.5618215601055039,
+          "predicted_raw": 0.5618215601055039,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.22848822677217057,
+          "train_a": 2.215929027592942,
+          "train_b": 0.30680093602876085
+        },
+        "blip2-opt-2.7b": {
+          "predicted": 0.23471210715694435,
+          "predicted_raw": 0.23471210715694435,
+          "empirical": 0.6666666666666666,
+          "abs_error": 0.4319545595097223,
+          "train_a": 2.331349434895779,
+          "train_b": 0.23471210715694435
+        }
+      },
+      "median_abs_error": 0.2850438922733738,
+      "spearman_rho": -0.48974647707036273,
+      "spearman_p": 0.15077022936736548,
+      "spearman_bootstrap_ci95": [
+        -0.8611114428638165,
+        0.11311728651014583
+      ],
+      "n_models": 10,
+      "kill_gate_fired": true
+    },
+    "unified_lax": {
+      "per_model_loo": {
+        "internvl3-8b": {
+          "predicted": 0.34159955777457696,
+          "predicted_raw": 0.34159955777457696,
+          "empirical": 0.0,
+          "abs_error": 0.34159955777457696,
+          "train_a": 1.7674365183527283,
+          "train_b": 0.34159955777457696
+        },
+        "gemma4-e4b": {
+          "predicted": 0.5536411016655547,
+          "predicted_raw": 0.5536411016655547,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.22030776833222138,
+          "train_a": 2.1999235840718376,
+          "train_b": 0.3068210929757249
+        },
+        "qwen2.5-vl-7b": {
+          "predicted": 0.3333333333333338,
+          "predicted_raw": 0.3333333333333338,
+          "empirical": 1.0,
+          "abs_error": 0.6666666666666662,
+          "train_a": 1.7823067135680046e-15,
+          "train_b": 0.3333333333333333
+        },
+        "qwen3-vl-8b": {
+          "predicted": 0.23471210715694416,
+          "predicted_raw": 0.23471210715694416,
+          "empirical": 0.6666666666666666,
+          "abs_error": 0.4319545595097225,
+          "train_a": 2.3313494348957775,
+          "train_b": 0.23471210715694416
+        },
+        "llava-onevision-7b": {
+          "predicted": 0.28815583246576054,
+          "predicted_raw": 0.28815583246576054,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.04517750086757277,
+          "train_a": 2.0493929766242522,
+          "train_b": 0.28815583246576054
+        },
+        "phi3.5-vision": {
+          "predicted": 0.28815583246576054,
+          "predicted_raw": 0.28815583246576054,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.04517750086757277,
+          "train_a": 2.0493929766242522,
+          "train_b": 0.28815583246576054
+        },
+        "granite-vision-3.2-2b": {
+          "predicted": 0.341599557774577,
+          "predicted_raw": 0.341599557774577,
+          "empirical": 0.0,
+          "abs_error": 0.341599557774577,
+          "train_a": 1.767436518352727,
+          "train_b": 0.341599557774577
+        },
+        "idefics3-8b": {
+          "predicted": 0.3501953540757594,
+          "predicted_raw": 0.3501953540757594,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.016862020742426098,
+          "train_a": 2.0104474919966124,
+          "train_b": 0.29639935409367923
+        },
+        "idefics2-8b": {
+          "predicted": 0.5618215601055039,
+          "predicted_raw": 0.5618215601055039,
+          "empirical": 0.3333333333333333,
+          "abs_error": 0.22848822677217057,
+          "train_a": 2.215929027592942,
+          "train_b": 0.30680093602876085
+        },
+        "blip2-opt-2.7b": {
+          "predicted": 0.23471210715694435,
+          "predicted_raw": 0.23471210715694435,
+          "empirical": 0.6666666666666666,
+          "abs_error": 0.4319545595097223,
+          "train_a": 2.331349434895779,
+          "train_b": 0.23471210715694435
+        }
+      },
+      "median_abs_error": 0.2850438922733738,
+      "spearman_rho": -0.48974647707036273,
+      "spearman_p": 0.15077022936736548,
+      "spearman_bootstrap_ci95": [
+        -0.8611114428638165,
+        0.11311728651014583
+      ],
+      "n_models": 10,
+      "kill_gate_fired": true
+    }
+  },
+  "verdict": {
+    "mechanism_finding_survives_strict": {
+      "survives": false,
+      "spatial_merge_top": true,
+      "gap_pp": 0.05555555555555558,
+      "criterion": "spatial-merge top AND gap >= 0.20"
+    },
+    "mechanism_finding_survives_lax": {
+      "survives": false,
+      "spatial_merge_top": true,
+      "gap_pp": 0.05555555555555558,
+      "criterion": "spatial-merge top AND gap >= 0.20"
+    },
+    "kill_gate_fired_original": true,
+    "kill_gate_fired_unified_strict": true,
+    "kill_gate_fired_unified_lax": true
+  }
+}

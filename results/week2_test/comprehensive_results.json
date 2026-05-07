@@ -1,0 +1,294 @@
+{
+  "experiment": "week2_day10-14_vlm_probing",
+  "timestamp": "2026-04-03 14:12:57",
+  "metadata": {
+    "n_scenes": 50,
+    "seed": 42,
+    "deconfounding": {
+      "mass_hue_r": 0.019887762318037114,
+      "mass_brightness_r": 0.08293455289086915,
+      "n_objects_total": 233.0
+    },
+    "image_size": 224,
+    "model": "vit-base-patch16-224 (test)"
+  },
+  "probe_results": {
+    "stage_1_enc_out": {
+      "mass": {
+        "r2": 0.15226292610168457,
+        "pearson_r": 0.43406537900997233,
+        "mse": 6.170636177062988,
+        "mae": 1.884443998336792,
+        "ci_95": [
+          -0.012076976895332336,
+          0.29676895737648007
+        ],
+        "permutation_r2_mean": -0.3005665302276611,
+        "permutation_r2_std": 0.09192403122073775,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "friction": {
+        "r2": 0.200603187084198,
+        "pearson_r": 0.4900522501445507,
+        "mse": 0.06164189428091049,
+        "mae": 0.19290943443775177,
+        "ci_95": [
+          0.043654231727123266,
+          0.34375546127557743
+        ],
+        "permutation_r2_mean": -0.3031796932220459,
+        "permutation_r2_std": 0.09443695800612524,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "elasticity": {
+        "r2": -0.03936362266540527,
+        "pearson_r": 0.27629752813474007,
+        "mse": 0.06961449980735779,
+        "mae": 0.21622218191623688,
+        "ci_95": [
+          -0.21200019121170044,
+          0.11241925954818723
+        ],
+        "permutation_r2_mean": -0.3407485008239746,
+        "permutation_r2_std": 0.07447042577882866,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      }
+    },
+    "stage_2_post_proj": {
+      "mass": {
+        "r2": 0.3703773617744446,
+        "pearson_r": 0.6161691584624,
+        "mse": 4.582992076873779,
+        "mae": 1.6038470268249512,
+        "ci_95": [
+          0.19131540805101394,
+          0.5165019243955612
+        ],
+        "permutation_r2_mean": -0.29194786548614504,
+        "permutation_r2_std": 0.06969310734874937,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "friction": {
+        "r2": 0.46017777919769287,
+        "pearson_r": 0.6794216346585934,
+        "mse": 0.041625965386629105,
+        "mae": 0.15090647339820862,
+        "ci_95": [
+          0.3040721699595451,
+          0.5882452622056007
+        ],
+        "permutation_r2_mean": -0.3408177137374878,
+        "permutation_r2_std": 0.07448555583488407,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "elasticity": {
+        "r2": 0.2677941918373108,
+        "pearson_r": 0.5566858644609133,
+        "mse": 0.049041684716939926,
+        "mae": 0.1724880039691925,
+        "ci_95": [
+          0.09383183270692826,
+          0.42751463353633873
+        ],
+        "permutation_r2_mean": -0.33925518989562986,
+        "permutation_r2_std": 0.08883925451234258,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      }
+    },
+    "stage_3_llm_8": {
+      "mass": {
+        "r2": 0.509849488735199,
+        "pearson_r": 0.7141090383638694,
+        "mse": 3.5677812099456787,
+        "mae": 1.3774464130401611,
+        "ci_95": [
+          0.3736068427562714,
+          0.6136699631810189
+        ],
+        "permutation_r2_mean": -0.27856884002685545,
+        "permutation_r2_std": 0.1040023485803527,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "friction": {
+        "r2": 0.5597350597381592,
+        "pearson_r": 0.7498459032649035,
+        "mse": 0.03394905477762222,
+        "mae": 0.13700135052204132,
+        "ci_95": [
+          0.439841628074646,
+          0.6534323036670685
+        ],
+        "permutation_r2_mean": -0.3601786017417908,
+        "permutation_r2_std": 0.12022209239396933,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "elasticity": {
+        "r2": 0.405742347240448,
+        "pearson_r": 0.6495293412077062,
+        "mse": 0.0398021936416626,
+        "mae": 0.1458258330821991,
+        "ci_95": [
+          0.20955581665039064,
+          0.5616398528218269
+        ],
+        "permutation_r2_mean": -0.3191399335861206,
+        "permutation_r2_std": 0.0967460326875102,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      }
+    },
+    "stage_4_llm_16": {
+      "mass": {
+        "r2": 0.5318924188613892,
+        "pearson_r": 0.7306297105864263,
+        "mse": 3.407331943511963,
+        "mae": 1.2795658111572266,
+        "ci_95": [
+          0.3822778150439262,
+          0.6494884103536606
+        ],
+        "permutation_r2_mean": -0.23544572591781615,
+        "permutation_r2_std": 0.06947541255629011,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "friction": {
+        "r2": 0.5821704864501953,
+        "pearson_r": 0.7645314155589101,
+        "mse": 0.032219048589468,
+        "mae": 0.13443078100681305,
+        "ci_95": [
+          0.4633600413799286,
+          0.6761280462145804
+        ],
+        "permutation_r2_mean": -0.2666625499725342,
+        "permutation_r2_std": 0.09758022354036154,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      },
+      "elasticity": {
+        "r2": 0.4399334192276001,
+        "pearson_r": 0.6663350760315969,
+        "mse": 0.03751214221119881,
+        "mae": 0.14948365092277527,
+        "ci_95": [
+          0.293971486389637,
+          0.5561809107661247
+        ],
+        "permutation_r2_mean": -0.2854601263999939,
+        "permutation_r2_std": 0.07336944675219513,
+        "best_alpha": 100.0,
+        "n_train": 770,
+        "n_test": 193
+      }
+    }
+  },
+  "spatial_metrics": {
+    "stage_1_enc_out": {
+      "mass": {
+        "morans_i": 0.18877711955628462,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.9608307564258576,
+        "r2_map_std": 0.030894145397380567
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    },
+    "stage_2_post_proj": {
+      "mass": {
+        "morans_i": 0.2726239185608443,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.9698369789123535,
+        "r2_map_std": 0.0192530757648149
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    },
+    "stage_3_llm_8": {
+      "mass": {
+        "morans_i": -0.07950090941380235,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.9730965292453766,
+        "r2_map_std": 0.016907429756354668
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    },
+    "stage_4_llm_16": {
+      "mass": {
+        "morans_i": -0.015484164047429928,
+        "spatial_precision": 1.0,
+        "spatial_recall": 1.0,
+        "spatial_f1": 1.0,
+        "r2_map_mean": 0.9746485590934754,
+        "r2_map_std": 0.015011324766457015
+      },
+      "hue": {
+        "morans_i": 0.0,
+        "spatial_precision": 0.0,
+        "spatial_recall": 0.0,
+        "spatial_f1": 0.0,
+        "r2_map_mean": NaN,
+        "r2_map_std": NaN
+      }
+    }
+  },
+  "differential_degradation": {
+    "mass_r2_by_stage": {
+      "stage_1_enc_out": 0.15226292610168457,
+      "stage_2_post_proj": 0.3703773617744446,
+      "stage_3_llm_8": 0.509849488735199,
+      "stage_4_llm_16": 0.5318924188613892
+    },
+    "hue_r2_by_stage": {},
+    "mass_total_degradation": -0.3796294927597046
+  },
+  "summary": {
+    "key_findings": [
+      "Mass best decoded at stage_4_llm_16 (R\u00b2=0.5319)"
+    ]
+  }
+}

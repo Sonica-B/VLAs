@@ -1,0 +1,595 @@
+{
+  "model": "pixtral-12b",
+  "model_hf_id": "mistral-community/pixtral-12b",
+  "split": "val",
+  "n_samples": 200,
+  "n_quant": 55,
+  "n_qual": 145,
+  "targets": [
+    "answer",
+    "task_type",
+    "sub_type"
+  ],
+  "probe_results": {
+    "answer": {
+      "enc_out": {
+        "all": {
+          "mean_acc": 0.47727272727272724,
+          "std_acc": 0.15212000482437738,
+          "folds": [
+            0.25,
+            0.5,
+            0.45454545454545453,
+            0.7272727272727273,
+            0.45454545454545453
+          ],
+          "n": 57,
+          "chance": 0.3508771929824561,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.4000000000000001,
+          "std_acc": 0.1632993161855452,
+          "folds": [
+            0.6,
+            0.2,
+            0.4
+          ],
+          "n": 15,
+          "chance": 0.3333333333333333,
+          "method": "stratified-3fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.475,
+          "std_acc": 0.18704162077258252,
+          "folds": [
+            0.5555555555555556,
+            0.4444444444444444,
+            0.625,
+            0.625,
+            0.125
+          ],
+          "n": 42,
+          "chance": 0.40476190476190477,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 1024
+      },
+      "post_proj": {
+        "all": {
+          "mean_acc": 0.42272727272727273,
+          "std_acc": 0.1592279352172079,
+          "folds": [
+            0.3333333333333333,
+            0.4166666666666667,
+            0.36363636363636365,
+            0.7272727272727273,
+            0.2727272727272727
+          ],
+          "n": 57,
+          "chance": 0.3508771929824561,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.39999999999999997,
+          "std_acc": 0.282842712474619,
+          "folds": [
+            0.6,
+            0.0,
+            0.6
+          ],
+          "n": 15,
+          "chance": 0.3333333333333333,
+          "method": "stratified-3fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.3833333333333333,
+          "std_acc": 0.12222222222222223,
+          "folds": [
+            0.4444444444444444,
+            0.2222222222222222,
+            0.5,
+            0.5,
+            0.25
+          ],
+          "n": 42,
+          "chance": 0.40476190476190477,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      },
+      "llm_8": {
+        "all": {
+          "mean_acc": 0.38939393939393935,
+          "std_acc": 0.1303030303030303,
+          "folds": [
+            0.25,
+            0.3333333333333333,
+            0.36363636363636365,
+            0.6363636363636364,
+            0.36363636363636365
+          ],
+          "n": 57,
+          "chance": 0.3508771929824561,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.39999999999999997,
+          "std_acc": 0.282842712474619,
+          "folds": [
+            0.6,
+            0.0,
+            0.6
+          ],
+          "n": 15,
+          "chance": 0.3333333333333333,
+          "method": "stratified-3fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.4083333333333333,
+          "std_acc": 0.15255033575273313,
+          "folds": [
+            0.4444444444444444,
+            0.2222222222222222,
+            0.625,
+            0.5,
+            0.25
+          ],
+          "n": 42,
+          "chance": 0.40476190476190477,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      },
+      "llm_16": {
+        "all": {
+          "mean_acc": 0.4045454545454545,
+          "std_acc": 0.12490584148803,
+          "folds": [
+            0.3333333333333333,
+            0.4166666666666667,
+            0.36363636363636365,
+            0.6363636363636364,
+            0.2727272727272727
+          ],
+          "n": 57,
+          "chance": 0.3508771929824561,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.3333333333333333,
+          "std_acc": 0.24944382578492943,
+          "folds": [
+            0.6,
+            0.0,
+            0.4
+          ],
+          "n": 15,
+          "chance": 0.3333333333333333,
+          "method": "stratified-3fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.40555555555555556,
+          "std_acc": 0.1401057801435388,
+          "folds": [
+            0.5555555555555556,
+            0.2222222222222222,
+            0.5,
+            0.5,
+            0.25
+          ],
+          "n": 42,
+          "chance": 0.40476190476190477,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      }
+    },
+    "task_type": {
+      "enc_out": {
+        "all": {
+          "mean_acc": 0.7575757575757576,
+          "std_acc": 0.13243499020249794,
+          "folds": [
+            0.8333333333333334,
+            0.8333333333333334,
+            0.6666666666666666,
+            0.5454545454545454,
+            0.9090909090909091
+          ],
+          "n": 58,
+          "chance": 0.39655172413793105,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.8666666666666666,
+          "std_acc": 0.16329931618554522,
+          "folds": [
+            1.0,
+            1.0,
+            1.0,
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.8083333333333332,
+          "std_acc": 0.19649710204252663,
+          "folds": [
+            0.6666666666666666,
+            0.875,
+            1.0,
+            0.5,
+            1.0
+          ],
+          "n": 41,
+          "chance": 0.5609756097560976,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 1024
+      },
+      "post_proj": {
+        "all": {
+          "mean_acc": 0.7242424242424242,
+          "std_acc": 0.0837592421883955,
+          "folds": [
+            0.6666666666666666,
+            0.8333333333333334,
+            0.6666666666666666,
+            0.6363636363636364,
+            0.8181818181818182
+          ],
+          "n": 58,
+          "chance": 0.39655172413793105,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.9333333333333332,
+          "std_acc": 0.13333333333333336,
+          "folds": [
+            1.0,
+            1.0,
+            1.0,
+            0.6666666666666666,
+            1.0
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.6861111111111111,
+          "std_acc": 0.19456345564263844,
+          "folds": [
+            0.5555555555555556,
+            0.875,
+            0.75,
+            0.375,
+            0.875
+          ],
+          "n": 41,
+          "chance": 0.5609756097560976,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      },
+      "llm_8": {
+        "all": {
+          "mean_acc": 0.7242424242424242,
+          "std_acc": 0.0837592421883955,
+          "folds": [
+            0.6666666666666666,
+            0.8333333333333334,
+            0.6666666666666666,
+            0.6363636363636364,
+            0.8181818181818182
+          ],
+          "n": 58,
+          "chance": 0.39655172413793105,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.9333333333333332,
+          "std_acc": 0.13333333333333336,
+          "folds": [
+            1.0,
+            1.0,
+            1.0,
+            0.6666666666666666,
+            1.0
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.6861111111111111,
+          "std_acc": 0.19456345564263844,
+          "folds": [
+            0.5555555555555556,
+            0.875,
+            0.75,
+            0.375,
+            0.875
+          ],
+          "n": 41,
+          "chance": 0.5609756097560976,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      },
+      "llm_16": {
+        "all": {
+          "mean_acc": 0.7772727272727272,
+          "std_acc": 0.13083050390862366,
+          "folds": [
+            0.6666666666666666,
+            0.8333333333333334,
+            0.75,
+            0.6363636363636364,
+            1.0
+          ],
+          "n": 58,
+          "chance": 0.39655172413793105,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.9333333333333332,
+          "std_acc": 0.13333333333333336,
+          "folds": [
+            1.0,
+            1.0,
+            1.0,
+            0.6666666666666666,
+            1.0
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.736111111111111,
+          "std_acc": 0.23290304240282872,
+          "folds": [
+            0.5555555555555556,
+            0.875,
+            0.875,
+            0.375,
+            1.0
+          ],
+          "n": 41,
+          "chance": 0.5609756097560976,
+          "method": "stratified-5fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      }
+    },
+    "sub_type": {
+      "enc_out": {
+        "all": {
+          "mean_acc": 0.7,
+          "std_acc": 0.019999999999999962,
+          "folds": [
+            0.72,
+            0.68
+          ],
+          "n": 50,
+          "chance": 0.22,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.7946428571428572,
+          "std_acc": 0.08035714285714285,
+          "folds": [
+            0.875,
+            0.7142857142857143
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.7712418300653594,
+          "std_acc": 0.006535947712418333,
+          "folds": [
+            0.7777777777777778,
+            0.7647058823529411
+          ],
+          "n": 35,
+          "chance": 0.3142857142857143,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 1024
+      },
+      "post_proj": {
+        "all": {
+          "mean_acc": 0.64,
+          "std_acc": 0.0,
+          "folds": [
+            0.64,
+            0.64
+          ],
+          "n": 50,
+          "chance": 0.22,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.9285714285714286,
+          "std_acc": 0.07142857142857145,
+          "folds": [
+            1.0,
+            0.8571428571428571
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.6584967320261439,
+          "std_acc": 0.04738562091503268,
+          "folds": [
+            0.6111111111111112,
+            0.7058823529411765
+          ],
+          "n": 35,
+          "chance": 0.3142857142857143,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      },
+      "llm_8": {
+        "all": {
+          "mean_acc": 0.66,
+          "std_acc": 0.020000000000000018,
+          "folds": [
+            0.64,
+            0.68
+          ],
+          "n": 50,
+          "chance": 0.22,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.9285714285714286,
+          "std_acc": 0.07142857142857145,
+          "folds": [
+            1.0,
+            0.8571428571428571
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.6584967320261439,
+          "std_acc": 0.04738562091503268,
+          "folds": [
+            0.6111111111111112,
+            0.7058823529411765
+          ],
+          "n": 35,
+          "chance": 0.3142857142857143,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      },
+      "llm_16": {
+        "all": {
+          "mean_acc": 0.6799999999999999,
+          "std_acc": 0.03999999999999998,
+          "folds": [
+            0.64,
+            0.72
+          ],
+          "n": 50,
+          "chance": 0.22,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "quantitative": {
+          "mean_acc": 0.9285714285714286,
+          "std_acc": 0.07142857142857145,
+          "folds": [
+            1.0,
+            0.8571428571428571
+          ],
+          "n": 15,
+          "chance": 0.6666666666666666,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "qualitative": {
+          "mean_acc": 0.6584967320261439,
+          "std_acc": 0.04738562091503268,
+          "folds": [
+            0.6111111111111112,
+            0.7058823529411765
+          ],
+          "n": 35,
+          "chance": 0.3142857142857143,
+          "method": "stratified-2fold-cv",
+          "reason": null
+        },
+        "n_total": 58,
+        "n_quant": 16,
+        "n_qual": 42,
+        "feature_dim": 5120
+      }
+    }
+  },
+  "extraction_stats": {
+    "processed": 0,
+    "skipped": 58,
+    "errors": 142,
+    "probe_only": false
+  }
+}

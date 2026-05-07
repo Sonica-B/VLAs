@@ -1,172 +1,221 @@
-# Where Does Physics Live in Vision Encoders?
-## Spatially Probing and Amplifying Physical Reasoning in VLM Representations
+# Q-LENS
 
-**Target venue:** NeurIPS 2026 (Abstract: May 4, Paper: May 6 AOE)
+**A Pre-Registered Probing Stress-Test of Vision-Language Quantitative-Physics Reasoning.**
 
----
+This repository accompanies a NeurIPS 2026 Evaluations & Datasets (E&D) Track
+submission. It contains a deterministic quantitative/qualitative partition over
+PhysBench v2 (`PhysBench-Diag`), a pre-registered closed-form predictor
+(`PhysLens-Predict`) of where in 10 open-weight VLMs quantitative-physics
+information is preferentially lost, and a sensitivity-analysis suite that
+audits both the pre-registered predictor and an exploratory follow-up.
 
-## Abstract
-
-Vision-Language Models (VLMs) trained on internet-scale data exhibit surprising physical reasoning capabilities, yet they systematically fail on tasks requiring precise intuitive physics — predicting stability, contact dynamics, and conservation laws. We investigate *where* physical information is encoded within VLM representation pipelines. Using Physion++, a simulation-grounded dataset with ground-truth physical properties (mass, friction, elasticity, object stability), we train lightweight linear and MLP probes on per-patch activations extracted at four pipeline stages: (1) vision encoder output, (2) post-projection, (3) early LLM layers, and (4) mid LLM layers. We produce **physics saliency maps** revealing which image patches carry physical information, measure information loss across the projection bottleneck, and identify systematic spatial degradation from encoder to LLM. To determine which architectural components are the *leverage points* for improving physical reasoning, we train five LoRA configurations targeting different subsets — encoder only, projection only, LLM only, encoder+projection, and full model — and evaluate on PhysBench, GRASP Level 2, and ConservationBench. Our results reveal whether fine-tuning sharpens spatial physics encoding and which components are most responsible for grounding physical intuition in visual representations.
-
----
-
-## Research Questions
-
-1. **RQ1 — Spatial Encoding:** Which image patches encode physical properties (mass, friction, elasticity, stability) in VLM vision encoders, and do these match physically relevant spatial regions?
-
-2. **RQ2 — Pipeline Degradation:** How does physical information degrade across the representation pipeline (encoder → projection → LLM layers), and is there a measurable "physics bottleneck" at the projection stage?
-
-3. **RQ3 — Leverage Points:** Which architectural components (encoder, projection, LLM) are the primary leverage points for improving physical reasoning when fine-tuned on physics QA data?
-
-4. **RQ4 — Fine-tuning Effects:** Does physics-specific fine-tuning sharpen spatial encoding (more concentrated on physically relevant patches) or merely shift decision boundaries in LLM layers?
+[arXiv (placeholder)](#) · [OpenReview (placeholder)](#) ·
+**License:** code MIT, labels CC-BY-4.0
 
 ---
 
-## Method Overview
+## Status
 
-The paper is organized around three experimental phases:
+NeurIPS 2026 **Evaluations & Datasets (E&D) Track** — submission **#3628**
+(under double-blind review, anonymous mirror at
+[anonymous.4open.science](https://anonymous.4open.science/)).
 
-### Phase 1: Physics Saliency Probing
-- Extract per-patch activations from 3 VLMs at 4 pipeline stages
-- Train linear and MLP probes to predict physics properties per patch
-- Generate physics saliency maps (14×14 heatmaps overlaid on images)
-- Measure R² degradation curves across pipeline stages
-- Compare encoder-frozen vs. unfrozen VLM families
-
-### Phase 2: Component Ablation (Factorial LoRA)
-- Fine-tune 5 LoRA conditions per VLM (3 models × 5 conditions = 15 runs)
-- Evaluate all conditions on PhysBench, GRASP Level 2, ConservationBench
-- Identify minimal sufficient component set for physics improvement
-
-### Phase 3: Before/After Visualization
-- Re-run probing on best fine-tuned models
-- Quantify sharpening of spatial physics encoding
-- Attention analysis: does the LLM attend more to physics-relevant patches after fine-tuning?
+The submitted paper PDF is on OpenReview. This repository hosts:
+the locked pre-registration document, the deterministic partition function,
+all per-model probing JSONs, the predictor implementation, the H3 and subtype
+sensitivity scripts, the power analysis, and the Croissant ML metadata for
+`PhysBench-Diag`. Every numeric claim in the paper traces to a script in this
+repo.
 
 ---
 
-## Models
+## The 60-second story
 
-| Model | Encoder | Projection | LLM | Encoder Frozen? |
-|---|---|---|---|---|
-| Qwen2.5-VL-7B | ViT-L (custom) | MLP | Qwen2-7B | No |
-| InternVL 2.5-8B | InternViT-300M | MLP | InternLM-7B | Partial |
-| LLaVA-OneVision-7B | SigLIP-SO400M | MLP | Qwen2-7B | Yes |
+1. We pre-register a closed-form predictor of which VLMs lose quantitative-physics
+   decodability across the multimodal projector. The predictor and its
+   leave-one-out kill-gates (median |error| < 0.20 AND Spearman ρ > 0.5) are
+   locked in `PRE_REGISTRATION.md` before any data is collected.
+2. At n=10 the predictor **fails both kill-gates** (observed median |error| =
+   0.225, Spearman ρ = 0.33, 95% bootstrap CI [-0.64, 0.89]). Per the
+   pre-registration we demote the compression-ratio hypothesis to descriptive
+   observation, refusing to re-tune.
+3. Stratifying the same panel by compression *mechanism* (spatial-merge /
+   learned-resampler / no-compression) initially yields a nominal separation
+   favoring spatial-merge.
+4. **A unified-definition sensitivity analysis collapses that gap** (from +0.444
+   to +0.056). The post-hoc finding does not survive its own audit.
+5. The contribution is therefore **methodological**: a worked example of
+   pre-registration plus sensitivity analysis catching both a primary and a
+   secondary false claim before they enter the literature.
 
 ---
 
-## Project Structure
+## Reproducing every paper claim from a clone
+
+Each of the steps below runs from a fresh clone on a normal Linux/Mac/Windows
+laptop (no GPU, no SLURM, no cluster account needed). Outputs land in
+`results/`. Expected runtimes are wall-clock on a 2024 laptop.
+
+### 0. Install (≈ 2 min)
+
+```bash
+conda create -n q_lens python=3.11 -y
+conda activate q_lens
+python -m pip install -r requirements.txt
+python -m pip install -e .
+```
+
+### 1. Pre-registered predictor + kill-gate failure (≈ 5 sec)
+
+```bash
+python scripts/phys_lens_predict.py
+```
+
+Reads the 10 per-model probing JSONs in `results/week1_turing/` and writes
+`results/week1_turing/phys_lens_predict_weekb.json`. Expected key fields:
+`loo_regression.median_abs_error = 0.225`, `loo_regression.spearman_rho = 0.327`,
+`loo_regression.kill_gate_fired = true`.
+
+### 2. H3 sensitivity (the headline-collapsing analysis, ≈ 2 sec)
+
+```bash
+python scripts/h3_sensitivity_unified.py
+```
+
+Re-computes H3 hit-rate under a unified definition for all 10 models and
+re-stratifies. Expected output: spatial-merge mean **0.667 → 0.500**,
+learned-resampler mean **0.000 → 0.444**, no-compression mean **0.222 → 0.222**.
+Gap-to-next-highest collapses **+0.444 → +0.056**. Saves
+`results/h3_sensitivity_unified.json`.
+
+### 3. Power analysis (≈ 1 sec)
+
+```bash
+python scripts/power_analysis.py
+```
+
+Computes Spearman-ρ MDE at α=0.05, power=0.80 for n in {10..50}. Documents
+why n=10 was at the edge of detectability for ρ > 0.5. Saves
+`results/power_analysis.json`.
+
+### 4. Subtype-whitelist sensitivity (≈ 5 sec, requires PhysBench data)
+
+```bash
+# (one-time) Place PhysBench v2 val.json + test.json under data/physbench/
+python scripts/subtype_sensitivity.py
+```
+
+Re-classifies under an expanded whitelist `{size, mass, number, distance,
+temperature} ∪ {collision, depth, throwing}` (the three expansion candidates
+that exist as native PhysBench sub_types). Reports whether the kill-gate
+failure and the mechanism trend are robust to this redefinition.
+
+### 5. Regenerate the partition file (≈ 5 sec, requires PhysBench data)
+
+```bash
+python scripts/generate_physbench_diag_partition.py
+```
+
+Materializes `results/physbench_diag_partition.json` (the file the Croissant
+metadata advertises). Validates val counts (200 items, 55 quant / 145 qual)
+against the paper.
+
+### 6. Regenerate paper figures (≈ 30 sec)
+
+```bash
+python scripts/figures/generate_paper_figures.py
+```
+
+Outputs `figures/fig{1..6}_*.pdf` from the JSONs above.
+
+---
+
+## Code structure
 
 ```
 VLAs/
-├── configs/          # Hydra config files for models, probing, ablation
-├── src/
-│   ├── data/         # Dataset loading, patch labeling, QA generation
-│   ├── models/       # VLM loading, activation extraction, LoRA wrappers
-│   ├── probing/      # Linear and MLP probes + training loop
-│   ├── visualization/# Saliency maps, degradation curves, comparisons
-│   ├── evaluation/   # PhysBench, GRASP, ConservationBench evaluators
-│   └── ablation/     # Component ablation runner and analyzer
-├── scripts/          # Top-level runnable scripts
-├── notebooks/        # EDA and result visualization notebooks
-├── tests/            # Unit tests
-├── results/          # Generated outputs (gitignored)
-└── docs/             # Execution plan and task checklists
+├── src/                  Importable modules (probing, optim, data splits, evaluation)
+├── scripts/              Runnable scripts (every paper claim has an entry-point here)
+│   └── patches/          Documentation for the Granite-Vision NF4 ablation patch
+├── turing/               SLURM wrappers used to produce the per-model probing JSONs
+│                         on a Turing A100 cluster. **Reviewers do NOT need to run
+│                         these** — every probing JSON they produce is committed
+│                         under `results/week1_turing/`.
+├── tests/                pytest unit + regression tests
+├── results/              Probing JSONs + predictor LOO + sensitivity outputs
+├── figures/              Final paper figures (PDF, vector)
+├── configs/              Hydra configs for models / probing / ablation
+└── data/                 (gitignored) PhysBench v2 raw items — see "Where the data lives"
 ```
+
+E&D-mandatory artifacts at the repo root:
+
+- `PRE_REGISTRATION.md` — locked pre-registration document (predictor formula,
+  kill-gate thresholds, n=10 panel — committed before data collection).
+- `DATASHEET_PHYSBENCH_DIAG.md` — Gebru et al. datasheet for the partition.
+- `CROISSANT_METADATA.md` — Croissant ML metadata template for the released
+  artifacts on Hugging Face Datasets.
 
 ---
 
-## Setup
+## Where the data lives
 
-### 1. Clone and create environment
-
-```bash
-git clone <repo-url>
-cd VLAs
-conda create -n vla-physics python=3.11 -y
-conda activate vla-physics
-```
-
-### 2. Install dependencies
-
-```bash
-pip install -r requirements.txt
-pip install -e .
-# Optional: flash attention for A100
-pip install flash-attn --no-build-isolation
-```
-
-### 3. Configure HuggingFace access
-
-```bash
-huggingface-cli login  # Required for gated models (Qwen2.5, LLaVA)
-```
-
-### 4. Download Physion++ dataset
-
-```bash
-python scripts/download_physion.py --output-dir data/physion
-```
-
-### 5. Verify model loading
-
-```bash
-python -c "from src.models.vlm_loader import load_vlm; load_vlm('qwen2_5_vl_7b')"
-```
+| Asset | In repo? | Reviewer action |
+|---|---|---|
+| 10 × per-model probing JSONs | ✅ `results/week1_turing/<model>_quant_qual_probe.json` | None — used directly by `phys_lens_predict.py` and `h3_sensitivity_unified.py` |
+| 6 × per-model permutation tests | ✅ `results/week1_turing/<model>_permutation_check.json` | None |
+| Predictor LOO output | ✅ `results/week1_turing/phys_lens_predict_weekb.json` | None |
+| All 6 paper figures | ✅ `figures/fig{1..6}_*.pdf` | None |
+| PhysBench v2 raw items (val + test) | ❌ — license doesn't permit redistribution | Download from the [PhysBench](https://github.com/USC-GVL/PhysBench) release into `data/physbench/` if you want to re-run scripts 4 and 5 above |
+| Probing feature caches (~500 MB) | ❌ — too large + regenerable | Re-running them requires a GPU; the resulting probe JSONs are already committed |
 
 ---
 
-## Usage
+## Key files
 
-### Run probing study (Phase 1)
-
-```bash
-# Extract activations for all models
-python scripts/run_probing.py model=qwen2_5_vl_7b probe=linear_probe
-
-# Generate saliency maps
-python scripts/generate_saliency_maps.py --model qwen2_5_vl_7b --variable mass
-```
-
-### Run component ablation (Phase 2)
-
-```bash
-# Train all 5 ablation conditions for one model
-python scripts/run_ablation.py model=qwen2_5_vl_7b ablation=condition_e_full
-
-# Evaluate trained models
-python scripts/run_evaluation.py --checkpoint results/ablation_metrics/qwen_condition_e/
-```
-
-### Run full evaluation suite
-
-```bash
-python scripts/run_evaluation.py --all
-```
-
----
-
-## Key References
-
-- **Physion++**: Bear et al. (2023). *Physion++: Evaluating Physical Scene Understanding that Requires Online Inference*. NeurIPS 2023.
-- **PhysBench**: (2024). *PhysBench: Benchmarking Physical Commonsense Understanding in VLMs*.
-- **GRASP**: (2024). *GRASP: A Grid-based Benchmark for Physical Scene Understanding*.
-- **ConservationBench**: (2024). *ConservationBench: Testing Physical Conservation Laws in VLMs*.
-- **Qwen2.5-VL**: Wang et al. (2024). *Qwen2.5-VL Technical Report*.
-- **InternVL 2.5**: Chen et al. (2024). *InternVL2.5: A Practical Guide to Scaling Vision-Language Models*.
-- **LLaVA-OneVision**: Li et al. (2024). *LLaVA-OneVision: Easy Visual Task Transfer*.
-- **LoRA**: Hu et al. (2021). *LoRA: Low-Rank Adaptation of Large Language Models*. ICLR 2022.
+- `PRE_REGISTRATION.md` — the locked pre-registration (paper §2 references it as
+  immutable).
+- `DATASHEET_PHYSBENCH_DIAG.md` — datasheet for the partition.
+- `CROISSANT_METADATA.md` — Croissant ML metadata template.
+- `results/week1_turing/phys_lens_predict_weekb.json` — predictor LOO output
+  (canonical kill-gate verdict for the paper).
+- `results/h3_sensitivity_unified.json` — the headline-collapsing sensitivity
+  result (paper §5.3 / §7.L4).
+- `results/power_analysis.json` — Spearman-ρ MDE table (paper §7.L1).
+- `results/subtype_sensitivity.json` — robustness to expanded whitelist
+  (paper §7.L7).
+- `src/optim/physbench_split.py` — deterministic 5-subtype partition function.
+- `scripts/phys_lens_predict.py` — predictor implementation (closed-form score,
+  LOO regression, kill-gate check).
+- `scripts/h3_sensitivity_unified.py` — re-computes H3 under unified definition
+  for all 10 models.
+- `scripts/patches/granite_nf4_patch.md` — env-gated patch for the planned
+  Granite-Vision bf16 → NF4 ablation.
 
 ---
 
 ## Citation
 
 ```bibtex
-@article{algoverse2026physicsprobing,
-  title={Where Does Physics Live in Vision Encoders? Spatially Probing and Amplifying Physical Reasoning in VLM Representations},
-  author={AlgoVerse Research},
-  journal={arXiv preprint},
-  year={2026}
+@inproceedings{anonymous2026qlens,
+  title     = {Q-LENS: A Pre-Registered Probing Stress-Test of
+               Vision-Language Quantitative-Physics Reasoning},
+  author    = {Anonymous},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS),
+               Evaluations and Datasets Track},
+  year      = {2026},
+  note      = {Submission \#3628; under double-blind review}
 }
 ```
+
+---
+
+## License
+
+- **Code** (`src/`, `scripts/`, `turing/`, `tests/`, `configs/`): MIT.
+- **Labels + sensitivity outputs** (`results/*.json`, `CROISSANT_METADATA.md`):
+  CC-BY-4.0.
+- Underlying PhysBench v2 images and prompts come from
+  [Chow et al., 2024](https://github.com/USC-GVL/PhysBench) and inherit that
+  benchmark's terms; this repository contributes only the partition function,
+  per-model probing measurements, and the sensitivity-analysis methodology.

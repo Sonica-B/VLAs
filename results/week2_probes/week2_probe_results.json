@@ -1,0 +1,228 @@
+{
+  "experiment": "week2_day8_9_real_vlm_probes",
+  "timestamp": "2026-04-03 14:20:24",
+  "stages": {
+    "stage_1_enc_out": {
+      "mass": {
+        "metrics": {
+          "r2": -0.5819255113601685,
+          "pearson_r": 0.3792785406112671,
+          "mse": 9.78732967376709,
+          "mae": 2.371053695678711
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.611305570602417,
+          "permutation_r2_std": 0.2488634016425983,
+          "permutation_r2_max": -1.2487611770629883,
+          "n_permutations": 5
+        },
+        "bootstrap_ci": {
+          "r2_mean": 0.18173610508441926,
+          "ci_95_low": 0.06599459648132333,
+          "ci_95_high": 0.29416990280151367
+        }
+      },
+      "friction": {
+        "metrics": {
+          "r2": -1.0700163841247559,
+          "pearson_r": 0.20335400104522705,
+          "mse": 0.159340038895607,
+          "mae": 0.3062033951282501
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.6876490116119385,
+          "permutation_r2_std": 0.22262339153268948,
+          "permutation_r2_max": -1.322943925857544,
+          "n_permutations": 5
+        }
+      },
+      "hue": {
+        "metrics": {
+          "r2": 0.74997878074646,
+          "pearson_r": 0.8809170722961426,
+          "mse": 0.022801319137215614,
+          "mae": 0.10638130456209183
+        },
+        "n_samples": 1727,
+        "feature_dim": 768
+      }
+    },
+    "stage_2_post_proj": {
+      "mass": {
+        "metrics": {
+          "r2": -0.2486506700515747,
+          "pearson_r": 0.5276517271995544,
+          "mse": 7.725367069244385,
+          "mae": 2.103914499282837
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.693111276626587,
+          "permutation_r2_std": 0.17249578880914265,
+          "permutation_r2_max": -1.4816765785217285,
+          "n_permutations": 5
+        },
+        "bootstrap_ci": {
+          "r2_mean": 0.3241527810692787,
+          "ci_95_low": 0.2138836145401001,
+          "ci_95_high": 0.4168548956513405
+        }
+      },
+      "friction": {
+        "metrics": {
+          "r2": -0.4006032943725586,
+          "pearson_r": 0.4167776107788086,
+          "mse": 0.10781179368495941,
+          "mae": 0.24326150119304657
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.7673049449920655,
+          "permutation_r2_std": 0.2600944635028219,
+          "permutation_r2_max": -1.46722412109375,
+          "n_permutations": 5
+        }
+      },
+      "hue": {
+        "metrics": {
+          "r2": 0.818497896194458,
+          "pearson_r": 0.9108363389968872,
+          "mse": 0.016552548855543137,
+          "mae": 0.0927734375
+        },
+        "n_samples": 1727,
+        "feature_dim": 768
+      }
+    },
+    "stage_3_llm_8": {
+      "mass": {
+        "metrics": {
+          "r2": -0.11509191989898682,
+          "pearson_r": 0.5523586273193359,
+          "mse": 6.89904260635376,
+          "mae": 1.9533458948135376
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.558084487915039,
+          "permutation_r2_std": 0.2500153958025875,
+          "permutation_r2_max": -1.153878927230835,
+          "n_permutations": 5
+        },
+        "bootstrap_ci": {
+          "r2_mean": 0.39528954565525054,
+          "ci_95_low": 0.2943374201655388,
+          "ci_95_high": 0.4787198916077614
+        }
+      },
+      "friction": {
+        "metrics": {
+          "r2": -0.335208535194397,
+          "pearson_r": 0.41990241408348083,
+          "mse": 0.10277801752090454,
+          "mae": 0.2326919138431549
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.6882514953613281,
+          "permutation_r2_std": 0.23018945374782598,
+          "permutation_r2_max": -1.3237805366516113,
+          "n_permutations": 5
+        }
+      },
+      "hue": {
+        "metrics": {
+          "r2": 0.8000413179397583,
+          "pearson_r": 0.9030903577804565,
+          "mse": 0.018235737457871437,
+          "mae": 0.09727832674980164
+        },
+        "n_samples": 1727,
+        "feature_dim": 768
+      }
+    },
+    "stage_4_llm_16": {
+      "mass": {
+        "metrics": {
+          "r2": 0.14582091569900513,
+          "pearson_r": 0.6170892119407654,
+          "mse": 5.284782409667969,
+          "mae": 1.7423979043960571
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.7272512912750244,
+          "permutation_r2_std": 0.241238237894416,
+          "permutation_r2_max": -1.431236982345581,
+          "n_permutations": 5
+        },
+        "bootstrap_ci": {
+          "r2_mean": 0.46739923775196074,
+          "ci_95_low": 0.3744149744510651,
+          "ci_95_high": 0.5515152350068092
+        }
+      },
+      "friction": {
+        "metrics": {
+          "r2": -0.0362166166305542,
+          "pearson_r": 0.5507087707519531,
+          "mse": 0.07976303994655609,
+          "mae": 0.2136920541524887
+        },
+        "n_samples": 1727,
+        "feature_dim": 768,
+        "permutation": {
+          "permutation_r2_mean": -1.5321582794189452,
+          "permutation_r2_std": 0.23009149885348498,
+          "permutation_r2_max": -1.2585763931274414,
+          "n_permutations": 5
+        }
+      },
+      "hue": {
+        "metrics": {
+          "r2": 0.7928900122642517,
+          "pearson_r": 0.8985686898231506,
+          "mse": 0.018887920305132866,
+          "mae": 0.10083908587694168
+        },
+        "n_samples": 1727,
+        "feature_dim": 768
+      }
+    }
+  },
+  "cross_stage_analysis": {
+    "mass": {
+      "stage1_r2": -0.5819255113601685,
+      "stage2_r2": -0.2486506700515747,
+      "delta_r2": 0.33327484130859375,
+      "retention_ratio": NaN
+    },
+    "friction": {
+      "stage1_r2": -1.0700163841247559,
+      "stage2_r2": -0.4006032943725586,
+      "delta_r2": 0.6694130897521973,
+      "retention_ratio": NaN
+    },
+    "hue": {
+      "stage1_r2": 0.74997878074646,
+      "stage2_r2": 0.818497896194458,
+      "delta_r2": 0.06851911544799805,
+      "retention_ratio": 1.091361405425098
+    },
+    "differential_degradation": {
+      "mass_retention": NaN,
+      "hue_retention": 1.091361405425098,
+      "physics_minus_appearance": NaN,
+      "interpretation": "Stage1 mass R2 too low for retention analysis. Delta comparison: mass delta=+0.3333, hue delta=+0.0685"
+    }
+  }
+}

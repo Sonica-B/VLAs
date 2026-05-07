@@ -1,0 +1,183 @@
+{
+  "per_model_scores": {
+    "internvl3-8b": {
+      "model": "internvl3-8b",
+      "compression": 2.4,
+      "enc_minus_postproj_gap": -0.018181818181818188,
+      "phys_lens_score": 0.0,
+      "empirical_h3": 0.0
+    },
+    "gemma4-e4b": {
+      "model": "gemma4-e4b",
+      "compression": 114.0,
+      "enc_minus_postproj_gap": 0.05454545454545451,
+      "phys_lens_score": 0.11219481007289843,
+      "empirical_h3": 1.0
+    },
+    "qwen2.5-vl-7b": {
+      "model": "qwen2.5-vl-7b",
+      "compression": 270.0,
+      "enc_minus_postproj_gap": 0.11090909090909096,
+      "phys_lens_score": 0.2696603447521787,
+      "empirical_h3": 1.0
+    },
+    "qwen3-vl-8b": {
+      "model": "qwen3-vl-8b",
+      "compression": 784.0,
+      "enc_minus_postproj_gap": 0.019999999999999962,
+      "phys_lens_score": 0.05788632125368866,
+      "empirical_h3": 0.6666666666666666
+    },
+    "llava-onevision-7b": {
+      "model": "llava-onevision-7b",
+      "compression": 1.0,
+      "enc_minus_postproj_gap": 0.044444444444444425,
+      "phys_lens_score": 0.0,
+      "empirical_h3": 0.3333333333333333
+    },
+    "phi3.5-vision": {
+      "model": "phi3.5-vision",
+      "compression": 1.0,
+      "enc_minus_postproj_gap": 0.10444444444444442,
+      "phys_lens_score": 0.0,
+      "empirical_h3": 0.3333333333333333
+    },
+    "pixtral-12b": {
+      "model": "pixtral-12b",
+      "compression": 1.0,
+      "enc_minus_postproj_gap": 1.1102230246251565e-16,
+      "phys_lens_score": 0.0,
+      "empirical_h3": null
+    },
+    "molmo-7b": {
+      "model": "molmo-7b",
+      "compression": null,
+      "enc_minus_postproj_gap": null,
+      "phys_lens_score": null,
+      "empirical_h3": null
+    },
+    "idefics3-8b": {
+      "model": "idefics3-8b",
+      "compression": 4.0,
+      "enc_minus_postproj_gap": 0.044444444444444425,
+      "phys_lens_score": 0.026758221836798317,
+      "empirical_h3": 0.0
+    },
+    "granite-vision-3.2-2b": {
+      "model": "granite-vision-3.2-2b",
+      "compression": 1.0,
+      "enc_minus_postproj_gap": 0.044444444444444425,
+      "phys_lens_score": 0.0,
+      "empirical_h3": 0.0
+    },
+    "idefics2-8b": {
+      "model": "idefics2-8b",
+      "compression": 11.4,
+      "enc_minus_postproj_gap": 0.1088888888888889,
+      "phys_lens_score": 0.11508519492330481,
+      "empirical_h3": 0.0
+    },
+    "blip2-opt-2.7b": {
+      "model": "blip2-opt-2.7b",
+      "compression": 8.0,
+      "enc_minus_postproj_gap": -5.551115123125783e-17,
+      "phys_lens_score": 0.0,
+      "empirical_h3": 0.0
+    }
+  },
+  "n_models_with_data": 10,
+  "loo_regression": {
+    "per_model_loo": {
+      "internvl3-8b": {
+        "predicted": 0.16662808146853705,
+        "predicted_raw": 0.16662808146853705,
+        "empirical": 0.0,
+        "abs_error": 0.16662808146853705,
+        "train_a": 3.1529027364617783,
+        "train_b": 0.16662808146853705
+      },
+      "gemma4-e4b": {
+        "predicted": 0.4301430402604307,
+        "predicted_raw": 0.4301430402604307,
+        "empirical": 1.0,
+        "abs_error": 0.5698569597395693,
+        "train_a": 2.8461486765828994,
+        "train_b": 0.11081993005198108
+      },
+      "qwen2.5-vl-7b": {
+        "predicted": 1.0,
+        "predicted_raw": 1.1200199293612099,
+        "empirical": 1.0,
+        "abs_error": 0.0,
+        "train_a": 3.66277922894107,
+        "train_b": 0.13231361973384154
+      },
+      "qwen3-vl-8b": {
+        "predicted": 0.295299785052284,
+        "predicted_raw": 0.295299785052284,
+        "empirical": 0.6666666666666666,
+        "abs_error": 0.37136688161438264,
+        "train_a": 3.2952441877831173,
+        "train_b": 0.10455022138892012
+      },
+      "llava-onevision-7b": {
+        "predicted": 0.10818763325763792,
+        "predicted_raw": 0.10818763325763792,
+        "empirical": 0.3333333333333333,
+        "abs_error": 0.2251457000756954,
+        "train_a": 3.4841195595544097,
+        "train_b": 0.10818763325763792
+      },
+      "phi3.5-vision": {
+        "predicted": 0.10818763325763792,
+        "predicted_raw": 0.10818763325763792,
+        "empirical": 0.3333333333333333,
+        "abs_error": 0.2251457000756954,
+        "train_a": 3.4841195595544097,
+        "train_b": 0.10818763325763792
+      },
+      "idefics3-8b": {
+        "predicted": 0.2595872540703713,
+        "predicted_raw": 0.2595872540703713,
+        "empirical": 0.0,
+        "abs_error": 0.2595872540703713,
+        "train_a": 3.1752852053890317,
+        "train_b": 0.1746222681494679
+      },
+      "granite-vision-3.2-2b": {
+        "predicted": 0.16662808146853708,
+        "predicted_raw": 0.16662808146853708,
+        "empirical": 0.0,
+        "abs_error": 0.16662808146853708,
+        "train_a": 3.1529027364617774,
+        "train_b": 0.16662808146853708
+      },
+      "idefics2-8b": {
+        "predicted": 0.6106718983503578,
+        "predicted_raw": 0.6106718983503578,
+        "empirical": 0.0,
+        "abs_error": 0.6106718983503578,
+        "train_a": 3.7991198112162525,
+        "train_b": 0.1734494543395464
+      },
+      "blip2-opt-2.7b": {
+        "predicted": 0.166628081468537,
+        "predicted_raw": 0.166628081468537,
+        "empirical": 0.0,
+        "abs_error": 0.166628081468537,
+        "train_a": 3.1529027364617783,
+        "train_b": 0.166628081468537
+      }
+    },
+    "median_abs_error": 0.2251457000756954,
+    "spearman_rho": 0.32649765138024184,
+    "spearman_p": 0.35717599704632313,
+    "spearman_bootstrap_ci95": [
+      -0.6430020829776838,
+      0.886533257504216
+    ],
+    "n_models": 10,
+    "kill_gate_fired": true,
+    "verdict": "Predictor is ANECDOTAL (LOO median |error| > 0.20) \u2014 demote RQ-B to 'observation' per PRE_REGISTRATION.md gate 3"
+  }
+}
